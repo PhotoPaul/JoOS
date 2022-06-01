@@ -1,0 +1,145 @@
+<div *ngIf="applicationData">
+    <data-panel ngId="primarySecondaryEducationInfo" heading="Πρωτοβάθμια & Δευτεροβάθμια Εκπαίδευση" color="portlet-blue">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="elementaryName">Δημοτικό Σχολείο</label>
+					<pre>{{ applicationData.application.elementaryName }}</pre>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="elementaryGraduationYear">Χρονολογία Αποφοίτησης</label>
+					<pre>{{ applicationData.application.elementaryGraduationYear }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="middleSchoolName">Γυμνάσιο</label>
+					<pre>{{ applicationData.application.middleSchoolName }}</pre>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="middleSchoolGraduationYear">Χρονολογία Αποφοίτησης</label>
+					<pre>{{ applicationData.application.middleSchoolGraduationYear }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="secondarySchoolName">Λύκειο / ΤΕΛ</label>
+					<pre>{{ applicationData.application.secondarySchoolName }}</pre>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="secondarySchoolGraduationYear">Χρονολογία Αποφοίτησης</label>
+					<pre>{{ applicationData.application.secondarySchoolGraduationYear }}</pre>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="secondarySchoolDiscipline">Κατεύθυνση / Ειδίκευση</label>
+					<pre>{{ applicationData.application.secondarySchoolDiscipline }}</pre>
+				</div>
+			</div>
+		</div>
+    </data-panel>
+
+    <data-panel ngId="languagesInfo" heading="Γλώσσες" color="portlet-blue">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="greekMedium">Επίπεδο Γνώσης Ελληνικών</label>
+					<pre>{{ getLevel(applicationData.application.greek) }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="englishMedium">Επίπεδο Γνώσης Αγγλικών</label>
+					<pre>{{ getLevel(applicationData.application.english) }}</pre>
+				</div>
+			</div>
+		</div>
+    </data-panel>
+
+    <data-panel ngId="higherEducationInfo" heading="Τριτοβάθμια Εκπαίδευση" color="portlet-blue">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="communityCollegeName">Μεταλυκειακές Σπουδές (ΙΕΚ κλπ.)</label>
+					<pre>{{ applicationData.application.communityCollegeName }}</pre>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="communityCollegeGraduationYear">Χρονολογία Αποφοίτησης</label>
+					<pre>{{ applicationData.application.communityCollegeGraduationYear }}</pre>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label for="communityCollegeDiscipline">Κατεύθυνση / Ειδίκευση</label>
+					<pre>{{ applicationData.application.communityCollegeDiscipline }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="collegeName">ΑΕΙ, ΑΤΕΙ κλπ.</label>
+					<pre>{{ applicationData.application.collegeName }}</pre>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="collegeGraduationYear">Χρονολογία Αποφοίτησης</label>
+					<pre>{{ applicationData.application.collegeGraduationYear }}</pre>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label for="collegeDiscipline">Κατεύθυνση / Ειδίκευση</label>
+					<pre>{{ applicationData.application.collegeDiscipline }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="graduateSchoolName">Μεταπτυχιακό</label>
+					<pre>{{ applicationData.application.graduateSchoolName }}</pre>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="graduateSchoolGraduationYear">Χρονολογία Αποφοίτησης</label>
+					<pre>{{ applicationData.application.graduateSchoolGraduationYear }}</pre>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label for="graduateSchoolDiscipline">Κατεύθυνση / Ειδίκευση</label>
+					<pre>{{ applicationData.application.graduateSchoolDiscipline }}</pre>
+				</div>
+			</div>
+		</div>
+    </data-panel>
+    <ng-container>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+            <action-collection [actionButtons]="decisionButtons" [collectionAjax]="true"></action-collection>
+        </div>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.editApplication(applicationData.accessControl.editPath, this.userId)" color="btn-blue" icon="fa-pencil-alt" [caption]="'edit' | l" [bTooltip]="'editApplication' | l"></action-button>
+        </div>
+        <div *authIf="['admin', 'registrar', 'admissions']" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+        </div>
+    </ng-container>
+</div>

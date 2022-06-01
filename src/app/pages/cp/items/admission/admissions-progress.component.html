@@ -1,0 +1,43 @@
+<data-panel ngId="candidates" heading="{{ 'selectedApplicants' | l }}{{ candidates?': '+candidates.length:''}}" color="portlet-blue">
+    <data-filter #dataFilter></data-filter><br>
+    <div *ngIf="!candidates" class="text-center"><loading></loading></div>
+    <data-panel *ngFor="let candidate of candidates | filterByString:['candidateFirstName','candidateLastName']:dataFilter.filter" ngId="candidate{{ candidate.id }}" heading="{{ '' | fName:candidate.candidateLastName:candidate.candidateFirstName }} &mdash; {{ candidate.date_time?.split('-').join('/') | date:'dd-MM-y' }}" [color]="auth.getRoleRecordIfExists(candidate.roles, { roleId: '6' }).roleId ? 'portlet-dark-blue' : 'portlet-green'">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 100%">{{ 'voterName' | l }}</th>
+                        <th class="text-center">{{ 'vote' | l }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vote of candidate.votes">
+                        <td>
+                            <span>{{ '' | fName:vote.userLastName:vote.userFirstName }}</span><br>
+                        </td>
+                        <td class="text-center">
+                            <span class="badge" [ngClass]="vote.vote === '1' ? 'green' : 'red'">
+                                <span>{{ vote.vote === '1' ? ('suitable' | l) : ('unsuitable' | l) }}</span>
+                                <ng-container *authIf="['admin', 'registrar']">
+                                    &nbsp;<span (click)="removeVoteFromCandidate(vote.userId, candidate.id)" class="fas fa-times" [tooltip]="'delete' | l"></span>
+                                </ng-container>
+                            </span>
+                        </td>
+                    </tr>
+                    <ng-container *authIf="['admin', 'registrar']">
+                        <tr *ngIf="auth.getRoleRecordIfExists(candidate.roles, { roleId: '6' }).roleId; else studentActions">
+                            <td colspan="2" class="text-center">
+                                <action-button (specialClick)="removeCandidateRole(candidate.id)" icon="fa-check" color="btn-dark-blue" [caption]="'finalizeApplication' | l" [bTooltip]="'finalizeApplication' | l"></action-button>
+                            </td>
+                        </tr>
+                        <ng-template #studentActions>
+                            <td colspan="2" class="text-center">
+                                <action-button (click)="promoteCandidateToStudent(candidate)" icon="fa-level-up-alt" [caption]="'promoteCandidateToStudent' | l" color="btn-green" [bTooltip]="'promoteCandidateToStudent' | l"></action-button>
+                            </td>
+                        </ng-template>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </data-panel>
+</data-panel>

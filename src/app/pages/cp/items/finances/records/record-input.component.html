@@ -1,0 +1,84 @@
+<div *ngIf="accountTemplateInputModel.visible || recordInputModel.visible">
+    <div class="text-right">
+        <action-button *ngIf="recordInputModel.record && recordInputModel.record.id" (specialClick)="recordInputDeleteClicked(recordInputModel.record.id)" color="text-danger" icon="fa-trash-alt fa-2x" [bTooltip]="'deletePermanently' | l"></action-button>
+        <action-button (click)="recordInputModel.visible = false; accountTemplateInputModel.visible = false" [icon]="'fa-times fa-2x'" [bTooltip]="'cancel' | l"></action-button>
+    </div>
+</div>
+<div *ngIf="accountTemplateInputModel.visible">
+    <data-panel ngId="templateInput" [heading]="accountTemplateInputModel.title" color="portlet-green">
+        <div class="row">
+            <form (ngSubmit)="accountTemplateInputOnSubmit()" #form="ngForm" accept-charset="UTF-8" role="form">
+                <div class="col-md-2">
+                    <date-input [date]="accountTemplateInputModel.date" [minDate]="minDate" [maxDate]="maxDate" (onChange)="accountTemplateUpdateDateModel($event)"></date-input>
+                </div>
+                <div class="col-md-6">
+                    <select [(ngModel)]="accountTemplateInputModel.accountTemplateName" id="accountTemplateItem" name="accountTemplateItem" class="form-control" required autofocus>
+                        <option *ngFor="let accountTemplateItem of financesService.accountTemplatesData.accountTemplates" [ngValue]="accountTemplateItem.name">{{ accountTemplateItem.name }}</option>
+                    </select>
+                </div>
+                <div class="col-md-2 right">
+                    <action-button (click)="accountTemplateTogglePreview()" [icon]="'far fa-eye'" [color]="'btn-blue'" [bTooltip]="'preview' | l" [hidden]="!accountTemplateInputModel.accountTemplateName" [ajax]="false"></action-button>
+                    <action-button (click)="router.navigate(['/cp/finances/templates'])" [icon]="'fa-tags'" [color]="'btn-blue'" [bTooltip]="'manageTemplates' | l" [ajax]="false"></action-button>
+                </div>
+                <div class="col-md-2 right">
+                    <button type="submit" class="btn btn-green btn-block" [disabled]="!form.form.valid">
+                        {{ 'import' | l }}
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <data-panel ngId="templatePreview" *ngIf="accountTemplateInputModel.previewVisible" heading="{{ 'preview' | l }}: {{ accountTemplateInputModel.accountTemplateName }}" color="portlet-purple">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th style="width: 100%">{{ 'category' | l }}</th>
+                            <th>{{ 'amount' | l }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let accountTemplateItem of financesService.getTemplateByTemplateName(accountTemplateInputModel.accountTemplateName)">
+                            <td>{{ financesService.getCategoryNameById(accountTemplateItem.category_id,
+                                financesService.accountTemplatesData.accountTemplateItemCategories) }}</td>
+                            <td class="text-right" [ngClass]="financesService.getSignClass(accountTemplateItem.amount)">{{ financesService.parseAmount(accountTemplateItem.amount) | currency:'EUR':'symbol':'1.2-2' }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </data-panel>
+        </div>
+    </data-panel>
+</div>
+<div *ngIf="recordInputModel.visible">
+    <data-panel ngId="recordInput" [heading]="recordInputModel.title" color="portlet-green">
+        <div class="row">
+            <form (ngSubmit)="recordInputOnSubmit()" #form="ngForm" accept-charset="UTF-8" role="form">
+                <div class="col-md-2">
+                    <date-input [date]="recordInputModel.record.date_time" [minDate]="minDate" [maxDate]="maxDate" (onChange)="recordInputUpdateDateModel($event)"></date-input>
+                </div>
+                <div class="col-md-3">
+                    <select [(ngModel)]="recordInputModel.record.category_id" id="category" name="category" class="form-control" required autofocus>
+                        <option *ngFor="let category of financesService.userRecordsData.accountTemplateItemCategories" [ngValue]="category.id">{{ 'name' | l:category }}</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" [(ngModel)]="recordInputModel.record.comment" id="comment" name="comment" class="form-control" [placeholder]="'comment' | l" autocomplete="off">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" [ngModel]="recordInputModel.record.amount" (ngModelChange)="onAmountChange($event)" id="amount" name="amount" class="form-control" [placeholder]="'amount' | l" autocomplete="off" required>
+                </div>
+                <div class="col-md-2 right">
+                    <button type="submit" class="btn btn-green btn-block" [disabled]="!form.form.valid || disabled">
+                        {{ 'save' | l }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </data-panel>
+</div>
+<div *ngIf="!(recordInputModel.visible || accountTemplateInputModel.visible)" class="text-right">
+    <action-button (click)="accountTemplateInputUpdateModel()" [icon]="'fa-tag fa-2x'" [bTooltip]="'importTemplate' | l"></action-button>
+    <action-button (click)="recordInputUpdateModel()" [icon]="'fa-plus fa-2x'" [bTooltip]="'newRecord' | l"></action-button>
+</div>

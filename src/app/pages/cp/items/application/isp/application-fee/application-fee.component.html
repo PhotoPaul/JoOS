@@ -1,0 +1,62 @@
+<form *ngIf="applicationData" #form="ngForm" (change)="modelChanged = true" accept-charset="UTF-8" role="form">
+    <data-panel *authIf="['admin', 'cashier']" ngId="applicationFeeInfo" heading="Application & Visa Assistance Fee" color="portlet-blue">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="applicationFee">The Application Fee for the Applicant is:</label>
+                        <div class="form-group">
+                            <label for="applicationFee" class="radio-inline"><input type="radio" (click)="createOrder(35)" [(ngModel)]="applicationData.application.applicationFee" id="applicationFee" name="applicationFee" value="35" required> 35€ Application Fee</label><br>
+                            <label for="applicationVisaFee" class="radio-inline"><input type="radio" (click)="createOrder(235)" [(ngModel)]="applicationData.application.applicationFee" id="applicationVisaFee" name="applicationFee" value="235" required> 235€ Application & Visa Assistance Fee</label><br>
+                            <required-field-warning *ngIf="validate && !applicationData.application.applicationFee" [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="applicationData.application.feeUrl" class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="feeUrl">Application Fee Payment URL</label>
+                        <input type="text" (click)="$event.target.select()" id="feeUrl" name="feeUrl" class="form-control text-center" readonly="readonly" [value]="applicationData.application.feeUrl">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="applicationFeeInfoOnSubmit()">{{ 'save' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <data-panel *authIf="'candidate'" ngId="applicationFeeInfo" heading="Application & Visa Assistance Fee" color="portlet-blue">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="form-group">
+                        <label for="applicationFee">Your Application Fee is:</label>
+                        <div class="input-group">
+                            <pre *authIf="'candidate'" style="text-align: right" class="form-control">{{ applicationData.application.applicationFee }}</pre>
+                            <span class="input-group-addon">€ (EUR)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="applicationData.application.feeUrl" class="row">
+                <div class="col-md-2 col-md-offset-5">
+                    <button class="btn btn-blue btn-block" type="button" (click)="openOrder()">{{ 'onlinePayment' | l }}</button><br>
+                </div>
+                <div class="col-md-2 col-md-offset-5">
+                    <button class="btn btn-green btn-block" type="button" (click)="submitForm()" [disabled]="formLoading || !form.valid || !onlinePaymentClicked">{{ 'submit' | l }}</button>
+                </div>
+                <div class="col-md-12 text-center">
+                    <br><p>* After you submit your payment, please allow 3-5 business days for your transaction to process</p>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+        <action-button (click)="applicationService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+    </div>
+</form>

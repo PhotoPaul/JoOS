@@ -1,0 +1,91 @@
+<div *ngIf="applicationData">
+    <data-panel ngId="testimonyInfo" heading="Statement of Faith" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="familyBackground">Give a brief description of your family background, including parents and siblings, general tone of childhood household, and religious influences (minimum 50 words)</label>
+                    <pre>{{ applicationData.application.familyBackground }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="testimony">Share when and how you came to know Jesus Christ as your Lord and Savior (minimum 50 words)</label>
+                    <pre>{{ applicationData.application.testimony }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="spiritualGrowth">How are you currently cultivating your spiritual life, including personal disciplines, fellowship and activities (minimum 50 words)</label>
+                    <pre>{{ applicationData.application.spiritualGrowth }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="statementOfFaithApproval">I have read and accept the <a href="https://www.grbc.gr/en/who-we-are/statement-of-faith/" target="_new">Statement of Faith of the Greek Bible College <i class="fas fa-info-circle" aria-hidden="true"></i></a></label><br>
+                    <pre>{{ applicationData.application.statementOfFaithApproval }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <data-panel ngId="ministryInfo" heading="Ministry Information" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="ministryTalent">Do you have a particular type of ministry to which you feel called?</label>
+                    <pre>{{ applicationData.application.ministryTalent }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="ministryExperience">Please list any Church ministries you have been apart of, the years involved and whether or not you were in a leadership position</label>
+                    <pre>{{ applicationData.application.ministryExperience }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="reasonsToEnroll">Give your reason(s) for desiring to enroll at the Greek Bible College - International Student Program. Please include your goals (minimum 50 words)</label>
+                    <pre>{{ applicationData.application.reasonsToEnroll }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <data-panel ngId="additionalInfo" heading="Additional Information" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="conviction">Have you ever been convicted of a crime?</label><br>
+                    <pre>{{ admissionService.boolStringToString(applicationData.application.conviction) }}</pre>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="convictionDetails">Please give more information regarding the conviction</label>
+                    <pre>{{ applicationData.application.convictionDetails }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+    <ng-container>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+            <action-collection [actionButtons]="decisionButtons" [collectionAjax]="true"></action-collection>
+        </div>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.editApplication(applicationData.accessControl.editPath, this.userId)" color="btn-blue" icon="fa-pencil-alt" [caption]="'edit' | l" [bTooltip]="'editApplication' | l"></action-button>
+        </div>
+        <div *authIf="['admin', 'registrar', 'admissions']" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+        </div>
+    </ng-container>
+</div>

@@ -1,0 +1,91 @@
+<div *ngIf="applicationData">
+    <data-panel ngId="financialInfo" heading="Financial Liability" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="tuition">Total cost for tuition *</label>
+                    <pre>{{ applicationData.application.tuition }}</pre>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="roomBoard">Total cost for room and board *</label>
+                    <pre>{{ applicationData.application.roomBoard }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p>* These costs are an initial "best estimate" and they are subject to minor changes</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="paymentSchedule">Payment schedule</label>
+                    <pre>{{ applicationData.application.paymentSchedule }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="financialApproval">I hereby declare that I have been informed of the estimated total cost of attendance, and I commit to pay it off according to the payment schedule</label><br>
+                    <pre>{{ applicationData.application.financialApproval }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="selfPaid">The full amount will be paid by me</label>
+                    <div class="form-group">
+                        <pre>{{ admissionService.boolStringToString(applicationData.application.selfPaid) }}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="applicationData.application.selfPaid === '0'">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="sponsors">Please list the names of the individuals or organizations who will contribute to your payments</label>
+                        <pre>{{ applicationData.application.sponsors }}</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="sponsorsTotal">Please enter the total amount that will be covered by them</label>
+                        <pre>{{ applicationData.application.sponsorsTotal }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="debtApproval">I hereby declare that I commit to pay off any remaining balances even if my sponsors do not pay on my behalf</label><br>
+                        <pre>{{ applicationData.application.debtApproval }}</pre>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </data-panel>
+
+    <!-- <data-panel ngId="applicationFeeInfo" heading="Application & Visa Assistance Fee" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="applicationFee">The Application Fee for the Applicant is:</label>
+                    <pre>{{ applicationData.application.applicationFee }} €</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel> -->
+
+    <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+        <action-collection [actionButtons]="decisionButtons" [collectionAjax]="true"></action-collection>
+    </div>
+    <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+        <action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+    </div>
+</div>

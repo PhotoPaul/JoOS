@@ -1,0 +1,3 @@
+<ng-container *ngFor="let actionButton of actionButtons">
+    <action-button *ngIf="!actionButton.hidden" (specialClick)="specialClick($event.event, actionButton)" [color]="actionButton.color" [icon]="actionButton.icon" [caption]="actionButton.caption" [bTooltip]="actionButton.tooltip" [ajax]="actionButton.ajax?actionButton.ajax:{state: 'idle'}"></action-button>
+</ng-container>

@@ -1,0 +1,13 @@
+<app-form *ngFor="let formData of evaluationsData"
+    [formData]="formData"
+    (onSubmitSuccess)="onSubmitSuccess($event)"
+>
+    <div class="row text-center">
+        <div class="col-md-offset-4 col-md-4">
+            <img-thumbnail [src]="formData.photoURI" maxHeight="120"></img-thumbnail><br>
+            <b>{{ '' | fName:formData.lastName:formData.firstName }}</b><br><br>
+            <span class="badge green">{{ formData.courseCodeName }} {{ formData.courseCode }}</span><br>
+            {{ formData.courseName }}
+        </div>
+    </div>
+</app-form>

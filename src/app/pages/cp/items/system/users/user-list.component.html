@@ -1,0 +1,94 @@
+<div *ngIf="userAddVisible">
+    <div class="text-right">
+        <action-button (click)="userAddVisible = false" [icon]="'fa-user-times fa-2x'" [bTooltip]="'cancel' | l"></action-button>
+    </div>
+    <data-panel ngId="systemUserAdd" [heading]="'addUser' | l" color="portlet-green">
+        <div class="row">
+            <form (ngSubmit)="onSubmit()" #form="ngForm" id="form-register-candidate-account" accept-charset="UTF-8" role="form">
+                <div class="col-md-2">
+                    <input type="text" [(ngModel)]="userAddModel.firstName" id="firstName" name="firstName" class="form-control" [placeholder]="'firstName' | l" autocomplete="off" required autofocus>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" [(ngModel)]="userAddModel.lastName" id="lastName" name="lastName" class="form-control" [placeholder]="'lastName' | l" autocomplete="off" required>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" [(ngModel)]="userAddModel.email" id="email" name="email" class="form-control" placeholder="Email" autocomplete="off" required pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}">
+                </div>
+                <div class="col-md-2">
+                    <select id="roleName" name="roleName" class="form-control" required [(ngModel)]="userAddModel.roleName">
+                        <option *ngFor="let role of roles" [value]="role.roleName">
+                            {{ 'title' | l:role }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-green btn-block" [disabled]="!form.form.valid">
+                        {{ 'add' | l }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </data-panel>
+</div>
+<div *ngIf="!userAddVisible" class="text-right">
+    <action-button (click)="userAddShow()" [icon]="'fa-user-plus fa-2x'" [bTooltip]="'addUser' | l"></action-button>
+</div>
+<data-panel ngId="systemUsers" heading="{{ 'users' | l }}{{ users.length?': '+users.length:''}}" color="portlet-blue">
+    <data-filter #dataFilter></data-filter>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="text-center">{{ 'photo' | l }}</th>
+                <th style="width: 100%">{{ 'fullName' | l }}</th>
+                <th>Email</th>
+                <th class="text-center">{{ 'roles' | l }}</th>
+                <th class="text-center text-nowrap">{{ 'registrationDate' | l }}</th>
+                <th class="text-center">{{ 'actions' | l }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="!users.length"><td colspan="7" class="text-center"><loading *ngIf="!users.length"></loading></td></tr>
+            <tr *ngFor="let user of users | filterByString:['firstName','lastName']:dataFilter.filter">
+                <td class="text-center"><img-thumbnail [userId]="user.userId" [src]="user.photoURI" maxHeight="34"></img-thumbnail></td>
+                <td>{{ '' | fName:user.lastName:user.firstName }}</td>
+                <td>{{ user.email }}</td>
+                <td class="text-center">
+                    <div *ngFor="let role of user.roles">
+                        <span class="label blue">
+                            <span>{{ role.roleName }}</span>
+                            <ng-container *ngIf="role.program_name_gr || role.program_name_en ; else addProgramForRoleButton">
+                                &nbsp;<i class="fas fa-certificate" [tooltip]="'program_name' | l:role"></i>
+                            </ng-container>
+                            <ng-template #addProgramForRoleButton>
+                                &nbsp;<span (click)="addProgramShow(role)" class="fas fa-plus link" [tooltip]="'addProgram' | l"></span>
+                            </ng-template>
+                            &nbsp;<span (click)="removeRoleFromUser(user, role)" class="fas fa-times link" [tooltip]="'removeRole' | l"></span>
+                        </span>
+                        <select #$control (change)="addProgramForRole($control, user, role)" (blur)="role.addProgramVisible = false" *ngIf="role.addProgramVisible" autofocus>
+                            <option [value]="undefined" disabled hidden>{{ 'pleaseSelect' | l }}
+                            <option *ngFor="let program of programs" [value]="program.id">{{ 'program_name' | l:program }}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select #$control (change)="addRoleToUser($control, user)" (blur)="user.roleAddVisible = false" *ngIf="user.roleAddVisible" autofocus>
+                            <option [value]="undefined" disabled hidden>{{ 'pleaseSelect' | l }}
+                            <option *ngFor="let role of roles" [value]="role.roleId">{{ role.roleName }}</option>
+                        </select>
+                        <span *ngIf="!user.roleAddVisible" class="label green">
+                            <i (click)="roleAddShow(user)" class="fas fa-plus link" [tooltip]="'addRole' | l"></i>
+                        </span>
+                    </div>
+                </td>
+                <td class="text-center">{{ user.date_time?.split('-').join('/') | date:'dd-MM-y' }}</td>
+                <td class="text-center text-nowrap">
+                    <action-button (click)="viewUserFolderClicked(user.userId)" [color]="'btn-blue'" [icon]="'fa-folder'" [bTooltip]="'userFolder' | l"></action-button>
+                    <action-button (specialClick)="switchToUser(user.userId)" [color]="'btn-green'" [icon]="'far fa-eye'" [bTooltip]="'loginAs' | l"></action-button>
+                    <action-button #$resetUserPasswordButton (specialClick)="resetUserPasswordClick(user.userId, $resetUserPasswordButton)" [color]="'btn-green'" [icon]="'fa-key'" [bTooltip]="'sendPasswordReset' | l"></action-button>
+                    <action-button (click)="deleteUserPermanently(user.userId)" [color]="'btn-red'" [icon]="'fa-user-times'" [bTooltip]="'deleteUserPermanently' | l" [ajax]="false"></action-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</data-panel> 

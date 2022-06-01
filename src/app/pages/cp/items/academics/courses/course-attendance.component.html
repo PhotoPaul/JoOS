@@ -1,0 +1,36 @@
+<data-panel ngId="courseAttendance" heading="{{ courseAttendance.id? courseAttendance.code_en + ': ' + courseAttendance.name_en + ' - ' + courseAttendance.code_gr + ': ' + courseAttendance.name_gr: 'Παρουσιολόγιο' }}" color="portlet-blue">
+    <data-filter #dataFilter></data-filter><br>
+    <div *ngIf="!courseAttendance.id" class="text-center"><loading></loading></div>
+    <data-panel *ngFor="let attendanceDay of courseAttendance.attendances" ngId="courseAttendance{{ attendanceDay[0] && attendanceDay[0].date_time? attendanceDay[0].id: 0 }}" heading="{{ attendanceDay[0] && attendanceDay[0].date_time? (attendanceDay[0].date_time?.split('-').join('/') | date:'dd-MM-y'): 'Σήμερα' }}" color="portlet-green">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Ονοματεπώνυμο</th>
+                    <th class="text-center">1η Ώρα</th>
+                    <th class="text-center">2η Ώρα</th>
+                    <th class="text-center">3η Ώρα</th>
+                    <th class="text-center">4η Ώρα</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let attendanceItem of attendanceDay | filterByString:['firstName','lastName']:dataFilter.filter">
+                    <td>{{ '' | fName:attendanceItem.lastName:attendanceItem.firstName }}</td>
+                    <td class="text-center">
+                        <action-button (specialClick)="attendanceStatusClicked($event.actionButtonComponent, attendanceItem, 1)" [color]="'text-' + getAttendanceStatusColor(attendanceItem.attendance_first)" [icon]="'fa-user'" [bTooltip]="getAttendanceStatusTooltip(attendanceItem.attendance_first)"></action-button>
+                    </td>
+                    <td class="text-center">
+                        <action-button (specialClick)="attendanceStatusClicked($event.actionButtonComponent, attendanceItem, 2)" [color]="'text-' + getAttendanceStatusColor(attendanceItem.attendance_second)" [icon]="'fa-user'" [bTooltip]="getAttendanceStatusTooltip(attendanceItem.attendance_second)"></action-button>
+                    </td>
+                    <td class="text-center">
+                        <action-button (specialClick)="attendanceStatusClicked($event.actionButtonComponent, attendanceItem, 3)" [color]="'text-' + getAttendanceStatusColor(attendanceItem.attendance_third)" [icon]="'fa-user'" [bTooltip]="getAttendanceStatusTooltip(attendanceItem.attendance_third)"></action-button>
+                    </td>
+                    <td class="text-center">
+                        <action-button (specialClick)="attendanceStatusClicked($event.actionButtonComponent, attendanceItem, 4)" [color]="'text-' + getAttendanceStatusColor(attendanceItem.attendance_fourth)" [icon]="'fa-user'" [bTooltip]="getAttendanceStatusTooltip(attendanceItem.attendance_fourth)"></action-button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </data-panel>
+</data-panel>

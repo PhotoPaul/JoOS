@@ -1,0 +1,31 @@
+<div *ngIf="model.visible">
+    <div class="text-right">
+        <action-button *ngIf="model.accountTemplateItem.id" (specialClick)="accountTemplateItemDeleteClicked(model.accountTemplateItem.id)" color="text-danger" icon="fa-trash-alt fa-2x" [bTooltip]="'deletePermanently' | l"></action-button>
+        <action-button (click)="model.visible = false" [icon]="'fa-times fa-2x'" [bTooltip]="'cancel' | l"></action-button>
+    </div>
+    <data-panel ngId="accountTemplateItemInput" [heading]="model.title" color="portlet-green">
+        <div class="row">
+            <form (ngSubmit)="onSubmit()" #form="ngForm" accept-charset="UTF-8" role="form">
+                <div class="col-md-5">
+                    <input type="text" [(ngModel)]="model.accountTemplateItem.name" id="name" name="name" class="form-control" [placeholder]="'templateName' | l" autocomplete="off">
+                </div>
+                <div class="col-md-3">
+                    <select [(ngModel)]="model.accountTemplateItem.category_id" id="category" name="category" class="form-control" required autofocus>
+                        <option *ngFor="let category of financesService.accountTemplatesData.accountTemplateItemCategories" [ngValue]="category.id">{{ 'name' | l:category }}</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" [ngModel]="model.accountTemplateItem.amount" (ngModelChange)="onAmountChange($event)" id="amount" name="amount" class="form-control" [placeholder]="'amount' | l" autocomplete="off" required>
+                </div>
+                <div class="col-md-2 right">
+                    <button type="submit" class="btn btn-green btn-block" [disabled]="!form.form.valid || disabled">
+                        {{ 'save' | l }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </data-panel>
+</div>
+<div *ngIf="!model.visible" class="text-right">
+    <action-button (click)="updateAccountTemplateItemInputModel()" [icon]="'fa-plus fa-2x'" [bTooltip]="'newTemplate' | l"></action-button>
+</div>

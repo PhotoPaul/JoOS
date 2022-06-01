@@ -1,0 +1,107 @@
+<ng-container *authIf="['admin', 'assessor']">
+    <data-panel *ngIf="reportData" ngId="reportFilter" [heading]="'filters' | l" color="portlet-dark-blue">
+        <fieldset [disabled]="ajaxPending">
+            <div class="row">
+                <div class="col-md-3">
+                    <select (change)="filterOptions()" [(ngModel)]="filter.courseId" id="courseId" name="courseId" class="form-control">
+                        <option [ngValue]="null">{{ 'allCourses' | l }}</option>
+                        <option *ngFor="let course of reportData.courses" [ngValue]="course.id">{{ 'code' | l:course }} {{ course.code }} {{ 'name' | l:course }}</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select *authIf="['admin', 'registrar']" (change)="filterOptions()" [(ngModel)]="filter.userId" id="userId" name="userId" class="form-control">
+                        <option [ngValue]="null">{{ 'allProfessors' | l }}</option>
+                        <option *ngFor="let user of reportData.users" [ngValue]="user.id">{{ '' | fName:user.lastName:user.firstName }}</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select (change)="filterOptions()" [(ngModel)]="filter.yearFrom" id="yearFrom" name="yearFrom" class="form-control">
+                        <option [ngValue]="null">{{ 'allYears' | l }}</option>
+                        <option *ngFor="let yearFrom of reportData.years" [ngValue]="yearFrom.year">{{ yearFrom.year }}</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select (change)="filterOptions()" [(ngModel)]="filter.yearTo" id="yearTo" name="yearTo" class="form-control">
+                        <option [ngValue]="null">{{ 'allYears' | l }}</option>
+                        <option *ngFor="let yearTo of reportData.years" [ngValue]="yearTo.year">{{ yearTo.year }}</option>
+                    </select>
+                </div>
+                <div class="col-md-2 text-center">
+                    <action-button (click)="clearFilter()" [caption]="'clearFilter' | l" color="btn-blue" [ajax]="false"></action-button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+</ng-container>
+
+<data-panel *ngIf="reportData?.reports?.length" ngId="reports" [heading]="'evaluationReport' | l" color="portlet-blue">
+    <data-panel
+        *ngFor="let report of reportData.reports; let index = index"
+        [ngId]="'report' + index"
+        [heading]="'' | fName:report.lastName:report.firstName + ' &mdash; ' + ('code' | l:report) + ' ' + report.code + ': ' + ('name' | l:report) + ' &mdash; ' + 'Credits: ' + report.credits + ' &mdash; ' + 'ECTS Credits: ' + report.ects_credits"
+        color="portlet-green">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 40%">{{ 'question' | l }}</th>
+                        <th *ngFor="let question of report.th" class="text-center">{{ 'title' | l:question }}</th>
+                        <th class="text-center">{{ 'pa' | l }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let question of report.scores | toArray ; let index = index">
+                        <td>{{ 'title' | l:report.multipleChoiceQuestions[index] }}</td>
+                        <td *ngFor="let answer of report.th ; let index = index" class="text-center">{{ question.noVotes[answer.questionId] }}</td>
+                        <td class="text-center">
+                            <span class="badge" [ngClass]=
+                                "{ green: +question.points >= 4,
+                                orange: +question.points < 4 && +question.points >= 3,
+                                red: +question.points < 3 }"
+                            >{{ +question.points | number:'.1-1' }}</span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr *ngFor="let question of report.textQuestions">
+                    <!-- <tr *ngFor="let question of keepTextOnly(report.questions)"> -->
+                        <td>{{ 'title' | l:question }}</td>
+                        <td [attr.colspan]="report.th.length + 1">
+                            <div class="alert alert-info" *ngFor="let answer of question.answers">{{ answer }}</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </data-panel>
+</data-panel>
+
+<ng-container *authIf="['admin', 'assessor', 'registrar']">
+    <data-panel *ngIf="reportData?.pendingReports?.length" ngId="pendingReports" [heading]="'usersWithEvaluationsPending' | l" color="portlet-blue">
+        <data-filter #dataFilter></data-filter><br>
+        <data-panel *ngFor="let fromUser of reportData.pendingReports | filterByString:['fromUserFirstName','fromUserLastName']:dataFilter.filter" [ngId]="'user' + fromUser.fromUserId+ 'Report'" [heading]="'' | fName:fromUser.fromUserLastName:fromUser.fromUserFirstName" color="portlet-red">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th class="text-center">{{ 'code' | l }}</th>
+                        <th>{{ 'title' | l }}</th>
+                        <th class="text-nowrap">{{ 'professor' | l }}</th>
+                        <th class="text-center">{{ 'actions' | l }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let forCourseUser of fromUser.forUsers">
+                        <td class="text-center"><span class="badge green">{{ 'code' | l:forCourseUser }} {{ forCourseUser.code }}</span></td>
+                        <td style="width: 80%">{{ 'name' | l:forCourseUser }}</td>
+                        <td style="width: 20%">{{ '' | fName:forCourseUser.forUserLastName:forCourseUser.forUserFirstName }}</td>
+                        <td class="text-center text-nowrap">
+                            <action-button (specialClick)="removePendingEvaluation(fromUser.fromUserId, forCourseUser.forCourseId, forCourseUser.forUserId, $event.actionButtonComponent)" [color]="'btn-red'" [icon]="'fa-trash-alt'" [bTooltip]="'removePendingEvaluation' | l"></action-button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>    
+        </data-panel>
+    </data-panel>
+</ng-container>

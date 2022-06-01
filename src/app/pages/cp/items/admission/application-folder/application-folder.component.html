@@ -1,0 +1,18 @@
+<data-panel ngId="applicationTab" heading="Αίτηση Εγγραφής" color="portlet-dark-blue">
+    <ng-container *ngIf="studentFolder; else loading">
+        <ng-container *ngIf="studentFolder !== 'noApplication'; else noApplication">
+            <admissions-complete-personal [application]="studentFolder"></admissions-complete-personal>
+            <admissions-complete-education *authIf="['admin', 'registrar']" [application]="studentFolder"></admissions-complete-education>
+            <admissions-complete-health *authIf="['admin', 'registrar']" [application]="studentFolder"></admissions-complete-health>
+            <admissions-complete-christian-life *authIf="['admin', 'registrar']" [application]="studentFolder"></admissions-complete-christian-life>
+            <admissions-complete-financial [application]="studentFolder"></admissions-complete-financial>
+            <!-- <admissions-complete-references *authIf="['admin', 'registrar', 'professor']"></admissions-complete-references> -->
+        </ng-container>
+        <ng-template #noApplication>
+            <div class="alert alert-danger text-center">Η Αίτηση Εγγραφής δεν είναι περασμένη</div>                
+        </ng-template>
+    </ng-container>
+    <ng-template #loading>
+        <div class="text-center"><loading></loading></div>
+    </ng-template>
+</data-panel>

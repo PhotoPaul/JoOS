@@ -1,0 +1,85 @@
+<my-evaluations *ngIf="homeData?.myEvaluations?.length" [evaluationsData]="homeData.myEvaluations"></my-evaluations>
+<user-applications *ngIf="homeData?.applications?.length || homeData?.programs?.length" [applications]="homeData.applications" [programs]="homeData.programs"></user-applications>
+
+<ng-container *ngIf="homeData?.system">
+    <data-panel *ngIf="homeData.systemOpenErrorsLength > 0" ngId="errorsPanel" [heading]="'errors' | l">
+        <div class="row">
+            <circle-tile *ngIf="homeData.systemOpenErrorsLength" widthClass="col-lg-2" [color]="homeData.systemOpenErrorsLength > 0 ? 'red' : 'green'" [iconData]="{fa: homeData.systemOpenErrorsLength > 0 ? 'fa-exclamation-triangle' : 'fa-check', path: '/cp/system/errors'}" [heading]="'errors' | l" [footerLinks]="[{path: '/cp/system/errors', text: 'moreInfo' | l}]">{{ homeData.systemOpenErrorsLength }}</circle-tile>
+        </div>
+    </data-panel>
+    <data-panel ngId="systemPanel" [heading]="'system' | l">
+        <div class="row">
+            <circle-tile *ngIf="homeData.systemUsersLength" widthClass="col-lg-2" color="blue" [iconData]="{fa: 'fa-users', path: '/cp/system/users'}" [heading]="'users' | l" [footerLinks]="[{path: '/cp/system/users', text: 'moreInfo' | l}]">{{ homeData.systemUsersLength }}</circle-tile>
+            <circle-tile *ngIf="homeData.systemOperationsLength" widthClass="col-lg-2" color="blue" [iconData]="{fa: 'fa-bolt', path: '/cp/system/operations'}" [heading]="'operations' | l" [footerLinks]="[{path: '/cp/system/operations', text: 'moreInfo' | l}]">{{ homeData.systemOperationsLength }}</circle-tile>
+            <circle-tile *ngIf="homeData.systemFilesTotalSize" widthClass="col-lg-2" color="blue" [iconData]="{fa: 'fa-file', path: '/cp/system/files'}" [heading]="'fileManager' | l" [footerLinks]="[{path: '/cp/system/files', text: 'moreInfo' | l}]">{{ homeData.systemFilesTotalSize | number:'.1-1' }} MB</circle-tile>
+            <circle-tile *ngIf="homeData.systemTablesTotalSize" widthClass="col-lg-2" color="blue" [iconData]="{fa: 'fa-database', path: '/cp/system/db'}" [heading]="'dbManager' | l" [footerLinks]="[{path: '/cp/system/db', text: 'moreInfo' | l}]">{{ homeData.systemTablesTotalSize | number:'.1-1' }} MB</circle-tile>
+            <circle-tile *ngIf="homeData.systemLogEntriesLength" widthClass="col-lg-2" color="blue" [iconData]="{fa: 'fa-history', path: '/cp/system/logs'}" [heading]="'logs' | l" [footerLinks]="[{path: '/cp/system/logs', text: 'moreInfo' | l}]">{{ homeData.systemLogEntriesLength }}</circle-tile>
+            <circle-tile *ngIf="homeData.systemTemplatesLength" widthClass="col-lg-2" color="purple" [iconData]="{fa: 'fa-tags', path: '/cp/system/notification-templates'}" [heading]="'notificationTemplates' | l" [footerLinks]="[{path: '/cp/system/notification-templates', text: 'moreInfo' | l}]">{{ homeData.systemTemplatesLength }}</circle-tile>
+        </div>
+    </data-panel>    
+</ng-container>
+
+<data-panel *ngIf="homeData?.academics || homeData?.finances || homeData?.evaluations || homeData?.library || homeData?.admissions || homeData?.variables" ngId="administrativePanel" [heading]="'administrative' | l">
+    <div class="row">
+        <circle-tile *ngIf="homeData.academicsProgramsLength" color="green" [iconData]="{fa: 'fa-certificate', path: '/cp/academics/programs'}" [heading]="'programs' | l" [footerLinks]="[{path: '/cp/academics/programs', text: 'moreInfo' | l}]">{{ homeData.academicsProgramsLength }}</circle-tile>
+        <circle-tile *ngIf="homeData.academicsStudentsLength" color="green" [iconData]="{fa: 'fa-users', path: '/cp/academics/students'}" [heading]="'students' | l" [footerLinks]="[{path: '/cp/academics/students', text: 'moreInfo' | l}]">{{ homeData.academicsStudentsLength }}</circle-tile>
+        <circle-tile *ngIf="homeData.financesTotalAmount" color="green" [iconData]="{fa: 'fa-euro-sign', path: '/cp/finances/records'}" [heading]="'currentDebt' | l" [footerLinks]="[{path: '/cp/finances/records', text: 'moreInfo' | l}]">{{ homeData.financesTotalAmount | currency:'EUR':'symbol':'1.2-2' }}</circle-tile>
+        <circle-tile *ngIf="homeData.financesTemplatesLength" color="dark-blue" [iconData]="{fa: 'fa-tags', path: '/cp/finances/templates'}" [heading]="'accountTemplates' | l" [footerLinks]="[{path: '/cp/finances/templates', text: 'moreInfo' | l}]">{{ homeData.financesTemplatesLength }}</circle-tile>
+        <circle-tile *ngIf="homeData.academicsTeachingScheduleDaysLeft" color="green" [iconData]="{fa: 'fa-calendar-alt', path: '/cp/academics/teaching-schedule'}" [heading]="'teachingSchedule' | l" [footerLinks]="[{path: '/cp/academics/teaching-schedule', text: 'mySchedule' | l}]">{{ homeData.academicsTeachingScheduleDaysLeft + ('days' | l)}}</circle-tile>
+        <circle-tile *ngIf="homeData.academicsChapelSchedule" color="green" [iconData]="{fa: 'fa-calendar-plus', path: '/cp/academics/chapel-schedule'}" [heading]="'chapelSchedule' | l" [footerLinks]="[{path: '/cp/academics/chapel-schedule', text: 'moreInfo' | l}]">&nbsp;</circle-tile>
+        <circle-tile *ngIf="homeData.libraryMyCheckedOutBooks" [color]="libraryService.getMyCheckedOutBooksColor(homeData.libraryMyCheckedOutBooksStatus)" [iconData]="{fa: 'fa-book', path: '/cp/library/my-card'}" [heading]="'myBooks' | l" [footerLinks]="[{path: '/cp/library/my-card', text: ('moreInfo' | l)}]">{{ homeData.libraryMyCheckedOutBooks }}</circle-tile>
+        <circle-tile *ngIf="homeData.libraryAllCheckedOutBooks" color="blue" [iconData]="{fa: 'fa-book', path: '/cp/library/books'}" [heading]="'checkedOutBooks' | l" [footerLinks]="[{path: '/cp/library/books', text: ('moreInfo' | l)}]">{{ homeData.libraryAllCheckedOutBooks }}</circle-tile>
+        <circle-tile *ngIf="homeData.libraryLibraryCards" color="blue" [iconData]="{fa: 'fa-address-card', path: '/cp/library/cards'}" [heading]="'libraryCards' | l" [footerLinks]="[{path: '/cp/library/cards', text: ('moreInfo' | l)}]">{{ homeData.libraryLibraryCards }}</circle-tile>
+        <circle-tile *ngIf="homeData.financesMyDebt" [color]="homeData.financesMyDebt > 0 ? 'red' : 'green'" [iconData]="{fa: 'fa-euro-sign', path: '/cp/finances/my-records'}" [heading]="'myDebt' | l" [footerLinks]="[{path: '/cp/finances/my-records', text: ('myRecords' | l)}]">{{ homeData.financesMyDebt | currency:'EUR':'symbol':'1.2-2' }}</circle-tile>
+        <circle-tile *ngIf="homeData.evaluationsMyEvaluations > 0" color="blue" [iconData]="{fa: 'fa-envelope-open-text', path: '/cp/academics/evaluation-reports'}" [heading]="'myEvaluationReports' | l" [footerLinks]="[{path: '/cp/academics/evaluation-reports', text: ('moreInfo' | l)}]">{{ homeData.evaluationsMyEvaluations }}</circle-tile>
+        <circle-tile *ngIf="homeData.evaluationsAllEvaluations" color="blue" [iconData]="{fa: 'fa-envelope-open-text', path: '/cp/academics/evaluation-reports'}" [heading]="'evaluationReports' | l" [footerLinks]="[{path: '/cp/academics/evaluation-reports', text: ('moreInfo' | l)}]">{{ homeData.evaluationsAllEvaluations }}</circle-tile>
+        <circle-tile *ngIf="homeData.academicsAdvisorsLength" color="blue" [iconData]="{fa: 'fa-couch', path: '/cp/academics/advisors'}" [heading]="'advisors' | l" [footerLinks]="[{path: '/cp/academics/advisors', text: ('moreInfo' | l)}]">{{ homeData.academicsAdvisorsLength }}</circle-tile>
+        <circle-tile *ngIf="homeData.academicsAdvisorLastName" color="purple" [iconData]="{
+                fa: 'fa-portrait',
+                picture: homeData.academicsAdvisorPhotoURI || undefined,
+                modal: {
+                    title: 'advisor',
+                    templateRef: advisorProfileTemplate
+                }
+            }"
+            [heading]="'advisor' | l"
+            [footer]="homeData.academicsAdvisorEmail">
+                {{ '' | fName:homeData.academicsAdvisorLastName:homeData.academicsAdvisorFirstName }}
+        </circle-tile>
+        <circle-tile *ngIf="homeData.admissionsApplicantsLength" color="blue" [iconData]="{fa: 'fa-edit', path: '/cp/admission/applications'}" [heading]="'applications' | l" [footerLinks]="[{path: '/cp/admission/applications', text: 'moreInfo' | l}]">{{ homeData.admissionsApplicantsLength }}</circle-tile>
+        <circle-tile *ngIf="homeData.admissionsApplicantsProcessedLength" color="blue" [iconData]="{fa: 'fa-level-up-alt', path: '/cp/admission/decide'}" [heading]="'selectedApplicants' | l" [footerLinks]="[{path: '/cp/admission/decide', text: 'moreInfo' | l}]">{{ homeData.admissionsApplicantsProcessedLength }}</circle-tile>
+        <circle-tile *ngIf="homeData.variablesLength" color="dark-blue" [iconData]="{fa: 'fa-cog', path: '/cp/system/variables'}" [heading]="'systemVariables' | l" [footerLinks]="[{path: '/cp/system/variables', text: 'moreInfo' | l}]">{{ homeData.variablesLength }}</circle-tile>
+        <!-- <circle-tile *ngIf="homeData.academicsGraduatesLength" color="dark-blue" [iconData]="{fa: 'fa-graduation-cap', path: '/cp/academics/graduates'}" [heading]="'graduates' | l" [footerLinks]="[{path: '/cp/academics/graduates', text: 'moreInfo' | l}]">{{ homeData.academicsGraduatesLength }}</circle-tile> -->
+    </div>
+</data-panel>
+
+<ng-container *authIf="['professor', 'student']">
+    <template #userCoursesList></template>
+</ng-container>
+
+<ng-container *authIf="'professor'">
+    <!-- Thumbnail-like Courses -->
+    <!-- <my-courses *ngIf="homeData?.academicsMyCoursesLength > 0"></my-courses> -->
+    <my-advisees></my-advisees>
+</ng-container>
+
+<ng-template #advisorProfileTemplate>
+    <ng-container>
+        <div *ngIf="homeData.academicsAdvisorPhotoURI" class="text-center">
+            <img [src]="fs.getImageURI(homeData.academicsAdvisorPhotoURI, 150)">
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8 text-center">
+                <h1>{{ '' | fName:homeData.academicsAdvisorLastName:homeData.academicsAdvisorFirstName }}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-3 col-md-1 text-right">
+                <i class="fas fa-envelope form-control-icon"></i>
+            </div>
+            <div class="col-md-5 text-left">
+                {{ homeData.academicsAdvisorEmail }}
+            </div>
+        </div>
+    </ng-container>
+</ng-template>

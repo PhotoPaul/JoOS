@@ -1,0 +1,108 @@
+<div *ngIf="studentProgress">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="portlet portlet-dark-blue">
+                <div class="portlet-heading">
+                    <div class="portlet-title">
+                        <h4><i class="fas fa-user fa-fw"></i> {{ '' | fName:studentProgress.lastName:studentProgress.firstName }}</h4>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <data-panel *ngFor="let program of studentProgress.programs" ngId="studentProgress{{ program.id }}" heading="{{ 'program_name' | l:program }}" color="portlet-blue">
+        <ng-template ngFor let-progressItem [ngForOf]="program.progress" let-i="index">
+            <data-panel *ngIf="!program.progress[i-1] || program.progress[i].for_semester != program.progress[i-1].for_semester" ngId="studentProgress{{i}}" heading="Εξάμηνο {{ progressItem.for_semester }} από {{ program.number_of_semesters}}" color="portlet-green">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 100%">{{ 'progressItem' | l }}</th>
+                                <th>{{ 'controller' | l }}</th>
+                                <th class="text-center">{{ 'date' | l }}</th>
+                                <th class="text-center">{{ 'status' | l }}</th>
+                                <th class="text-center">{{ 'actions' | l }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-template ngFor let-progressItem [ngForOf]="program.progress">
+                                <tr *ngIf="progressItem.for_semester == program.progress[i].for_semester" [ngClass]="getStatusClass(progressItem.completed)">
+                                    <td>{{ 'field_description' | l:progressItem }}</td>
+                                    <td class="text-nowrap">{{ '' | fName:progressItem.lastName:progressItem.firstName }}</td>
+                                    <td class="text-center">{{ progressItem.date_time?.split('-').join('/') | date:'dd-MM-y' }}</td>
+                                    <td class="text-center">{{ progressItem.completed | fStatus }}</td>
+                                    <td class="text-center text-nowrap">
+                                        <ng-container *ngIf="hasAccess(progressItem.edit_roles)">
+                                            <ng-container *ngIf="progressItem.filename ; else noFileAssigned">
+                                                <action-button (click)="fs.getFile(progressItem.filename)" [color]="'btn-blue'" [icon]="'fa-external-link-alt'" [bTooltip]="'viewFile' | l" [ajax]="false"></action-button>
+                                                <action-button (specialClick)="unassignFile($event.actionButtonComponent, progressItem)" [color]="'btn-red'" [icon]="'fa-unlink'" [bTooltip]="'unassignFile' | l"></action-button>
+                                            </ng-container>
+                                            <ng-template #noFileAssigned>
+                                                <action-button (specialClick)="openFilePicker($event.actionButtonComponent, progressItem, chooseFileTemplate)" [color]="'btn-blue'" [icon]="'fa-folder-open'" [bTooltip]="'chooseFile' | l"></action-button>
+                                                <action-button (click)="openApplication(examineApplicationTemplate, progressItem, program.pdfUrl)" [color]="'btn-blue'" [icon]="'fa-edit'" [bTooltip]="'examineApplication' | l" [ajax]="false"></action-button>
+                                            </ng-template>
+                                            <ng-container *ngIf="!progressItem.completed ; else completed">
+                                                <action-button (specialClick)="completeProgressItem($event.actionButtonComponent, progressItem)" [color]="'btn-green'" [icon]="'fa-check'" [bTooltip]="'setAsComplete' | l"></action-button>
+                                            </ng-container>
+                                            <ng-template #completed>
+                                                <action-button (specialClick)="incompleteProgressItem($event.actionButtonComponent, progressItem)" [color]="'btn-red'" [icon]="'fa-times'" [bTooltip]="'setAsIncomplete' | l"></action-button>
+                                            </ng-template>
+                                        </ng-container>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </tbody>
+                    </table>
+                </div>
+            </data-panel>
+        </ng-template>
+    </data-panel>
+</div>
+
+<ng-template #chooseFileTemplate>
+    <div class="row">
+        <div class="col-md-12">
+            <div ng2FileDrop style="text-align: center"
+                    [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                    (fileOver)="fileOverBase($event)"
+                    [uploader]="uploader"
+                    class="well my-drop-zone">
+                <span [innerHTML]="'onlineDocumentSubmissionInstructions3' | l:'html'"></span>
+                <input class="my-drop-zone-button" type="file" ng2FileSelect [uploader]="uploader" multiple><br>
+            </div>
+        </div>
+    </div>
+    <data-panel ngId="files" [heading]="'studentFiles' | l" color="portlet-blue">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{ 'filename' | l }}</th>
+                        <th class="text-center">{{ 'actions' | l }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let file of student.files">
+                        <td>{{ file.original_filename }}</td>
+                        <td class="text-center text-nowrap">
+                            <action-button (click)="fs.getFile(file?.filename)" [color]="'btn-blue'" [icon]="'fa-external-link-alt'" [bTooltip]="'viewFile' | l" [ajax]="false"></action-button>
+                            <action-button (click)="assignFile(file?.filename)" [color]="'btn-green'" [icon]="'fa-thumbtack'" [bTooltip]="'selectFile' | l"></action-button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </data-panel>
+</ng-template>
+
+<ng-template #examineApplicationTemplate>
+    <data-panel ngId="applicationPdf" [heading]="'currentApplication' | l" [color]="'portlet-blue'">
+        <iframe [src]="this.lastPdfSafeUrl" style="width: 100%; height: 400px"></iframe>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <action-button (click)="assignFile('$application$')" icon="fa-thumbtack" color="btn-green" [caption]="'chooseFile' | l" [bTooltip]="'chooseFile' | l"></action-button>
+            </div>
+        </div>
+    </data-panel>
+</ng-template>

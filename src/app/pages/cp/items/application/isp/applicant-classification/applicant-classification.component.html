@@ -1,0 +1,72 @@
+<form *ngIf="applicationData" #form="ngForm" (change)="modelChanged = true" accept-charset="UTF-8" role="form">
+    <data-panel ngId="applicantClassification" heading="Applicant Classification" color="portlet-blue">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="traditionalISP">Classify Applicant as:</label><br>
+                            <label for="traditionalISP" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.classificationId" id="traditionalISP" name="classificationId" value="1" required> Traditional ISP</label>
+                            <label for="ministryWorker" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.classificationId" id="ministryWorker" name="classificationId" value="2" required> Ministry Worker</label>
+                            <label for="ethnicChurchLeader" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.classificationId" id="ethnicChurchLeader" name="ethnicChurchLeader" value="3" required> Ethnic Church Leader</label>
+                            <required-field-warning *ngIf="validate && applicationData.application.classificationId === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="startingDate">Starting Date</label><br>
+                            <date-input id="startingDate" name="startingDate" [date]="applicationData.application.startingDate" [minDate]="minDate" (onChange)="updateDateModel($event)"></date-input>
+                            <required-field-warning *ngIf="validate && applicationData.application.startingDate === null"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="accommodationRequired">Is accommodation required?</label><br>
+                            <label for="accommodationRequired" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.accommodationRequired" id="accommodationRequired" name="accommodationRequired" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                            <label for="accommodationNotRequired" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.accommodationRequired" id="accommodationNotRequired" name="accommodationRequired" value="2" required>&nbsp;{{ 'no' | l }}</label>
+                            <required-field-warning *ngIf="validate && applicationData.application.accommodationRequired === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="visaRequired">Is a VISA required?</label><br>
+                            <label for="visaRequired" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.visaRequired" id="visaRequired" name="visaRequired" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                            <label for="visaNotRequired" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.visaRequired" id="visaNotRequired" name="visaRequired" value="2" required>&nbsp;{{ 'no' | l }}</label>
+                            <required-field-warning *ngIf="validate && applicationData.application.visaRequired === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="applicantClassificationOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <div *ngIf="!unsavedChanges(); else isNotSaved" class="row">
+        <ng-container *ngIf="form.valid; else isNotValid">
+            <div class="col-md-2 col-md-offset-5 extraBottomPadding">
+                <button class="btn btn-green btn-block" type="button" (click)="submitForm()" [disabled]="formLoading || !form.valid">{{ 'submit' | l }}</button>
+            </div>
+        </ng-container>
+        <ng-template #isNotValid>
+            <div class="col-md-4 col-md-offset-4 extraBottomPadding">
+                <button class="btn btn-green btn-block" type="button" (click)="checkForm()" [disabled]="formLoading">{{ 'validate' | l }}</button>
+            </div>
+        </ng-template>
+    </div>
+    <ng-template #isNotSaved>
+        <div class="alert alert-danger text-center extraBottomPadding">{{ 'pleaseSaveChanges' | l }}</div>
+    </ng-template>
+    <div class="row text-center extraBottomPadding">
+        <action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+    </div>
+</form>

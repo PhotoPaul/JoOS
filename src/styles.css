@@ -1,0 +1,161 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('./assets/css/pace.css');
+@import url('./assets/css/bootstrap.min.css'); 
+@import url('./assets/css/all.min.css'); 
+@import url('./assets/css/ubuntu.font.css');
+@import url('./assets/css/open-sans.font.css');
+@import url('./assets/css/flex-admin.css'); 
+
+.navbar-brand {
+    padding: 0;
+}
+
+.navbar-brand a {
+    padding: 0;
+}
+
+/*
+div.ng-valid, input.ng-valid[required] {
+    border-left: 5px solid #16a085;
+}
+*/
+
+div.ng-invalid, input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
+    border-left: 5px solid #e74c3c;
+}
+
+.status-completed {
+    border-left: 5px solid #16a085;
+}
+
+.status-pending {
+    border-left: 5px solid #f39c12;
+}
+
+.status-missing {
+    border-left: 5px solid #e74c3c;
+}
+
+.tb-heading {
+    color: #fff;
+    background-color: #2980b9;
+}
+
+.text-xs-center {
+    text-align: center;
+}
+
+.g-recaptcha {
+    display: inline-block;
+}
+
+.bulletless {
+    list-style:none;
+    padding-left:0;
+}
+
+.borderless {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* .tooltip {
+    white-space: nowrap;
+} */
+
+[name=dp] {
+    padding: 8px;
+}
+
+.gradeInput {
+    text-align: center;
+}
+
+.gradeInput:disabled {
+    -webkit-appearance: none;
+    border: 0;
+    cursor: default !important;
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.circle-tile-footer {
+    margin-top: 0 !important;
+}
+
+.circle-tile-footer-no-link {
+    display: block;
+    padding: 5px;
+    color: rgba(255,255,255,0.7);
+    background-color: transparent;
+    /* No text-wrap, no text-overflow */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 688px;
+}
+
+.transaction-charge {
+    background-color: #f6b7b0;
+}
+
+.transaction-charge:hover {
+    background-color: #ffc1ba !important;
+}
+
+.transaction-payment {
+    background-color: #a0d28c;
+}
+
+.transaction-payment:hover {
+    background-color: #aadc96 !important;
+}
+
+.text-nowrap {
+    white-space: nowrap;
+}
+
+.link:hover { cursor: pointer }
+
+.action-control {
+    height: 34px;
+    display: flex;
+    align-items: center;
+}
+
+.extraBottomPadding {
+    padding-bottom: 30px
+}
+
+pre {
+    word-break: keep-all;
+    white-space: pre-wrap;
+}
+
+action-button {
+    padding: 2px;
+}
+
+tr.inactive {
+    background-color: rgb(235, 235, 228)
+}
+
+.no-alerts-link {
+    background: #2c3e50;
+}
+
+.alert-unread {
+    border-left: 5px solid #f39c12;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}

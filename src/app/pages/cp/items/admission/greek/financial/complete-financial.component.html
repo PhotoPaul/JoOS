@@ -1,0 +1,141 @@
+<div *ngIf="applicationData">
+    <data-panel ngId="studentPackage" heading="Τρόπος Φοίτησης" color="portlet-blue">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="studentPackage">Επιλέξτε τον τρόπο φοίτησης που σας ενδιαφέρει</label>
+					<div class="form-group">
+						<pre>{{ getPackage(applicationData.application.studentPackage) }}</pre>
+					</div>
+				</div>
+			</div>
+        </div>
+    </data-panel>
+
+    <data-panel ngId="depositInfo" heading="Παράβολο Επεξεργασίας Αίτησης Εγγραφής" color="portlet-blue">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="deposit30">Για την επεξεργασία της παρούσας αίτησης θα καταβάλλετε το ακόλουθο Παράβολο Επεξεργασίας Αίτησης Εγγραφής</label>
+                    <br>31 = 30€ με κάρτα
+                    <br>30 = 30€ με κατάθεση
+					<div class="form-group">
+						<pre>{{ applicationData.application.deposit }}</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<label>Η κατάθεση μπορεί να γίνει σε έναν από τους παρακάτω λογαριασμούς:</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="portlet portlet-dark-blue">
+					<div class="portlet-heading">
+						<div class="portlet-title">
+							<h4>Εθνική Τράπεζα της Ελλάδος</h4>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="portlet-body">
+						<div class="row">
+							<div class="col-md-6">
+								<label>Όνομα Δικαιούχου</label><br>Εταιρία Βιβλικών Σπουδών
+							</div>
+							<div class="col-md-6">
+								<label>IBAN</label><br>GR59 0110 5310 0000 5312 0072 151
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<div class="col-lg-12">
+				<div class="portlet portlet-dark-blue">
+					<div class="portlet-heading">
+						<div class="portlet-title">
+							<h4>EUROBANK</h4>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="portlet-body">
+						<div class="row">
+							<div class="col-md-6">
+								<label>Όνομα Δικαιούχου</label><br>Εταιρία Βιβλικών Σπουδών
+							</div>
+							<div class="col-md-6">
+								<label>IBAN</label><br>GR30 0260 0980 0009 5020 1164 291
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+    </data-panel>
+
+    <data-panel ngId="financialInfo" heading="Ανάληψη Οικονομικής Ευθύνης" color="portlet-blue">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="financialApproval">Γνωρίζετε το κόστος των διδάκτρων, τροφείων και διαμονής σας στο Κολέγιο και αναλαμβάνετε την ευθύνη εξόφλησής τους στις προκαθορισμένες ημερομηνίες</label><br>
+					<pre>{{ applicationData.application.financialApproval }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="financialApproval">Γνωρίζετε το κόστος των διδάκτρων σας στο Κολέγιο και αναλαμβάνετε την ευθύνη εξόφλησής τους στις προκαθορισμένες ημερομηνίες</label><br>
+					<pre>{{ applicationData.application.financialApproval }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="selfPaid">Το παραπάνω ποσό θα καλυφθεί αποκλειστικά από δικούς σας πόρους</label>
+					<div class="form-group">
+						<pre>{{ admissionService.boolStringToString(applicationData.application.selfPaid) }}</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="sponsors">Ονοματεπώνυμα των προσώπων που αναλαμβάνουν την ευθύνη να συνεισφέρουν στην κάλυψη του παραπάνω ποσού</label>
+					<pre>{{ applicationData.application.sponsors }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="sponsorsTotal">Συνολικό ποσό που θα καλυφθεί από τα παραπάνω πρόσωπα</label>
+					<pre>{{ applicationData.application.sponsorsTotal }}</pre>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="debtApproval">Αναλαμβάνετε την ευθύνη εξόφλησης σε περίπτωση υπολοίπου</label><br>
+					<pre>{{ applicationData.application.debtApproval }}</pre>
+				</div>
+			</div>
+		</div>
+    </data-panel>
+
+    <ng-container>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+            <action-collection [actionButtons]="decisionButtons" [collectionAjax]="true"></action-collection>
+        </div>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.editApplication(applicationData.accessControl.editPath, this.userId)" color="btn-blue" icon="fa-pencil-alt" [caption]="'edit' | l" [bTooltip]="'editApplication' | l"></action-button>
+        </div>
+        <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+        </div>
+    </ng-container>
+</div>

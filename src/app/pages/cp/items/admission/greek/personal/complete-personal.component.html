@@ -1,0 +1,256 @@
+<div *ngIf="applicationData">
+    <data-panel ngId="idInfo" heading="Στοιχεία Ταυτότητας" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="firstName">Όνομα</label>
+                    <pre>{{ applicationData.application.firstName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="lastName">Επώνυμο</label>
+                    <pre>{{ applicationData.application.lastName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="birthDate">Ημερομηνία Γέννησης</label>
+                    <pre>{{ applicationData.application.birthDate }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="birthPlace">Τόπος Γέννησης</label>
+                    <pre>{{ applicationData.application.birthPlace }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <pre>{{ applicationData.application.email }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="phone">Τηλέφωνο</label>
+                    <pre>{{ applicationData.application.phone }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="occupation">Επάγγελμα</label>
+                    <pre>{{ applicationData.application.occupation }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="greekCitizen">Έλληνας Υπήκοος</label>
+                <div class="form-group">
+                    <pre>{{ admissionService.boolStringToString(applicationData.application.greekCitizen) }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="greekSsn">Αριθμός Φορολογικού Μητρώου (Α.Φ.Μ.)</label>
+                    <pre>{{ applicationData.application.greekSsn }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="irsOffice">Δημόσια Οικονομική Υπηρεσία (Δ.Ο.Υ.)</label>
+                    <pre>{{ applicationData.application.irsOffice }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="greekIdNumber">Αριθμός Δελτίου Ταυτότητας (Α.Δ.Τ.)</label>
+                    <pre>{{ applicationData.application.greekIdNumber }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="citizenship">Υπηκοότητα</label>
+                    <pre>{{ applicationData.application.citizenship }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="euCitizen">Ευρωπαίος Πολίτης</label>
+                    <pre>{{ admissionService.boolStringToString(applicationData.application.euCitizen) }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="passportNumber">Αριθμός Διαβατηρίου</label>
+                    <pre>{{ applicationData.application.passportNumber }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="residencePermit">Κάτοχος Άδειας Παραμονής</label>
+                    <pre>{{ admissionService.boolStringToString(applicationData.application.residencePermit) }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <data-panel ngId="familyInfo" heading="Στοιχεία Οικογένειας" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="form-group">
+                    <label for="familySingle">Οικογενειακή κατάσταση</label>
+                    <pre>{{ applicationData.application.familyStatus | l }}</pre>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="familySpouseFirstName">Όνομα Συζύγου</label>
+                    <pre>{{ applicationData.application.familySpouseFirstName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="familySpouseLastName">Επώνυμο Συζύγου</label>
+                    <pre>{{ applicationData.application.familySpouseLastName }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="familyKids">Έχετε Παιδιά</label>
+                    <pre>{{ admissionService.boolStringToString(applicationData.application.familyKids) }}</pre>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="familyKidsNamesAges">Ονόματα και Ηλικίες Παιδιών</label>
+                    <pre>{{ applicationData.application.familyKidsNamesAges }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <data-panel ngId="addressInfo" heading="Διεύθυνση Κατοικίας" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="address">Οδός, αριθμός</label>
+                    <pre>{{ applicationData.application.address }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="city">Πόλη</label>
+                    <pre>{{ applicationData.application.city }}</pre>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="zipCode">Τ.Κ.</label>
+                    <pre>{{ applicationData.application.zipCode }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="country">Χώρα</label>
+                    <pre>{{ applicationData.application.country }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <data-panel ngId="guardianInfo" heading="Στοιχεία Ταυτότητας Κηδεμόνα" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="guardianFirstName">Όνομα</label>
+                    <pre>{{ applicationData.application.guardianFirstName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="guardianLastName">Επώνυμο</label>
+                    <pre>{{ applicationData.application.guardianLastName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="guardianOccupation">Επάγγελμα</label>
+                    <pre>{{ applicationData.application.guardianOccupation }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="guardianEmail">Email</label>
+                    <pre>{{ applicationData.application.guardianEmail }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="guardianPhone">Τηλέφωνο</label>
+                    <pre>{{ applicationData.application.guardianPhone }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="guardianAddressSame">Μένετε με τον Κηδεμόνα σας</label>
+                    <pre>{{ admissionService.boolStringToString(applicationData.application.guardianAddressSame) }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="guardianAddress">Οδός, αριθμός (Κηδεμόνα)</label>
+                    <pre>{{ applicationData.application.guardianAddress }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="guardianCity">Πόλη</label>
+                    <pre>{{ applicationData.application.guardianCity }}</pre>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="guardianZipCode">Τ.Κ.</label>
+                    <pre>{{ applicationData.application.guardianZipCode }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="guardianCountry">Χώρα</label>
+                    <pre>{{ applicationData.application.guardianCountry }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="guardianOpinion">Περιγράψτε το πώς βλέπουν οι γονείς / κηδεμόνες σας την πρόθεσή σας να σπουδάσετε στο Ελληνικό Βιβλικό Κολέγιο</label>
+                    <pre>{{ applicationData.application.guardianOpinion }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+    <ng-container>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+            <action-collection [actionButtons]="decisionButtons" [collectionAjax]="true"></action-collection>
+        </div>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.editApplication(applicationData.accessControl.editPath, this.userId)" color="btn-blue" icon="fa-pencil-alt" [caption]="'edit' | l" [bTooltip]="'editApplication' | l"></action-button>
+        </div>
+        <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+        </div>
+    </ng-container>
+</div>

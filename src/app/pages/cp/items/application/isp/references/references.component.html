@@ -1,0 +1,167 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="portlet portlet-dark-blue">
+            <div class="portlet-heading">
+                <div class="portlet-title">
+                    <h4>Please fill out the contact information of your Pastor and of one of your teachers or professors so that we can request references.</h4>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<form *ngIf="applicationData" #form="ngForm" (change)="modelChanged = true" accept-charset="UTF-8" role="form">
+    <data-panel ngId="firstReferenceInfo" heading="Pastor's Contact Information" [color]="'portlet-' + getDecisionColor(applicationData.application[0].referenceId)">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="firstReferenceFirstName">First Name</label>
+                        <input type="text" [(ngModel)]="applicationData.application[0].firstName" id="firstReferenceFirstName" name="firstReferenceFirstName" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application[0].firstName"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="firstReferenceLastName">Last Name</label>
+                        <input type="text" [(ngModel)]="applicationData.application[0].lastName" id="firstReferenceLastName" name="firstReferenceLastName" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application[0].lastName"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="firstReferenceEmail">Email</label>
+                        <input type="text" [(ngModel)]="applicationData.application[0].email" id="firstReferenceEmail" name="firstReferenceEmail" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application[0].email"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="firstReferencePhone">Phone</label>
+                        <input type="text" [(ngModel)]="applicationData.application[0].phone" id="firstReferencePhone" name="firstReferencePhone" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application[0].phone"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="firstReferenceAddress">Address</label>
+                        <input type="text" [(ngModel)]="applicationData.application[0].address" id="firstReferenceAddress" name="firstReferenceAddress" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="firstReferenceCity">City, State / Province</label>
+                        <input type="text" [(ngModel)]="applicationData.application[0].city" id="firstReferenceCity" name="firstReferenceCity" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="firstReferenceZipCode">ZIP / Postcode</label>
+                        <input type="text" [(ngModel)]="applicationData.application[0].zipCode" id="firstReferenceZipCode" name="firstReferenceZipCode" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="firstReferenceCountry">Country</label>
+                        <select [(ngModel)]="applicationData.application[0].country" class="form-control" id="firstReferenceCountry" name="firstReferenceCountry" autocomplete="off" required><option>Afghanistan</option><option>Åland Islands</option><option>Albania</option><option>Algeria</option><option>American Samoa</option><option>Andorra</option><option>Angola</option><option>Anguilla</option><option>Antarctica</option><option>Antigua and Barbuda</option><option>Argentina</option><option>Armenia</option><option>Aruba</option><option>Australia</option><option>Austria</option><option>Azerbaijan</option><option>Bahamas</option><option>Bahrain</option><option>Bangladesh</option><option>Barbados</option><option>Belarus</option><option>Belgium</option><option>Belize</option><option>Benin</option><option>Bermuda</option><option>Bhutan</option><option>Bolivia (Plurinational State of)</option><option>Bonaire, Sint Eustatius and Saba</option><option>Bosnia and Herzegovina</option><option>Botswana</option><option>Bouvet Island</option><option>Brazil</option><option>British Indian Ocean Territory</option><option>Brunei Darussalam</option><option>Bulgaria</option><option>Burkina Faso</option><option>Burundi</option><option>Cabo Verde</option><option>Cambodia</option><option>Cameroon</option><option>Canada</option><option>Cayman Islands</option><option>Central African Republic</option><option>Chad</option><option>Chile</option><option>China</option><option>Christmas Island</option><option>Cocos (Keeling) Islands</option><option>Colombia</option><option>Comoros</option><option>Congo (Democratic Republic of)</option><option>Congo</option><option>Cook Islands</option><option>Costa Rica</option><option>Côte d’Ivoire</option><option>Croatia</option><option>Cuba</option><option>Curaçao</option><option>Cyprus</option><option>Czech Republic</option><option>Denmark</option><option>Djibouti</option><option>Dominica</option><option>Dominican Republic</option><option>Ecuador</option><option>Egypt</option><option>El Salvador</option><option>Equatorial Guinea</option><option>Eritrea</option><option>Estonia</option><option>Ethiopia</option><option>Falkland Islands [Malvinas]</option><option>Faroe Islands</option><option>Fiji</option><option>Finland</option><option>France</option><option>French Guiana</option><option>French Polynesia</option><option>French Southern Territories</option><option>Gabon</option><option>Gambia</option><option>Georgia</option><option>Germany</option><option>Ghana</option><option>Gibraltar</option><option>Greece</option><option>Greenland</option><option>Grenada</option><option>Guadeloupe</option><option>Guam</option><option>Guatemala</option><option>Guernsey</option><option>Guinea</option><option>Guinea-Bissau</option><option>Guyana</option><option>Haiti</option><option>Heard Island and McDonald Islands</option><option>Holy See</option><option>Honduras</option><option>Hong Kong</option><option>Hungary</option><option>Iceland</option><option>India</option><option>Indonesia</option><option>Iran (Islamic Republic of)</option><option>Iraq</option><option>Ireland</option><option>Isle of Man</option><option>Israel</option><option>Italy</option><option>Jamaica</option><option>Japan</option><option>Jersey</option><option>Jordan</option><option>Kazakhstan</option><option>Kenya</option><option>Kiribati</option><option>Korea (Democratic People's Republic of)</option><option>Korea (Republic of)</option><option>Kuwait</option><option>Kyrgyzstan</option><option>Lao People's Democratic Republic</option><option>Latvia</option><option>Lebanon</option><option>Lesotho</option><option>Liberia</option><option>Libya</option><option>Liechtenstein</option><option>Lithuania</option><option>Luxembourg</option><option>Macao</option><option>Macedonia (Former Yugoslav Republic of)</option><option>Madagascar</option><option>Malawi</option><option>Malaysia</option><option>Maldives</option><option>Mali</option><option>Malta</option><option>Marshall Islands</option><option>Martinique</option><option>Mauritania</option><option>Mauritius</option><option>Mayotte</option><option>Mexico</option><option>Micronesia (Federated States of)</option><option>Moldova (Republic of)</option><option>Monaco</option><option>Mongolia</option><option>Montenegro</option><option>Montserrat</option><option>Morocco</option><option>Mozambique</option><option>Myanmar</option><option>Namibia</option><option>Nauru</option><option>Nepal</option><option>Netherlands</option><option>New Caledonia</option><option>New Zealand</option><option>Nicaragua</option><option>Niger</option><option>Nigeria</option><option>Niue</option><option>Norfolk Island</option><option>Northern Mariana Islands</option><option>Norway</option><option>Oman</option><option>Pakistan</option><option>Palau</option><option>Palestine, State of</option><option>Panama</option><option>Papua New Guinea</option><option>Paraguay</option><option>Peru</option><option>Philippines</option><option>Pitcairn</option><option>Poland</option><option>Portugal</option><option>Puerto Rico</option><option>Qatar</option><option>Réunion</option><option>Romania</option><option>Russian Federation</option><option>Rwanda</option><option>Saint Barthélemy</option><option>Saint Helena, Ascension and Tristan da Cunha</option><option>Saint Kitts and Nevis</option><option>Saint Lucia</option><option>Saint Martin (French part)</option><option>Saint Pierre and Miquelon</option><option>Saint Vincent and the Grenadines</option><option>Samoa</option><option>San Marino</option><option>Sao Tome and Principe</option><option>Saudi Arabia</option><option>Senegal</option><option>Serbia</option><option>Seychelles</option><option>Sierra Leone</option><option>Singapore</option><option>Sint Maarten (Dutch part)</option><option>Slovakia</option><option>Slovenia</option><option>Solomon Islands</option><option>Somalia</option><option>South Africa</option><option>South Georgia and the South Sandwich Islands</option><option>South Sudan</option><option>Spain</option><option>Sri Lanka</option><option>Sudan</option><option>Suriname</option><option>Svalbard and Jan Mayen</option><option>Swaziland</option><option>Sweden</option><option>Switzerland</option><option>Syrian Arab Republic</option><option>Taiwan (Province of China)</option><option>Tajikistan</option><option>Tanzania, United Republic of</option><option>Thailand</option><option>Timor-Leste</option><option>Togo</option><option>Tokelau</option><option>Tonga</option><option>Trinidad and Tobago</option><option>Tunisia</option><option>Turkey</option><option>Turkmenistan</option><option>Turks and Caicos Islands</option><option>Tuvalu</option><option>Uganda</option><option>Ukraine</option><option>United Arab Emirates</option><option>United Kingdom of Great Britain and Northern Ireland</option><option>United States Minor Outlying Islands</option><option>United States of America</option><option>Uruguay</option><option>Uzbekistan</option><option>Vanuatu</option><option>Venezuela (Bolivarian Republic of)</option><option>Viet Nam</option><option>Virgin Islands (British)</option><option>Virgin Islands (U.S.)</option><option>Wallis and Futuna</option><option>Western Sahara*</option><option>Yemen</option><option>Zambia</option><option>Zimbabwe</option></select>
+                        <required-field-warning *ngIf="validate && (applicationData.application[0].country === undefined || applicationData.application[0].country === '')" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="firstReferenceInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <data-panel ngId="secondReferenceInfo" heading="Teacher or Professor's Contact Information" [color]="'portlet-' + getDecisionColor(applicationData.application[1].referenceId)" collapsed="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondReferenceFirstName">First Name</label>
+                        <input type="text" [(ngModel)]="applicationData.application[1].firstName" id="secondReferenceFirstName" name="secondReferenceFirstName" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application[1].firstName"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondReferenceLastName">Last Name</label>
+                        <input type="text" [(ngModel)]="applicationData.application[1].lastName" id="secondReferenceLastName" name="secondReferenceLastName" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application[1].lastName"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondReferenceEmail">Email</label>
+                        <input type="text" [(ngModel)]="applicationData.application[1].email" id="secondReferenceEmail" name="secondReferenceEmail" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application[1].email"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondReferencePhone">Phone</label>
+                        <input type="text" [(ngModel)]="applicationData.application[1].phone" id="secondReferencePhone" name="secondReferencePhone" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application[1].phone"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="secondReferenceAddress">Address</label>
+                        <input type="text" [(ngModel)]="applicationData.application[1].address" id="secondReferenceAddress" name="secondReferenceAddress" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondReferenceCity">City, State / Province</label>
+                        <input type="text" [(ngModel)]="applicationData.application[1].city" id="secondReferenceCity" name="secondReferenceCity" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="secondReferenceZipCode">ZIP / Postcode</label>
+                        <input type="text" [(ngModel)]="applicationData.application[1].zipCode" id="secondReferenceZipCode" name="secondReferenceZipCode" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondReferenceCountry">Country</label>
+                        <select [(ngModel)]="applicationData.application[1].country" class="form-control" id="secondReferenceCountry" name="secondReferenceCountry" autocomplete="off" required><option>Afghanistan</option><option>Åland Islands</option><option>Albania</option><option>Algeria</option><option>American Samoa</option><option>Andorra</option><option>Angola</option><option>Anguilla</option><option>Antarctica</option><option>Antigua and Barbuda</option><option>Argentina</option><option>Armenia</option><option>Aruba</option><option>Australia</option><option>Austria</option><option>Azerbaijan</option><option>Bahamas</option><option>Bahrain</option><option>Bangladesh</option><option>Barbados</option><option>Belarus</option><option>Belgium</option><option>Belize</option><option>Benin</option><option>Bermuda</option><option>Bhutan</option><option>Bolivia (Plurinational State of)</option><option>Bonaire, Sint Eustatius and Saba</option><option>Bosnia and Herzegovina</option><option>Botswana</option><option>Bouvet Island</option><option>Brazil</option><option>British Indian Ocean Territory</option><option>Brunei Darussalam</option><option>Bulgaria</option><option>Burkina Faso</option><option>Burundi</option><option>Cabo Verde</option><option>Cambodia</option><option>Cameroon</option><option>Canada</option><option>Cayman Islands</option><option>Central African Republic</option><option>Chad</option><option>Chile</option><option>China</option><option>Christmas Island</option><option>Cocos (Keeling) Islands</option><option>Colombia</option><option>Comoros</option><option>Congo (Democratic Republic of)</option><option>Congo</option><option>Cook Islands</option><option>Costa Rica</option><option>Côte d’Ivoire</option><option>Croatia</option><option>Cuba</option><option>Curaçao</option><option>Cyprus</option><option>Czech Republic</option><option>Denmark</option><option>Djibouti</option><option>Dominica</option><option>Dominican Republic</option><option>Ecuador</option><option>Egypt</option><option>El Salvador</option><option>Equatorial Guinea</option><option>Eritrea</option><option>Estonia</option><option>Ethiopia</option><option>Falkland Islands [Malvinas]</option><option>Faroe Islands</option><option>Fiji</option><option>Finland</option><option>France</option><option>French Guiana</option><option>French Polynesia</option><option>French Southern Territories</option><option>Gabon</option><option>Gambia</option><option>Georgia</option><option>Germany</option><option>Ghana</option><option>Gibraltar</option><option>Greece</option><option>Greenland</option><option>Grenada</option><option>Guadeloupe</option><option>Guam</option><option>Guatemala</option><option>Guernsey</option><option>Guinea</option><option>Guinea-Bissau</option><option>Guyana</option><option>Haiti</option><option>Heard Island and McDonald Islands</option><option>Holy See</option><option>Honduras</option><option>Hong Kong</option><option>Hungary</option><option>Iceland</option><option>India</option><option>Indonesia</option><option>Iran (Islamic Republic of)</option><option>Iraq</option><option>Ireland</option><option>Isle of Man</option><option>Israel</option><option>Italy</option><option>Jamaica</option><option>Japan</option><option>Jersey</option><option>Jordan</option><option>Kazakhstan</option><option>Kenya</option><option>Kiribati</option><option>Korea (Democratic People's Republic of)</option><option>Korea (Republic of)</option><option>Kuwait</option><option>Kyrgyzstan</option><option>Lao People's Democratic Republic</option><option>Latvia</option><option>Lebanon</option><option>Lesotho</option><option>Liberia</option><option>Libya</option><option>Liechtenstein</option><option>Lithuania</option><option>Luxembourg</option><option>Macao</option><option>Macedonia (Former Yugoslav Republic of)</option><option>Madagascar</option><option>Malawi</option><option>Malaysia</option><option>Maldives</option><option>Mali</option><option>Malta</option><option>Marshall Islands</option><option>Martinique</option><option>Mauritania</option><option>Mauritius</option><option>Mayotte</option><option>Mexico</option><option>Micronesia (Federated States of)</option><option>Moldova (Republic of)</option><option>Monaco</option><option>Mongolia</option><option>Montenegro</option><option>Montserrat</option><option>Morocco</option><option>Mozambique</option><option>Myanmar</option><option>Namibia</option><option>Nauru</option><option>Nepal</option><option>Netherlands</option><option>New Caledonia</option><option>New Zealand</option><option>Nicaragua</option><option>Niger</option><option>Nigeria</option><option>Niue</option><option>Norfolk Island</option><option>Northern Mariana Islands</option><option>Norway</option><option>Oman</option><option>Pakistan</option><option>Palau</option><option>Palestine, State of</option><option>Panama</option><option>Papua New Guinea</option><option>Paraguay</option><option>Peru</option><option>Philippines</option><option>Pitcairn</option><option>Poland</option><option>Portugal</option><option>Puerto Rico</option><option>Qatar</option><option>Réunion</option><option>Romania</option><option>Russian Federation</option><option>Rwanda</option><option>Saint Barthélemy</option><option>Saint Helena, Ascension and Tristan da Cunha</option><option>Saint Kitts and Nevis</option><option>Saint Lucia</option><option>Saint Martin (French part)</option><option>Saint Pierre and Miquelon</option><option>Saint Vincent and the Grenadines</option><option>Samoa</option><option>San Marino</option><option>Sao Tome and Principe</option><option>Saudi Arabia</option><option>Senegal</option><option>Serbia</option><option>Seychelles</option><option>Sierra Leone</option><option>Singapore</option><option>Sint Maarten (Dutch part)</option><option>Slovakia</option><option>Slovenia</option><option>Solomon Islands</option><option>Somalia</option><option>South Africa</option><option>South Georgia and the South Sandwich Islands</option><option>South Sudan</option><option>Spain</option><option>Sri Lanka</option><option>Sudan</option><option>Suriname</option><option>Svalbard and Jan Mayen</option><option>Swaziland</option><option>Sweden</option><option>Switzerland</option><option>Syrian Arab Republic</option><option>Taiwan (Province of China)</option><option>Tajikistan</option><option>Tanzania, United Republic of</option><option>Thailand</option><option>Timor-Leste</option><option>Togo</option><option>Tokelau</option><option>Tonga</option><option>Trinidad and Tobago</option><option>Tunisia</option><option>Turkey</option><option>Turkmenistan</option><option>Turks and Caicos Islands</option><option>Tuvalu</option><option>Uganda</option><option>Ukraine</option><option>United Arab Emirates</option><option>United Kingdom of Great Britain and Northern Ireland</option><option>United States Minor Outlying Islands</option><option>United States of America</option><option>Uruguay</option><option>Uzbekistan</option><option>Vanuatu</option><option>Venezuela (Bolivarian Republic of)</option><option>Viet Nam</option><option>Virgin Islands (British)</option><option>Virgin Islands (U.S.)</option><option>Wallis and Futuna</option><option>Western Sahara*</option><option>Yemen</option><option>Zambia</option><option>Zimbabwe</option></select>
+                        <required-field-warning *ngIf="validate && (applicationData.application[1].country === undefined || applicationData.application[1].country === '')" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="secondReferenceInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <div *ngIf="!unsavedChanges(); else isNotSaved" class="row">
+        <ng-container *ngIf="form.valid; else isNotValid">
+            <div class="col-md-2 col-md-offset-5 extraBottomPadding">
+                <button class="btn btn-green btn-block" type="button" (click)="submitForm()" [disabled]="formLoading || !form.valid">{{ 'submit' | l }}</button>
+            </div>
+        </ng-container>
+        <ng-template #isNotValid>
+            <div class="col-md-4 col-md-offset-4 extraBottomPadding">
+                <button class="btn btn-green btn-block" type="button" (click)="checkForm()" [disabled]="formLoading">{{ 'validate' | l }}</button>
+            </div>
+        </ng-template>
+    </div>
+    <ng-template #isNotSaved>
+        <div class="alert alert-danger text-center extraBottomPadding">{{ 'pleaseSaveChanges' | l }}</div>
+    </ng-template>
+    <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+        <action-button (click)="applicationService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+    </div>
+</form>

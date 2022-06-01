@@ -1,0 +1,5 @@
+<ng-container *ngIf="userData">
+    <circle-tile *ngIf="userData.noUserApplications" color="blue" [iconData]="{fa: 'fa-edit', path: '/cp/admission/applications/' + userData.id}" heading="Αιτήσεις" [footerLinks]="[{path: '/cp/admission/applications/' + userData.id, text: 'Προβολή'}]">{{ userData.noUserApplications }}</circle-tile>
+    <circle-tile *ngIf="userData.hasOwnProperty('noUserFiles')" color="blue" [iconData]="{fa: 'fa-file', path: '/cp/system/users/files/' + userData.id}" heading="Αρχεία" [footerLinks]="[{path: '/cp/system/users/files/' + userData.id, text: 'Προβολή'}]">{{ userData.noUserFiles || 0 }}</circle-tile>
+    <!-- <user-profile *ngIf="userProfile" [userProfile]="userProfile"></user-profile> -->
+</ng-container>

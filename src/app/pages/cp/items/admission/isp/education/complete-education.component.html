@@ -1,0 +1,245 @@
+<div *ngIf="applicationData">
+    <data-panel ngId="primarySecondaryEducationInfo" heading="Secondary Education" color="portlet-blue">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="secondarySchoolName">High School Name</label>
+					<pre>{{ applicationData.application.secondarySchoolName }}</pre>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="secondarySchoolGraduationYear">Graduation Year</label>
+					<pre>{{ applicationData.application.secondarySchoolGraduationYear }}</pre>
+				</div>
+			</div>
+		</div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="secondarySchoolAddress">High School Address</label>
+                    <pre>{{ applicationData.application.secondarySchoolAddress }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="city">City, State / Province</label>
+                    <pre>{{ applicationData.application.secondarySchoolCity }}</pre>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="zipCode">ZIP / Postcode</label>
+                    <pre>{{ applicationData.application.secondarySchoolZipCode }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <pre>{{ applicationData.application.secondarySchoolCountry }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="englishHighSchool">Did you complete your High School education in English?</label><br>
+                        <pre>{{ admissionService.boolStringToString(applicationData.application.englishHighSchool) }}</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="englishCertificate">Do you have an English Language Certificate? (TOEFL / IELTS)</label><br>
+                        <pre>{{ admissionService.boolStringToString(applicationData.application.englishCertificate) }}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <data-panel ngId="higherEducationInfo" heading="Higher Education" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="communityCollegeName">Junior / Community College Name</label>
+                    <pre>{{ applicationData.application.communityCollegeName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="communityCollegeDatesAttended">Dates Attended</label>
+                    <pre>{{ applicationData.application.communityCollegeDatesAttended }}</pre>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="communityCollegeDiscipline">Discipline</label>
+                    <pre>{{ applicationData.application.communityCollegeDiscipline }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="communityCollegeAddress">Junior / Community College Address</label>
+                    <pre>{{ applicationData.application.communityCollegeAddress }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="city">City, State / Province</label>
+                    <pre>{{ applicationData.application.communityCollegeCity }}</pre>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="zipCode">ZIP / Postcode</label>
+                    <pre>{{ applicationData.application.communityCollegeZipCode }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <pre>{{ applicationData.application.communityCollegeCountry }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="collegeName">College / University Name</label>
+                    <pre>{{ applicationData.application.collegeName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="collegeDatesAttended">Dates Attended</label>
+                    <pre>{{ applicationData.application.collegeDatesAttended }}</pre>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="collegeDiscipline">Discipline</label>
+                    <pre>{{ applicationData.application.collegeDiscipline }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="collegeAddress">College / University Address</label>
+                    <pre>{{ applicationData.application.collegeAddress }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="city">City, State / Province</label>
+                    <pre>{{ applicationData.application.collegeCity }}</pre>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="zipCode">ZIP / Postcode</label>
+                    <pre>{{ applicationData.application.collegeZipCode }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <pre>{{ applicationData.application.collegeCountry }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="graduateSchoolName">Graduate School Name</label>
+                    <pre>{{ applicationData.application.graduateSchoolName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="graduateSchoolDatesAttended">Dates Attended</label>
+                    <pre>{{ applicationData.application.graduateSchoolDatesAttended }}</pre>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="graduateSchoolDiscipline">Discipline</label>
+                    <pre>{{ applicationData.application.graduateSchoolDiscipline }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="graduateSchoolAddress">Graduate School Address</label>
+                    <pre>{{ applicationData.application.graduateSchoolAddress }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="city">City, State / Province</label>
+                    <pre>{{ applicationData.application.graduateSchoolCity }}</pre>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="zipCode">ZIP / Postcode</label>
+                    <pre>{{ applicationData.application.graduateSchoolZipCode }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <pre>{{ applicationData.application.graduateSchoolCountry }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <data-panel ngId="additionalInfo" heading="Additional Information" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="dismissed">Have you ever been dismissed from any school for academic or disciplinary reasons?</label><br>
+					<pre>{{ admissionService.boolStringToString(applicationData.application.dismissed) }}</pre>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="dismissedDetails">Please give more information regarding the reasons you were dismissed</label>
+					<pre>{{ applicationData.application.dismissedDetails }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="honors">Have you ever received any academic honors or rewards?</label><br>
+					<pre>{{ admissionService.boolStringToString(applicationData.application.honors) }}</pre>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="honorsDetails">Please list the academic honors or rewards that you have received</label>
+					<pre>{{ applicationData.application.honorsDetails }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+    <ng-container>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+            <action-collection [actionButtons]="decisionButtons" [collectionAjax]="true"></action-collection>
+        </div>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.editApplication(applicationData.accessControl.editPath, this.userId)" color="btn-blue" icon="fa-pencil-alt" [caption]="'edit' | l" [bTooltip]="'editApplication' | l"></action-button>
+        </div>
+        <div *authIf="['admin', 'registrar', 'admissions']" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+        </div>
+    </ng-container>
+</div>

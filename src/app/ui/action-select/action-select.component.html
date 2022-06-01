@@ -1,0 +1,9 @@
+<ng-container *ngIf="editing ; else readonly">
+    <select [ngModel]="selectedOption" class="form-control" (change)="saveOption($event)" (blur)="saveOption($event)" autofocus>
+        <option value="0">{{ defaultOptionText }}</option>
+        <option *ngFor="let option of options" [value]="option.id">{{ option[optionTextPropertyName] }}</option>
+    </select>
+</ng-container>
+<ng-template #readonly>
+    <div (click)="enableEditing()" class="action-control"><ng-content></ng-content></div>
+</ng-template>

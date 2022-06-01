@@ -1,0 +1,189 @@
+<form *ngIf="applicationData" #form="ngForm" (change)="modelChanged = true" accept-charset="UTF-8" role="form">
+    <data-panel ngId="drugsUseInfo" heading="Drugs use" color="portlet-blue">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="drugsUse">Do you or have you ever used drugs?</label><br>
+                        <label for="drugsUse" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.drugsUse" id="drugsUse" name="drugsUse" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                        <label for="noDrugsUse" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.drugsUse" id="noDrugsUse" name="drugsUse" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                        <required-field-warning *ngIf="validate && applicationData.application.drugsUse === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+                <div *ngIf="applicationData.application.drugsUse === '1'" class="col-md-6">
+                    <div class="form-group">
+                        <label for="drugsUseDetails">Please give more information regarding drug use</label>
+                        <textarea [(ngModel)]="applicationData.application.drugsUseDetails" id="drugsUseDetails" name="drugsUseDetails" class="form-control" rows="3" autocomplete="off" required autofocus></textarea>
+                        <required-field-warning *ngIf="validate && !applicationData.application.drugsUseDetails"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="drugsUseInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <data-panel ngId="currentHealthInfo" heading="Current health status" color="portlet-blue" collapsed="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="currentDiseases">Do you currently suffer from any diseases that the college should know about?</label><br>
+                        <label for="currentDiseases" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.currentDiseases" id="currentDiseases" name="currentDiseases" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                        <label for="noCurrentDiseases" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.currentDiseases" id="noCurrentDiseases" name="currentDiseases" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                        <required-field-warning *ngIf="validate && applicationData.application.currentDiseases === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+                <div *ngIf="applicationData.application.currentDiseases === '1'" class="col-md-6">
+                    <div class="form-group">
+                        <label for="currentDiseasesDetails">Please give more information</label>
+                        <textarea [(ngModel)]="applicationData.application.currentDiseasesDetails" id="currentDiseasesDetails" name="currentDiseasesDetails" class="form-control" rows="2" autocomplete="off" required autofocus></textarea>
+                        <required-field-warning *ngIf="validate && !applicationData.application.currentDiseasesDetails"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="currentSymptoms">Do you currently experience or have any symptoms that the college should know about?</label><br>
+                        <label for="currentSymptoms" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.currentSymptoms" id="currentSymptoms" name="currentSymptoms" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                        <label for="noCurrentSymptoms" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.currentSymptoms" id="noCurrentSymptoms" name="currentSymptoms" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                        <required-field-warning *ngIf="validate && applicationData.application.currentSymptoms === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+                <div *ngIf="applicationData.application.currentSymptoms === '1'" class="col-md-6">
+                    <div class="form-group">
+                        <label for="currentSymptomsDetails">Please give more information</label>
+                        <textarea [(ngModel)]="applicationData.application.currentSymptomsDetails" id="currentSymptomsDetails" name="currentSymptomsDetails" class="form-control" rows="2" autocomplete="off" required autofocus></textarea>
+                        <required-field-warning *ngIf="validate && !applicationData.application.currentSymptomsDetails"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="currentMedicines">Do you currently take any prescription drugs that the college should know about?</label><br>
+                        <label for="currentMedicines" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.currentMedicines" id="currentMedicines" name="currentMedicines" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                        <label for="noCurrentMedicines" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.currentMedicines" id="noCurrentMedicines" name="currentMedicines" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                        <required-field-warning *ngIf="validate && applicationData.application.currentMedicines === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+                <div *ngIf="applicationData.application.currentMedicines === '1'" class="col-md-6">
+                    <div class="form-group">
+                        <label for="currentMedicinesDetails">Please give more information</label>
+                        <textarea [(ngModel)]="applicationData.application.currentMedicinesDetails" id="currentMedicinesDetails" name="currentMedicinesDetails" class="form-control" rows="2" autocomplete="off" required autofocus></textarea>
+                        <required-field-warning *ngIf="validate && !applicationData.application.currentMedicinesDetails"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="foodAllergy">Do you have any food allergies?</label><br>
+                        <label for="foodAllergy" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.foodAllergy" id="foodAllergy" name="foodAllergy" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                        <label for="noFoodAllergy" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.foodAllergy" id="noFoodAllergy" name="foodAllergy" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                        <required-field-warning *ngIf="validate && applicationData.application.foodAllergy === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+                <div *ngIf="applicationData.application.foodAllergy === '1'" class="col-md-6">
+                    <div class="form-group">
+                        <label for="foodAllergyDetails">Please give more information</label>
+                        <textarea [(ngModel)]="applicationData.application.foodAllergyDetails" id="foodAllergyDetails" name="foodAllergyDetails" class="form-control" rows="2" autocomplete="off" required autofocus></textarea>
+                        <required-field-warning *ngIf="validate && !applicationData.application.foodAllergyDetails"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="currentHealthInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <data-panel ngId="emergencyContactsInfo" heading="Emergency contacts" color="portlet-blue" collapsed="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="firstEmergencyContactFirstName">First Contact's First Name</label>
+                        <input type="text" [(ngModel)]="applicationData.application.firstEmergencyContactFirstName" id="firstEmergencyContactFirstName" name="firstEmergencyContactFirstName" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.firstEmergencyContactFirstName"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="firstEmergencyContactLastName">Last Name</label>
+                        <input type="text" [(ngModel)]="applicationData.application.firstEmergencyContactLastName" id="firstEmergencyContactLastName" name="firstEmergencyContactLastName" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.firstEmergencyContactLastName"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="firstEmergencyContactPhone">Phone</label>
+                        <input type="text" [(ngModel)]="applicationData.application.firstEmergencyContactPhone" id="firstEmergencyContactPhone" name="firstEmergencyContactPhone" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.firstEmergencyContactPhone"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="secondEmergencyContactFirstName">Second Contact's First Name</label>
+                        <input type="text" [(ngModel)]="applicationData.application.secondEmergencyContactFirstName" id="secondEmergencyContactFirstName" name="secondEmergencyContactFirstName" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.secondEmergencyContactFirstName"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="secondEmergencyContactLastName">Last Name</label>
+                        <input type="text" [(ngModel)]="applicationData.application.secondEmergencyContactLastName" id="secondEmergencyContactLastName" name="secondEmergencyContactLastName" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.secondEmergencyContactLastName"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="secondEmergencyContactPhone">Phone</label>
+                        <input type="text" [(ngModel)]="applicationData.application.secondEmergencyContactPhone" id="secondEmergencyContactPhone" name="secondEmergencyContactPhone" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.secondEmergencyContactPhone"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="otherDoctorContactApproval">In the event that I require emergency medical care, I hereby give my consent to medical treatment on my expense</label><br>
+                        <label for="otherDoctorContactApproval" class="checkbox-inline"><input type="checkbox" [(ngModel)]="applicationData.application.otherDoctorContactApproval" id="otherDoctorContactApproval" name="otherDoctorContactApproval" autocomplete="off" required>&nbsp;{{ 'yes' | l }}</label>
+                        <required-field-warning *ngIf="validate && !applicationData.application.otherDoctorContactApproval" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="emergencyContactsInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+    <div *ngIf="!unsavedChanges(); else isNotSaved" class="row">
+        <ng-container *ngIf="form.valid; else isNotValid">
+            <div class="col-md-2 col-md-offset-5 extraBottomPadding">
+                <button class="btn btn-green btn-block" type="button" (click)="submitForm()" [disabled]="formLoading || !form.valid">{{ 'submit' | l }}</button>
+            </div>
+        </ng-container>
+        <ng-template #isNotValid>
+            <div class="col-md-4 col-md-offset-4 extraBottomPadding">
+                <button class="btn btn-green btn-block" type="button" (click)="checkForm()" [disabled]="formLoading">{{ 'validate' | l }}</button>
+            </div>
+        </ng-template>
+    </div>
+    <ng-template #isNotSaved>
+        <div class="alert alert-danger text-center extraBottomPadding">{{ 'pleaseSaveChanges' | l }}</div>
+    </ng-template>
+    <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+        <action-button (click)="applicationService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+    </div>
+</form>

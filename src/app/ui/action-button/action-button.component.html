@@ -1,0 +1,21 @@
+<ng-container *ngIf="!hidden">
+    <a *ngIf="ajax.state !== 'pending'; else ajaxPending" class="btn"
+        (click)="onClick($event)"
+        [ngClass]="color"
+        [tooltip]="tooltip ? tooltipTemplate || fromActionCollectionTooltip : null"
+        [attr.disabled]="disabled ? 'disabled' : null">
+        <i *ngIf="icon" class="fa-fw" [ngClass]="[iconClass, icon]"></i> {{ caption }}
+    </a>
+    <ng-template #ajaxPending>
+        <a class="btn"
+            [ngClass]="color"
+            [tooltip]="tooltip ? tooltipTemplate || fromActionCollectionTooltip : null"
+            disabled="disabled">
+            <i *ngIf="icon" class="fa-fw fa-spin" [ngClass]="[iconClass, 'fa-circle-notch']"></i> {{ caption }}
+        </a>
+    </ng-template>
+</ng-container>
+
+<ng-template #tooltipTemplate>
+    <div [innerHTML]="tooltip"></div>
+</ng-template>

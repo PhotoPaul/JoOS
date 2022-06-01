@@ -1,0 +1,28 @@
+<div class="text-right">
+    <action-button (click)="cancelScheduleItemInput()" [icon]="'fa-times fa-2x'" [bTooltip]="'cancel' | l"></action-button>
+</div>
+<data-panel ngId="scheduleItemInput" [heading]="(scheduleItemInputModel.id ? ('edit' | l) : ('add' | l)) + ('sChapelEvent' | l)" color="portlet-green">
+    <form #form="ngForm" accept-charset="UTF-8" role="form">
+        <div class="row">
+            <div class="col-md-4">
+                <date-input [date]="scheduleItemInputModel.dateTime" (onChange)="scheduleItemUpdateDateModel($event)"></date-input>
+            </div>
+            <div class="col-md-4">
+                <select [(ngModel)]="scheduleItemInputModel.categoryId" id="accountTemplateItem" name="accountTemplateItem" class="form-control" required autofocus>
+                    <option *ngFor="let category of categories" [value]="category.id">{{ category.description }}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="text" [(ngModel)]="scheduleItemInputModel.description" id="description" name="description" class="form-control" [placeholder]="'chapelDescription' | l">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 center-table"><br />
+                <time-input [time]="scheduleItemInputModel.dateTime" (onChange)="scheduleItemUpdateTimeModel($event)"></time-input>
+            </div>
+            <div class="col-md-8 center"><br />
+                <action-vote [handler]="scheduleItemInputSubmit" [data]="{ parent: this, vote: scheduleItemInputModel.status }" [yesCaption]="'confirmed' | l" [noCaption]="'notConfirmed' | l" noColor="btn-orange"></action-vote>
+            </div>
+        </div>
+    </form>
+</data-panel>

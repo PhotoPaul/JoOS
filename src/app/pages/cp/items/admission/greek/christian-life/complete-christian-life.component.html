@@ -1,0 +1,72 @@
+<div *ngIf="applicationData">
+    <data-panel ngId="churchMinistryInfo" heading="Εκκλησία & Διακονία" color="portlet-blue">
+		<div class="row">
+			<div class="col-md-5">
+				<div class="form-group">
+					<label for="churchName">Όνομα Εκκλησίας που εκκλησιάζεσαι</label>
+					<pre>{{ applicationData.application.churchName }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					<label for="churchMember">Είσαι μέλος</label>
+					<div class="form-group">
+						<pre>{{ admissionService.boolStringToString(applicationData.application.churchMember) }}</pre>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label for="churchMemberHowLong">Πόσο καιρό</label>
+					<pre>{{ applicationData.application.churchMemberHowLong }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="ministryTalent">Προς ποια Χριστιανική υπηρεσία πιστεύεις ότι έχεις κλίση</label>
+					<pre>{{ applicationData.application.ministryTalent }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="ministryExperience">Σε ποιους τομείς του Χριστιανικού έργου έχεις εργαστεί</label>
+					<pre>{{ applicationData.application.ministryExperience }}</pre>
+				</div>
+			</div>
+		</div>
+    </data-panel>
+
+    <data-panel ngId="testimonyInfo" heading="Ομολογία Πίστεως" color="portlet-blue">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="testimony">Περιγράψτε με απλά λόγια τη Χριστιανική σας πίστη, διατυπώνοντας τις συνθήκες και τους παράγοντες που σας οδήγησαν σ' αυτήν, καθώς και στην επιθυμία σας να εμβαθύνετε σ' αυτήν (150 - 250 λέξεις)</label>
+					<pre>{{ applicationData.application.testimony }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="statementOfFaithApproval">Έχετε διαβάσει και αποδέχεστε την <a href="https://www.grbc.gr/who-we-are/statement-of-faith/" target="_new">Ομολογία Πίστης του Ελληνικού Βιβλικού Κολεγίου <i class="fas fa-info-circle" aria-hidden="true"></i></a></label><br>
+					<pre>{{ applicationData.application.statementOfFaithApproval }}</pre>
+				</div>
+			</div>
+		</div>
+    </data-panel>
+    <ng-container>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+            <action-collection [actionButtons]="decisionButtons" [collectionAjax]="true"></action-collection>
+        </div>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.editApplication(applicationData.accessControl.editPath, this.userId)" color="btn-blue" icon="fa-pencil-alt" [caption]="'edit' | l" [bTooltip]="'editApplication' | l"></action-button>
+        </div>
+        <div *authIf="['admin', 'registrar', 'admissions']" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+        </div>
+    </ng-container>
+</div>

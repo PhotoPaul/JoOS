@@ -1,0 +1,69 @@
+<course-input (courseNewClicked)="courseNewClicked()" (courseModelChange)="updateCourse($event)" [courseModel]="courseModel" [programId]="filter.programId" [courses]="courses" [courseCategories]="courseCategories"></course-input>
+<data-panel ngId="courses" heading="{{ 'programCourses' | l }}{{ courses?.length?': '+courses?.length:''}}" color="portlet-blue">
+    <div class="row">
+        <div class="col-md-9">
+            <data-filter #dataFilter></data-filter>
+        </div>
+        <div class="col-md-3">
+            <select [(ngModel)]="filter.active" (ngModelChange)="fetchCoursesData()" name="activeFilter" class="form-control">
+                <option value="1">{{ 'activeCourses' | l }}</option>
+                <option value="0">{{ 'inactiveCourses' | l }}</option>
+                <option>{{ 'allCourses' | l }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">{{ 'code' | l }}</th>
+                    <th style="width: 100%">{{ 'title' | l }}</th>
+                    <th class="text-center">{{ 'year' | l }}</th>
+                    <th class="text-center">{{ 'semester' | l }}</th>
+                    <th class="text-center">{{ 'activeStudents' | l }}</th>
+                    <th class="text-center">{{ 'credits' | l }}</th>
+                    <th class="text-center">{{ 'ectsCredits' | l }}</th>
+                    <th class="text-center">{{ 'requirements' | l }}</th>
+                    <th class="text-center">{{ 'graduationRequirement' | l }}</th>
+                    <th class="text-center">{{ 'actions' | l }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="!courses"><td colspan="10" class="text-center"><loading></loading></td></tr>
+                <ng-container *ngFor="let course of courses | filterByString:['code_en','name_en','code_gr','name_gr','code']:dataFilter.filter">
+                    <tr>
+                        <td class="text-center">
+                            <span class="badge" [ngClass]="{ 'green': course.active === '1' }">
+                                {{ 'code' | l:course }} {{ course.code }}
+                            </span>
+                            <div *ngFor="let fraction of course.fractions">
+                                <span class="label blue">
+                                    {{ fraction.fractionLabel }}
+                                </span>
+                            </div>
+                        </td>
+                        <td>{{ 'name' | l:course }}</td>
+                        <td class="text-center">{{ course.year }}</td>
+                        <td class="text-center">{{ course.semester }}</td>
+                        <td class="text-center">{{ course.no_enrolled_students || 0 }}</td>
+                        <td class="text-center">{{ course.credits }}</td>
+                        <td class="text-center">{{ course.ects_credits }}</td>
+                        <td class="text-center">
+                            <div *ngFor="let prerequisite of course.prerequisites">
+                                <span class="badge" [ngClass]="{ 'green': prerequisite.prerequisiteCourseActive === '1' }" [tooltip]="'prerequisiteCourseName' | l:prerequisite">
+                                    {{ 'prerequisiteCourseCode' | l:prerequisite }} {{ prerequisite.prerequisiteCourseCode }}
+                                </span>
+                            </div>
+                        </td>
+                        <td class="text-center">{{ course.required === '1' ? ('yes' | l) : '' }}</td>
+                        <td class="text-center text-nowrap">
+                            <action-button (click)="courseRegistryClicked(course.id)" [color]="'btn-blue'" [icon]="'fa-users'" [bTooltip]="'courseRegistry' | l"></action-button>
+                            <action-button *ngIf="course.moodle_id" (click)="courseMoodleClicked(course.moodle_id)" [color]="'btn-blue'" [icon]="'fa-link'" [bTooltip]="'showOnMoodle' | l" [ajax]="false"></action-button>
+                            <action-button *authIf="['admin', 'registrar']" (click)="courseEditClicked(course)" [color]="'btn-blue'" [icon]="'fa-pencil-alt'" [bTooltip]="'editCourse' | l" [ajax]="false"></action-button>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</data-panel>

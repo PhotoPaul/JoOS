@@ -1,0 +1,83 @@
+<div *ngIf="!advisorAddInputVisible ; else advisorAddVisible" class="text-right">
+    <action-button (click)="newAdvisorClicked()" [icon]="'fa-user-plus fa-2x'" [bTooltip]="'addAdvisor' | l"></action-button>
+</div>
+<ng-template #advisorAddVisible>
+    <div class="text-right">
+        <action-button (click)="advisorAddInputVisible = false" [icon]="'fa-user-times fa-2x'" [bTooltip]="'cancel' | l"></action-button>
+    </div>
+    <data-panel ngId="addAdvisor" [heading]="'addAdvisor' | l" color="portlet-green">
+        <div class="row">
+            <form (ngSubmit)="onSubmit()" #form="ngForm" id="form-register-candidate-account" accept-charset="UTF-8" role="form">
+                <div style="line-height: 32px" class="col-md-4 text-right">{{ 'nonAdvisors' | l }}</div>
+                <div class="col-md-4">
+                    <select id="nonAdvisor" name="nonAdvisor" class="form-control" required [(ngModel)]="nonAdvisorModel">
+                        <option [ngValue]="undefined">{{ 'pleaseSelect' | l }}
+                        <option *ngFor="let nonAdvisor of nonAdvisors" [ngValue]="nonAdvisor">
+                            {{ '' | fName:nonAdvisor.advisorLastName:nonAdvisor.advisorFirstName }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-green btn-block" [disabled]="!form.form.valid">
+                        {{ 'add' | l }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </data-panel>
+</ng-template>
+<data-panel ngId="advisors" heading="{{ 'advisors' | l }}{{ advisors.length ? ': ' + advisors.length : ''}}" color="portlet-blue">
+    <data-filter #dataFilter></data-filter>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="text-center">{{ 'advisor' | l }}</th>
+                <th class="text-center">{{ 'advisees' | l }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="!advisors.length"><td colspan="7" class="text-center"><loading *ngIf="!advisors.length"></loading></td></tr>
+            <tr *ngFor="let advisor of advisors | filterByString:['advisorFirstName','advisorLastName']:dataFilter.filter">
+                <td style="vertical-align: middle" class="text-center">
+                    <img-thumbnail [userId]="advisor.advisorId" [src]="advisor.advisorPhotoURI" maxHeight="180"></img-thumbnail>
+                    <p></p>
+                    <h3><p>{{ '' | fName:advisor.advisorLastName:advisor.advisorFirstName }}</p></h3>
+                    <p><action-button (specialClick)="removeAdvisorClicked(advisor.advisorId, $event.actionButtonComponent)" color="btn-red" icon="fa-user-times" [bTooltip]="'delete' | l"></action-button></p>
+                </td>
+                <td>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr *ngIf="advisor.advisees?.length">
+                            <th class="text-center">{{ 'photo' | l }}</th>
+                            <th>{{ 'fullName' | l }}</th>
+                            <th class="text-center">{{ 'actions' | l }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let advisee of advisor.advisees">
+                                <td class="text-center"><img-thumbnail [userId]="advisee.adviseeId" [src]="advisee.adviseePhotoURI" maxHeight="34"></img-thumbnail></td>
+                                <td style="width: 100%">{{ '' | fName:advisee.adviseeLastName:advisee.adviseeFirstName }}</td>
+                                <td class="text-center"><action-button (click)="removeAdviseeClicked(advisee.adviseeId)" color="btn-red" icon="fa-user-times" [bTooltip]="'delete' | l"></action-button></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-center">
+                                    <action-button *ngIf="!advisor.newAdviseeAdvisorId ; else newAdviseeSelect" (click)="newAdviseeClicked(advisor)" color="btn-green" icon="fa-user-plus" [bTooltip]="'add' | l"></action-button>
+                                    <ng-template #newAdviseeSelect>
+                                        <select id="nonAdvisee" name="nonAdvisee" class="form-control" [ngModel]="nonAdviseeModel" (ngModelChange)="newAdviseeSelected($event, advisor)">
+                                            <option [ngValue]="undefined">{{ 'pleaseSelect' | l }}
+                                            <option *ngFor="let nonAdvisee of nonAdvisees" [ngValue]="nonAdvisee">
+                                                {{ '' | fName:nonAdvisee.adviseeLastName:nonAdvisee.adviseeFirstName }}
+                                            </option>
+                                        </select>
+                                    </ng-template>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</data-panel> 

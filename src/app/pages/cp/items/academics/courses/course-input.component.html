@@ -1,0 +1,170 @@
+<ng-container *authIf="['admin', 'registrar']">
+    <div *ngIf="!courseModel ; else cancelTemplate" class="text-right">
+        <action-button (click)="createOpenCourseInput()" [icon]="'fa-plus fa-2x'" [bTooltip]="'newCourse' | l"></action-button>
+    </div>
+    <ng-template #cancelTemplate>
+        <div class="text-right">
+            <action-button (click)="courseModel = undefined" [icon]="'fa-times fa-2x'" [bTooltip]="'cancel' | l"></action-button>
+        </div>
+    </ng-template>
+</ng-container>
+<data-panel *ngIf="courseModel" ngId="courseInput" [heading]="courseModel.id ? ('editCourse' | l) : ('newCourse' | l)" color="portlet-green">
+    <form (ngSubmit)="courseInputSubmit()" #form="ngForm" accept-charset="UTF-8" role="form">
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <label>{{ 'code' | l }}</label><br>
+                <div style="display: flex">
+                    <select [(ngModel)]="courseModel.category_id" name="category_id" class="form-control" style="width: 86px" required autofocus>
+                        <option *ngFor="let category of courseCategories" [value]="category.id">{{ 'code' | l:category }}</option>
+                    </select>
+                    <input type="text" [(ngModel)]="courseModel.code" name="code" class="form-control" maxlength="4" autocomplete="off" required>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label>{{ 'titleGr' | l }}</label><br>
+                <input type="text" [(ngModel)]="courseModel.name_gr" (ngModelChange)="titleMoodleVisible = true" name="name_gr" class="form-control" autocomplete="off" required>
+            </div>
+            <div class="col-md-3">
+                <label>{{ 'titleEn' | l }}</label><br>
+                <input type="text" [(ngModel)]="courseModel.name_en" (ngModelChange)="titleMoodleVisible = true" name="name_en" class="form-control" autocomplete="off" required>
+            </div>
+            <ng-container *ngIf="!courseModel.addToMoodle">
+                <div class="col-md-2">
+                    <label>{{ 'addToMoodle' | l }}</label><br>
+                    <label for="addToMoodle" class="radio-inline"><input type="radio" [(ngModel)]="courseModel.addToMoodle" id="addToMoodle" name="addToMoodle" [value]="true" required>&nbsp;{{ 'yes' | l }}</label>
+                    <label for="doNotAddToMoodle" class="radio-inline"><input type="radio" [(ngModel)]="courseModel.addToMoodle" id="doNotAddToMoodle" name="addToMoodle" [value]="false" required>&nbsp;{{ 'no' | l }}</label>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="courseModel.addToMoodle">
+                <div class="col-md-2">
+                    <label>{{ 'category' | l }} (Moodle)</label><br>
+                    <select [(ngModel)]="courseModel.moodle_category_id" (ngModelChange)="moodleCategoryOnSelect($event)" name="moodle_category_id" class="form-control" required>
+                        <option [value]="null" disabled hidden>{{ 'selectCategory' | l }}</option>
+                        <option *ngFor="let moodleCategory of moodleCourseCategoriesData" [value]="'' + moodleCategory.id">{{ moodleCategory.parent !== 0 ? '&#9495; ' : '' }}{{ moodleCategory.name }}</option>
+                        <option disabled="disabled">──────────</option>
+                        <option [ngValue]="false">{{ 'cancel' |l }}</option>
+                    </select>
+                </div>
+                <div *ngIf="titleMoodleVisible" class="col-md-2 text-center">
+                    <label>{{ 'title' | l }} (Moodle)</label><br>
+                    <label for="moodleTitleGr" class="radio-inline"><input type="radio" [(ngModel)]="courseModel.moodleTitle" id="moodleTitleGr" name="moodleTitle" value="gr" required>&nbsp;{{ 'greek' | l }}</label>
+                    <label for="moodleTitleEn" class="radio-inline"><input type="radio" [(ngModel)]="courseModel.moodleTitle" id="moodleTitleEn" name="moodleTitle" value="en" required>&nbsp;{{ 'english' | l }}</label>
+                </div>
+            </ng-container>
+        </div>
+        <div class="row"><br></div>
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <label>{{ 'fractions' | l }}</label><br>
+                <ng-container *ngIf="courseModel.id ; else fractionsUnavailable">
+                    <div *ngFor="let fraction of courseModel.fractions">
+                        <span *ngIf="!fraction.edit; else editFraction" class="label blue link">
+                            <span (click)="fraction.edit = true" [tooltip]="'edit' | l">{{ fraction.fractionLabel }}</span>&nbsp;
+                            <span (click)="deleteFraction(courseModel.fractions, fraction.fractionId)" class="fas fa-times" [tooltip]="'delete' | l"></span>
+                        </span>
+                        <ng-template #editFraction>
+                            <input type="text" name="fractionLabel" class="form-control" autocomplete="off" autofocus
+                                [(ngModel)]="fraction.fractionLabel"
+                                (blur)="saveFraction($event, fraction)"
+                                (change)="saveFraction($event, fraction)"
+                                (keypress)="saveFraction($event, fraction)"
+                                >
+                        </ng-template>
+                    </div>
+                    <div>
+                        <span *ngIf="!courseModel.newFraction ; else newFraction" (click)="addFraction()" class="label green link" [tooltip]="'add' | l">
+                            <span class="fas fa-plus" style="padding: 15px 0;"></span>
+                        </span>
+                        <ng-template #newFraction>
+                            <input type="text" name="fractionLabel" class="form-control" autocomplete="off" autofocus
+                                [(ngModel)]="courseModel.newFraction.fractionLabel"
+                                (blur)="saveFraction($event, courseModel.newFraction)"
+                                (change)="saveFraction($event, courseModel.newFraction)"
+                                (keypress)="saveFraction($event, courseModel.newFraction)"
+                                >
+                        </ng-template>
+                    </div>
+                </ng-container>
+                <ng-template #fractionsUnavailable>
+                    {{ 'fractionsUnavailable' | l }}
+                </ng-template>
+            </div>                        
+            <div class="col-md-1">
+                <label>{{ 'year' | l }}</label><br>
+                <select [(ngModel)]="courseModel.year" name="year" class="form-control" required>
+                    <option value="0">{{ 'undefined' | l }}</option>
+                    <option *ngFor="let year of 4 | ngForTimes; let i = index" [value]="i + 1">{{ i + 1 }}</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>{{ 'semester' | l }}</label><br>
+                <select [(ngModel)]="courseModel.semester" name="semester" class="form-control" required>
+                    <option value="0">{{ 'undefined' | l }}</option>
+                    <option [value]="1">{{ 'fall1st' | l }}</option>
+                    <option [value]="2">{{ 'spring2nd' | l }}</option>
+                    <option [value]="3">{{ 'summer3rd' | l }}</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>{{ 'credits' | l }}</label><br>
+                <select [(ngModel)]="courseModel.credits" name="credits" class="form-control" required>
+                    <option value="0">{{ 'undefined' | l }}</option>
+                    <option *ngFor="let credits of 4 | ngForTimes; let i = index" [value]="i + 1">{{ i + 1 }}</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>{{ 'ectsCredits' | l }}</label><br>
+                <select [(ngModel)]="courseModel.ects_credits" name="ects_credits" class="form-control" required>
+                    <option value="0">{{ 'undefined' | l }}</option>
+                    <option *ngFor="let ects_credits of 8 | ngForTimes; let i = index" [value]="i + 1">{{ i + 1 }}</option>
+                </select>
+            </div>
+            <div class="col-md-1 text-center">
+                <label>{{ 'required' | l }}</label><br>
+                <input type="checkbox" [(ngModel)]="courseModel.required" id="required" name="required">
+            </div>
+            <div class="col-md-2 text-center">
+                <label>{{ 'requirements' | l }}</label><br>
+                <!-- Show Prerequisites -->
+                <div *ngFor="let prerequisite of courseModel.prerequisites">
+                    <span *ngIf="!prerequisite.edit; else prerequisiteEditor" class="badge green link">
+                        <span (click)="prerequisite.edit = true" [tooltip]="'edit' | l">{{ 'prerequisiteCourseCode' | l:prerequisite }} {{ prerequisite.prerequisiteCourseCode }}</span>&nbsp;
+                        <span (click)="deletePrerequisite(prerequisite.prerequisiteCourseId)" class="fas fa-times" [tooltip]="'delete' | l"></span>
+                    </span>
+                    <ng-template #prerequisiteEditor>
+                        <select name="prerequisiteCourseId" class="form-control" autofocus
+                            [(ngModel)]="prerequisite.prerequisiteCourseId"
+                            (blur)="prerequisite.edit = undefined"
+                            (ngModelChange)="editPrerequisite($event, prerequisite)">
+                            <option [ngValue]="undefined" disabled hidden>{{ 'selectCourse' | l }}</option>
+                            <option *ngFor="let course of courses" [value]="course.id">{{ 'name' | l:course }}</option>
+                        </select>
+                    </ng-template>
+                </div>
+                <div>
+                    <!-- No prerequisite is being added -->
+                    <span *ngIf="!courseModel.newPrerequisite ; else newPrerequisite" (click)="courseModel.newPrerequisite = true" class="label green link" [tooltip]="'add' | l">
+                        <span class="fas fa-plus" style="padding: 15px 0;"></span>
+                    </span>
+                    <!-- A prerequisite is being added -->
+                    <ng-template #newPrerequisite><br>
+                        <select name="prerequisiteCourseId" class="form-control" autofocus
+                            [(ngModel)]="courseModel.newPrerequisite.prerequisiteCourseId"
+                            (blur)="courseModel.newPrerequisite = undefined"
+                            (ngModelChange)="addPrerequisite($event)">
+                            <option [ngValue]="undefined" disabled hidden>{{ 'selectCourse' | l }}</option>
+                            <option *ngFor="let course of courses" [value]="course.id">{{ 'code' | l:course }} {{ course.code }} {{ 'name' | l:course }}</option>
+                        </select>
+                    </ng-template>
+                </div>
+            </div>                        
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-5">
+                <button type="submit" class="btn btn-green btn-block" [disabled]="!form.form.valid || formSubmitted">
+                    {{ courseModel.id ? ('save' | l) : ('add' | l) }}
+                </button>
+            </div>
+        </div>
+    </form>
+</data-panel>

@@ -1,0 +1,187 @@
+<form *ngIf="applicationData" #form="ngForm" (change)="modelChanged = true" accept-charset="UTF-8" role="form">
+    <data-panel ngId="studentPackage" heading="Τρόπος Φοίτησης" color="portlet-blue">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="studentPackage">Επιλέξτε τον τρόπο φοίτησης που σας ενδιαφέρει</label>
+                        <div class="form-group">
+                            <label for="fullOnCampus" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.studentPackage" id="fullOnCampus" name="studentPackage" value="1" required> Τακτικός, Οικότροφος <a href="https://www.grbc.gr/program-profile/fees/" target="_new"><i class="fas fa-info-circle" aria-hidden="true"></i></a></label>
+                            <label for="fullOffCampus" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.studentPackage" id="fullOffCampus" name="studentPackage" value="2" required> Τακτικός, μη-Οικότροφος <a href="https://www.grbc.gr/program-profile/fees/" target="_new"><i class="fas fa-info-circle" aria-hidden="true"></i></a></label>
+                            <label for="partTime" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.studentPackage" id="partTime" name="studentPackage" value="3" required> μη-Τακτικός <a href="https://www.grbc.gr/program-profile/registration/special-cases/" target="_new"><i class="fas fa-info-circle" aria-hidden="true"></i></a></label>
+                            <required-field-warning *ngIf="validate && applicationData.application.studentPackage === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <data-panel [hidden]="applicationData.application.studentPackage === null" ngId="depositInfo" heading="Παράβολο Επεξεργασίας Αίτησης Εγγραφής" color="portlet-blue">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="deposit30">Για την επεξεργασία της παρούσας αίτησης θα καταβάλλετε το ακόλουθο Παράβολο Επεξεργασίας Αίτησης Εγγραφής</label>
+                        <div class="form-group">
+                            <label for="deposit31" class="radio-inline"><input (click)="createOrder()" type="radio" [(ngModel)]="applicationData.application.deposit" id="deposit31" name="deposit" value="31" required> 30€ (με κάρτα) πριν την έναρξη των μαθημάτων</label><br>
+                            <label for="deposit30" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.deposit" id="deposit30" name="deposit" value="30" required> 30€ (με κατάθεση) πριν την έναρξη των μαθημάτων</label><br>
+                            <!-- <label for="deposit50" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.deposit" id="deposit50" name="deposit" value="50" required> 50€ (με μετρητά ή κατάθεση) με την έναρξη των μαθημάτων</label><br> -->
+                            <required-field-warning *ngIf="validate && !applicationData.application.deposit" [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="this.orderUrl && applicationData.application.deposit === '31'" class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-blue btn-block" type="button" (click)="openOrder()">Online Πληρωμή</button><br>
+                </div>
+            </div>
+            <div *ngIf="applicationData.application.deposit === '30' || applicationData.application.deposit === '50'" class="row">
+                <div class="col-lg-12">
+                    <label>Η κατάθεση μπορεί να γίνει σε έναν από τους παρακάτω λογαριασμούς:</label>
+                </div>
+            </div>
+            <div *ngIf="applicationData.application.deposit === '30' || applicationData.application.deposit === '50'" class="row">
+                <div class="col-lg-12">
+                    <div class="portlet portlet-dark-blue">
+                        <div class="portlet-heading">
+                            <div class="portlet-title">
+                                <h4>Εθνική Τράπεζα της Ελλάδος</h4>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Όνομα Δικαιούχου</label><br>Εταιρία Βιβλικών Σπουδών
+                                </div>
+                                <div class="col-md-6">
+                                    <label>IBAN</label><br>GR59 0110 5310 0000 5312 0072 151
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="portlet portlet-dark-blue">
+                        <div class="portlet-heading">
+                            <div class="portlet-title">
+                                <h4>EUROBANK</h4>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Όνομα Δικαιούχου</label><br>Εταιρία Βιβλικών Σπουδών
+                                </div>
+                                <div class="col-md-6">
+                                    <label>IBAN</label><br>GR30 0260 0980 0009 5020 1164 291
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div *ngIf="applicationData.application.deposit === '30' || applicationData.application.deposit === '31'" class="row">
+                <div class="col-md-12 text-danger">
+                    <div class="form-group">
+                        Σας ενημερώνουμε ότι εάν το Παράβολο Επεξεργασίας Αίτησης Εγγραφής δεν έχει πληρωθεί μέχρι την έναρξη των μαθημάτων, θα πρέπει να καταβάλετε το παράβολο των 50€ ανεξαρτήτως της επιλογής που κάνατε παραπάνω
+                    </div>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="depositInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <data-panel [hidden]="applicationData.application.studentPackage === null" ngId="financialInfo" heading="Ανάληψη Οικονομικής Ευθύνης" color="portlet-blue" collapsed="true">
+        <fieldset [disabled]="formLoading">
+            <div *ngIf="applicationData.application.studentPackage === '1'" class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="financialApproval">Γνωρίζετε το κόστος των διδάκτρων, τροφείων και διαμονής σας στο Κολέγιο και αναλαμβάνετε την ευθύνη εξόφλησής τους στις προκαθορισμένες ημερομηνίες</label><br>
+                        <label for="financialApproval" class="checkbox-inline"><input type="checkbox" [(ngModel)]="applicationData.application.financialApproval" id="financialApproval" name="financialApproval" autocomplete="off" required autofocus>&nbsp;{{ 'yes' | l }}</label>
+                        <required-field-warning *ngIf="validate && !applicationData.application.financialApproval" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="applicationData.application.studentPackage === '2' || applicationData.application.studentPackage === '3'" class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="financialApproval">Γνωρίζετε το κόστος των διδάκτρων σας στο Κολέγιο και αναλαμβάνετε την ευθύνη εξόφλησής τους στις προκαθορισμένες ημερομηνίες</label><br>
+                        <label for="financialApproval" class="checkbox-inline"><input type="checkbox" [(ngModel)]="applicationData.application.financialApproval" id="financialApproval" name="financialApproval" autocomplete="off" required autofocus>&nbsp;{{ 'yes' | l }}</label>
+                        <required-field-warning *ngIf="validate && !applicationData.application.financialApproval" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="applicationData.application.studentPackage" class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="selfPaid">Το παραπάνω ποσό θα καλυφθεί αποκλειστικά από δικούς σας πόρους</label>
+                        <div class="form-group">
+                            <label for="selfPaid" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.selfPaid" id="selfPaid" name="selfPaid" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                            <label for="notSelfPaid" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.selfPaid" id="notSelfPaid" name="selfPaid" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                            <required-field-warning *ngIf="validate && applicationData.application.selfPaid === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="applicationData.application.selfPaid === '0'" class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="sponsors">Ονοματεπώνυμα των προσώπων που αναλαμβάνουν την ευθύνη να συνεισφέρουν στην κάλυψη του παραπάνω ποσού</label>
+                        <textarea [(ngModel)]="applicationData.application.sponsors" id="sponsors" name="sponsors" class="form-control" rows="2" autocomplete="off" required autofocus></textarea>
+                        <required-field-warning *ngIf="validate && !applicationData.application.sponsors"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="applicationData.application.selfPaid === '0'" class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="sponsorsTotal">Συνολικό ποσό που θα καλυφθεί από τα παραπάνω πρόσωπα</label>
+                        <input type="text" [(ngModel)]="applicationData.application.sponsorsTotal" id="sponsorsTotal" name="sponsorsTotal" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.sponsorsTotal"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="debtApproval">Αναλαμβάνετε την ευθύνη εξόφλησης σε περίπτωση υπολοίπου</label><br>
+                        <label for="debtApproval" class="checkbox-inline"><input type="checkbox" [(ngModel)]="applicationData.application.debtApproval" id="debtApproval" name="debtApproval" autocomplete="off" required>&nbsp;{{ 'yes' | l }}</label>
+                        <required-field-warning *ngIf="validate && !applicationData.application.debtApproval" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="financialInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <div *ngIf="!unsavedChanges(); else isNotSaved" class="row">
+        <ng-container *ngIf="form.valid; else isNotValid">
+            <div class="col-md-2 col-md-offset-5 extraBottomPadding">
+                <button class="btn btn-green btn-block" type="button" (click)="submitForm()" [disabled]="formLoading || !form.valid">{{ 'submit' | l }}</button>
+            </div>
+        </ng-container>
+        <ng-template #isNotValid>
+            <div class="col-md-4 col-md-offset-4 extraBottomPadding">
+                <button class="btn btn-green btn-block" type="button" (click)="checkForm()" [disabled]="formLoading">{{ 'validate' | l }}</button>
+            </div>
+        </ng-template>
+    </div>
+    <ng-template #isNotSaved>
+        <div class="alert alert-danger text-center extraBottomPadding">{{ 'pleaseSaveChanges' | l }}</div>
+    </ng-template>
+    <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+        <action-button (click)="applicationService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+    </div>
+</form>

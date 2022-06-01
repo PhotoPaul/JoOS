@@ -1,0 +1,74 @@
+<ng-container *ngIf="files">
+    <data-panel *ngIf="files.fsOnlyFiles.length" ngId="fsOnlyFiles" heading="Αρχεία που υπάρχουν αλλά λείπουν από τη Βάση Δεδομένων: {{ files.fsOnlyFiles.length }}" color="portlet-red">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 100%">File Name</th>
+                        <th class="text-center">{{ 'actions' | l }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let filename of files.fsOnlyFiles">
+                        <td>{{ filename }}</td>
+                        <td class="text-center text-nowrap">
+                            <action-button (click)="fs.getFile(filename)" [color]="'btn-blue'" [icon]="'fa-download'" [bTooltip]="'Προβολή Αρχείου'" [ajax]="false"></action-button>
+                            <action-button (click)="deleteFile(filename)" [color]="'btn-red'" [icon]="'fa-trash-alt'" [bTooltip]="'Διαγραφή Αρχείου'" [ajax]="false"></action-button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>            
+    </data-panel>
+
+    <data-panel *ngIf="files.dbOnlyFiles.length" ngId="dbOnlyFiles" heading="Αρχεία που έχουν διαγραφεί αλλά υπάρχουν στη Βάση Δεδομένων: {{ files.dbOnlyFiles.length }}" color="portlet-red">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 100%">{{ 'filename' | l }}</th>
+                        <th class="text-center text-nowrap">{{ 'filesize' | l }}</th>
+                        <th class="text-center">Owner</th>
+                        <th class="text-center">{{ 'actions' | l }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let file of files.dbOnlyFiles">
+                        <td><i class="fas" [ngClass]="fs.getFileIcon(file.original_mime_type)" [tooltip]="file.original_mime_type"></i>&nbsp;{{ file.original_filename }}</td>
+                        <td class="text-right text-nowrap">{{ file.filesize/1024/1024 | number:'.2' }} MB</td>
+                        <td class="text-center">{{ file.owner_id }}</td>
+                        <td class="text-center">
+                            <action-button (click)="deleteFile(file.filename)" [color]="'btn-red'" [icon]="'fa-trash-alt'" [bTooltip]="'Διαγραφή Αρχείου'" [ajax]="false"></action-button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>            
+    </data-panel>
+
+    <data-panel *ngIf="files.dbFiles.length" ngId="dbFiles" heading="Αρχεία του Συστήματος Αρχείων του JoOS: {{ files.dbFiles.length }} &mdash; Συνολικός χώρος που καταλαμβάνουν: {{ totalSize/1024/1024 | number:'.2' }} MB" color="portlet-green">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 100%">{{ 'filename' | l }}</th>
+                        <th class="text-center text-nowrap">{{ 'filesize' | l }}</th>
+                        <th class="text-center">Owner</th>
+                        <th class="text-center">{{ 'actions' | l }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let file of files.dbFiles">
+                        <td><i class="fas" [ngClass]="fs.getFileIcon(file.original_mime_type)" [tooltip]="file.original_mime_type"></i>&nbsp;{{ file.original_filename }}</td>
+                        <td class="text-right">{{ file.filesize/1024/1024 | number:'.2' }} MB</td>
+                        <td class="text-center">{{ file.owner_id }}</td>
+                        <td class="text-center text-nowrap">
+                            <action-button (click)="fs.getFile(file.filename)" [color]="'btn-blue'" [icon]="'fa-download'" [bTooltip]="'Προβολή Αρχείου'" [ajax]="false"></action-button>
+                            <action-button (click)="deleteFile(file.filename)" [color]="'btn-red'" [icon]="'fa-trash-alt'" [bTooltip]="'Διαγραφή Αρχείου'" [ajax]="false"></action-button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>            
+    </data-panel>
+</ng-container>

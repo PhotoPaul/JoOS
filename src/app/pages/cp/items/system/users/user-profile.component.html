@@ -1,0 +1,111 @@
+<data-panel ngId="systemUserProfile" heading="Προσωπικές Πληροφορίες" color="portlet-blue">
+    <div class="row">
+        <div class="col-md-12">
+            <form #form="ngForm" accept-charset="UTF-8" role="form">
+                <div *ngIf="userProfile.photoURI" class="row text-center">
+                    <div class="col-md-offset-2 col-md-1"></div>
+                    <a [href]="fs.getFileURI(userProfile.photoURI)" target="_photo"><img [src]="fs.getImageURI(userProfile.photoURI, 540)" class="col-md-offset-1 col-md-3 img-circle text-center"></a>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-5 text-center">
+                        <h1>{{ '' | fName:userProfile.firstName:userProfile.lastName }}</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-1 text-center">
+                        <label class="form-control-label" for="roles">Ρόλοι</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" [(ngModel)]="userProfile.roles" id="roles" name="roles" class="form-control borderless" placeholder="Ρόλοι" autocomplete="off" readonly>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-1 text-center">
+                        <i class="fas fa-envelope form-control-icon"></i>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" [(ngModel)]="userProfile.email" id="email" name="email" class="form-control borderless" placeholder="Email" autocomplete="off" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" readonly>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-1 text-center">
+                        <i class="fas fa-phone form-control-icon"></i>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" [(ngModel)]="userProfile.phone" id="phone" name="phone" class="form-control borderless" placeholder="Τηλέφωνο" autocomplete="off">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-1 text-center">
+                        <i class="fas fa-map-marker-alt form-control-icon"></i>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" [(ngModel)]="userProfile.address" id="address" name="address" class="form-control borderless" placeholder="Οδός, αριθμός" autocomplete="off">
+                        <input type="text" [(ngModel)]="userProfile.city" id="city" name="city" class="form-control borderless" placeholder="Πόλη" autocomplete="off">
+                        <input type="text" [(ngModel)]="userProfile.zipCode" id="zipCode" name="zipCode" class="form-control borderless" placeholder="Τ.Κ." autocomplete="off">
+                        <input type="text" [(ngModel)]="userProfile.country" id="country" name="country" class="form-control borderless" placeholder="Χώρα" autocomplete="off">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-1 text-center">
+                        <i class="fas fa-birthday-cake form-control-icon"></i>
+                    </div>
+                    <div class="col-md-5">
+                        <date-input [date]="userProfile.birthDate" placeholder="Ημερομηνία Γέννησης" [maxDate]="maxDate" (onChange)="updateDateModel($event, form)" disabled="true" required="false"></date-input>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-1 text-center">
+                        <label class="form-control-label" for="roles">Α.Δ.Τ.</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" [(ngModel)]="userProfile.greekIdNumber" id="greekIdNumber" name="greekIdNumber" class="form-control borderless" placeholder="Αριθμός Δελτίου Ταυτότητας (Α.Δ.Τ.)" autocomplete="off">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-1 text-center">
+                        <label class="form-control-label" for="roles">Α.Φ.Μ.</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" [(ngModel)]="userProfile.greekSsn" id="greekSsn" name="greekSsn" class="form-control borderless" placeholder="Αριθμός Φορολογικού Μητρώου (Α.Φ.Μ.)" autocomplete="off">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-1 text-center">
+                        <label class="form-control-label" for="roles">Δ.Ο.Υ.</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" [(ngModel)]="userProfile.irsOffice" id="irsOffice" name="irsOffice" class="form-control borderless" placeholder="Δημόσια Οικονομική Υπηρεσία (Δ.Ο.Υ.)" autocomplete="off">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-1 text-center">
+                        <i class="fas fa-id-card form-control-icon"></i>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" [(ngModel)]="userProfile.passportNumber" id="passportNumber" name="passportNumber" class="form-control borderless" placeholder="Αριθμός Διαβατηρίου" autocomplete="off">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-1 text-center">
+                        <i class="fas fa-globe form-control-icon"></i>
+                    </div>
+                    <div class="col-md-5">
+                        <ng-container *ngIf="userProfile.greekIdNumber && !userProfile.citizenship ; else citizenship">
+                            <input type="text" value="Ελλάδα" id="citizenship" name="citizenship" class="form-control borderless" placeholder="Υπηκοότητα" autocomplete="off" readonly>
+                        </ng-container>
+                        <ng-template #citizenship>
+                            <select [(ngModel)]="userProfile.citizenship" id="citizenship" name="citizenship" class="form-control borderless" autocomplete="off"><option>Αγγλία</option><option>Νήσος Αγίας Ελένης</option><option>Αγία Λουκία</option><option>Άγιος Βαρθολομαίος</option><option>Άγιος Βικέντιος και Γρεναδίνες</option><option>Άγιος Μαρίνος</option><option>Άγιος Μαρτίνος (Γαλλία)</option><option>Άγιος Μαρτίνος (Ολλανδία)</option><option>Άγιος Χριστόφορος και Νέβις</option><option>Αζερμπαϊτζάν</option><option>Αίγυπτος</option><option>Αιθιοπία</option><option>Αϊτή</option><option>Ακτή Ελεφαντοστού</option><option>Αλβανία</option><option>Αλγερία</option><option>Αμερικανική Σαμόα</option><option>Ανατολικό Τιμόρ</option><option>Ανγκόλα</option><option>Ανγκουίλα</option><option>Ανδόρρα</option><option>Αντίγκουα και Μπαρμπούντα</option><option>Αργεντινή</option><option>Αρμενία</option><option>Αρούμπα</option><option>Αυστραλία</option><option>Αυστρία</option><option>Αφγανιστάν</option><option>Βανουάτου</option><option>Βατικανό</option><option>Βέλγιο</option><option>Βενεζουέλα</option><option>Βερμούδες</option><option>Βιετνάμ</option><option>Βολιβία</option><option>Βόρεια Ιρλανδία</option><option>Βόρεια Κορέα</option><option>Βόρειες Μαριάνες Νήσοι</option><option>Βοσνία και Ερζεγοβίνη</option><option>Βουλγαρία</option><option>Βραζιλία</option><option>Βρετανικές Παρθένοι Νήσοι</option><option>Γαλλία</option><option>Γαλλική Πολυνησία</option><option>Γερμανία</option><option>Γεωργία</option><option>Γιβραλτάρ</option><option>Γκάμπια</option><option>Γκαμπόν</option><option>Γκάνα</option><option>Γκουάμ</option><option>Γουατεμάλα</option><option>Γαλλική Γουιάνα</option><option>Γουινέα</option><option>Γουινέα-Μπισσάου</option><option>Γουιάνα</option><option>Γρενάδα</option><option>Δανία</option><option>Δομινίκα</option><option>Δομινικανή Δημοκρατία</option><option>Δυτική Σαχάρα</option><option>Ελ Σαλβαδόρ</option><option>Ελβετία</option><option>Ελλάδα</option><option>Ερυθραία</option><option>Εσθονία</option><option>Ζάμπια</option><option>Ζιμπάμπουε</option><option>Ηνωμένα Αραβικά Εμιράτα</option><option>Ηνωμένο Βασίλειο</option><option>Ηνωμένες Πολιτείες Αμερικής</option><option>Ιαπωνία</option><option>Ινδία</option><option>Ινδονησία</option><option>Ιορδανία</option><option>Ιράκ</option><option>Ιράν</option><option>Ιρλανδία</option><option>Ισημερινή Γουινέα</option><option>Ισημερινός</option><option>Ισλανδία</option><option>Ισπανία</option><option>Ισραήλ</option><option>Ιταλία</option><option>Καζακστάν</option><option>Καμερούν</option><option>Καμπότζη</option><option>Καναδάς</option><option>Κατάρ</option><option>Κέιμαν Νήσοι</option><option>Κεντροαφρικανική Δημοκρατία</option><option>Κένυα</option><option>Κίνα</option><option>Κιργιζία</option><option>Κιριμπάτι</option><option>Κολομβία</option><option>Κομόρες</option><option>Δημοκρατία του Κονγκό</option><option>Λαϊκή Δημοκρατία του Κονγκό</option><option>Κόστα Ρίκα</option><option>Κόσοβο</option><option>Κούβα</option><option>Κουβέιτ</option><option>Κουρασάο</option><option>Κροατία</option><option>Κύπρος</option><option>Λάος</option><option>Λεσότο</option><option>Λετονία</option><option>Λευκορωσία</option><option>Λίβανος</option><option>Λιβερία</option><option>Λιβύη</option><option>Λιθουανία</option><option>Λίχτενσταϊν</option><option>Λουξεμβούργο</option><option>Μαγιότ</option><option>Μαδαγασκάρη</option><option>Μαλαισία</option><option>Μαλάουι</option><option>Μαλδίβες</option><option>Μάλι</option><option>Μάλτα</option><option>Νήσος του Μαν</option><option>Μαρόκο</option><option>Μαυρίκιος</option><option>Μαυριτανία</option><option>Μαυροβούνιο</option><option>Μεξικό</option><option>Μιανμάρ</option><option>Μικρονησία</option><option>Μογγολία</option><option>Μοζαμβίκη</option><option>Μολδαβία</option><option>Μονακό</option><option>Μπανγκλαντές</option><option>Μπαρμπάντος</option><option>Μπαχάμες</option><option>Μπαχρέιν</option><option>Μπελίζ</option><option>Μπενίν</option><option>Μποτσουάνα</option><option>Μπουρκίνα Φάσο</option><option>Μπουρούντι</option><option>Μπρουνέι</option><option>Ναμίμπια</option><option>Ναουρού</option><option>Νέα Ζηλανδία</option><option>Νέα Καληδονία</option><option>Νεπάλ</option><option>Νήσοι Μάρσαλ</option><option>Νήσοι Σολομώντα</option><option>Νίγηρας</option><option>Νιγηρία</option><option>Νικαράγουα</option><option>Νιούε</option><option>Νορβηγία</option><option>Νότια Αφρική</option><option>Νότια Κορέα</option><option>Νότιο Σουδάν</option><option>Ολλανδία</option><option>Ομάν</option><option>Ονδούρα</option><option>Ουαλία</option><option>Ουγγαρία</option><option>Ουγκάντα</option><option>Ουζμπεκιστάν</option><option>Ουκρανία</option><option>Ουρουγουάη</option><option>Πακιστάν</option><option>Παλάου</option><option>Κράτος της Παλαιστίνης</option><option>Παναμάς</option><option>Παπούα Νέα Γουινέα</option><option>Παραγουάη</option><option>Αμερικανικές Παρθένοι Νήσοι</option><option>Περού</option><option>Πολωνία</option><option>Πορτογαλία</option><option>Πουέρτο Ρίκο</option><option>Πράσινο Ακρωτήριο</option><option>Δημοκρατία της Μακεδονίας (ΠΓΔΜ)</option><option>Ρουάντα</option><option>Ρουμανία</option><option>Ρωσία</option><option>Σαμόα</option><option>Σάο Τομέ και Πρίνσιπε</option><option>Σαουδική Αραβία</option><option>Σενεγάλη</option><option>Σερβία</option><option>Σεϋχέλλες</option><option>Σιγκαπούρη</option><option>Σιέρα Λεόνε</option><option>Σκωτία</option><option>Σλοβακία</option><option>Σλοβενία</option><option>Σομαλία</option><option>Σουαζιλάνδη</option><option>Σουδάν</option><option>Σουηδία</option><option>Σουρινάμ</option><option>Σρι Λάνκα</option><option>Συρία</option><option>Ταϊβάν</option><option>Ταϊλάνδη</option><option>Τανζανία</option><option>Τατζικιστάν</option><option>Τζαμάικα</option><option>Τζιμπουτί</option><option>Τόγκο</option><option>Τόνγκα</option><option>Τουβαλού</option><option>Τουρκία</option><option>Τουρκμενιστάν</option><option>Τρινιντάντ και Τομπάγκο</option><option>Τσαντ</option><option>Τσεχία</option><option>Τυνησία</option><option>Υεμένη</option><option>Υπερδνειστερία</option><option>Νήσοι Φερόες</option><option>Φιλιππίνες</option><option>Φινλανδία</option><option>Φίτζι</option><option>Νήσοι Φώκλαντ</option><option>Χιλή</option><option>Χονγκ Κονγκ</option><option>Νήσος των Χριστουγέννων</option><option>Ώλαντ</option></select>
+                        </ng-template>
+                    </div>
+                </div>
+                <div *authIf="['admin', 'registrar', 'cashier']" class="row">
+                    <div class="col-md-offset-3 col-md-5 text-center"><br>
+                        <action-button *authIf="['admin']" #$importButton (specialClick)="importUserDataFromApplication(userProfile.id, $importButton)" color="btn-blue" icon="fa-clone" [caption]="'import' | l" [bTooltip]="'Εισαγωγή στοιχείων από Αίτηση Εγγραφής'" [hidden]="form.dirty"></action-button>
+                        <action-button #$saveButton (specialClick)="saveProfileChanges($saveButton, form)" color="btn-green" icon="fa-save" [caption]="'save' | l" [bTooltip]="'Αποθήκευση Αλλαγών'" [hidden]="!form.dirty"></action-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</data-panel>

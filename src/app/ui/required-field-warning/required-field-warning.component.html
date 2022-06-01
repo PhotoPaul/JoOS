@@ -1,0 +1,6 @@
+<div class="alert alert-danger text-center">
+    <div [innerHTML]="warningText"></div>
+    <a *ngIf="!noLink" name="invalid" ngClass="text-danger" [href]="this.localization.s('contactUsURL')" target="_contact" [tooltip]="localization.s('contactUsForAnyQuestion')">
+        <i class="fas fa-fw" ngClass="fa-question-circle"></i>&nbsp;<ng-content></ng-content>
+    </a>
+</div>

@@ -1,0 +1,67 @@
+<data-panel ngId="userFiles" heading="Αρχεία" color="portlet-blue">
+    <div class="row">
+        <div class="col-md-12">
+            <div *authIf="['admin', 'registrar']" ng2FileDrop style="text-align: center"
+            [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+            (fileOver)="fileOverBase($event)"
+            [uploader]="uploader"
+            class="well my-drop-zone">
+        Κάντε <b>click</b> για να επιλέξετε τα αρχεία που θέλετε να αποστείλετε, ή αποθέστε τα εδώ με <b>drag-and-drop</b>.
+        <br><span class="label green">Μέγιστο μέγεθος 20 MB ανά αρχείο</span>
+        <input class="my-drop-zone-button" type="file" ng2FileSelect [uploader]="uploader" multiple><br>
+            </div>
+        </div>
+    </div>
+    <ng-container *ngIf="userFiles?.length || uploader?.queue?.length">
+        <data-filter #dataFilter></data-filter>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 100%">Όνομα</th>
+                        <th class="text-center">Μέγεθος</th>
+                        <th class="text-center">Ενέργειες</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let file of userFiles | filterByString:['original_filename']:dataFilter.filter">
+                        <td>{{ file?.original_filename }}</td>
+                        <td class="text-right text-nowrap">{{ file?.filesize/1024/1024 | number:'.2' }} MB</td>
+                        <td class="text-center text-nowrap">
+                            <action-button (click)="getFile(file?.filename)" [color]="'btn-blue'" [icon]="'fa-download'" [bTooltip]="'Προβολή Αρχείου'" [ajax]="false"></action-button>
+                            <action-button *authIf="['admin', 'registrar']" (click)="deleteFile(file?.filename)" [color]="'btn-red'" [icon]="'fa-trash-alt'" [bTooltip]="'Διαγραφή Αρχείου'" [ajax]="false"></action-button>
+                            <ng-container *ngIf="file?.original_mime_type?.substr(0, 6) === 'image/'">
+                                <action-button *authIf="['admin', 'registrar']" #$updateProfilePictureButton (specialClick)="updateProfilePicture(file?.filename, $updateProfilePictureButton)" [color]="'btn-green'" [icon]="'fa-id-badge'" [bTooltip]="'Ορισμός ως Φωτογραφία Προφίλ'"></action-button>
+                            </ng-container>
+                        </td>
+                    </tr>
+                    <ng-container *ngIf="uploader?.queue?.length">
+                        <tr *ngFor="let item of uploader.queue">
+                            <td>{{ item?.file?.name }}</td>
+                            <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                            <td class="text-center">
+                                <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                <div class="progress" style="margin-bottom: 0;">
+                                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                                </div>
+                            </td>
+                            <td class="text-center text-nowrap">
+                                <action-button *ngIf="item.isUploading" (click)="item.cancel()" [color]="'btn-orange'" [icon]="'fa-times'" [bTooltip]="'Διακοπή Αποστολής'"></action-button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="this.uploader?.queue?.length">
+            <div>
+                Συγκεντρωτική πρόοδος αποστολής δικαιολογητικών:
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</data-panel>

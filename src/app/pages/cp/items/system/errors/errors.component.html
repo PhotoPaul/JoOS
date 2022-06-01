@@ -1,0 +1,24 @@
+<div *ngIf="errors">
+    <div class="row text-right">
+        <action-button #$clearErrors (click)="clearErrors($clearErrors)" [icon]="'fa-times fa-2x'" [bTooltip]="'Διαγραφή Σφαλμάτων'" [ajax]="{ state: 'idle' }"></action-button>
+    </div>
+    <div *ngFor="let error of errors" class="row alert alert-danger">
+        <div class="col-md-1 text-center">
+            <span class="label blue">{{ error.dateTime }}</span>
+        </div>
+        <div class="col-md-1 text-center">
+            <a *ngIf="error.uri" [href]="error.uri" target="_new"><span class="label red">{{ error.source }}</span></a>
+            <span *ngIf="!error.uri" class="label red">{{ error.source }}</span>
+        </div>
+        <div class="col-md-2">
+            <span class="label dark-blue">{{ '' | fName:error.lastName:error.firstName }}</span>
+        </div>
+        <div class="col-md-6">
+            <span [innerHTML]="error.message"></span>
+        </div>
+        <div class="col-md-2 text-right">
+            <span class="label orange">{{ getFileLine(error) }}</span>
+            <!-- <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> -->
+        </div>
+    </div>
+</div>

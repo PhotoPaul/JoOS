@@ -1,0 +1,29 @@
+<data-panel ngId="systemVariables" heading="{{ 'systemVariables' | l }}" color="portlet-blue">
+    <data-filter #dataFilter></data-filter><br>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>{{ 'variableName' | l }}</th>
+                    <th class="text-center">{{ 'type' | l }}</th>
+                    <th>{{ 'value' | l }}</th>
+                    <th class="text-center">{{ 'lastUpdate' | l }}</th>
+                    <th class="text-center">{{ 'actions' | l }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let variable of variables | filterByString:['name']:dataFilter.filter">
+                    <td>{{ variable.name }}</td>
+                    <td class="text-center">{{ variable.type }}</td>
+                    <td>
+                        <form #form="ngForm" (submit)="submitButton.onClick()"><input #variableInput type="text" class="form-control" [ngClass]="{ 'text-right': variable.type === 'number' }" name="variableInput" [(ngModel)]="variable.value" autocomplete="off"></form>
+                    </td>
+                    <td class="text-center">{{ variable.dateTime?.split('-').join('/') | date:'dd-MM-y' }}</td>
+                    <td class="text-center">
+                        <action-button [hidden]="!form.controls['variableInput']?.dirty" #submitButton (specialClick)="updateValue(variable, form, variableInput, submitButton)" [color]="'btn-green'" [icon]="'fa-save'" [bTooltip]="'save' | l"></action-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>            
+</data-panel>

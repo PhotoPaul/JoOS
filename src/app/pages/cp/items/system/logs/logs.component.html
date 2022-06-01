@@ -1,0 +1,40 @@
+<div *ngIf="this.logs">
+    <div class="row text-right">
+        <action-button #$clearLogs (click)="this.clearLogs($clearLogs)" [icon]="'fa-times fa-2x'" [bTooltip]="'emptyLogs' | l" [ajax]="{ state: 'idle' }"></action-button>
+    </div>
+    <data-panel ngId="logsPanel" [heading]="'recentActions' | l" color="blue">
+        <div class="row" *ngFor="let userItem of this.logs">
+            <div class="col-md-12">
+                <data-panel [ngId]="'user' + userItem.userId" [heading]="'' | fName:userItem.logItems[0].lastName:userItem.logItems[0].firstName" color="green" [collapsed]="true">
+                    <div *ngFor="let logItem of userItem.logItems" class="alert alert-info">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="{{ this.ajax.apiURI + '?r=' + logItem.post_data }}" target="_new"><span class="label green">{{ logItem.q }}</span></a><br>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <span class="label dark-blue">{{ logItem.date_time }}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div style="overflow: auto">{{ logItem.post_data }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </data-panel>
+            </div>
+            <!-- <div class="col-md-2">
+                <span class="label blue">{{ '' | fName:log.lastName:log.firstName }}</span>
+            </div>
+            <div class="col-md-3">
+                <a href="{{ this.ajax.apiURI + '?r=' + log.post_data }}" target="_new"><span class="label green">{{ logItem.q }}</span></a>
+            </div>
+            <div class="col-md-5">
+                <span class="label purple">{{ getParams(log.post_data) }}</span>
+            </div>
+            <div class="col-md-2">
+                {{ log.date_time }}
+            </div> -->
+        </div>
+    </data-panel>
+</div>

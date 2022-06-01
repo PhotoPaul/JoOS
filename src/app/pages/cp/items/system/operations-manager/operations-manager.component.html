@@ -1,0 +1,62 @@
+<div *ngIf="!operationInputVisible ; else operationInput" class="text-right">
+    <action-button (click)="addOperationClicked()" [icon]="'fa-plus fa-2x'" [bTooltip]="'addOperation' | l"></action-button>
+</div>
+<ng-template #operationInput>
+    <div class="text-right">
+        <action-button (click)="operationInputVisible = false" [icon]="'fa-times fa-2x'" [bTooltip]="'cancel' | l"></action-button>
+    </div>
+    <data-panel ngId="addOperation" [heading]="'addOperation' | l" color="portlet-green">
+        <div class="row">
+            <form (ngSubmit)="onOperationInputSubmit()" #form="ngForm" id="operationInput" accept-charset="UTF-8" role="form">
+                <div style="line-height: 32px" class="col-md-4 text-right">{{ 'operationName' | l }}</div>
+                <div class="col-md-4">
+                    <input type="text" [(ngModel)]="operationName" id="operationName" name="operationName" class="form-control" autocomplete="off" required autofocus>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-green btn-block" [disabled]="!form.form.valid">
+                        {{ 'add' | l }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </data-panel>
+</ng-template>
+
+<data-panel ngId="operations" heading="{{ 'operations' | l }}" color="portlet-blue">
+    <data-filter #dataFilter></data-filter><br>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th style="width: 100%">{{ 'operation' | l }}</th>
+                    <th class="text-center">{{ 'roles' | l }}</th>
+                    <th class="text-center">{{ 'actions' | l }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let operation of operations | filterByString:['operation', 'roles']:dataFilter.filter">
+                    <td>{{ operation.operation }}</td>
+                    <td class="text-center">
+                        <ng-container *ngFor="let role of operation.roles; let i = index">
+                            <span class="label" [ngClass]="getRoleColor(role)">
+                                <span>{{ role }}</span>
+                                <ng-container *ngIf="role !== 'none'">
+                                    &nbsp;<span (click)="removeRole(operation, role)" class="fas fa-times link" [tooltip]="'removeRole' | l"></span>
+                                </ng-container>
+                            </span>
+                            <br *ngIf="i < operation.roles.length - 1">
+                        </ng-container>
+                    </td>
+                    <td class="text-center">
+                        <select #$control (change)="addRole($control, operation)" (blur)="operation.addRoleVisible = false" *ngIf="operation.addRoleVisible" autofocus>
+                            <option [value]="null" disabled hidden>{{ 'addRole' | l }}</option>
+                            <option >any</option>
+                            <option *ngFor="let role of filterCurrent(operation.roles)" [value]="role.roleName">{{ 'title' | l:role }}</option>
+                        </select>
+                        <action-button *ngIf="!operation.addRoleVisible" (click)="operation.addRoleVisible = true;" [color]="'btn-green'" [icon]="'fa-plus'" [bTooltip]="'addRole' | l" [ajax]="false"></action-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>            
+</data-panel>

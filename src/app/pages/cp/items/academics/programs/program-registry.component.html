@@ -1,0 +1,91 @@
+<ng-container *authIf="['admin', {roleName: 'registrar', forProgramId: programId}]">
+    <div *ngIf="professorInputVisible ; else showProfessorInputButton" class="text-right">
+        <action-button (click)="professorInputVisible = false" [icon]="'fa-user-times fa-2x'" [bTooltip]="'cancel' | l"></action-button>
+        <data-panel ngId="systemUserAdd" [heading]="'addProfessor' | l" color="portlet-green">
+            <div class="row">
+                <form (ngSubmit)="professorInputOnSubmit()" #form="ngForm" id="form-register-candidate-account" accept-charset="UTF-8" role="form">
+                    <div class="col-md-2">
+                        <input type="text" [(ngModel)]="professorModel.firstName" id="firstName" name="firstName" class="form-control" [placeholder]="'firstName' | l" autocomplete="off" required autofocus>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" [(ngModel)]="professorModel.lastName" id="lastName" name="lastName" class="form-control" [placeholder]="'lastName' | l" autocomplete="off" required>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" [(ngModel)]="professorModel.email" id="email" name="email" class="form-control" placeholder="Email" autocomplete="off" required pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}">
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <label for="languageGr" class="radio-inline"><input type="radio" [(ngModel)]="professorModel.language" id="languageGr" name="language" value="gr" required>&nbsp;{{ 'greek' | l }}</label>
+                        <label for="languageEn" class="radio-inline"><input type="radio" [(ngModel)]="professorModel.language" id="languageEn" name="language" value="en" required>&nbsp;{{ 'english' | l }}</label>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-green btn-block" [disabled]="!form.form.valid">
+                            {{ 'add' | l }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </data-panel>
+    </div>
+    <ng-template #showProfessorInputButton>
+        <div class="text-right">
+            <action-button (click)="professorInputShow()" [icon]="'fa-user-plus fa-2x'" [bTooltip]="'addProfessor' | l"></action-button>
+        </div>
+    </ng-template>
+</ng-container>
+<data-panel ngId="programEnrollment" heading="{{ program? program.program_name_gr:'' }}" color="portlet-blue">
+    <data-filter #dataFilter></data-filter>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="text-center">{{ 'photo' | l }}</th>
+                <th>{{ 'fullName' | l }}</th>
+                <th class="text-center text-nowrap">{{ 'lastChangeDate' | l }}</th>
+                <ng-container *ngIf="program">
+                    <th *authIf="['admin', {roleName: 'registrar', forProgramId: program?.id}]" class="text-center">{{ 'actions' | l }}</th>
+                </ng-container>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="!program"><td colspan="7" class="text-center"><loading></loading></td></tr>
+            <ng-container *ngIf="program">
+                <tr *ngFor="let programEnrollmentItem of program.programEnrollment | filterByString:['firstName','lastName']:dataFilter.filter">
+                    <td class="text-center"><img-thumbnail [userId]="programEnrollmentItem.userId" [src]="programEnrollmentItem.photoURI" maxHeight="34"></img-thumbnail></td>
+                    <td>
+                        <span class="fa-stack" *ngIf="programEnrollmentItem.isProfessor">
+                            <i class="fas fa-user fa-stack-1x" style="font-size:1.7em"></i>
+                            <i class="fas fa-graduation-cap fa-stack-2x" style="font-size:0.9em"></i>
+                        </span>
+                        {{ '' | fName:programEnrollmentItem.lastName:programEnrollmentItem.firstName }}</td>
+                    <td class="text-center">{{ programEnrollmentItem.dateTime?.split('-').join('/') | date:'dd-MM-y' }}</td>
+                    <td *authIf="['admin', {roleName: 'registrar', forProgramId: program?.id}]" class="text-center text-nowrap">
+                        <ng-container *ngIf="programEnrollmentItem.active !== '1' ; else enrollmentActive">
+                            <action-button
+                                (specialClick)="enrollClicked(programEnrollmentItem)"
+                                [color]="'btn-green'"
+                                [icon]="'fa-user-plus'"
+                                [bTooltip]="(programEnrollmentItem.isProfessor ? 'enrollProfessor' : 'enrollStudent') | l">
+                            </action-button>
+                            <action-button
+                                *ngIf="programEnrollmentItem.programEnrollmentId"
+                                (specialClick)="eraseClicked(programEnrollmentItem)"
+                                [color]="'btn-red'"
+                                [icon]="'fa-trash-alt'"
+                                [bTooltip]="(programEnrollmentItem.isProfessor ? 'unerollProfessorPermanently' : 'unenrollStudentPermanently') | l">
+                            </action-button>
+                        </ng-container>
+                        <ng-template #enrollmentActive>
+                            <action-button
+                                (specialClick)="unenrollClicked(programEnrollmentItem)"
+                                [color]="'btn-red'"
+                                [icon]="'fa-user-times'"
+                                [bTooltip]="(programEnrollmentItem.isProfessor ? 'unenrollProfessor' : 'unenrollStudent') | l">
+                            </action-button>
+                        </ng-template>
+                    </td>
+                </tr>
+            </ng-container>
+            </tbody>
+        </table>
+    </div>
+</data-panel>

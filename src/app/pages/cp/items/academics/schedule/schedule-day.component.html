@@ -1,0 +1,32 @@
+<table class="padding-10" style="margin: auto; width: 100%" border="1">
+    <thead>
+        <tr>
+            <th colspan="2" class="text-center" [ngClass]="getClass()" style="color: #fff">
+                {{ day.dateObj.getDate() }}{{ showMonth ? (day.dateObj | date:' LLLL') : '' }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let itemHours of day.items | breakEveryValueChange:'dateTime' ; let i = index">
+            <td class="text-right" [ngClass]="getClass()" style="color: #fff">{{ itemHours[0].dateTime | date:'H:mm' }}</td>
+            <td class="text-center">
+                <div *ngFor="let item of itemHours">
+                    <span (click)="showItemClicked(item)" [tooltip]="item.tooltip" class="badge link" [ngClass]="getItemColor(item)">
+                        <span>{{ item.label }}</span>
+                    </span>
+                    <div class="right" *authIf="['admin', 'chaplain']">
+                        <span (click)="editItemClicked(item)" [tooltip]="'edit' | l" class="badge blue link">
+                            <span class="fas fa-pencil-alt"></span>
+                        </span>
+                        <span (click)="deleteItemClicked(item)" [tooltip]="'delete' | l" class="badge red link">
+                            <span class="fas fa-times"></span>
+                        </span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr *authIf="['admin', 'chaplain']">
+            <td colspan="2" class="text-center"><action-button (specialClick)="newScheduleItemClicked(day)" color="btn-green" icon="fa-plus" [bTooltip]="'add' | l" [ajax]="false"></action-button></td>
+        </tr>
+    </tbody>
+</table>

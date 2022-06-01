@@ -1,0 +1,113 @@
+<div *ngIf="calculatorModel" class="row">
+    <div class="col-lg-12">
+        <div class="portlet blue">
+            <div class="portlet-heading">
+                <a data-toggle="collapse" data-parent="#accordion" href="#costCalculator">
+                <div class="portlet-title">
+                    <h4>Υπολογιστής Κόστους</h4>
+                </div>
+                <div class="portlet-widgets">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#costCalculator"><i class="fas fa-chevron-down"></i></a>
+                </div>
+                <div class="clearfix"></div>
+                </a>
+            </div>
+            <div id="costCalculator" class="panel-collapse in">
+                <div class="portlet-body">
+                    <form #form="ngForm">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <label>Σκοπεύετε να έρθετε μόνος -η σας ή ως ζευγάρι;</label><br>
+                                <label for="single" class="radio-inline"><input type="radio" [(ngModel)]="calculatorModel.noPersons" (ngModelChange)="noPersonsSet()" id="single" name="noPersons" value="1" required> Μόνος -η</label>
+                                <label for="couple" class="radio-inline"><input type="radio" [(ngModel)]="calculatorModel.noPersons" (ngModelChange)="noPersonsSet()" id="couple" name="noPersons" value="2" required> Ζευγάρι</label>
+                            </div><br><br><br>
+                        </div>
+                        <div *ngIf="calculatorModel.noPersons" class="row">
+                            <div class="col-md-12 text-center">
+                                <label>Θα θέλατε να μείνετε στους κοιτώνες του κολεγίου;</label><br>
+                                <label for="resident" class="radio-inline"><input type="radio" [(ngModel)]="calculatorModel.resident" (ngModelChange)="residentSet($event)" id="resident" name="resident" value="1" required> Ναι</label>
+                                <label for="nonResident" class="radio-inline"><input type="radio" [(ngModel)]="calculatorModel.resident" (ngModelChange)="residentSet($event)" id="nonResident" name="resident" value="0" required> Όχι</label>
+                            </div><br><br><br>
+                        </div>
+                        <div *ngIf="isCouple() && calculatorModel.resident" class="row">
+                            <div class="col-md-12 text-center">
+                                <label>Πόσοι από εσάς θα πάρουν όλα τα μαθήματα;</label><br>
+                                <label for="noFullTimeStudentsOne" class="radio-inline"><input type="radio" [(ngModel)]="calculatorModel.noFullTimeStudents" (ngModelChange)="noFullTimeStudentsSet()" id="noFullTimeStudentsOne" name="noFullTimeStudents" value="1" required> Μόνο ο ένας</label>
+                                <label for="noFullTimeStudentsTwo" class="radio-inline"><input type="radio" [(ngModel)]="calculatorModel.noFullTimeStudents" (ngModelChange)="noFullTimeStudentsSet()" id="noFullTimeStudentsTwo" name="noFullTimeStudents" value="2" required> Και οι δύο</label>
+                                <label *ngIf="isNonResident()" for="noFullTimeStudentsNone" class="radio-inline"><input type="radio" [(ngModel)]="calculatorModel.noFullTimeStudents" (ngModelChange)="noFullTimeStudentsSet()" id="noFullTimeStudentsNone" name="noFullTimeStudents" value="0" required> Κανένας από τους δύο</label>
+                            </div><br><br><br>
+                        </div>
+                        <div *ngIf="isCouple() && isResident() && calculatorModel.noFullTimeStudents === '1'" class="row">
+                            <div class="col-md-12 text-center">
+                                <label>Πόσοι από εσάς θα τρώνε στα γεύματα του κολεγίου;</label><br>
+                                <label for="noMealsOne" class="radio-inline"><input type="radio" [(ngModel)]="calculatorModel.noMeals" id="noMealsOne" name="noMeals" value="1" required> Μόνο ο ένας</label>
+                                <label for="noMealsTwo" class="radio-inline"><input type="radio" [(ngModel)]="calculatorModel.noMeals" id="noMealsTwo" name="noMeals" value="2" required> Και οι δύο</label>
+                            </div><br><br><br>
+                        </div>
+                        <div *ngIf="isSingle() && isNonResident()" class="row">
+                            <div class="col-md-12 text-center">
+                                <label>Θα πάρετε όλα τα μαθήματα;</label><br>
+                                <label for="fullTimeStudent" class="radio-inline"><input type="radio" [(ngModel)]="calculatorModel.noFullTimeStudents" (ngModelChange)="noFullTimeStudentsSet()" id="fullTimeStudent" name="fullTimeStudent" value="1" required> Ναι</label>
+                                <label for="partTimeStudent" class="radio-inline"><input type="radio" [(ngModel)]="calculatorModel.noFullTimeStudents" (ngModelChange)="noFullTimeStudentsSet()" id="partTimeStudent" name="fullTimeStudent" value="0" required> Όχι</label>
+                            </div><br><br><br>
+                        </div>
+                        <div *ngIf="isPartTime()" class="row">
+                            <div class="col-md-12 text-center">
+                                <label for="noCredits">Πόσα credits συνολικά είναι τα μαθήματα τα οποία σκοπεύετε να πάρετε; (μέγιστο 12 ανά εξάμηνο)</label><br>
+                            </div>
+                            <div class="col-md-offset-5 col-md-2 text-center">
+                                <input type="number" [(ngModel)]="calculatorModel.noCredits" id="noCredits" name="noCredits" min="1" max="24" required autofocus>
+                            </div><br><br><br>
+                        </div>
+
+                        <div class="row">
+                            <div *ngIf="isSingle() && isResident()" class="col-md-12 text-center">
+                                <h1>{{ calculatorModel.priceSingleResident | number:'.2' }} €</h1>&nbsp;(περιλαμβάνει εγγραφή, φοίτηση, αποφοίτηση, διαμονή και σίτιση)
+                            </div>
+                            <div *ngIf="isSingle() && isNonResident() && isFullTime()" class="col-md-12 text-center">
+                                <h1>{{ calculatorModel.priceSingleNonResidentFullTime | number:'.2' }} €</h1>&nbsp;(περιλαμβάνει εγγραφή, φοίτηση και αποφοίτηση)
+                            </div>
+                            <div *ngIf="isSingle() && isPartTime()" class="col-md-12 text-center">
+                                <h1>{{ calculatorModel.feeRegistration + calculatorModel.noCredits * calculatorModel.feeStudentCredit | number:'.2' }} €</h1>&nbsp;(περιλαμβάνει εγγραφή και φοίτηση που αντιστοιχεί σε {{ calculatorModel.noCredits }} credits)
+                            </div>
+                            <div *ngIf="isCouple() && isResident() && isCoupleFullTime()" class="col-md-12 text-center">
+                                <h1>{{ calculatorModel.priceCoupleResidentFullTime | number:'.2' }} €</h1>&nbsp;(περιλαμβάνει εγγραφή, φοίτηση, αποφοίτηση, διαμονή και σίτιση για δύο άτομα)
+                            </div>
+                            <div *ngIf="isCouple() && isResident() && isCoupleNotFullTime() && calculatorModel.noMeals === '2'" class="col-md-12 text-center">
+                                <h1>{{ calculatorModel.priceCoupleResidentCoupleNotFullTimeTwoMeals | number:'.2' }} €</h1>&nbsp;(περιλαμβάνει εγγραφή, φοίτηση και αποφοίτηση για ένα άτομο, καθώς και διαμονή και σίτιση για δύο άτομα)
+                            </div>
+                            <div *ngIf="isCouple() && isResident() && isCoupleNotFullTime() && calculatorModel.noMeals === '1'" class="col-md-12 text-center">
+                                <h1>{{ calculatorModel.priceCoupleResidentCoupleNotFullTimeOneMeal | number:'.2' }} €</h1>&nbsp;(περιλαμβάνει εγγραφή, φοίτηση, αποφοίτηση και σίτιση για ένα άτομο, καθώς και διαμονή για δύο άτομα)
+                            </div>
+                            <div *ngIf="isCouple() && isNonResident() && isCoupleFullTime()" class="col-md-12 text-center">
+                                <h1>{{ calculatorModel.priceCoupleNonResidentCoupleFullTime | number:'.2' }} €</h1>&nbsp;(περιλαμβάνει εγγραφή, φοίτηση και αποφοίτηση για δύο άτομα)
+                            </div>
+                            <div *ngIf="isCouple() && isNonResident() && isCoupleNotFullTime()" class="col-md-12 text-center">
+                                <h1>{{ calculatorModel.priceCoupleNonResidentCoupleNotFullTime | number:'.2' }} €</h1>&nbsp;(περιλαμβάνει εγγραφή, φοίτηση και αποφοίτηση για ένα άτομο)
+                            </div>
+                            <div *ngIf="isCouple() && isPartTime()" class="col-md-12 text-center">
+                                <h1>{{ 2 * calculatorModel.feeRegistration + calculatorModel.noCredits * calculatorModel.feeStudentCredit | number:'.2' }} €</h1>&nbsp;(περιλαμβάνει εγγραφή για δύο άτομα και φοίτηση που αντιστοιχεί σε {{ calculatorModel.noCredits }} credits)
+                            </div>
+
+                            <div class="col-md-12 text-center"><br>
+                                <span *ngIf="isSingle()" class="badge blue">Μόνος -η</span>
+                                <span *ngIf="isCouple()" class="badge blue">Ζευγάρι</span>
+                                <span *ngIf="isResident()" class="badge blue">Οικότροφος -η</span>
+                                <span *ngIf="isNonResident()" class="badge blue">Εξωτερικός -ή</span>
+                                <span *ngIf="isFullTime()" class="badge blue">Πλήρους Φοίτησης</span>
+                                <span *ngIf="isCoupleFullTime()" class="badge blue">Σύζυγος Πλήρους Φοίτησης</span>
+                                <span *ngIf="isCoupleNotFullTime()" class="badge blue">{{ calculatorModel.noMeals + (calculatorModel.noMeals === '1' ? ' γεύμα' : ' γεύματα') }}</span>
+                                <span *ngIf="isPartTime()" class="badge blue">Μερικής Παρακολούθησης {{ calculatorModel.noCredits > 0 ? '(' + calculatorModel.noCredits + (calculatorModel.noCredits === 1 ? ' credit)' : ' credits)') : '' }}</span>
+                            </div>
+
+                            <div class="col-md-12 text-center">
+                                <br>Εάν οι διαθέσιμες επιλογές δεν καλύπτουν την περίπτωσή σας, παρακαλούμε επικοινωνήστε με το λογιστήριο του κολεγίου &lt;<a href="mailto:accounting@grbc.gr">accounting@grbc.gr</a>&gt;.
+                                <br><i class="fas fa-exclamation-circle"></i>&nbsp;Το κολέγιο επιφυλάσσεται για πιθανές αναπροσαρμογές στην περίπτωση φορολογικών αλλαγών ή άλλων οικονομικών συγκυριών που πιθανόν επηρεάσουν τον ΦΠΑ.
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

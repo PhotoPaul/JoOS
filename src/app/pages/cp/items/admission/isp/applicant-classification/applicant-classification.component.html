@@ -1,0 +1,45 @@
+<ng-container *ngIf="applicationData">
+    <div>
+        <data-panel ngId="applicantClassification" heading="Applicant Classification" color="portlet-blue">
+            <fieldset [disabled]="formLoading">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="traditionalISP">Classify Applicant as:</label><br>
+                                <pre>{{ getClassification(applicationData.application.classificationId) }}</pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="startingDate">Starting Date</label><br>
+                                <pre>{{ applicationData.application.startingDate }}</pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="accommodationRequired">Is accommodation required?</label><br>
+                                <pre>{{ admissionService.boolStringToString(applicationData.application.accommodationRequired) }}</pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="visaRequired">Is a VISA required?</label><br>
+                                <pre>{{ admissionService.boolStringToString(applicationData.application.visaRequired) }}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </data-panel>
+        <div class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+        </div>
+    </div>
+</ng-container>

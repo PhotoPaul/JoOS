@@ -1,0 +1,366 @@
+<div *ngIf="applicationData">
+    <data-panel ngId="healthHistoryInfo" heading="Ιστορικό" color="portlet-blue">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label>Επιλέξτε ποιες από τις παρακάτω ασθένειες έχετε περάσει</label><br>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<div class="form-group">Αμυγδαλίτιδα
+					<pre>{{ applicationData.application.tonsillitis }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">Ανεμοβλογιά
+					<pre>{{ applicationData.application.chickenPox }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">Βρογχικό άσθμα
+					<pre>{{ applicationData.application.bronchialAsthma }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">Διφθερίτιδα
+					<pre>{{ applicationData.application.diphtheria }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">Επιληψία
+					<pre>{{ applicationData.application.epilepsy }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<div class="form-group">Ερυθρά
+					<pre>{{ applicationData.application.rubella }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">Ιλαρά
+					<pre>{{ applicationData.application.measles }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">Κίτρινο πυρετό
+					<pre>{{ applicationData.application.yellowFever }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">Μηνιγγίτιδα
+					<pre>{{ applicationData.application.meningitis }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">Παρωτίτιδα
+					<pre>{{ applicationData.application.mumps }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<div class="form-group">Πολιομυελίτιδα
+					<pre>{{ applicationData.application.polio }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">Χολέρα
+					<pre>{{ applicationData.application.cholera }}</pre>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">Καρδιακή ανωμαλία
+					<pre>{{ applicationData.application.heartAbnormality }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="otherDiseases">Άλλες ασθένειες</label><br>
+					<pre>{{ admissionService.boolStringToString(applicationData.application.otherDiseases) }}</pre>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="otherDiseasesDetails">Δώστε περισσότερες πληροφορίες</label>
+					<pre>{{ applicationData.application.otherDiseasesDetails }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label>Επιλέξτε ποια από τα παρακάτω εμβόλια έχετε κάνει</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<div class="form-group">Αντιδιφθεριτικό
+					<pre>{{ applicationData.application.vaccineDiphtheria }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">Αντικοκκυτικό
+					<pre>{{ applicationData.application.vaccinePertussis }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">Αντιτετανικό
+					<pre>{{ applicationData.application.vaccineTetanus }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">Δαμαλισμού
+					<pre>{{ applicationData.application.vaccineSmallpox }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">Ερυθράς
+					<pre>{{ applicationData.application.vaccineRubella }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<div class="form-group">Ιλαράς
+					<pre>{{ applicationData.application.vaccineMeasles }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">Παρωτίτιδας
+					<pre>{{ applicationData.application.vaccineMumps }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">Πολιομυελίτιδας
+					<pre>{{ applicationData.application.vaccinePolio }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">Χολέρας
+					<pre>{{ applicationData.application.vaccineCholera }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="otherVaccines">Άλλα εμβόλια</label><br>
+					<pre>{{ admissionService.boolStringToString(applicationData.application.otherVaccines) }}</pre>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="otherVaccinesDetails">Δώστε περισσότερες πληροφορίες</label>
+					<pre>{{ applicationData.application.otherVaccinesDetails }}</pre>
+				</div>
+			</div>
+		</div>
+    </data-panel>
+
+    <data-panel ngId="drugsUseInfo" heading="Ναρκωτικές Ουσίες" color="portlet-blue">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="drugsUse">Έχετε κάνει χρήση ναρκωτικών ουσιών</label><br>
+					<pre>{{ admissionService.boolStringToString(applicationData.application.drugsUse) }}</pre>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="drugsUseDetails">Δώστε πληροφορίες σχετικά με τη χρήση ναρκωτικών ουσιών</label>
+					<pre>{{ applicationData.application.drugsUseDetails }}</pre>
+				</div>
+			</div>
+		</div>
+    </data-panel>
+
+    <data-panel ngId="currentHealthInfo" heading="Παρούσα κατάσταση υγείας" color="portlet-blue">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="currentDiseases">Ασθένειες για τις οποίες το Κολέγιο θα πρέπει να γνωρίζει</label><br>
+					<pre>{{ admissionService.boolStringToString(applicationData.application.currentDiseases) }}</pre>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="currentDiseasesDetails">Δώστε περισσότερες πληροφορίες</label>
+					<pre>{{ applicationData.application.currentDiseasesDetails }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="currentSymptoms">Συμπτώματα για τα οποία το Κολέγιο θα πρέπει να γνωρίζει</label><br>
+					<pre>{{ admissionService.boolStringToString(applicationData.application.currentSymptoms) }}</pre>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="currentSymptomsDetails">Δώστε περισσότερες πληροφορίες</label>
+					<pre>{{ applicationData.application.currentSymptomsDetails }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="currentMedicines">Φάρμακα για τα οποία το Κολέγιο θα πρέπει να γνωρίζει</label><br>
+					<pre>{{ admissionService.boolStringToString(applicationData.application.currentMedicines) }}</pre>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="currentMedicinesDetails">Δώστε περισσότερες πληροφορίες</label>
+					<pre>{{ applicationData.application.currentMedicinesDetails }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="foodAllergy">Τροφικές αλλεργίες για τις οποίες το Κολέγιο θα πρέπει να γνωρίζει</label><br>
+					<pre>{{ admissionService.boolStringToString(applicationData.application.foodAllergy) }}</pre>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="foodAllergyDetails">Δώστε περισσότερες πληροφορίες</label>
+					<pre>{{ applicationData.application.foodAllergyDetails }}</pre>
+				</div>
+			</div>
+		</div>
+    </data-panel>
+
+    <data-panel ngId="emergencyContactsInfo" heading="Επαφές για περίπτωση έκτακτης ανάγκης" color="portlet-blue">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="firstEmergencyContactFirstName">Όνομα πρώτου προσώπου</label>
+					<pre>{{ applicationData.application.firstEmergencyContactFirstName }}</pre>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="firstEmergencyContactLastName">Επώνυμο</label>
+					<pre>{{ applicationData.application.firstEmergencyContactLastName }}</pre>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="firstEmergencyContactPhone">Τηλέφωνο</label>
+					<pre>{{ applicationData.application.firstEmergencyContactPhone }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="secondEmergencyContactFirstName">Όνομα δεύτερου προσώπου</label>
+					<pre>{{ applicationData.application.secondEmergencyContactFirstName }}</pre>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="secondEmergencyContactLastName">Επώνυμο</label>
+					<pre>{{ applicationData.application.secondEmergencyContactLastName }}</pre>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="secondEmergencyContactPhone">Τηλέφωνο</label>
+					<pre>{{ applicationData.application.secondEmergencyContactPhone }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="doctor">Υπάρχει Οικογενειακός Ιατρός</label><br>
+					<pre>{{ admissionService.boolStringToString(applicationData.application.doctor) }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="doctorFirstName">Όνομα Ιατρού</label>
+					<pre>{{ applicationData.application.doctorFirstName }}</pre>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="doctorLastName">Επώνυμο</label>
+					<pre>{{ applicationData.application.doctorLastName }}</pre>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="doctorPhone">Τηλέφωνο</label>
+					<pre>{{ applicationData.application.doctorPhone }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="doctorAddress">Οδός, αριθμός Ιατρείου</label>
+					<pre>{{ applicationData.application.doctorAddress }}</pre>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="doctorCity">Πόλη</label>
+					<pre>{{ applicationData.application.doctorCity }}</pre>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					<label for="doctorZipCode">Τ.Κ.</label>
+					<pre>{{ applicationData.application.doctorZipCode }}</pre>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="doctorCountry">Χώρα</label>
+					<pre>{{ applicationData.application.doctorCountry }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="doctorContactApproval">Σε περίπτωση έκτακτης ανάγκης, δίνω άδεια στo Κολέγιο να συμβουλευτεί τον οικογενειακό ιατρό μου με δικά μου έξοδα</label><br>
+					<pre>{{ applicationData.application.doctorContactApproval }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="otherDoctorContactApproval">Σε περίπτωση έκτακτης ανάγκης, εάν δεν υπάρχει οικογενειακός ιατρός ή εάν δε μπορεί να βρεθεί, δίνω άδεια στo Κολέγιο να καλέσει όποιο γιατρό κρίνει κατάλληλο, ή ακόμα και να με μεταφέρει σε νοσοκομείο για θεραπεία, με δικά μου έξοδα</label><br>
+					<pre>{{ applicationData.application.otherDoctorContactApproval }}</pre>
+				</div>
+			</div>
+		</div>
+    </data-panel>
+    <ng-container>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+            <action-collection [actionButtons]="decisionButtons" [collectionAjax]="true"></action-collection>
+        </div>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.editApplication(applicationData.accessControl.editPath, this.userId)" color="btn-blue" icon="fa-pencil-alt" [caption]="'edit' | l" [bTooltip]="'editApplication' | l"></action-button>
+        </div>
+        <div *authIf="['admin', 'registrar', 'admissions']" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+        </div>
+    </ng-container>
+</div>

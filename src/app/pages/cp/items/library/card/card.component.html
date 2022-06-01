@@ -1,0 +1,89 @@
+<data-panel ngId="libraryInfo" heading="{{ 'libraryInfo' | l }}" color="portlet-dark-blue" [collapsed]="true">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th style="width: 100%">{{ 'libraryClerk' | l }}</th>
+                <th>{{ 'daysU' | l }}</th>
+                <th class="text-center">{{ 'hoursU' | l }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Όλγα Πολίτη &lt;<a href="mailto:library@grbc.gr">library@grbc.gr</a>&gt;</td>
+                <td>{{ 'monday' | l }}<br>{{ 'tuesday' | l }}<br>{{ 'wednesday' | l }}<br>{{ 'thursday' | l }}<br>{{ 'friday' | l }}</td>
+                <td class="text-center text-nowrap">9:00 - 17:00<br>9:00 - 18:00<br>9:00 - 15:00<br>9:00 - 18:00<br>9:00 - 15:00</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</data-panel>
+
+<required-field-warning *ngIf="libraryService.libraryUser && !libraryService.libraryUser?.barcode" warningText="{{ 'noLibraryCard' | l }}" [noLink]="true"></required-field-warning>
+
+<data-panel *ngIf="libraryService.libraryUser?.barcode" ngId="checkedOutBooks" heading="{{ libraryService.libraryUser?.barcode }} &mdash; {{ '' | fName:libraryService.libraryUser?.last:libraryService.libraryUser?.first }} &mdash; {{ 'creditsLeft' | l }}{{libraryService.libraryUser?.credits }}" color="portlet-green">
+    <data-filter #dataFilterCheckedOutBooks></data-filter>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="text-center">Barcode</th>
+                <th style="width: 100%">{{ 'title' | l }}</th>
+                <th class="text-center">{{ 'checkOut' | l }}</th>
+                <th class="text-center">{{ 'dueDate' | l }}</th>
+                <th class="text-center">{{ 'left' | l }}</th>
+                <th class="text-center">{{ 'actions' | l }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="!libraryService.activeRecords"><td colspan="6" class="text-center"><loading></loading></td></tr>
+            <tr *ngFor="let record of libraryService.activeRecords | filterByString:['book_barcode','title','subtitle']:dataFilterCheckedOutBooks.filter">
+                <td class="text-center">{{ record.book_barcode }}</td>
+                <td>{{ record.title }}{{ record.subtitle ? ' : ' + record.subtitle : '' }}</td>
+                <td class="text-center text-nowrap">{{ record.date_out?.split('-').join('/') | date:'dd-MM-y' }}</td>
+                <td class="text-center text-nowrap">{{ record.due_date?.split('-').join('/') | date:'dd-MM-y' }}</td>
+                <td class="text-center text-nowrap">
+                    <ng-container *ngIf="record.reservedBookId"><span class="badge purple">{{ 'reserved' | l }}</span><br></ng-container>
+                    <span [ngClass]="'badge ' + libraryService.getMyCheckedOutBookColor(+record.daysLeft)">{{ +record.daysLeft >= 0 ? record.daysLeft + ('days' | l) : 'overdue' | l }}</span>
+                </td>
+                <td class="text-center text-nowrap">
+                    
+                    <action-button *ngIf="libraryService.canRenew(record)" (specialClick)="libraryService.renewBook(record.book_barcode, $event.actionButtonComponent)" [color]="'btn-green'" [icon]="'fa-redo-alt'" [bTooltip]="'renewBook' | l"></action-button>
+                    <action-button (click)="libraryService.showBook(record.book_barcode)" [color]="'btn-blue'" [icon]="'fa-book'" [bTooltip]="'showBook' | l" [ajax]="false"></action-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</data-panel> 
+
+<data-panel *ngIf="libraryService.libraryUser?.barcode" ngId="libraryCardHistory" heading="{{ 'libraryCardHistory' | l }}{{ barcode ? ': ' + barcode : '' }}" color="portlet-dark-blue" [collapsed]="true">
+    <data-filter #dataFilterLibraryCardHistory></data-filter>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="text-center">Barcode</th>
+                <th style="width: 100%">{{ 'title' | l }}</th>
+                <th class="text-center">{{ 'checkOut' | l }}</th>
+                <th class="text-center">{{ 'dueDate' | l }}</th>
+                <th class="text-center">{{ 'checkIn' | l }}</th>
+                <th class="text-center">{{ 'actions' | l }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="!libraryService.historicalRecords"><td colspan="6" class="text-center"><loading></loading></td></tr>
+            <tr *ngFor="let record of libraryService.historicalRecords | filterByString:['book_barcode','title','subtitle']:dataFilterLibraryCardHistory.filter">
+                <td class="text-center">{{ record.book_barcode }}</td>
+                <td>{{ record.title }}{{ record.subtitle ? ' : ' + record.subtitle : '' }}</td>
+                <td class="text-center text-nowrap">{{ record.date_out?.split('-').join('/') | date:'dd-MM-y' }}</td>
+                <td class="text-center text-nowrap">{{ record.due_date?.split('-').join('/') | date:'dd-MM-y' }}</td>
+                <td class="text-center text-nowrap">{{ record.date_in?.split('-').join('/') | date:'dd-MM-y' }}</td>
+                <td class="text-center text-nowrap">
+                    <action-button (click)="libraryService.showBook(record.book_barcode)" [color]="'btn-blue'" [icon]="'fa-book'" [bTooltip]="'showBook' | l" [ajax]="false"></action-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</data-panel> 

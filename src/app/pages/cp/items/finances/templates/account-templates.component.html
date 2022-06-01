@@ -1,0 +1,29 @@
+<!--suppress JSBitwiseOperatorUsage -->
+<template-item-input></template-item-input>
+<data-panel ngId="accountTemplates" [heading]="'accountTemplates' | l" color="portlet-blue">
+    <data-filter #dataFilter></data-filter><br>
+    <div *ngIf="!financesService.accountTemplatesData.accountTemplateItemCategories" class="text-center"><loading></loading></div>
+    <data-panel *ngFor="let accountTemplate of financesService.accountTemplatesData.accountTemplates | filterByString:['name']:dataFilter.filter" ngId="accountTemplate{{ accountTemplate.accountTemplateItems[0].id }}" heading="{{accountTemplate.name}}" color="portlet-green" collapsed="true">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th style="width: 100%">{{ 'category' | l }}</th>
+                    <th class="text-center">{{ 'amount' | l }}</th>
+                    <th class="text-center">{{ 'actions' | l }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let accountTemplateItem of accountTemplate.accountTemplateItems">
+                    <td>{{ financesService.getCategoryNameById(accountTemplateItem.category_id,
+                        financesService.accountTemplatesData.accountTemplateItemCategories) }}</td>
+                    <td class="text-right" [ngClass]="financesService.getSignClass(accountTemplateItem.amount)">{{ financesService.parseAmount(accountTemplateItem.amount) | currency:'EUR':'symbol':'1.2-2' }}</td>
+                    <td class="text-center text-nowrap">
+                        <action-button (specialClick)="editAccountTemplateItem(accountTemplateItem.id)" [color]="'btn-blue'" [icon]="'fa-edit'" [bTooltip]="'editRecord' | l" [ajax]="false"></action-button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </data-panel>
+</data-panel>

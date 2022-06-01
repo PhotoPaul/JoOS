@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left"><span [innerHTML]="options.title | l:'html'"></span></h4>
+    <button type="button" (click)="onX()" class="close pull-right" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body" [ngClass]="options.bodyClass">
+    <div class="row">
+        <div class="col-md-12">
+            <ng-container *ngIf="options.templateRef ; else message">
+                <ng-container *ngTemplateOutlet="options.templateRef"></ng-container>
+            </ng-container>
+            <ng-template #message>
+                <span [innerHTML]="options.message | l:'html'"></span>
+            </ng-template>
+        </div>
+    </div><br>
+    <div class="row text-center">
+        <div *ngIf="options.type === 'yesNo'" class="col-md-12">
+            <action-collection [parentRef]="modalRef" [actionButtons]="options.confirmationButtons" [collectionAjax]="true"></action-collection>
+        </div>
+        <div *ngIf="options.type === 'ok'" class="col-md-12">
+            <action-button (click)="options.onOk(modalRef)" color="btn-blue" caption="OK"></action-button>
+        </div>
+    </div>
+</div>

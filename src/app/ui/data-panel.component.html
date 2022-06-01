@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="portlet" [ngClass]="color">
+            <div class="portlet-heading">
+                <a data-toggle="collapse" data-parent="#accordion" href="#{{ngId}}">
+                <div class="portlet-title">
+                    <h4 [innerHTML]="heading"></h4>
+                </div>
+                <div class="portlet-widgets">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#{{ngId}}"><i class="fas fa-chevron-down"></i></a>
+                </div>
+                <div class="clearfix"></div>
+                </a>
+            </div>
+            <div id="{{ngId}}" class="panel-collapse" [ngClass]="{collapse: collapsed, in: !collapsed}">
+                <div class="portlet-body">
+                    <ng-content></ng-content>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

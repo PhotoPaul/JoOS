@@ -1,0 +1,47 @@
+<chapel-schedule-input *ngIf="scheduleItemInputModel" (onCancelScheduleItemInput)="scheduleItemInputModel = null" (onScheduleItemInputSubmit)="onScheduleItemInputSubmit($event)" [scheduleItemInputModel]="scheduleItemInputModel" [categories]="chapelCategories"></chapel-schedule-input>
+<data-panel ngId="chapelSchedule" [heading]="'chapelSchedule' | l" color="portlet-blue">
+    <div class="row">
+        <div class="col-md-2 col-md-offset-8 text-right">
+            <select [(ngModel)]="chapelScheduleFilter.noWeeks" (ngModelChange)="fetchChapelSchedule()" class="form-control">
+                <option *ngFor="let week of 4 | ngForTimes; let i = index" [value]="i + 1">{{ i + 1 }} {{ 'weeks' | l }}</option>
+            </select>
+        </div>
+        <div class="col-md-2 text-right">
+            <action-button (specialClick)="fetchPreviousWeek()" icon="fa-chevron-circle-left" color="btn-blue" [tooltip]="'showPreviousWeek' | l" [ajax]="false"></action-button>
+            <action-button (specialClick)="fetchCurrentWeek()" icon="fa-circle" color="btn-blue" [tooltip]="'showCurrentWeek' | l" [ajax]="false"></action-button>
+            <action-button (specialClick)="fetchNextWeek()" icon="fa-chevron-circle-right" color="btn-blue" [tooltip]="'showNextWeek' | l" [ajax]="false"></action-button>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover center-all">
+            <thead>
+            <tr>
+                <th class="text-center">{{ 'monday' | l }}</th>
+                <th class="text-center">{{ 'tuesday' | l }}</th>
+                <th class="text-center">{{ 'wednesday' | l }}</th>
+                <th class="text-center">{{ 'thursday' | l }}</th>
+                <th class="text-center">{{ 'friday' | l }}</th>
+                <th *ngIf="chapelScheduleFilter.weekends" class="text-center">{{ 'saturday' | l }}</th>
+                <th *ngIf="chapelScheduleFilter.weekends" class="text-center">{{ 'sunday' | l }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="!completeChapelSchedule"><td colspan="7" class="text-center"><loading></loading></td></tr>
+            <tr *ngFor="let completeChapelScheduleWeek of completeChapelSchedule | breakEveryN:7 ; let i = index">
+                <ng-container *ngFor="let completeChapelScheduleDay of completeChapelScheduleWeek ; let j = index">
+                    <td *ngIf="chapelScheduleFilter.weekends || this.scheduleService.isWeekday(completeChapelScheduleDay)">
+                        <schedule-day
+                            [day]="completeChapelScheduleDay"
+                            [defaultTimeHours]="11"
+                            [showMonth]="i === 0 && j === 0 ? true : false"
+                            (onEditItemClicked)="editItemClicked($event)"
+                            (onDeleteItemClicked)="deleteItemClicked($event)"
+                            (onNewScheduleItemClicked)="newScheduleItemClicked($event)"
+                        ></schedule-day>
+                    </td>
+                </ng-container>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</data-panel>

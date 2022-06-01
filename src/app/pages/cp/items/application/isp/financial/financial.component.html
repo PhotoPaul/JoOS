@@ -1,0 +1,155 @@
+<form *ngIf="applicationData" #form="ngForm" (change)="modelChanged = true" accept-charset="UTF-8" role="form">
+    <data-panel ngId="financialInfo" heading="Financial Liability" color="portlet-blue">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="tuition">Total cost for tuition *</label>
+                        <div class="input-group">
+                            <input *authIf="['admin', 'cashier']" type="text" style="text-align: right" [(ngModel)]="applicationData.application.tuition" id="tuition" name="tuition" class="form-control" autocomplete="off" required>
+                            <pre *authIf="'candidate'" style="text-align: right" class="form-control">{{ applicationData.application.tuition }}</pre>
+                            <span class="input-group-addon">€ (EUR)</span>
+                        </div>
+                        <required-field-warning *ngIf="validate && !applicationData.application.tuition"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="roomBoard">Total cost for room and board *</label>
+                        <div class="input-group">
+                            <input *authIf="['admin', 'cashier']" type="text" style="text-align: right" [(ngModel)]="applicationData.application.roomBoard" id="roomBoard" name="roomBoard" class="form-control" autocomplete="off" required>
+                            <pre *authIf="'candidate'" style="text-align: right" class="form-control">{{ applicationData.application.roomBoard }}</pre>
+                            <span class="input-group-addon">€ (EUR)</span>
+                        </div>
+                        <required-field-warning *ngIf="validate && !applicationData.application.roomBoard"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>* These costs are an initial "best estimate" and they are subject to minor changes</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="paymentSchedule">Payment schedule</label>
+                        <textarea *authIf="['admin', 'cashier']" [(ngModel)]="this.applicationData.application.paymentSchedule" id="paymentSchedule" name="paymentSchedule" class="form-control" rows="4" autocomplete="off" required></textarea>
+                        <required-field-warning *ngIf="validate && !this.applicationData.application.paymentSchedule"></required-field-warning>
+                        <pre *authIf="['candidate']">{{ applicationData.application.paymentSchedule }}</pre>
+                    </div>
+                </div>
+            </div>
+            <div *authIf="['admin', 'candidate']" class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="financialApproval">I hereby declare that I have been informed of the estimated total cost of attendance, and I commit to pay it off according to the payment schedule</label><br>
+                        <label for="financialApproval" class="checkbox-inline"><input type="checkbox" [(ngModel)]="applicationData.application.financialApproval" id="financialApproval" name="financialApproval" autocomplete="off" required autofocus>&nbsp;{{ 'yes' | l }}</label>
+                        <required-field-warning *ngIf="validate && !applicationData.application.financialApproval" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div *authIf="['admin', 'candidate']" class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="selfPaid">The full amount will be paid by me</label>
+                        <div class="form-group">
+                            <label for="selfPaid" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.selfPaid" id="selfPaid" name="selfPaid" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                            <label for="notSelfPaid" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.selfPaid" id="notSelfPaid" name="selfPaid" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                            <required-field-warning *ngIf="validate && applicationData.application.selfPaid === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-container *ngIf="applicationData.application.selfPaid === '0'">
+                <div *authIf="['admin', 'candidate']" class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="sponsors">Please list the names of the individuals or organizations who will contribute to your payments</label>
+                            <textarea [(ngModel)]="applicationData.application.sponsors" id="sponsors" name="sponsors" class="form-control" rows="2" autocomplete="off" required autofocus></textarea>
+                            <required-field-warning *ngIf="validate && !applicationData.application.sponsors"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+                <div *authIf="['admin', 'candidate']" class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="sponsorsTotal">Please enter the total amount that will be covered by them</label>
+                            <input type="text" [(ngModel)]="applicationData.application.sponsorsTotal" id="sponsorsTotal" name="sponsorsTotal" class="form-control" autocomplete="off" required>
+                            <required-field-warning *ngIf="validate && !applicationData.application.sponsorsTotal"></required-field-warning>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="debtApproval">I hereby declare that I commit to pay off any remaining balances even if my sponsors do not pay on my behalf</label><br>
+                            <label for="debtApproval" class="checkbox-inline"><input type="checkbox" [(ngModel)]="applicationData.application.debtApproval" id="debtApproval" name="debtApproval" autocomplete="off" required>&nbsp;{{ 'yes' | l }}</label>
+                            <required-field-warning *ngIf="validate && !applicationData.application.debtApproval" [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+                </ng-container>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="financialInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <!-- <data-panel *authIf="['admin', 'cashier']" ngId="applicationFeeInfo" heading="Application & Visa Assistance Fee" color="portlet-blue">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="applicationFee">The Application Fee for the Applicant is:</label>
+                        <div class="form-group">
+                            <label for="applicationFee" class="radio-inline"><input type="radio" (click)="createOrder(35)" [(ngModel)]="applicationData.application.applicationFee" id="applicationFee" name="applicationFee" value="35" required> 35€ Application Fee</label><br>
+                            <label for="applicationVisaFee" class="radio-inline"><input type="radio" (click)="createOrder(235)" [(ngModel)]="applicationData.application.applicationFee" id="applicationVisaFee" name="applicationFee" value="235" required> 235€ Application & Visa Assistance Fee</label><br>
+                            <required-field-warning *ngIf="validate && !applicationData.application.applicationFee" [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="applicationData.application.feeUrl" class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="feeUrl">Application Fee Payment URL</label>
+                        <input type="text" (click)="$event.target.select()" id="feeUrl" name="feeUrl" class="form-control text-center" readonly="readonly" [value]="applicationData.application.feeUrl">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="applicationFeeInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel> -->
+
+    <div *ngIf="!unsavedChanges(); else isNotSaved" class="row">
+        <!-- Cashier Only -->
+        <ng-container *authIf="['admin', 'cashier']">
+            <div class="col-md-4 col-md-offset-4 extraBottomPadding">
+                <button *ngIf="!applicationData.application.hidden" (click)="hideForm()" class="btn btn-orange btn-block" type="button" [tooltip]="'hideFinancialFormFromApplicant' | l">{{ 'hideForm' | l }}</button>
+                <button *ngIf="applicationData.application.hidden" (click)="unhideForm()" class="btn btn-purple btn-block" type="button" [tooltip]="'unhideFinancialFormForApplicant' | l">{{ 'unhideForm' | l }}</button>
+            </div>
+        </ng-container>
+        <!-- /Cashier Only -->
+        <ng-container *ngIf="form.valid; else isNotValid">
+            <div class="col-md-2 col-md-offset-5 extraBottomPadding">
+                <button class="btn btn-green btn-block" type="button" (click)="submitForm()" [disabled]="formLoading || !form.valid">{{ 'submit' | l }}</button>
+            </div>
+        </ng-container>
+        <ng-template #isNotValid>
+            <div class="col-md-4 col-md-offset-4 extraBottomPadding">
+                <button class="btn btn-green btn-block" type="button" (click)="checkForm()" [disabled]="formLoading">{{ 'validate' | l }}</button>
+            </div>
+        </ng-template>
+    </div>
+    <ng-template #isNotSaved>
+        <div class="alert alert-danger text-center extraBottomPadding">{{ 'pleaseSaveChanges' | l }}</div>
+    </ng-template>
+    <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+        <action-button (click)="applicationService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+    </div>
+</form>

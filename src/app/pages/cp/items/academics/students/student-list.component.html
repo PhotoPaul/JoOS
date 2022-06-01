@@ -1,0 +1,54 @@
+<data-panel ngId="students" heading="{{ 'activeStudents' | l }}{{ students?': '+students.length:''}}" color="portlet-blue">
+    <div class="row">
+        <div class="col-md-9">
+            <data-filter #dataFilter></data-filter>
+        </div>
+        <div class="col-md-3">
+            <select [ngModel]="filter.programId" (ngModelChange)="onActiveProgramChange($event)" [ngModelOptions]="{standalone: true}" name="filterByProgram" class="form-control">
+                <option [ngValue]="undefined" disabled hidden>{{ 'allPrograms' | l }}</option>
+                <option [ngValue]="undefined">{{ 'allPrograms' | l }}</option>
+                <option *ngFor="let program of programs" [ngValue]="program.id">{{ 'program_name' | l:program }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="text-center">{{ 'photo' | l }}</th>
+                <th style="width: 100%">{{ 'fullName' | l }}</th>
+                <th class="text-center text-nowrap">{{ 'registrationDate' | l }}</th>
+                <th class="text-center">{{ 'programs' | l }}</th>
+                <th class="text-center">{{ 'actions' | l }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="!students"><td colspan="6" class="text-center"><loading></loading></td></tr>
+            <tr *ngFor="let student of students | filterByString:['firstName','lastName']:dataFilter.filter">
+                <td class="text-center"><img-thumbnail [userId]="student.id" [src]="student.photoURI" maxHeight="34"></img-thumbnail></td>
+                <td>{{ '' | fName:student.lastName:student.firstName }}</td>
+                <td class="text-center">{{ student.dateTime?.split('-').join('/') | date:'dd-MM-y' }}</td>
+                <td class="text-center text-nowrap">
+                    <ul class="bulletless">
+                        <li *ngFor="let program of student.programs">
+                            <a [routerLink]="['/cp/academics/programs/enrollment/', program.programId]">
+                                <i class="fas fa-users fa-fw"></i>
+                                {{ 'program_name' | l:program }}
+                            </a> ({{ program.noCourses }})
+                        </li>
+                    </ul>
+                </td>
+                <td class="text-center text-nowrap">
+                    <action-button *authIf="['admin', 'registrar']" (specialClick)="viewUserFolderClicked(student.id)" [color]="'btn-blue'" [icon]="'fa-folder'" [bTooltip]="'userFolder' | l"></action-button>
+                    <action-button *authIf="['admin', 'registrar', 'cashier']" (specialClick)="progressClicked(student.id)" [color]="'btn-blue'" [icon]="'fa-graduation-cap'" [bTooltip]="'academicProgress' | l"></action-button>
+                    <action-button #$viewEnglishTranscriptButton *authIf="['admin', 'registrar']" (specialClick)="viewTranscriptClicked(student.pdfUrlEnglish, $viewEnglishTranscriptButton)" [color]="'btn-blue'" [icon]="'fa-envelope-open'" [bTooltip]="'transcriptEnglish' | l"></action-button>
+                    <action-button #$viewEnglishECTSTranscriptButton *authIf="['admin', 'registrar']" (specialClick)="viewTranscriptClicked(student.pdfUrlEnglishECTS, $viewEnglishECTSTranscriptButton)" [color]="'btn-blue'" [icon]="'fa-envelope-open'" [bTooltip]="'transcriptEnglishECTS' | l"></action-button>
+                    <action-button #$viewGreekTranscriptButton *authIf="['admin', 'registrar']" (specialClick)="viewTranscriptClicked(student.pdfUrlGreek, $viewGreekTranscriptButton)" [color]="'btn-blue'" [icon]="'fa-envelope-open'" [bTooltip]="'transcriptGreek' | l"></action-button>
+                    <action-button (specialClick)="studentCoursesClicked(student.id)" [color]="'btn-blue'" [icon]="'fa-th-list'" [bTooltip]="'studentCourses' | l"></action-button>
+                    <action-button *authIf="'admin'" (click)="deleteStudent(student.id)" [color]="'btn-red'" [icon]="'fa-trash-alt'" [bTooltip]="'deleteStudent' | l" [ajax]="false"></action-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</data-panel>

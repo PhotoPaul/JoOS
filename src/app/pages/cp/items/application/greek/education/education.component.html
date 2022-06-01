@@ -1,0 +1,194 @@
+<form *ngIf="applicationData" #form="ngForm" (change)="modelChanged = true" accept-charset="UTF-8" role="form">
+    <data-panel ngId="primarySecondaryEducationInfo" heading="Πρωτοβάθμια & Δευτεροβάθμια Εκπαίδευση" color="portlet-blue">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="elementaryName">Δημοτικό Σχολείο</label>
+                        <input type="text" [(ngModel)]="applicationData.application.elementaryName" id="elementaryName" name="elementaryName" class="form-control" autocomplete="off" required autofocus>
+                        <required-field-warning *ngIf="validate && !applicationData.application.elementaryName"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="elementaryGraduationYear">Χρονολογία Αποφοίτησης</label>
+                        <input type="text" [(ngModel)]="applicationData.application.elementaryGraduationYear" id="elementaryGraduationYear" name="elementaryGraduationYear" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.elementaryGraduationYear"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="middleSchoolName">Γυμνάσιο</label>
+                        <input type="text" [(ngModel)]="applicationData.application.middleSchoolName" id="middleSchoolName" name="middleSchoolName" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.middleSchoolName"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="middleSchoolGraduationYear">Χρονολογία Αποφοίτησης</label>
+                        <input type="text" [(ngModel)]="applicationData.application.middleSchoolGraduationYear" id="middleSchoolGraduationYear" name="middleSchoolGraduationYear" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.middleSchoolGraduationYear"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondarySchoolName">Λύκειο / ΤΕΛ</label>
+                        <input type="text" [(ngModel)]="applicationData.application.secondarySchoolName" id="secondarySchoolName" name="secondarySchoolName" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.secondarySchoolName"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondarySchoolGraduationYear">Χρονολογία Αποφοίτησης</label>
+                        <input type="text" [(ngModel)]="applicationData.application.secondarySchoolGraduationYear" id="secondarySchoolGraduationYear" name="secondarySchoolGraduationYear" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.secondarySchoolGraduationYear"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondarySchoolDiscipline">Κατεύθυνση / Ειδίκευση</label>
+                        <input type="text" [(ngModel)]="applicationData.application.secondarySchoolDiscipline" id="secondarySchoolDiscipline" name="secondarySchoolDiscipline" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.secondarySchoolDiscipline"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="primarySecondaryEducationInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <data-panel ngId="languagesInfo" heading="Γλώσσες" color="portlet-blue" collapsed="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="greekMedium">Επίπεδο Γνώσης Ελληνικών</label><br>
+                        <label for="greekMedium" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.greek" id="greekMedium" name="greek" value="1" required> Μέτριο</label>
+                        <label for="greekGood" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.greek" id="greekGood" name="greek" value="2" required> Καλό</label>
+                        <label for="greekVeryGood" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.greek" id="greekVeryGood" name="greek" value="3" required> Πολύ Καλό</label>
+                        <label for="greekExcellent" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.greek" id="greekExcellent" name="greek" value="4" required> Άριστο</label>
+                        <required-field-warning *ngIf="validate && applicationData.application.greek === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="englishMedium">Επίπεδο Γνώσης Αγγλικών</label><br>
+                        <label for="englishMedium" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.english" id="englishMedium" name="english" value="1" required> Μέτριο</label>
+                        <label for="englishGood" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.english" id="englishGood" name="english" value="2" required> Καλό</label>
+                        <label for="englishVeryGood" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.english" id="englishVeryGood" name="english" value="3" required> Πολύ Καλό</label>
+                        <label for="englishExcellent" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.english" id="englishExcellent" name="english" value="4" required> Άριστο</label>
+                        <required-field-warning *ngIf="validate && applicationData.application.english === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="languagesInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <data-panel ngId="higherEducationInfo" heading="Τριτοβάθμια Εκπαίδευση" color="portlet-blue" collapsed="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="communityCollegeName">Μεταλυκειακές Σπουδές (ΙΕΚ κλπ.)</label>
+                        <input type="text" [(ngModel)]="applicationData.application.communityCollegeName" id="communityCollegeName" name="communityCollegeName" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="communityCollegeGraduationYear">Χρονολογία Αποφοίτησης</label>
+                        <input type="text" [(ngModel)]="applicationData.application.communityCollegeGraduationYear" id="communityCollegeGraduationYear" name="communityCollegeGraduationYear" class="form-control" autocomplete="off" [required]="applicationData.application.communityCollegeName?.length > 0">
+                        <required-field-warning *ngIf="validate && !applicationData.application.communityCollegeGraduationYear"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="communityCollegeDiscipline">Κατεύθυνση / Ειδίκευση</label>
+                        <input type="text" [(ngModel)]="applicationData.application.communityCollegeDiscipline" id="communityCollegeDiscipline" name="communityCollegeDiscipline" class="form-control" autocomplete="off" [required]="applicationData.application.communityCollegeName?.length > 0">
+                        <required-field-warning *ngIf="validate && !applicationData.application.communityCollegeDiscipline"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="collegeName">ΑΕΙ, ΑΤΕΙ κλπ.</label>
+                        <input type="text" [(ngModel)]="applicationData.application.collegeName" id="collegeName" name="collegeName" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="collegeGraduationYear">Χρονολογία Αποφοίτησης</label>
+                        <input type="text" [(ngModel)]="applicationData.application.collegeGraduationYear" id="collegeGraduationYear" name="collegeGraduationYear" class="form-control" autocomplete="off" [required]="applicationData.application.collegeName?.length > 0">
+                        <required-field-warning *ngIf="validate && !applicationData.application.collegeGraduationYear"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="collegeDiscipline">Κατεύθυνση / Ειδίκευση</label>
+                        <input type="text" [(ngModel)]="applicationData.application.collegeDiscipline" id="collegeDiscipline" name="collegeDiscipline" class="form-control" autocomplete="off" [required]="applicationData.application.collegeName?.length > 0">
+                        <required-field-warning *ngIf="validate && !applicationData.application.collegeDiscipline"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="graduateSchoolName">Μεταπτυχιακό</label>
+                        <input type="text" [(ngModel)]="applicationData.application.graduateSchoolName" id="graduateSchoolName" name="graduateSchoolName" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="graduateSchoolGraduationYear">Χρονολογία Αποφοίτησης</label>
+                        <input type="text" [(ngModel)]="applicationData.application.graduateSchoolGraduationYear" id="graduateSchoolGraduationYear" name="graduateSchoolGraduationYear" class="form-control" autocomplete="off" [required]="applicationData.application.graduateSchoolName?.length > 0">
+                        <required-field-warning *ngIf="validate && !applicationData.application.graduateSchoolGraduationYear"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="graduateSchoolDiscipline">Κατεύθυνση / Ειδίκευση</label>
+                        <input type="text" [(ngModel)]="applicationData.application.graduateSchoolDiscipline" id="graduateSchoolDiscipline" name="graduateSchoolDiscipline" class="form-control" autocomplete="off" [required]="applicationData.application.graduateSchoolName?.length > 0">
+                        <required-field-warning *ngIf="validate && !applicationData.application.graduateSchoolDiscipline"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="higherEducationInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+    <div *ngIf="!unsavedChanges(); else isNotSaved" class="row">
+        <ng-container *ngIf="form.valid; else isNotValid">
+            <div class="col-md-2 col-md-offset-5 extraBottomPadding">
+                <button class="btn btn-green btn-block" type="button" (click)="submitForm()" [disabled]="formLoading || !form.valid">{{ 'submit' | l }}</button>
+            </div>
+        </ng-container>
+        <ng-template #isNotValid>
+            <div class="col-md-4 col-md-offset-4 extraBottomPadding">
+                <button class="btn btn-green btn-block" type="button" (click)="checkForm()" [disabled]="formLoading">{{ 'validate' | l }}</button>
+            </div>
+        </ng-template>
+    </div>
+    <ng-template #isNotSaved>
+        <div class="alert alert-danger text-center extraBottomPadding">{{ 'pleaseSaveChanges' | l }}</div>
+    </ng-template>
+    <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+        <action-button (click)="applicationService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+    </div>
+</form>

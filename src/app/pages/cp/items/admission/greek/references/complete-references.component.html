@@ -1,0 +1,247 @@
+<div *ngIf="applicationData">
+    <data-panel ngId="firstReferenceInfo" heading="Ποιμένας ή Πρεσβύτερος" [color]="'portlet-' + getDecisionColor(applicationData.application[0].referenceId)">
+        <ng-container *ngIf="applicationData.application[0].documentUrl; else firstReference">
+            <iframe [src]="applicationData.application[0].documentUrl" style="width: 100%; height: 400px"></iframe>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <action-button (click)="deleteConfidentialLetterOfRecommendation(applicationData.application[0].documentId, 0)" icon="fa-trash-alt" color="btn-red" [caption]="'delete' | l" [bTooltip]="'deleteConfidentialLetterOfRecommendation' | l" [ajax]="false"></action-button>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #firstReference>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="firstReferenceFirstName">Όνομα</label>
+                        <pre>{{ applicationData.application[0].firstName }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="firstReferenceLastName">Επώνυμο</label>
+                        <pre>{{ applicationData.application[0].lastName }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="firstReferenceEmail">Email</label>
+                        <pre>{{ applicationData.application[0].email }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="firstReferencePhone">Τηλέφωνο</label>
+                        <pre>{{ applicationData.application[0].phone }}</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="firstReferenceAddress">Οδός, αριθμός</label>
+                        <pre>{{ applicationData.application[0].address }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="firstReferenceCity">Πόλη</label>
+                        <pre>{{ applicationData.application[0].city }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="firstReferenceZipCode">Τ.Κ.</label>
+                        <pre>{{ applicationData.application[0].zipCode }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="firstReferenceCountry">Χώρα</label>
+                        <pre>{{ applicationData.application[0].country }}</pre>
+                    </div>
+                </div>
+            </div>
+            <div *authIf="['admin', 'registrar']" class="row">
+                <div class="col-md-12 text-center">
+                    <ng-container *ngIf="applicationData.application[0].referenceId?.length === 34">
+                        <div class="form-group">
+                            <label for="firstReferenceUrl">{{ 'uniqueConfidentialLetterOfRecommendationLink' | l }}</label>
+                            <input type="text" (click)="$event.target.select()" id="firstReferenceUrl" name="firstReferenceUrl" class="form-control text-center" readonly="readonly" [value]="appURI + 'forms/letter-of-recommendation?token=' + encodeURIComponent(applicationData.application[0].referenceId)">
+                        </div>
+                        <p>Εάν το πρόσωπο αυτό δεν είναι πλέον αποδεκτό επιλέξτε "Απόρριψη"</p>
+                    </ng-container>
+                    <action-button *ngIf="applicationData.application[0].referenceId?.length < 34" (specialClick)="decideForReference(0, true)" icon="fa-thumbs-up" color="btn-green" [caption]="'accept' | l" [bTooltip]="'Αποδοχή Ποιμένα ή Πρεσβυτέρου'"></action-button>
+                    <action-button *ngIf="applicationData.application[0].referenceId != '0'" (specialClick)="decideForReference(0, false)" icon="fa-thumbs-down" color="btn-red" [caption]="'reject' | l" [bTooltip]="'Απόρριψη Ποιμένα ή Πρεσβυτέρου'"></action-button>
+                </div>
+            </div>
+        </ng-template>
+    </data-panel>
+
+    <data-panel ngId="secondReferenceInfo" heading="Δεύτερο Πρόσωπο" [color]="'portlet-' + getDecisionColor(applicationData.application[1].referenceId)">
+        <ng-container *ngIf="applicationData.application[1].documentUrl; else secondReference">
+            <iframe [src]="applicationData.application[1].documentUrl" style="width: 100%; height: 400px"></iframe>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <action-button (click)="deleteConfidentialLetterOfRecommendation(applicationData.application[1].documentId, 1)" icon="fa-trash-alt" color="btn-red" [caption]="'delete' | l" [bTooltip]="'deleteConfidentialLetterOfRecommendation' | l" [ajax]="false"></action-button>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #secondReference>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondReferenceFirstName">Όνομα</label>
+                        <pre>{{ applicationData.application[1].firstName }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondReferenceLastName">Επώνυμο</label>
+                        <pre>{{ applicationData.application[1].lastName }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondReferenceEmail">Email</label>
+                        <pre>{{ applicationData.application[1].email }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondReferencePhone">Τηλέφωνο</label>
+                        <pre>{{ applicationData.application[1].phone }}</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="secondReferenceAddress">Οδός, αριθμός</label>
+                        <pre>{{ applicationData.application[1].address }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondReferenceCity">Πόλη</label>
+                        <pre>{{ applicationData.application[1].city }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="secondReferenceZipCode">Τ.Κ.</label>
+                        <pre>{{ applicationData.application[1].zipCode }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondReferenceCountry">Χώρα</label>
+                        <pre>{{ applicationData.application[1].country }}</pre>
+                    </div>
+                </div>
+            </div>
+            <div *authIf="['admin', 'registrar']" class="row">
+                <div class="col-md-12 text-center">
+                    <ng-container *ngIf="applicationData.application[1].referenceId?.length === 34">
+                        <div class="form-group">
+                            <label for="secondReferenceUrl">{{ 'uniqueConfidentialLetterOfRecommendationLink' | l }}</label>
+                            <input type="text" (click)="$event.target.select()" id="secondReferenceUrl" name="secondReferenceUrl" class="form-control text-center" readonly="readonly" [value]="appURI + 'forms/letter-of-recommendation?token=' + encodeURIComponent(applicationData.application[1].referenceId)">
+                        </div>
+                        <p>Εάν το πρόσωπο αυτό δεν είναι πλέον αποδεκτό επιλέξτε "Απόρριψη"</p>
+                    </ng-container>
+                    <action-button *ngIf="applicationData.application[1].referenceId?.length < 34" (specialClick)="decideForReference(1, true)" icon="fa-thumbs-up" color="btn-green" [caption]="'accept' | l" [bTooltip]="'Αποδοχή Δεύτερου Προσώπου'"></action-button>
+                    <action-button *ngIf="applicationData.application[1].referenceId != '0'" (specialClick)="decideForReference(1, false)" icon="fa-thumbs-down" color="btn-red" [caption]="'reject' | l" [bTooltip]="'Απόρριψη Δεύτερου Προσώπου'"></action-button>
+                </div>
+            </div>
+        </ng-template>
+    </data-panel>
+
+    <data-panel ngId="thirdReferenceInfo" heading="Τρίτο Πρόσωπο" [color]="'portlet-' + getDecisionColor(applicationData.application[2].referenceId)">
+        <ng-container *ngIf="applicationData.application[2].documentUrl; else thirdReference">
+             <iframe [src]="applicationData.application[2].documentUrl" style="width: 100%; height: 400px"></iframe> 
+             <div class="row">
+                <div class="col-md-12 text-center">
+                    <action-button (click)="deleteConfidentialLetterOfRecommendation(applicationData.application[2].documentId, 2)" icon="fa-trash-alt" color="btn-red" [caption]="'delete' | l" [bTooltip]="'deleteConfidentialLetterOfRecommendation' | l" [ajax]="false"></action-button>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #thirdReference>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="thirdReferenceFirstName">Όνομα</label>
+                        <pre>{{ applicationData.application[2].firstName }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="thirdReferenceLastName">Επώνυμο</label>
+                        <pre>{{ applicationData.application[2].lastName }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="thirdReferenceEmail">Email</label>
+                        <pre>{{ applicationData.application[2].email }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="thirdReferencePhone">Τηλέφωνο</label>
+                        <pre>{{ applicationData.application[2].phone }}</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="thirdReferenceAddress">Οδός, αριθμός</label>
+                        <pre>{{ applicationData.application[2].address }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="thirdReferenceCity">Πόλη</label>
+                        <pre>{{ applicationData.application[2].city }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="thirdReferenceZipCode">Τ.Κ.</label>
+                        <pre>{{ applicationData.application[2].zipCode }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="thirdReferenceCountry">Χώρα</label>
+                        <pre>{{ applicationData.application[2].country }}</pre>
+                    </div>
+                </div>
+            </div>
+            <div *authIf="['admin', 'registrar']" class="row">
+                <div class="col-md-12 text-center">
+                    <ng-container *ngIf="applicationData.application[2].referenceId?.length === 34">
+                        <div class="form-group">
+                            <label for="thirdReferenceUrl">{{ 'uniqueConfidentialLetterOfRecommendationLink' | l }}</label>
+                            <input type="text" (click)="$event.target.select()" id="thirdReferenceUrl" name="thirdReferenceUrl" class="form-control text-center" readonly="readonly" [value]="appURI + 'forms/letter-of-recommendation?token=' + encodeURIComponent(applicationData.application[2].referenceId)">
+                        </div>
+                        <p>Εάν το πρόσωπο αυτό δεν είναι πλέον αποδεκτό επιλέξτε "Απόρριψη"</p>
+                    </ng-container>
+                    <action-button *ngIf="applicationData.application[2].referenceId?.length < 34" (specialClick)="decideForReference(2, true)" icon="fa-thumbs-up" color="btn-green" [caption]="'accept' | l" [bTooltip]="'Αποδοχή Τρίτου Προσώπου'"></action-button>
+                    <action-button *ngIf="applicationData.application[2].referenceId != '0'" (specialClick)="decideForReference(2, false)" icon="fa-thumbs-down" color="btn-red" [caption]="'reject' | l" [bTooltip]="'Απόρριψη Τρίτου Προσώπου'"></action-button>
+                </div>
+            </div>
+        </ng-template>
+    </data-panel>
+
+    <ng-container>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles) && applicationData.application[0].documentUrl && applicationData.application[1].documentUrl && applicationData.application[2].documentUrl" class="row text-center extraBottomPadding">
+            <action-collection *authIf="['admin', 'registrar']" [actionButtons]="decisionButtons" [collectionAjax]="true"></action-collection>
+        </div>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.editApplication(applicationData.accessControl.editPath, this.userId)" color="btn-blue" icon="fa-pencil-alt" [caption]="'edit' | l" [bTooltip]="'editApplication' | l"></action-button>
+        </div>
+        <div *authIf="['admin', 'registrar', 'admissions']" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+        </div>
+    </ng-container>
+</div>

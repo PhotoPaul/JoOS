@@ -1,0 +1,31 @@
+<data-panel ngId="programs" heading="{{ 'academicPrograms' | l }}{{ programs.length?': '+programs.length:''}}" color="portlet-blue">
+    <data-filter #dataFilter></data-filter>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th style="width: 100%">{{ 'title' | l }}</th>
+                <th class="text-center">{{ 'semesters' | l }}</th>
+                <th class="text-center text-nowrap">{{ 'totalStudents' | l }}</th>
+                <th class="text-center">{{ 'graduates' | l }}</th>
+                <th class="text-center text-nowrap">{{ 'activeStudents' | l }}</th>
+                <th class="text-center">{{ 'actions' | l }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="!programs.length"><td colspan="7" class="text-center"><loading></loading></td></tr>
+            <tr *ngFor="let program of programs | filterByString:['program_name_gr','program_name_en']:dataFilter.filter">
+                <td>{{ 'program_name' | l:program }}</td>
+                <td class="text-center">{{ program.number_of_semesters }}</td>
+                <td class="text-center">{{ program.enrolled_students || 0 }}</td>
+                <td class="text-center">{{ program.graduated_students || 0 }}</td>
+                <td class="text-center">{{ program.active_students || 0 }}</td>
+                <td class="text-center text-nowrap">
+                    <action-button (click)="enrollmentClicked(program.id)" [color]="'btn-blue'" [icon]="'fa-users'" [bTooltip]="'programRegistry' | l"></action-button>
+                    <action-button (click)="coursesClicked(program.id)" [color]="'btn-blue'" [icon]="'fa-th-list'" [bTooltip]="'courses' | l"></action-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</data-panel>

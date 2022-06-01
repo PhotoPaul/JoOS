@@ -1,0 +1,79 @@
+<data-panel ngId="candidates" [heading]="('currentApplications' | l) + (candidates ? ': ' + candidates.length:'')" color="portlet-blue">
+    <div class="row">
+        <div class="col-md-9">
+            <data-filter #dataFilter></data-filter>
+        </div>
+        <div class="col-md-3">
+            <select [ngModel]="filter.programId" (ngModelChange)="onActiveProgramChange($event)" [ngModelOptions]="{standalone: true}" name="filterByProgram" class="form-control">
+                <option [ngValue]="undefined" disabled hidden>{{ 'allApplicants' | l }}</option>
+                <option ngValue="0">{{ 'allApplicants' | l }}</option>
+                <option *ngFor="let program of programs" [ngValue]="program.id">{{ 'program_name' | l:program }}</option>
+                <option ngValue="-1">{{ 'withoutApplication' | l }}</option>
+            </select>
+        </div>
+    </div><br>
+    <ng-container *authIf="['admin', 'cashier']">
+        <div *ngIf="filter.programId === '2'" class="row">
+            <div class="col-md-12 text-right">
+                <label class="checkbox-inline" [tooltip]="'showOnlyNotYetRevealedApplications' | l">
+                    <input [(ngModel)]="filter.hiddenOnly" (ngModelChange)="fetchCandidateProgramData()" type="checkbox" name="hiddenOnly">&nbsp;
+                    {{ 'showOnlyNotYetRevealedApplications' | l }}
+                </label>
+            </div><br><br>
+        </div>
+    </ng-container>
+    <div *ngIf="!candidates" class="text-center"><loading></loading></div>
+    <data-panel *ngFor="let candidate of candidates | filterByString:['firstName','lastName']:dataFilter.filter" ngId="candidate{{ candidate.id }}" heading="{{ '' | fName:candidate.lastName:candidate.firstName }} &mdash; {{ candidate.email }} &mdash; {{ candidate.date_time?.split('-').join('/') | date:'dd-MM-y' }}" [color]="getPortletClass(candidate)" [collapsed]="administrativeActionNeeded(candidate)">
+        <ng-template #noProgramChosen>
+            <div class="alert alert-danger text-center">{{ 'noProgramChosen' | l }}</div>
+            <div *authIf="['admin']" class="text-center"><action-button (click)="deleteUserPermanently(candidate.id)" color="btn-red" icon="fa-user-times" [bTooltip]="'deleteUserPermanently' | l" [ajax]="false"></action-button></div>
+        </ng-template>
+        <div *ngIf="candidate.applications.length; else noProgramChosen" class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 100%">{{ 'applicationName' | l }}</th>
+                        <th class="text-center text-nowrap">{{ 'submissionStatus' | l }}</th>
+                        <th class="text-center text-nowrap">{{ 'approvalStatus' | l }}</th>
+                        <th class="text-center text-nowrap">{{ 'actions' | l }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let application of candidate.applications">
+                        <ng-container *ngIf="admissionService.hasAccess(application.viewRoles)">
+                            <td>
+                                <span><i class="fas {{ application.icon }} fa-fw"></i>&nbsp;{{ 'heading' | l:application }}</span><br>
+                            </td>
+                            <td class="text-center text-nowrap">
+                                <span class="badge" [ngClass]="admissionService.getCandidateStatusClass(application.applicationStatus)">{{ admissionService.getCandidateStatusText(application.applicationStatus) }}</span>
+                            </td>
+                            <td class="text-center text-nowrap">
+                                <span class="badge" [ngClass]="admissionService.getAdmissionStatusClass(application.applicationStatus)">{{ admissionService.getAdmissionStatusText(application.applicationStatus) }}</span>
+                            </td>
+                            <td class="text-center text-nowrap">
+                                <action-button *ngIf="admissionService.hasAccess(application.viewRoles)" (click)="admissionService.showApplication(application.viewPath, candidate.id)" color="btn-blue" icon="far fa-eye" [bTooltip]="'showApplication' | l"></action-button>
+                                <action-button *ngIf="admissionService.hasAccess(application.editRoles)" (click)="admissionService.editApplication(application.editPath, candidate.id)" color="btn-blue" icon="fa-pencil-alt" [bTooltip]="'editApplication' | l"></action-button>
+                            </td>
+                        </ng-container>
+                    </tr>
+                    <tr *authIf="['admin', { roleName: 'admissions', forProgramId: auth.getRoleRecordIfExists(candidate.roles, { roleId: '5' }).forProgramId }]">
+                        <td colspan="4" class="text-center text-nowrap">
+                            <p>{{ 'doYouConsider' | l }}</p>
+                            <p><action-vote [handler]="votingHandler" [data]="{ applicant: candidate, vote: candidate.vote }"></action-vote></p>
+                        </td>
+                    </tr>
+                    <tr *authIf="['admin', 'registrar', 'admissions']">
+                        <td colspan="4" class="text-center text-nowrap">
+                            <action-button (click)="openAdmissionsCompleteApplicationPDF(candidate.pdfUrl)" color="btn-dark-blue" icon="fa-print fa-2x" [bTooltip]="'exportApplications' | l" [ajax]="false"></action-button>
+                        </td>
+                    </tr>
+                    <tr *authIf="['admin', { roleName: 'registrar', forProgramId: auth.getRoleRecordIfExists(candidate.roles, { roleId: '5' }).forProgramId }]">
+                        <td colspan="4" class="text-center text-nowrap">
+                            <action-button (click)="resetApplicant(candidate.id)" color="btn-red" icon="fa-user-times" [bTooltip]="'resetApplicant' | l" [ajax]="false"></action-button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </data-panel>
+</data-panel>

@@ -1,0 +1,307 @@
+<form *ngIf="applicationData" #form="ngForm" (change)="modelChanged = true" accept-charset="UTF-8" role="form">
+    <data-panel ngId="secondaryEducationInfo" heading="Secondary Education" color="portlet-blue">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="secondarySchoolName">High School Name</label>
+                        <input type="text" [(ngModel)]="applicationData.application.secondarySchoolName" id="secondarySchoolName" name="secondarySchoolName" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.secondarySchoolName"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondarySchoolGraduationYear">Graduation Year</label>
+                        <input type="text" [(ngModel)]="applicationData.application.secondarySchoolGraduationYear" id="secondarySchoolGraduationYear" name="secondarySchoolGraduationYear" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.secondarySchoolGraduationYear"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="secondarySchoolAddress">High School Address</label>
+                        <input type="text" [(ngModel)]="applicationData.application.secondarySchoolAddress" id="secondarySchoolAddress" name="secondarySchoolAddress" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.secondarySchoolAddress"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="city">City, State / Province</label>
+                        <input type="text" [(ngModel)]="applicationData.application.secondarySchoolCity" id="secondarySchoolCity" name="secondarySchoolCity" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.secondarySchoolCity"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="zipCode">ZIP / Postcode</label>
+                        <input type="text" [(ngModel)]="applicationData.application.secondarySchoolZipCode" id="secondarySchoolZipCode" name="secondarySchoolZipCode" class="form-control" autocomplete="off" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.secondarySchoolZipCode"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select [(ngModel)]="applicationData.application.secondarySchoolCountry" class="form-control" id="secondarySchoolCountry" name="secondarySchoolCountry" autocomplete="off" required><option>Afghanistan</option><option>Åland Islands</option><option>Albania</option><option>Algeria</option><option>American Samoa</option><option>Andorra</option><option>Angola</option><option>Anguilla</option><option>Antarctica</option><option>Antigua and Barbuda</option><option>Argentina</option><option>Armenia</option><option>Aruba</option><option>Australia</option><option>Austria</option><option>Azerbaijan</option><option>Bahamas</option><option>Bahrain</option><option>Bangladesh</option><option>Barbados</option><option>Belarus</option><option>Belgium</option><option>Belize</option><option>Benin</option><option>Bermuda</option><option>Bhutan</option><option>Bolivia (Plurinational State of)</option><option>Bonaire, Sint Eustatius and Saba</option><option>Bosnia and Herzegovina</option><option>Botswana</option><option>Bouvet Island</option><option>Brazil</option><option>British Indian Ocean Territory</option><option>Brunei Darussalam</option><option>Bulgaria</option><option>Burkina Faso</option><option>Burundi</option><option>Cabo Verde</option><option>Cambodia</option><option>Cameroon</option><option>Canada</option><option>Cayman Islands</option><option>Central African Republic</option><option>Chad</option><option>Chile</option><option>China</option><option>Christmas Island</option><option>Cocos (Keeling) Islands</option><option>Colombia</option><option>Comoros</option><option>Congo (Democratic Republic of)</option><option>Congo</option><option>Cook Islands</option><option>Costa Rica</option><option>Côte d’Ivoire</option><option>Croatia</option><option>Cuba</option><option>Curaçao</option><option>Cyprus</option><option>Czech Republic</option><option>Denmark</option><option>Djibouti</option><option>Dominica</option><option>Dominican Republic</option><option>Ecuador</option><option>Egypt</option><option>El Salvador</option><option>Equatorial Guinea</option><option>Eritrea</option><option>Estonia</option><option>Ethiopia</option><option>Falkland Islands [Malvinas]</option><option>Faroe Islands</option><option>Fiji</option><option>Finland</option><option>France</option><option>French Guiana</option><option>French Polynesia</option><option>French Southern Territories</option><option>Gabon</option><option>Gambia</option><option>Georgia</option><option>Germany</option><option>Ghana</option><option>Gibraltar</option><option>Greece</option><option>Greenland</option><option>Grenada</option><option>Guadeloupe</option><option>Guam</option><option>Guatemala</option><option>Guernsey</option><option>Guinea</option><option>Guinea-Bissau</option><option>Guyana</option><option>Haiti</option><option>Heard Island and McDonald Islands</option><option>Holy See</option><option>Honduras</option><option>Hong Kong</option><option>Hungary</option><option>Iceland</option><option>India</option><option>Indonesia</option><option>Iran (Islamic Republic of)</option><option>Iraq</option><option>Ireland</option><option>Isle of Man</option><option>Israel</option><option>Italy</option><option>Jamaica</option><option>Japan</option><option>Jersey</option><option>Jordan</option><option>Kazakhstan</option><option>Kenya</option><option>Kiribati</option><option>Korea (Democratic People's Republic of)</option><option>Korea (Republic of)</option><option>Kuwait</option><option>Kyrgyzstan</option><option>Lao People's Democratic Republic</option><option>Latvia</option><option>Lebanon</option><option>Lesotho</option><option>Liberia</option><option>Libya</option><option>Liechtenstein</option><option>Lithuania</option><option>Luxembourg</option><option>Macao</option><option>Macedonia (Former Yugoslav Republic of)</option><option>Madagascar</option><option>Malawi</option><option>Malaysia</option><option>Maldives</option><option>Mali</option><option>Malta</option><option>Marshall Islands</option><option>Martinique</option><option>Mauritania</option><option>Mauritius</option><option>Mayotte</option><option>Mexico</option><option>Micronesia (Federated States of)</option><option>Moldova (Republic of)</option><option>Monaco</option><option>Mongolia</option><option>Montenegro</option><option>Montserrat</option><option>Morocco</option><option>Mozambique</option><option>Myanmar</option><option>Namibia</option><option>Nauru</option><option>Nepal</option><option>Netherlands</option><option>New Caledonia</option><option>New Zealand</option><option>Nicaragua</option><option>Niger</option><option>Nigeria</option><option>Niue</option><option>Norfolk Island</option><option>Northern Mariana Islands</option><option>Norway</option><option>Oman</option><option>Pakistan</option><option>Palau</option><option>Palestine, State of</option><option>Panama</option><option>Papua New Guinea</option><option>Paraguay</option><option>Peru</option><option>Philippines</option><option>Pitcairn</option><option>Poland</option><option>Portugal</option><option>Puerto Rico</option><option>Qatar</option><option>Réunion</option><option>Romania</option><option>Russian Federation</option><option>Rwanda</option><option>Saint Barthélemy</option><option>Saint Helena, Ascension and Tristan da Cunha</option><option>Saint Kitts and Nevis</option><option>Saint Lucia</option><option>Saint Martin (French part)</option><option>Saint Pierre and Miquelon</option><option>Saint Vincent and the Grenadines</option><option>Samoa</option><option>San Marino</option><option>Sao Tome and Principe</option><option>Saudi Arabia</option><option>Senegal</option><option>Serbia</option><option>Seychelles</option><option>Sierra Leone</option><option>Singapore</option><option>Sint Maarten (Dutch part)</option><option>Slovakia</option><option>Slovenia</option><option>Solomon Islands</option><option>Somalia</option><option>South Africa</option><option>South Georgia and the South Sandwich Islands</option><option>South Sudan</option><option>Spain</option><option>Sri Lanka</option><option>Sudan</option><option>Suriname</option><option>Svalbard and Jan Mayen</option><option>Swaziland</option><option>Sweden</option><option>Switzerland</option><option>Syrian Arab Republic</option><option>Taiwan (Province of China)</option><option>Tajikistan</option><option>Tanzania, United Republic of</option><option>Thailand</option><option>Timor-Leste</option><option>Togo</option><option>Tokelau</option><option>Tonga</option><option>Trinidad and Tobago</option><option>Tunisia</option><option>Turkey</option><option>Turkmenistan</option><option>Turks and Caicos Islands</option><option>Tuvalu</option><option>Uganda</option><option>Ukraine</option><option>United Arab Emirates</option><option>United Kingdom of Great Britain and Northern Ireland</option><option>United States Minor Outlying Islands</option><option>United States of America</option><option>Uruguay</option><option>Uzbekistan</option><option>Vanuatu</option><option>Venezuela (Bolivarian Republic of)</option><option>Viet Nam</option><option>Virgin Islands (British)</option><option>Virgin Islands (U.S.)</option><option>Wallis and Futuna</option><option>Western Sahara*</option><option>Yemen</option><option>Zambia</option><option>Zimbabwe</option></select>
+                        <required-field-warning *ngIf="validate && !applicationData.application.secondarySchoolCountry" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="englishHighSchool">Did you complete your High School education in English?</label><br>
+                            <label for="englishHighSchool" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.englishHighSchool" id="englishHighSchool" name="englishHighSchool" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                            <label for="notEnglishHighSchool" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.englishHighSchool" id="notEnglishHighSchool" name="englishHighSchool" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                            <required-field-warning *ngIf="validate && applicationData.application.englishHighSchool === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="this.applicationData.application.englishHighSchool === '0'" class="col-md-4">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="englishCertificate">Do you have an English Language Certificate? (TOEFL / IELTS)</label><br>
+                            <label for="englishCertificate" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.englishCertificate" id="englishCertificate" name="englishCertificate" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                            <label for="notEnglishCertificate" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.englishCertificate" id="notEnglishCertificate" name="englishCertificate" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                            <required-field-warning *ngIf="validate && applicationData.application.englishCertificate === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="this.applicationData.application.englishHighSchool === '0'" class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-danger text-center">Please note that if English is not your first language, you must score <b>61 or better</b> on the internet-based TOEFL exam (or equivalent)</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="secondaryEducationInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+    
+    <data-panel ngId="higherEducationInfo" heading="Colleges or other Post-Secondary Institutions Attended" color="portlet-blue" collapsed="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="communityCollegeName">Junior / Community College Name</label>
+                        <input type="text" [(ngModel)]="applicationData.application.communityCollegeName" id="communityCollegeName" name="communityCollegeName" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <ng-container *ngIf="applicationData.application.communityCollegeName">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="communityCollegeDatesAttended">Dates Attended</label>
+                            <input type="text" [(ngModel)]="applicationData.application.communityCollegeDatesAttended" id="communityCollegeDatesAttended" name="communityCollegeDatesAttended" class="form-control" autocomplete="off" [required]="applicationData.application.communityCollegeName?.length > 0">
+                            <required-field-warning *ngIf="validate && !applicationData.application.communityCollegeDatesAttended"></required-field-warning>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="communityCollegeDiscipline">Discipline</label>
+                            <input type="text" [(ngModel)]="applicationData.application.communityCollegeDiscipline" id="communityCollegeDiscipline" name="communityCollegeDiscipline" class="form-control" autocomplete="off" [required]="applicationData.application.communityCollegeName?.length > 0">
+                            <required-field-warning *ngIf="validate && !applicationData.application.communityCollegeDiscipline"></required-field-warning>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div *ngIf="applicationData.application.communityCollegeName" class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="communityCollegeAddress">Junior / Community College Address</label>
+                        <input type="text" [(ngModel)]="applicationData.application.communityCollegeAddress" id="communityCollegeAddress" name="communityCollegeAddress" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="city">City, State / Province</label>
+                        <input type="text" [(ngModel)]="applicationData.application.communityCollegeCity" id="communityCollegeCity" name="communityCollegeCity" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="zipCode">ZIP / Postcode</label>
+                        <input type="text" [(ngModel)]="applicationData.application.communityCollegeZipCode" id="communityCollegeZipCode" name="communityCollegeZipCode" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select [(ngModel)]="applicationData.application.communityCollegeCountry" class="form-control" id="communityCollegeCountry" name="communityCollegeCountry" autocomplete="off"><option>Afghanistan</option><option>Åland Islands</option><option>Albania</option><option>Algeria</option><option>American Samoa</option><option>Andorra</option><option>Angola</option><option>Anguilla</option><option>Antarctica</option><option>Antigua and Barbuda</option><option>Argentina</option><option>Armenia</option><option>Aruba</option><option>Australia</option><option>Austria</option><option>Azerbaijan</option><option>Bahamas</option><option>Bahrain</option><option>Bangladesh</option><option>Barbados</option><option>Belarus</option><option>Belgium</option><option>Belize</option><option>Benin</option><option>Bermuda</option><option>Bhutan</option><option>Bolivia (Plurinational State of)</option><option>Bonaire, Sint Eustatius and Saba</option><option>Bosnia and Herzegovina</option><option>Botswana</option><option>Bouvet Island</option><option>Brazil</option><option>British Indian Ocean Territory</option><option>Brunei Darussalam</option><option>Bulgaria</option><option>Burkina Faso</option><option>Burundi</option><option>Cabo Verde</option><option>Cambodia</option><option>Cameroon</option><option>Canada</option><option>Cayman Islands</option><option>Central African Republic</option><option>Chad</option><option>Chile</option><option>China</option><option>Christmas Island</option><option>Cocos (Keeling) Islands</option><option>Colombia</option><option>Comoros</option><option>Congo (Democratic Republic of)</option><option>Congo</option><option>Cook Islands</option><option>Costa Rica</option><option>Côte d’Ivoire</option><option>Croatia</option><option>Cuba</option><option>Curaçao</option><option>Cyprus</option><option>Czech Republic</option><option>Denmark</option><option>Djibouti</option><option>Dominica</option><option>Dominican Republic</option><option>Ecuador</option><option>Egypt</option><option>El Salvador</option><option>Equatorial Guinea</option><option>Eritrea</option><option>Estonia</option><option>Ethiopia</option><option>Falkland Islands [Malvinas]</option><option>Faroe Islands</option><option>Fiji</option><option>Finland</option><option>France</option><option>French Guiana</option><option>French Polynesia</option><option>French Southern Territories</option><option>Gabon</option><option>Gambia</option><option>Georgia</option><option>Germany</option><option>Ghana</option><option>Gibraltar</option><option>Greece</option><option>Greenland</option><option>Grenada</option><option>Guadeloupe</option><option>Guam</option><option>Guatemala</option><option>Guernsey</option><option>Guinea</option><option>Guinea-Bissau</option><option>Guyana</option><option>Haiti</option><option>Heard Island and McDonald Islands</option><option>Holy See</option><option>Honduras</option><option>Hong Kong</option><option>Hungary</option><option>Iceland</option><option>India</option><option>Indonesia</option><option>Iran (Islamic Republic of)</option><option>Iraq</option><option>Ireland</option><option>Isle of Man</option><option>Israel</option><option>Italy</option><option>Jamaica</option><option>Japan</option><option>Jersey</option><option>Jordan</option><option>Kazakhstan</option><option>Kenya</option><option>Kiribati</option><option>Korea (Democratic People's Republic of)</option><option>Korea (Republic of)</option><option>Kuwait</option><option>Kyrgyzstan</option><option>Lao People's Democratic Republic</option><option>Latvia</option><option>Lebanon</option><option>Lesotho</option><option>Liberia</option><option>Libya</option><option>Liechtenstein</option><option>Lithuania</option><option>Luxembourg</option><option>Macao</option><option>Macedonia (Former Yugoslav Republic of)</option><option>Madagascar</option><option>Malawi</option><option>Malaysia</option><option>Maldives</option><option>Mali</option><option>Malta</option><option>Marshall Islands</option><option>Martinique</option><option>Mauritania</option><option>Mauritius</option><option>Mayotte</option><option>Mexico</option><option>Micronesia (Federated States of)</option><option>Moldova (Republic of)</option><option>Monaco</option><option>Mongolia</option><option>Montenegro</option><option>Montserrat</option><option>Morocco</option><option>Mozambique</option><option>Myanmar</option><option>Namibia</option><option>Nauru</option><option>Nepal</option><option>Netherlands</option><option>New Caledonia</option><option>New Zealand</option><option>Nicaragua</option><option>Niger</option><option>Nigeria</option><option>Niue</option><option>Norfolk Island</option><option>Northern Mariana Islands</option><option>Norway</option><option>Oman</option><option>Pakistan</option><option>Palau</option><option>Palestine, State of</option><option>Panama</option><option>Papua New Guinea</option><option>Paraguay</option><option>Peru</option><option>Philippines</option><option>Pitcairn</option><option>Poland</option><option>Portugal</option><option>Puerto Rico</option><option>Qatar</option><option>Réunion</option><option>Romania</option><option>Russian Federation</option><option>Rwanda</option><option>Saint Barthélemy</option><option>Saint Helena, Ascension and Tristan da Cunha</option><option>Saint Kitts and Nevis</option><option>Saint Lucia</option><option>Saint Martin (French part)</option><option>Saint Pierre and Miquelon</option><option>Saint Vincent and the Grenadines</option><option>Samoa</option><option>San Marino</option><option>Sao Tome and Principe</option><option>Saudi Arabia</option><option>Senegal</option><option>Serbia</option><option>Seychelles</option><option>Sierra Leone</option><option>Singapore</option><option>Sint Maarten (Dutch part)</option><option>Slovakia</option><option>Slovenia</option><option>Solomon Islands</option><option>Somalia</option><option>South Africa</option><option>South Georgia and the South Sandwich Islands</option><option>South Sudan</option><option>Spain</option><option>Sri Lanka</option><option>Sudan</option><option>Suriname</option><option>Svalbard and Jan Mayen</option><option>Swaziland</option><option>Sweden</option><option>Switzerland</option><option>Syrian Arab Republic</option><option>Taiwan (Province of China)</option><option>Tajikistan</option><option>Tanzania, United Republic of</option><option>Thailand</option><option>Timor-Leste</option><option>Togo</option><option>Tokelau</option><option>Tonga</option><option>Trinidad and Tobago</option><option>Tunisia</option><option>Turkey</option><option>Turkmenistan</option><option>Turks and Caicos Islands</option><option>Tuvalu</option><option>Uganda</option><option>Ukraine</option><option>United Arab Emirates</option><option>United Kingdom of Great Britain and Northern Ireland</option><option>United States Minor Outlying Islands</option><option>United States of America</option><option>Uruguay</option><option>Uzbekistan</option><option>Vanuatu</option><option>Venezuela (Bolivarian Republic of)</option><option>Viet Nam</option><option>Virgin Islands (British)</option><option>Virgin Islands (U.S.)</option><option>Wallis and Futuna</option><option>Western Sahara*</option><option>Yemen</option><option>Zambia</option><option>Zimbabwe</option></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="collegeName">College / University Name</label>
+                        <input type="text" [(ngModel)]="applicationData.application.collegeName" id="collegeName" name="collegeName" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <ng-container *ngIf="applicationData.application.collegeName">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="collegeDatesAttended">Dates Attended</label>
+                            <input type="text" [(ngModel)]="applicationData.application.collegeDatesAttended" id="collegeDatesAttended" name="collegeDatesAttended" class="form-control" autocomplete="off" [required]="applicationData.application.collegeName?.length > 0">
+                            <required-field-warning *ngIf="validate && !applicationData.application.collegeDatesAttended"></required-field-warning>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="collegeDiscipline">Discipline</label>
+                            <input type="text" [(ngModel)]="applicationData.application.collegeDiscipline" id="collegeDiscipline" name="collegeDiscipline" class="form-control" autocomplete="off" [required]="applicationData.application.collegeName?.length > 0">
+                            <required-field-warning *ngIf="validate && !applicationData.application.collegeDiscipline"></required-field-warning>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div *ngIf="applicationData.application.collegeName" class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="collegeAddress">College / University Address</label>
+                        <input type="text" [(ngModel)]="applicationData.application.collegeAddress" id="collegeAddress" name="collegeAddress" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="city">City, State / Province</label>
+                        <input type="text" [(ngModel)]="applicationData.application.collegeCity" id="collegeCity" name="collegeCity" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="zipCode">ZIP / Postcode</label>
+                        <input type="text" [(ngModel)]="applicationData.application.collegeZipCode" id="collegeZipCode" name="collegeZipCode" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select [(ngModel)]="applicationData.application.collegeCountry" class="form-control" id="collegeCountry" name="collegeCountry" autocomplete="off"><option>Afghanistan</option><option>Åland Islands</option><option>Albania</option><option>Algeria</option><option>American Samoa</option><option>Andorra</option><option>Angola</option><option>Anguilla</option><option>Antarctica</option><option>Antigua and Barbuda</option><option>Argentina</option><option>Armenia</option><option>Aruba</option><option>Australia</option><option>Austria</option><option>Azerbaijan</option><option>Bahamas</option><option>Bahrain</option><option>Bangladesh</option><option>Barbados</option><option>Belarus</option><option>Belgium</option><option>Belize</option><option>Benin</option><option>Bermuda</option><option>Bhutan</option><option>Bolivia (Plurinational State of)</option><option>Bonaire, Sint Eustatius and Saba</option><option>Bosnia and Herzegovina</option><option>Botswana</option><option>Bouvet Island</option><option>Brazil</option><option>British Indian Ocean Territory</option><option>Brunei Darussalam</option><option>Bulgaria</option><option>Burkina Faso</option><option>Burundi</option><option>Cabo Verde</option><option>Cambodia</option><option>Cameroon</option><option>Canada</option><option>Cayman Islands</option><option>Central African Republic</option><option>Chad</option><option>Chile</option><option>China</option><option>Christmas Island</option><option>Cocos (Keeling) Islands</option><option>Colombia</option><option>Comoros</option><option>Congo (Democratic Republic of)</option><option>Congo</option><option>Cook Islands</option><option>Costa Rica</option><option>Côte d’Ivoire</option><option>Croatia</option><option>Cuba</option><option>Curaçao</option><option>Cyprus</option><option>Czech Republic</option><option>Denmark</option><option>Djibouti</option><option>Dominica</option><option>Dominican Republic</option><option>Ecuador</option><option>Egypt</option><option>El Salvador</option><option>Equatorial Guinea</option><option>Eritrea</option><option>Estonia</option><option>Ethiopia</option><option>Falkland Islands [Malvinas]</option><option>Faroe Islands</option><option>Fiji</option><option>Finland</option><option>France</option><option>French Guiana</option><option>French Polynesia</option><option>French Southern Territories</option><option>Gabon</option><option>Gambia</option><option>Georgia</option><option>Germany</option><option>Ghana</option><option>Gibraltar</option><option>Greece</option><option>Greenland</option><option>Grenada</option><option>Guadeloupe</option><option>Guam</option><option>Guatemala</option><option>Guernsey</option><option>Guinea</option><option>Guinea-Bissau</option><option>Guyana</option><option>Haiti</option><option>Heard Island and McDonald Islands</option><option>Holy See</option><option>Honduras</option><option>Hong Kong</option><option>Hungary</option><option>Iceland</option><option>India</option><option>Indonesia</option><option>Iran (Islamic Republic of)</option><option>Iraq</option><option>Ireland</option><option>Isle of Man</option><option>Israel</option><option>Italy</option><option>Jamaica</option><option>Japan</option><option>Jersey</option><option>Jordan</option><option>Kazakhstan</option><option>Kenya</option><option>Kiribati</option><option>Korea (Democratic People's Republic of)</option><option>Korea (Republic of)</option><option>Kuwait</option><option>Kyrgyzstan</option><option>Lao People's Democratic Republic</option><option>Latvia</option><option>Lebanon</option><option>Lesotho</option><option>Liberia</option><option>Libya</option><option>Liechtenstein</option><option>Lithuania</option><option>Luxembourg</option><option>Macao</option><option>Macedonia (Former Yugoslav Republic of)</option><option>Madagascar</option><option>Malawi</option><option>Malaysia</option><option>Maldives</option><option>Mali</option><option>Malta</option><option>Marshall Islands</option><option>Martinique</option><option>Mauritania</option><option>Mauritius</option><option>Mayotte</option><option>Mexico</option><option>Micronesia (Federated States of)</option><option>Moldova (Republic of)</option><option>Monaco</option><option>Mongolia</option><option>Montenegro</option><option>Montserrat</option><option>Morocco</option><option>Mozambique</option><option>Myanmar</option><option>Namibia</option><option>Nauru</option><option>Nepal</option><option>Netherlands</option><option>New Caledonia</option><option>New Zealand</option><option>Nicaragua</option><option>Niger</option><option>Nigeria</option><option>Niue</option><option>Norfolk Island</option><option>Northern Mariana Islands</option><option>Norway</option><option>Oman</option><option>Pakistan</option><option>Palau</option><option>Palestine, State of</option><option>Panama</option><option>Papua New Guinea</option><option>Paraguay</option><option>Peru</option><option>Philippines</option><option>Pitcairn</option><option>Poland</option><option>Portugal</option><option>Puerto Rico</option><option>Qatar</option><option>Réunion</option><option>Romania</option><option>Russian Federation</option><option>Rwanda</option><option>Saint Barthélemy</option><option>Saint Helena, Ascension and Tristan da Cunha</option><option>Saint Kitts and Nevis</option><option>Saint Lucia</option><option>Saint Martin (French part)</option><option>Saint Pierre and Miquelon</option><option>Saint Vincent and the Grenadines</option><option>Samoa</option><option>San Marino</option><option>Sao Tome and Principe</option><option>Saudi Arabia</option><option>Senegal</option><option>Serbia</option><option>Seychelles</option><option>Sierra Leone</option><option>Singapore</option><option>Sint Maarten (Dutch part)</option><option>Slovakia</option><option>Slovenia</option><option>Solomon Islands</option><option>Somalia</option><option>South Africa</option><option>South Georgia and the South Sandwich Islands</option><option>South Sudan</option><option>Spain</option><option>Sri Lanka</option><option>Sudan</option><option>Suriname</option><option>Svalbard and Jan Mayen</option><option>Swaziland</option><option>Sweden</option><option>Switzerland</option><option>Syrian Arab Republic</option><option>Taiwan (Province of China)</option><option>Tajikistan</option><option>Tanzania, United Republic of</option><option>Thailand</option><option>Timor-Leste</option><option>Togo</option><option>Tokelau</option><option>Tonga</option><option>Trinidad and Tobago</option><option>Tunisia</option><option>Turkey</option><option>Turkmenistan</option><option>Turks and Caicos Islands</option><option>Tuvalu</option><option>Uganda</option><option>Ukraine</option><option>United Arab Emirates</option><option>United Kingdom of Great Britain and Northern Ireland</option><option>United States Minor Outlying Islands</option><option>United States of America</option><option>Uruguay</option><option>Uzbekistan</option><option>Vanuatu</option><option>Venezuela (Bolivarian Republic of)</option><option>Viet Nam</option><option>Virgin Islands (British)</option><option>Virgin Islands (U.S.)</option><option>Wallis and Futuna</option><option>Western Sahara*</option><option>Yemen</option><option>Zambia</option><option>Zimbabwe</option></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="graduateSchoolName">Graduate School Name</label>
+                        <input type="text" [(ngModel)]="applicationData.application.graduateSchoolName" id="graduateSchoolName" name="graduateSchoolName" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <ng-container *ngIf="applicationData.application.graduateSchoolName">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="graduateSchoolDatesAttended">Dates Attended</label>
+                            <input type="text" [(ngModel)]="applicationData.application.graduateSchoolDatesAttended" id="graduateSchoolDatesAttended" name="graduateSchoolDatesAttended" class="form-control" autocomplete="off" [required]="applicationData.application.graduateSchoolName?.length > 0">
+                            <required-field-warning *ngIf="validate && !applicationData.application.graduateSchoolDatesAttended"></required-field-warning>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="graduateSchoolDiscipline">Discipline</label>
+                            <input type="text" [(ngModel)]="applicationData.application.graduateSchoolDiscipline" id="graduateSchoolDiscipline" name="graduateSchoolDiscipline" class="form-control" autocomplete="off" [required]="applicationData.application.graduateSchoolName?.length > 0">
+                            <required-field-warning *ngIf="validate && !applicationData.application.graduateSchoolDiscipline"></required-field-warning>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div *ngIf="applicationData.application.graduateSchoolName" class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="graduateSchoolAddress">Graduate School Address</label>
+                        <input type="text" [(ngModel)]="applicationData.application.graduateSchoolAddress" id="graduateSchoolAddress" name="graduateSchoolAddress" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="city">City, State / Province</label>
+                        <input type="text" [(ngModel)]="applicationData.application.graduateSchoolCity" id="graduateSchoolCity" name="graduateSchoolCity" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="zipCode">ZIP / Postcode</label>
+                        <input type="text" [(ngModel)]="applicationData.application.graduateSchoolZipCode" id="graduateSchoolZipCode" name="graduateSchoolZipCode" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select [(ngModel)]="applicationData.application.graduateSchoolCountry" class="form-control" id="graduateSchoolCountry" name="graduateSchoolCountry" autocomplete="off"><option>Afghanistan</option><option>Åland Islands</option><option>Albania</option><option>Algeria</option><option>American Samoa</option><option>Andorra</option><option>Angola</option><option>Anguilla</option><option>Antarctica</option><option>Antigua and Barbuda</option><option>Argentina</option><option>Armenia</option><option>Aruba</option><option>Australia</option><option>Austria</option><option>Azerbaijan</option><option>Bahamas</option><option>Bahrain</option><option>Bangladesh</option><option>Barbados</option><option>Belarus</option><option>Belgium</option><option>Belize</option><option>Benin</option><option>Bermuda</option><option>Bhutan</option><option>Bolivia (Plurinational State of)</option><option>Bonaire, Sint Eustatius and Saba</option><option>Bosnia and Herzegovina</option><option>Botswana</option><option>Bouvet Island</option><option>Brazil</option><option>British Indian Ocean Territory</option><option>Brunei Darussalam</option><option>Bulgaria</option><option>Burkina Faso</option><option>Burundi</option><option>Cabo Verde</option><option>Cambodia</option><option>Cameroon</option><option>Canada</option><option>Cayman Islands</option><option>Central African Republic</option><option>Chad</option><option>Chile</option><option>China</option><option>Christmas Island</option><option>Cocos (Keeling) Islands</option><option>Colombia</option><option>Comoros</option><option>Congo (Democratic Republic of)</option><option>Congo</option><option>Cook Islands</option><option>Costa Rica</option><option>Côte d’Ivoire</option><option>Croatia</option><option>Cuba</option><option>Curaçao</option><option>Cyprus</option><option>Czech Republic</option><option>Denmark</option><option>Djibouti</option><option>Dominica</option><option>Dominican Republic</option><option>Ecuador</option><option>Egypt</option><option>El Salvador</option><option>Equatorial Guinea</option><option>Eritrea</option><option>Estonia</option><option>Ethiopia</option><option>Falkland Islands [Malvinas]</option><option>Faroe Islands</option><option>Fiji</option><option>Finland</option><option>France</option><option>French Guiana</option><option>French Polynesia</option><option>French Southern Territories</option><option>Gabon</option><option>Gambia</option><option>Georgia</option><option>Germany</option><option>Ghana</option><option>Gibraltar</option><option>Greece</option><option>Greenland</option><option>Grenada</option><option>Guadeloupe</option><option>Guam</option><option>Guatemala</option><option>Guernsey</option><option>Guinea</option><option>Guinea-Bissau</option><option>Guyana</option><option>Haiti</option><option>Heard Island and McDonald Islands</option><option>Holy See</option><option>Honduras</option><option>Hong Kong</option><option>Hungary</option><option>Iceland</option><option>India</option><option>Indonesia</option><option>Iran (Islamic Republic of)</option><option>Iraq</option><option>Ireland</option><option>Isle of Man</option><option>Israel</option><option>Italy</option><option>Jamaica</option><option>Japan</option><option>Jersey</option><option>Jordan</option><option>Kazakhstan</option><option>Kenya</option><option>Kiribati</option><option>Korea (Democratic People's Republic of)</option><option>Korea (Republic of)</option><option>Kuwait</option><option>Kyrgyzstan</option><option>Lao People's Democratic Republic</option><option>Latvia</option><option>Lebanon</option><option>Lesotho</option><option>Liberia</option><option>Libya</option><option>Liechtenstein</option><option>Lithuania</option><option>Luxembourg</option><option>Macao</option><option>Macedonia (Former Yugoslav Republic of)</option><option>Madagascar</option><option>Malawi</option><option>Malaysia</option><option>Maldives</option><option>Mali</option><option>Malta</option><option>Marshall Islands</option><option>Martinique</option><option>Mauritania</option><option>Mauritius</option><option>Mayotte</option><option>Mexico</option><option>Micronesia (Federated States of)</option><option>Moldova (Republic of)</option><option>Monaco</option><option>Mongolia</option><option>Montenegro</option><option>Montserrat</option><option>Morocco</option><option>Mozambique</option><option>Myanmar</option><option>Namibia</option><option>Nauru</option><option>Nepal</option><option>Netherlands</option><option>New Caledonia</option><option>New Zealand</option><option>Nicaragua</option><option>Niger</option><option>Nigeria</option><option>Niue</option><option>Norfolk Island</option><option>Northern Mariana Islands</option><option>Norway</option><option>Oman</option><option>Pakistan</option><option>Palau</option><option>Palestine, State of</option><option>Panama</option><option>Papua New Guinea</option><option>Paraguay</option><option>Peru</option><option>Philippines</option><option>Pitcairn</option><option>Poland</option><option>Portugal</option><option>Puerto Rico</option><option>Qatar</option><option>Réunion</option><option>Romania</option><option>Russian Federation</option><option>Rwanda</option><option>Saint Barthélemy</option><option>Saint Helena, Ascension and Tristan da Cunha</option><option>Saint Kitts and Nevis</option><option>Saint Lucia</option><option>Saint Martin (French part)</option><option>Saint Pierre and Miquelon</option><option>Saint Vincent and the Grenadines</option><option>Samoa</option><option>San Marino</option><option>Sao Tome and Principe</option><option>Saudi Arabia</option><option>Senegal</option><option>Serbia</option><option>Seychelles</option><option>Sierra Leone</option><option>Singapore</option><option>Sint Maarten (Dutch part)</option><option>Slovakia</option><option>Slovenia</option><option>Solomon Islands</option><option>Somalia</option><option>South Africa</option><option>South Georgia and the South Sandwich Islands</option><option>South Sudan</option><option>Spain</option><option>Sri Lanka</option><option>Sudan</option><option>Suriname</option><option>Svalbard and Jan Mayen</option><option>Swaziland</option><option>Sweden</option><option>Switzerland</option><option>Syrian Arab Republic</option><option>Taiwan (Province of China)</option><option>Tajikistan</option><option>Tanzania, United Republic of</option><option>Thailand</option><option>Timor-Leste</option><option>Togo</option><option>Tokelau</option><option>Tonga</option><option>Trinidad and Tobago</option><option>Tunisia</option><option>Turkey</option><option>Turkmenistan</option><option>Turks and Caicos Islands</option><option>Tuvalu</option><option>Uganda</option><option>Ukraine</option><option>United Arab Emirates</option><option>United Kingdom of Great Britain and Northern Ireland</option><option>United States Minor Outlying Islands</option><option>United States of America</option><option>Uruguay</option><option>Uzbekistan</option><option>Vanuatu</option><option>Venezuela (Bolivarian Republic of)</option><option>Viet Nam</option><option>Virgin Islands (British)</option><option>Virgin Islands (U.S.)</option><option>Wallis and Futuna</option><option>Western Sahara*</option><option>Yemen</option><option>Zambia</option><option>Zimbabwe</option></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="higherEducationInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <data-panel ngId="additionalInfo" heading="Additional Information" color="portlet-blue" collapsed="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="dismissed">Have you ever been dismissed from any school for academic or disciplinary reasons?</label><br>
+                        <label for="dismissed" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.dismissed" id="dismissed" name="dismissed" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                        <label for="notDismissed" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.dismissed" id="notDismissed" name="dismissed" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                        <required-field-warning *ngIf="validate && applicationData.application.dismissed === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+                <div *ngIf="applicationData.application.dismissed === '1'" class="col-md-6">
+                    <div class="form-group">
+                        <label for="dismissedDetails">Please give more information regarding the reasons you were dismissed</label>
+                        <textarea [(ngModel)]="applicationData.application.dismissedDetails" id="dismissedDetails" name="dismissedDetails" class="form-control" rows="3" autocomplete="off" required autofocus></textarea>
+                        <required-field-warning *ngIf="validate && !applicationData.application.dismissedDetails"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="honors">Have you ever received any academic honors or rewards?</label><br>
+                        <label for="honors" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.honors" id="honors" name="honors" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                        <label for="noHonors" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.honors" id="noHonors" name="honors" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                        <required-field-warning *ngIf="validate && applicationData.application.honors === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+                <div *ngIf="applicationData.application.honors === '1'" class="col-md-6">
+                    <div class="form-group">
+                        <label for="honorsDetails">Please list the academic honors or rewards that you have received</label>
+                        <textarea [(ngModel)]="applicationData.application.honorsDetails" id="honorsDetails" name="honorsDetails" class="form-control" rows="3" autocomplete="off" required autofocus></textarea>
+                        <required-field-warning *ngIf="validate && !applicationData.application.honorsDetails"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="additionalInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+    
+    <div *ngIf="!unsavedChanges(); else isNotSaved" class="row">
+        <ng-container *ngIf="form.valid; else isNotValid">
+            <div class="col-md-2 col-md-offset-5 extraBottomPadding">
+                <button class="btn btn-green btn-block" type="button" (click)="submitForm()" [disabled]="formLoading || !form.valid">{{ 'submit' | l }}</button>
+            </div>
+        </ng-container>
+        <ng-template #isNotValid>
+            <div class="col-md-4 col-md-offset-4 extraBottomPadding">
+                <button class="btn btn-green btn-block" type="button" (click)="checkForm()" [disabled]="formLoading">{{ 'validate' | l }}</button>
+            </div>
+        </ng-template>
+    </div>
+    <ng-template #isNotSaved>
+        <div class="alert alert-danger text-center extraBottomPadding">{{ 'pleaseSaveChanges' | l }}</div>
+    </ng-template>
+    <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+        <action-button (click)="applicationService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+    </div>
+</form>

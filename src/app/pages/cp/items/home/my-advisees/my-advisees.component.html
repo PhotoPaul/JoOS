@@ -1,0 +1,17 @@
+<data-panel *ngIf="myAdvisees?.length" ngId="professor" [heading]="'myAdvisees' | l">
+    <div class="row">
+        <circle-tile *ngFor="let advisee of myAdvisees" color="purple" [iconData]="{
+                fa: 'fa-portrait',
+                picture: advisee.photoURI || undefined,
+                path: 'system/users/folder/' + advisee.userId
+            }"
+            [heading]="'advisee' | l"
+            [footer]="advisee.email"
+            [footerLinks]="[{
+                text: 'userFolder' | l,
+                path: 'system/users/folder/' + advisee.userId
+            }]">
+                {{ '' | fName:advisee.lastName:advisee.firstName }}
+        </circle-tile>
+    </div>
+</data-panel>

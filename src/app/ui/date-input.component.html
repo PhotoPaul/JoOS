@@ -1,0 +1,11 @@
+<div>
+    <div class="input-group">
+        <input class="form-control" [placeholder]="placeholder" [ngModel]="date | date:'y-MM-dd'" (focus)="toggle()" (keydown)="false" (blur)="test($event)" autocomplete="off" [required]="required">
+        <div class="input-group-addon" (click)="toggle()">
+            <i class="fas fa-calendar-alt fa-fw" style="cursor: pointer"></i>
+        </div>
+    </div>
+    <div *ngIf="visible" style="position: absolute; z-index: 1">
+        <datepicker [(ngModel)]="date" (selectionDone)="selectionDone($event)" [startingDay]="1" [showWeeks]="false" [minDate]="minDate" [maxDate]="maxDate"></datepicker>
+    </div>
+</div>

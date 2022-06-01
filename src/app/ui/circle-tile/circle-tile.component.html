@@ -1,0 +1,70 @@
+<div class="col-sm-6" [ngClass]='widthClass'>
+    <div class="circle-tile">
+        <ng-container *ngIf="iconData.path || iconData.path === ''"><ng-container *ngTemplateOutlet="pathLinkTemplate"></ng-container></ng-container>
+        <ng-container *ngIf="iconData.url"><ng-container *ngTemplateOutlet="urlLinkTemplate"></ng-container></ng-container>
+        <ng-container *ngIf="iconData.modal"><ng-container *ngTemplateOutlet="modalLinkTemplate"></ng-container></ng-container>
+        <ng-template #pathLinkTemplate>
+            <a [routerLink]="[iconData.path]" href="javascript:">
+                <div class="circle-tile-heading {{ color }}">
+                    <ng-container *ngIf="iconData.picture === undefined && iconData.fa"><ng-container *ngTemplateOutlet="faIconTemplate"></ng-container></ng-container>
+                    <ng-container *ngIf="iconData.picture"><ng-container *ngTemplateOutlet="pictureIconTemplate"></ng-container></ng-container>
+                </div>
+            </a>
+        </ng-template>
+        <ng-template #urlLinkTemplate>
+            <a [href]="iconData.url" target="_new">
+                <div class="circle-tile-heading {{ color }}">
+                    <ng-container *ngIf="iconData.picture === undefined && iconData.fa"><ng-container *ngTemplateOutlet="faIconTemplate"></ng-container></ng-container>
+                    <ng-container *ngIf="iconData.picture"><ng-container *ngTemplateOutlet="pictureIconTemplate"></ng-container></ng-container>
+                </div>
+            </a>
+        </ng-template>
+        <ng-template #modalLinkTemplate>
+            <a (click)="showModal()" href="javascript:">
+                <div class="circle-tile-heading {{ color }}">
+                    <ng-container *ngIf="iconData.picture === undefined && iconData.fa"><ng-container *ngTemplateOutlet="faIconTemplate"></ng-container></ng-container>
+                    <ng-container *ngIf="iconData.picture"><ng-container *ngTemplateOutlet="pictureIconTemplate"></ng-container></ng-container>
+                </div>
+            </a>
+        </ng-template>
+        <ng-template #faIconTemplate>
+            <i class="fas {{ iconData.fa }} fa-fw fa-3x"></i>
+        </ng-template>
+        <ng-template #pictureIconTemplate>
+            <img
+            [ngClass]="{ 'img-circle': true }"
+            style="margin-left: 50%; margin-top: 50%; transform: translate(-50%, -50%); max-width: 100%"
+            [src]="fs.getImageURI(iconData.picture)">
+        </ng-template>
+        <div class="circle-tile-content {{ color }}">
+            <div class="circle-tile-description text-faded">
+                <ng-container [ngSwitch]="!!headingPath">
+                    <ng-template [ngSwitchCase]="false">{{ heading | fUpperCase }}</ng-template>
+                    <ng-template ngSwitchDefault><a [routerLink]="[headingPath]">{{ heading | fUpperCase }}</a></ng-template>
+                </ng-container>
+            </div>
+            <div class="circle-tile-number text-faded">
+                <ng-content></ng-content>
+            </div>
+            <ng-container [ngSwitch]="!!footerPath">
+                <span *ngSwitchCase="false" class="circle-tile-footer-no-link">{{ footer }}</span>
+                <a *ngSwitchDefault="" [routerLink]="[footerPath]" class="circle-tile-footer">{{ footer }}</a>
+            </ng-container>
+            <ng-container *ngIf="footerLinks.length">
+                <ng-container *ngFor="let footerLink of footerLinks">
+                    <ng-container *ngIf="footerLink.path; else noLink">
+                        <ng-container *ngIf="footerLink.path.substr(0,4) !== 'http'; else httpLink">
+                            <a [routerLink]="[footerLink.path]" href="javascript:" class="circle-tile-footer">{{ footerLink.text }} <i class="fas fa-chevron-circle-right"></i></a>
+                        </ng-container>
+                        <ng-template #httpLink>
+                            <a [href]="footerLink.path" target="_eclass" class="circle-tile-footer">{{ footerLink.text }} <i class="fas fa-chevron-circle-right"></i></a>
+                        </ng-template>
+                    </ng-container>
+                    <ng-template #noLink>
+                        <span class="circle-tile-footer">{{ footerLink.text }}</span>
+                    </ng-template>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+</div>

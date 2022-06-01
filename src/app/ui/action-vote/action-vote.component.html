@@ -1,0 +1,32 @@
+<action-button #yesButton
+    (specialClick)="vote($event.event, yesButton)"
+    [data]="1"
+    [color]="data?.vote === '1' ? yesColor : 'btn-white'"
+    [iconClass]="'far'"
+    [icon]="data?.vote === '1' ? 'fa-check-square' : 'fa-square'"
+    [caption]="yesCaption"
+    [bTooltip]="yesTooltip ? yesTooltip : yesCaption"
+    [ajax]="{state: 'idle'}">
+</action-button>
+
+<action-button #blankButton *ngIf="blankVote"
+    (specialClick)="vote($event.event, blankButton)"
+    [data]="2"
+    [color]="data?.vote === '2' ? blankColor : 'btn-white'"
+    [iconClass]="'far'"
+    [icon]="data?.vote === '2' ? 'fa-check-square' : 'fa-square'"
+    [caption]="blankCaption"
+    [bTooltip]="blankTooltip ? blankTooltip : blankCaption"
+    [ajax]="{state: 'idle'}">
+</action-button>
+
+<action-button #noButton
+    (specialClick)="vote($event.event, noButton)"
+    [data]="0"
+    [color]="data?.vote === '0' ? noColor : 'btn-white'"
+    [iconClass]="'far'"
+    [icon]="data?.vote === '0' ? 'fa-check-square' : 'fa-square'"
+    [caption]="noCaption"
+    [bTooltip]="noTooltip ? noTooltip : noCaption"
+    [ajax]="{state: 'idle'}">
+</action-button>

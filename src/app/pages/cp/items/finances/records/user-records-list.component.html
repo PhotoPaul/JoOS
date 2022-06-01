@@ -1,0 +1,41 @@
+<data-panel ngId="studentFinances" [heading]="'userRecords' | l" color="portlet-blue">
+    <data-filter #dataFilter></data-filter>
+    <div *authIf="['admin', 'cashier']" class="row"><br>
+        <div class="col-md-12 text-right">
+            <label class="checkbox-inline" [tooltip]="'showOnlyStudentAccounts' | l">
+            <input [(ngModel)]="filter.studentsOnly" (ngModelChange)="ngOnInit()" type="checkbox" name="hiddenOnly">&nbsp;
+            {{ 'showOnlyStudentAccounts' | l }}
+            </label>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="text-center">{{ 'photo' | l }}</th>
+                <th style="width: 100%">{{ 'fullName' | l }}</th>
+                <th class="text-center text-nowrap">{{ 'totalDebt' | l }}</th>
+                <th class="text-center text-nowrap">{{ 'totalCredit' | l }}</th>
+                <th class="text-center text-nowrap">{{ 'lastUpdate' | l }}</th>
+                <th class="text-center">{{ 'balance' | l }}</th>
+                <th class="text-center">{{ 'actions' | l }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="!studentsFinances"><td colspan="6" class="text-center"><loading></loading></td></tr>
+            <tr *ngFor="let studentFinances of studentsFinances | filterByString:['firstName','lastName']:dataFilter.filter" [ngClass]="financesService.getStatusClass(studentFinances.balance)">
+                <td class="text-center"><img-thumbnail [userId]="studentFinances.id" [src]="studentFinances.photoURI" maxHeight="34"></img-thumbnail></td>
+                <td>{{ '' | fName:studentFinances.lastName:studentFinances.firstName }}</td>
+                <td class="text-right text-danger">{{ financesService.parseAmount(studentFinances.owed) | currency:'EUR':'symbol':'1.2-2' }}</td>
+                <td class="text-right text-success">{{ financesService.Math.abs(financesService.parseAmount(studentFinances.paid)) | currency:'EUR':'symbol':'1.2-2' }}</td>
+                <td class="text-center">{{ studentFinances.latest_date_time?.split('-').join('/') | date:'dd-MM-y' }}</td>
+                <td class="text-right" [ngClass]="financesService.getSignClass(studentFinances.balance)">{{ financesService.Math.abs(financesService.parseAmount(studentFinances.balance)) | currency:'EUR':'symbol':'1.2-2' }}</td>
+                <td class="text-center text-nowrap">
+                    <action-button (click)="viewUserFolderClicked(studentFinances.id)" [color]="'btn-blue'" [icon]="'fa-folder'" [bTooltip]="'userFolder' | l"></action-button>
+                    <action-button *authIf="['admin', 'cashier']" (click)="showRecordsClicked(studentFinances.id)" [color]="'btn-blue'" [icon]="'fa-list'" [bTooltip]="'record' | l"></action-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</data-panel>

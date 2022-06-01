@@ -1,0 +1,64 @@
+<data-panel ngId="myCourses" heading="{{ 'myCourses' | l }}{{ courses?.length?': '+courses?.length:''}}" color="portlet-blue">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">{{ 'code' | l }}</th>
+                    <th style="width: 100%">{{ 'title' | l }}</th>
+                    <th class="text-center text-nowrap">{{ 'lastUpdate' | l }}</th>
+                    <th *authIf="'professor'" class="text-center">{{ 'activeStudents' | l }}</th>
+                    <th *authIf="'student'" class="text-center">{{ 'grade' | l }}</th>
+                    <th *authIf="'student'" class="text-center">{{ 'semester' | l }}</th>
+                    <th *authIf="'student'" class="text-center">{{ 'year' | l }}</th>
+                    <th class="text-center">{{ 'actions' | l }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="!courses.length"><td colspan="10" class="text-center"><loading></loading></td></tr>
+                <tr *ngFor="let course of courses">
+                    <td class="text-center text-nowrap">
+                        <span class="badge green">{{ 'code' | l:course }} {{ course.code }}</span>
+                        <div *ngFor="let fraction of course.fractions">
+                            <span *ngIf="fraction.fractionId > 0" class="label blue">
+                                {{ fraction.fractionLabel }}
+                            </span>
+                        </div>
+                    </td>
+                    <td>{{ 'name' | l:course }}</td>
+                    <td class="text-center">{{ course.date_time?.split('-').join('/') | date:'dd-MM-y' }}</td>
+                    <td *authIf="'professor'" class="text-center">{{ course.noActiveStudents || 0 }}</td>
+                    <td *authIf="'student'" class="text-center">{{ course.grade | fGrade }}</td>
+                    <td *authIf="'student'" class="text-center">
+                        {{ course.gradeSemester === '1' ?
+                                ('fall1st' | l) :
+                                course.gradeSemester === '2' ?
+                                    ('spring2nd' | l) :
+                                    course.gradeSemester === '3' ?
+                                        ('summer3rd' | l) : '' }}
+                    </td>
+                    <td *authIf="'student'" class="text-center">{{ course.gradeYear }}</td>
+                    <td class="text-center text-nowrap">
+                        <action-button *authIf="['admin', 'professor']" (click)="courseRegistryClicked(course.courseId)" [color]="'btn-blue'" [icon]="'fa-users'" [bTooltip]="'courseRegistry' | l"></action-button>
+                        <action-button *ngIf="course.moodle_id" (click)="courseMoodleClicked(course.moodle_id)" [color]="'btn-blue'" [icon]="'fa-link'" [bTooltip]="'showOnMoodle' | l" [ajax]="false"></action-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ng-container *authIf="['admin', 'student']">
+            <table *ngIf="courses.length" class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="text-right">{{ 'gpa' | l }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-right">
+                            <h1>{{ gpa | fGrade:'both' }}</h1>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-container>
+    </div>
+</data-panel>

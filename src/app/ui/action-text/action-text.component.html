@@ -1,0 +1,6 @@
+<ng-container *ngIf="editing ; else readonly">
+    <input type="text" class="form-control" [value]="text" (input)="textChange.emit($event.target.value)" (blur)="saveText($event)" (keydown)="saveText($event)" autofocus>
+</ng-container>
+<ng-template #readonly>
+    <div (click)="editing = !editing" class="action-control"><ng-content></ng-content></div>
+</ng-template>

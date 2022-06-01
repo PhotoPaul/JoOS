@@ -1,0 +1,85 @@
+<div *ngIf="!libraryCardInputVisible" class="text-right">
+    <action-button (click)="showLibraryCardInput()" [icon]="'fa-plus fa-2x'" [bTooltip]="'add' | l"></action-button>
+</div>
+<div *ngIf="libraryCardInputVisible">
+    <div class="text-right">
+        <action-button (click)="libraryCardInputVisible = false" [icon]="'fa-times fa-2x'" [bTooltip]="'cancel' | l"></action-button>
+    </div>
+    <data-panel ngId="libraryCardInput" heading="{{ 'libraryCard' | l }}: {{ (libraryCardInputIsEdit ? 'edit' : 'add') | l }}" color="portlet-green">
+        <form (ngSubmit)="libraryCardInputSubmit()" #form="ngForm" accept-charset="UTF-8" role="form">
+            <div class="row">
+                <div class="col-md-2">
+                    <input [(ngModel)]="libraryCardModel.barcode" class="form-control" id="barcode" name="barcode" placeholder="Barcode" autocomplete="off" required minlength="14" maxlength="14" [disabled]="libraryCardInputIsEdit" autofocus>
+                </div>
+                <div class="col-md-2">
+                    <select [(ngModel)]="libraryCardModel.userId" (ngModelChange)="updateLibraryCardFromUser($event)" id="userId" name="userId" class="form-control" [disabled]="libraryCardModel.userId">
+                        <option [value]="null">{{ 'newUser' | l }}</option>
+                        <option *ngFor="let user of libraryService.users" [value]="user.id">{{ '' | fName:user.lastName:user.firstName }}</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <input [(ngModel)]="libraryCardModel.first" class="form-control" id="firstName" name="firstName" [placeholder]="'firstName' | l" autocomplete="off" required [disabled]="libraryCardModel.userId">
+                </div>
+                <div class="col-md-2">
+                    <input [(ngModel)]="libraryCardModel.last" class="form-control" id="lastName" name="lastName" [placeholder]="'lastName' | l" autocomplete="off" required [disabled]="libraryCardModel.userId">
+                </div>
+                <div class="col-md-2">
+                    <input [(ngModel)]="libraryCardModel.email" class="form-control" id="email" name="email" placeholder="Email" autocomplete="off" required [disabled]="libraryCardModel.userId">
+                </div>
+                <div class="col-md-2">
+                    <select [(ngModel)]="libraryCardModel.type" (ngModelChange)="updateCreditsFromUserCategory($event)" id="libraryUserCategory" name="libraryUserCategory" class="form-control" required>
+                        <option [value]="null" disabled hidden>{{ 'selectCategory' | l }}</option>
+                        <option *ngFor="let category of libraryService.libraryUserCategories" [value]="category.categoryId">{{ category.name }}: {{ category.credits + ' | ' + category.days }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-5"><br>
+                    <button type="submit" class="btn btn-green btn-block" [disabled]="!form.form.valid">
+                        {{ (libraryCardInputIsEdit ? 'save' : 'add') | l }}
+                    </button>
+                </div>
+            </div>
+        </form>
+    </data-panel>
+</div>
+
+<data-panel ngId="libraryCards" heading="{{ 'libraryCards' | l }}{{ libraryService.libraryCards ? ': ' + libraryService.libraryCards.length : '' }}" color="portlet-blue">
+    <data-filter #dataFilter></data-filter>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="text-center">{{ 'photo' | l }}</th>
+                <th class="text-center">Barcode</th>
+                <th style="width: 100%">{{ 'fullName' | l }}</th>
+                <th>Email</th>
+                <th class="text-center">{{ 'category' | l }}</th>
+                <th class="text-center">Credits</th>
+                <th class="text-center">{{ 'daysU' | l }}</th>
+                <th class="text-center">{{ 'checkedOut' | l }}</th>
+                <th class="text-center">{{ 'actions' | l }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="!libraryService.libraryCards"><td colspan="6" class="text-center"><loading></loading></td></tr>
+            <tr *ngFor="let card of libraryService.libraryCards | filterByString:['barcode','first','last']:dataFilter.filter" [ngClass]="{ inactive: card.enabled === '0' }">
+                <td class="text-center"><img-thumbnail [userId]="card.userId" [src]="card.photoURI" maxHeight="34"></img-thumbnail></td>
+                <td class="text-center">{{ card.barcode }}</td>
+                <td>{{ '' | fName:card.last:card.first }}</td>
+                <td>{{ card.email }}</td>
+                <td class="text-center text-nowrap">{{ card.categoryName }}</td>
+                <td class="text-center">{{ card.categoryCredits }}</td>
+                <td class="text-center">{{ card.categoryDays }}</td>
+                <td class="text-center">{{ card.categoryCredits - card.credits }}</td>
+                <td class="text-center text-nowrap">
+                    <action-button *ngIf="card.enabled === '1'" (click)="libraryService.disableLibraryCard(card.barcode)" [color]="'btn-red'" [icon]="'fa-toggle-on'" [bTooltip]="'disableLibraryCard' | l"></action-button>
+                    <action-button *ngIf="card.enabled === '0'" (click)="libraryService.enableLibraryCard(card.barcode)" [color]="'btn-green'" [icon]="'fa-toggle-off'" [bTooltip]="'enableLibraryCard' | l"></action-button>
+                    <action-button (click)="showLibraryCardInput(card)" [color]="'btn-blue'" [icon]="'fa-pencil-alt'" [bTooltip]="'edit' | l" [ajax]="false"></action-button>
+                    <action-button (click)="libraryService.showLibraryCardHistory(card.barcode)" [color]="'btn-blue'" [icon]="'fa-th-list'" [bTooltip]="'showHistory' | l"></action-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</data-panel> 

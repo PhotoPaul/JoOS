@@ -1,0 +1,28 @@
+<data-panel ngId="checkedOutBooks" heading="{{ 'checkedOutBooksByLibraryCard' | l }}{{ libraryService.checkedOutBooks?.length ? ': ' + libraryService.checkedOutBooks.length : '' }}" color="portlet-blue">
+    <data-panel *ngFor="let card of libraryService.checkedOutBooks" [ngId]="card.user_barcode" heading="{{ card.user_barcode }} &mdash; {{ '' | fName:card.last:card.first }}: {{ card.checkedOutBooks?.length }}" [color]="hasExpiredBooks(card)" [collapsed]="true">
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Barcode</th>
+                        <th style="width: 100%">{{ 'title' | l }}</th>
+                        <th class="text-center">{{ 'dueDate' | l }}</th>
+                        <th class="text-center">{{ 'actions' | l }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let book of card.checkedOutBooks">
+                        <td class="text-center">{{ book.book_barcode }}</td>
+                        <td>{{ book.title }}{{ book.subtitle ? ' : ' + book.subtitle : '' }}</td>
+                        <td class="text-center text-nowrap">{{ book.due_date?.split('-').join('/') | date:'dd-MM-y' }}</td>
+                        <td class="text-center text-nowrap">
+                            <action-button (click)="libraryService.showBook(book.book_barcode)" [color]="'btn-blue'" [icon]="'fa-book'" [bTooltip]="'showBook' | l" [ajax]="false"></action-button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>                
+        </div>
+    </data-panel>
+</data-panel> 

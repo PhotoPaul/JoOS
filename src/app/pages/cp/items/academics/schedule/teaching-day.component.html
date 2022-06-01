@@ -1,0 +1,32 @@
+<table class="padding-10" style="margin: auto; width: 100%" border="1">
+    <thead>
+        <tr>
+            <th colspan="2" class="text-center" [ngClass]="getClass()" style="color: #fff">
+                {{ day.dateObj.getDate() }}{{ showMonth ? (day.dateObj | date:' LLLL') : '' }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let teachingHours of day.items | breakEveryValueChange:'dateTime' ; let i = index">
+            <td class="text-right" [ngClass]="getClass()" style="color: #fff">{{ teachingHours[0].dateTime | date:'H:mm' }}</td>
+            <td class="text-center">
+                <div *ngFor="let item of teachingHours" style="white-space: nowrap">
+                    <span (click)="showCourse(item)" [tooltip]="('code' | l:item) + ' ' + item.code + ' ' + ('name' | l:item)" class="badge green link">
+                        <span>{{ item.fractionLabel ? item.fractionLabel : ('code' | l:item) + ' ' + item.code }}</span>
+                    </span>
+                    <ng-container *authIf="['admin', 'registrar']">
+                        <span (click)="editItemClicked(item)" [tooltip]="'edit' | l" class="badge blue link">
+                            <span class="fas fa-pencil-alt"></span>
+                        </span>
+                        <span (click)="deleteItemClicked(item)" [tooltip]="'delete' | l" class="badge red link">
+                            <span class="fas fa-times"></span>
+                        </span>
+                    </ng-container>
+                </div>
+            </td>
+        </tr>
+        <tr *authIf="['admin', 'registrar']">
+            <td colspan="2" class="text-center"><action-button (specialClick)="newScheduleItemClicked(day)" color="btn-green" icon="fa-plus" [bTooltip]="'add' | l" [ajax]="false"></action-button></td>
+        </tr>
+    </tbody>
+</table>

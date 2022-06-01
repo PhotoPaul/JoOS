@@ -1,0 +1,38 @@
+<nav [ngClass]="{collapsed: nav.sidebarCollapsed}" class="navbar-side" role="navigation">
+    <div class="navbar-collapse sidebar-collapse collapse">
+        <ul id="side" class="nav navbar-nav side-nav">
+            <li class="side-user hidden-xs">
+                <img *ngIf="auth.user.photoURI" class="img-circle" [src]="fs.getImageURI(auth.user.photoURI)">
+                <p class="welcome">
+                    <i class="fas fa-key"></i>&nbsp;{{ 'loggedInAs' | l }}
+                </p>
+                <p class="name tooltip-sidebar-logout">
+                    <span class="first-name">{{auth.user.firstName}}</span>&nbsp;
+                    <span class="last-name">{{auth.user.lastName}}</span>&nbsp;
+                    <a id="logout" (click)="auth.logout()" style="color: inherit" class="logout_open" href="javascript:" [tooltip]="'logOut' | l"><i class="fas fa-sign-out-alt"></i></a>
+                </p>
+                <div class="clearfix"></div>
+            </li>
+            <li *ngFor="let item of nav.navItems" [ngSwitch]="item.children && item.children.length !== 0" [ngClass]="{ panel: item.children }">
+                <ng-template [ngSwitchCase]="true">
+                    <a [attr.data-parent]="'#side'" [attr.data-toggle]="'collapse'" class="accordion-toggle"
+                       [attr.data-target]="'#' + item.path" href="javascript:"><i class="fas {{ item.data['faIcon'] }} fa-fw"></i>&nbsp;
+                        {{ 'path_title' | l:item.data }}
+                        <i class="fas fa-caret-down fa-fw"></i></a>
+                    <ul id="{{ item.path }}" class="nav collapse" routerLinkActive="in">
+                        <li *ngFor="let subitem of item.children">
+                            <a [routerLink]="[[item.path,'/',subitem.path].join('')]" routerLinkActive="active">
+                                <i class="fas fa-fw {{ subitem.data['faIcon'] }}" [ngClass]="subitem.data['faIcon']"></i>&nbsp;{{ 'path_title' | l:subitem.data }}
+                            </a>
+                        </li>
+                    </ul>
+                </ng-template>
+                <ng-template ngSwitchDefault>
+                    <a [routerLink]="[item.path]" routerLinkActive="active" href="javascript:">
+                        <i class="fas {{ item.data['faIcon'] }} fa-fw"></i>&nbsp;{{ 'path_title' | l:item.data }}
+                    </a>
+                </ng-template>
+            </li>
+        </ul>
+    </div>
+</nav>

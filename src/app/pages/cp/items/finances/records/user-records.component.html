@@ -1,0 +1,99 @@
+<record-input *ngIf="!isStudent" [userId]="userId"></record-input>
+
+<data-panel ngId="waysToPay" heading="{{ 'waysToPay' | l }}" color="portlet-dark-blue" [collapsed]="true">
+    <data-panel ngId="wireTransfer" heading="{{ 'wireTransfer' | l }}" color="portlet-blue">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>{{ 'bank' | l }}</th>
+                    <th>{{ 'bankAddress' | l }}</th>
+                    <th>{{ 'beneficiary' | l }}</th>
+                    <th>{{ 'beneficiaryAddress' | l }}</th>
+                    <th>IBAN</th>
+                    <th class="text-nowrap">SWIFT / BIC</th>
+                    <th class="text-nowrap">{{ 'accountNumber' | l }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ 'bankText' | l }}</td>
+                    <td>{{ 'bankAddressText' | l }}</td>
+                    <td>{{ 'beneficiaryText' | l }}</td>
+                    <td>{{ 'beneficiaryAddressText' | l }}</td>
+                    <td>GR5901105310000053120072151</td>
+                    <td>ETHNGRAA</td>
+                    <td>{{ 'accountNumberText' | l }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <span [innerHTML]="'eurOnly' | l:'html'"></span>
+    </data-panel>
+    <data-panel ngId="cash" heading="{{ 'cash' | l }}" color="portlet-blue">
+        <span [innerHTML]="'referToAccounting' | l:'html'"></span>
+        <span [innerHTML]="'eurOnly' | l:'html'"></span>
+    </data-panel>
+    <data-panel ngId="card" heading="{{ 'card' | l }}" color="portlet-blue">
+        <span [innerHTML]="'referToAccounting' | l:'html'"></span>
+    </data-panel>
+</data-panel>
+
+<data-panel ngId="records" heading="{{ isStudent? ('myRecords' | l): ('records' | l) + (financesService.userRecordsData.userData? ': ' + ('' | fName:financesService.userRecordsData.userData.lastName:financesService.userRecordsData.userData.firstName):'') }}" color="portlet-blue">
+    <data-filter #dataFilter></data-filter>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="text-center">{{ 'date' | l }}</th>
+                <th class="text-center" style="width: 60%">{{ 'category' | l }}</th>
+                <th class="text-center" style="width: 60%">{{ 'comment' | l }}</th>
+                <th class="text-center">{{ 'amount' | l }}</th>
+                <th *ngIf="!isStudent" class="text-center">{{ 'actions' | l }}</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="!financesService.userRecordsData.accountTemplateItemCategories"><td colspan="6" class="text-center"><loading></loading></td></tr>
+                <ng-container *ngIf="financesService.userRecordsData">
+                    <tr *ngFor="let record of financesService.userRecordsData.records | filterByString:['date_time', 'comment']:dataFilter.filter" [ngClass]="financesService.getStatusClass(record.amount)">
+                        <td class="text-center text-nowrap">{{ record.date_time?.split('-').join('/') | date:'dd-MM-y' }}</td>
+                        <td class="text-center text-nowrap">{{ financesService.getCategoryNameById(record.category_id,
+                            financesService.userRecordsData.accountTemplateItemCategories) }}</td>
+                        <td class="text-center">{{ record.comment }}</td>
+                        <td class="text-right">{{ financesService.Math.abs(financesService.parseAmount(record.amount)) | currency:'EUR':'symbol':'1.2-2' }}</td>
+                        <td *ngIf="!isStudent" class="text-center text-nowrap">
+                            <action-button (click)="editRecord(record.id)" color="btn-blue" icon="fa-edit" [ajax]="false" [bTooltip]="'editRecord' | l"></action-button>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th class="text-right">{{ 'total' | l }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngIf="financesService.userRecordsData.records">
+                <tr [ngClass]="financesService.getStatusClass(financesService.sumRecords())">
+                    <td></td>
+                    <td></td>
+                    <td class="text-right">
+                        <h1>{{ financesService.Math.abs(financesService.sumRecords()) | currency:'EUR':'symbol':'1.2-2' }}</h1>
+                        <span *ngIf="financesService.sumRecords() > 0; else credit">{{ 'nextPaymentDue' | l }} {{ financesService.getMonthDueAsString() }}</span>
+                        <ng-template #credit>Διαθέσιμο υπόλοιπο</ng-template>
+                    </td>
+                </tr>
+            </ng-container>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="!isStudent" class="row">
+        <div class="col-md-12 text-center">
+            <action-button (specialClick)="financesService.sendPaymentReminder($event.actionButtonComponent, userId)" [caption]="'sendPaymentReminder' | l" color="btn-blue" icon="fa-envelope" [bTooltip]="'sendPaymentReminder' | l"></action-button>
+        </div>
+    </div>
+</data-panel>

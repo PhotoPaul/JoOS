@@ -1,0 +1,22 @@
+<div *ngIf="applicationData">
+    <data-panel ngId="applicationFeeInfo" heading="Application & Visa Assistance Fee" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-offset-4 col-md-4">
+                <div class="form-group">
+                    <label for="applicationFee">Your Application Fee is:</label>
+                    <div class="input-group">
+                        <pre style="text-align: right" class="form-control">{{ applicationData.application.applicationFee }}</pre>
+                        <span class="input-group-addon">€ (EUR)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+        <action-collection [actionButtons]="decisionButtons" [collectionAjax]="true"></action-collection>
+    </div>
+    <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+        <action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+    </div>
+</div>

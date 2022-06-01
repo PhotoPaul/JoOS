@@ -1,0 +1,25 @@
+<div class="text-right">
+    <action-button (click)="cancelScheduleItemInput()" [icon]="'fa-times fa-2x'" [bTooltip]="'cancel' | l"></action-button>
+</div>
+<data-panel ngId="scheduleItemInput" [heading]="(scheduleItemInputModel.id ? ('edit' | l) : ('add' | l)) + ('sScheduleItem' | l)" color="portlet-green">
+    <div class="row">
+        <form (ngSubmit)="scheduleItemInputSubmit()" #form="ngForm" accept-charset="UTF-8" role="form">
+            <div class="col-md-2">
+                <date-input [date]="scheduleItemInputModel.dateTime" (onChange)="scheduleItemUpdateDateModel($event)"></date-input>
+            </div>
+            <div class="col-md-2">
+                <time-input [time]="scheduleItemInputModel.dateTime" (onChange)="scheduleItemUpdateTimeModel($event)"></time-input>
+            </div>
+            <div class="col-md-6">
+                <select [(ngModel)]="scheduleItemInputModel.course" id="accountTemplateItem" name="accountTemplateItem" class="form-control" required autofocus>
+                    <option *ngFor="let course of courses" [value]="course.id + (course.fractionId ? '|' + course.fractionId : '')">{{ 'code' | l:course }} {{ course.code }}: {{ 'name' | l:course }}{{ course.fractionLabel ? ': ' + course.fractionLabel : '' }}</option>
+                </select>
+            </div>
+            <div class="col-md-2 right">
+                <button type="submit" class="btn btn-green btn-block" [disabled]="!form.form.valid">
+                    {{ (scheduleItemInputModel.id ? ('save' | l) : ('add' | l)) }}
+                </button>
+            </div>
+        </form>
+    </div>
+</data-panel>

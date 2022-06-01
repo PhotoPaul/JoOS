@@ -1,0 +1,26 @@
+<data-panel ngId="reservedBooks" heading="{{ 'reservedBooks' | l }}{{ libraryService.reservedBooks?.length ? ': ' + libraryService.reservedBooks.length : '' }}" color="portlet-dark-blue" [collapsed]="true">
+    <data-filter #dataFilter></data-filter>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="text-center">Barcode</th>
+                <th style="width: 100%">{{ 'title' | l }}</th>
+                <th class="text-center">{{ 'actions' | l }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="!libraryService.reservedBooks"><td colspan="6" class="text-center"><loading></loading></td></tr>
+            <tr *ngFor="let book of libraryService.reservedBooks | filterByString:['barcode','title','subtitle']:dataFilter.filter">
+                <td class="text-center">{{ book.barcode }}</td>
+                <td>{{ book.title }}{{ book.subtitle ? ' : ' + book.subtitle : '' }}</td>
+                <td class="text-center text-nowrap">
+                    <action-button *ngIf="!book.reservedBookId" (click)="libraryService.reserveBook(book.barcode)" [color]="'btn-green'" [icon]="'fa-toggle-on'" [bTooltip]="'reserveBook' | l"></action-button>
+                    <action-button *ngIf="book.reservedBookId" (click)="libraryService.unreserveBook(book.barcode)" [color]="'btn-red'" [icon]="'fa-toggle-off'" [bTooltip]="'unreserveBook' | l"></action-button>
+                    <action-button (click)="libraryService.showBook(book.barcode)" [color]="'btn-blue'" [icon]="'fa-book'" [bTooltip]="'showBook' | l" [ajax]="false"></action-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</data-panel> 

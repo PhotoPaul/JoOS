@@ -1,0 +1,86 @@
+<data-panel *ngIf="applicationData" ngId="supportingDocuments" [heading]="'onlineDocumentSubmission' | l" color="portlet-blue">
+    <div class="row">
+        <div class="col-md-12">
+            {{ 'onlineDocumentSubmissionInstructions' | l }}<br><br>
+            <span [innerHTML]="'onlineDocumentSubmissionInstructions2' | l:'html'"></span><br>
+            <div ng2FileDrop style="text-align: center"
+                    [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                    (fileOver)="fileOverBase($event)"
+                    [uploader]="uploader"
+                    class="well my-drop-zone">
+                <span [innerHTML]="'onlineDocumentSubmissionInstructions3' | l:'html'"></span>
+                <input class="my-drop-zone-button" type="file" ng2FileSelect [uploader]="uploader" multiple><br>
+            </div>
+        </div>
+    </div>
+    <ng-container *ngIf="applicationData.application.length || uploader?.queue?.length">
+        <data-filter #dataFilter></data-filter>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 60%">{{ 'filename' | l }}</th>
+                        <th class="text-center text-nowrap">{{ 'filesize' | l }}</th>
+                        <th class="text-center text-nowrap">{{ 'documentType' | l }}</th>
+                        <th class="text-center">{{ 'actions' | l }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let file of applicationData.application | filterByString:['original_filename']:dataFilter.filter">
+                        <td><i class="fas" [ngClass]="fs.getFileIcon(file.original_mime_type)" [tooltip]="file.original_mime_type"></i>&nbsp;{{ file?.original_filename }}</td>
+                        <td class="text-center text-nowrap">{{ file?.filesize/1024/1024 | number:'.2' }} MB</td>
+                        <td class="text-center text-nowrap">
+                            <select [(ngModel)]="file.documentTypeId" name="documentTypeId" (ngModelChange)="setUserApplicationDocumentType(file, $event)" class="form-control">
+                                <option [value]="null" disabled hidden>{{ 'pleaseSelect' | l }}</option>
+                                <option *ngFor="let documentType of applicationData.collections" [value]="documentType.documentTypeId">{{ 'title' | l:documentType }}</option>
+                            </select>
+                        </td>
+                        <td class="text-center text-nowrap">
+                            <action-button (click)="getFile(file?.filename)" [color]="'btn-blue'" [icon]="'fa-download'" [bTooltip]="'viewFile' | l" [ajax]="false"></action-button>
+                            <action-button (click)="deleteFile(file?.filename)" [color]="'btn-red'" [icon]="'fa-trash-alt'" [bTooltip]="'deleteFile' | l" [ajax]="false"></action-button>
+                        </td>
+                    </tr>
+                    <ng-container *ngIf="uploader?.queue?.length">
+                        <tr *ngFor="let item of uploader.queue">
+                            <td>{{ item?.file?.name }}</td>
+                            <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                            <td class="text-center">
+                                <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                <div class="progress" style="margin-bottom: 0;">
+                                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                                </div>
+                            </td>
+                            <td class="text-center text-nowrap">
+                                <action-button *ngIf="item.isUploading" (click)="item.cancel()" [color]="'btn-orange'" [icon]="'fa-times'" [bTooltip]="'Διακοπή Αποστολής'"></action-button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="this.uploader?.queue?.length">
+            <div>
+                Συγκεντρωτική πρόοδος αποστολής δικαιολογητικών:
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <div *ngIf="this.requirementsNotFulfilled.length === 0; else submitRequirementsNotFulfilled" class="row">
+        <div class="col-md-2 col-md-offset-5">
+            <button class="btn btn-green btn-block" type="button" (click)="submitForm()" [disabled]="formLoading">{{ 'submit' | l }}</button>
+        </div>
+    </div>
+    <ng-template #submitRequirementsNotFulfilled>
+        <div class="alert alert-danger text-center">
+            <p><b>{{ 'documentsStillMissing' | l }}:</b></p>
+            <p *ngFor="let documentTypeIds of requirementsNotFulfilled">{{ getDocumentTitle(documentTypeIds) }}</p>
+        </div>
+    </ng-template>
+</data-panel>
+<div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+    <action-button (click)="applicationService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+</div>

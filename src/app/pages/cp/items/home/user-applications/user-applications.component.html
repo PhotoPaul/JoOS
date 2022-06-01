@@ -1,0 +1,33 @@
+<data-panel *ngIf="applications?.length" ngId="applicationsPanel" [heading]="'applications' | l" color="portlet-blue">
+    <div class="row">
+    <circle-tile *ngFor="let application of applications"
+        [color]="getStatusColor(application.applicationStatus)"
+        [iconData]="{fa: application.icon, path: getStatusIconPath(application.applicationStatus, application.editPath, application.viewPath, application.applicationId)}"
+        [heading]="localization.op(application, 'heading')"
+        [footerLinks]="getStatusFooterLink(application.applicationStatus, application.editPath, application.viewPath, application.applicationId)"
+    >{{ getStatusText(application.applicationStatus) }}</circle-tile>
+    </div>
+</data-panel>
+<data-panel *ngIf="programs?.length" ngId="programsPanel" [heading]="'candidateSelectProgram' | l" color="portlet-blue">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th style="width: 100%">{{ 'title' | l }}</th>
+                <th class="text-center">{{ 'semesters' | l }}</th>
+                <th class="text-center">{{ 'actions' | l }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let program of programs">
+                <td>{{ 'program_name' | l:program }}</td>
+                <td class="text-center">{{ program.number_of_semesters }}</td>
+                <td class="text-center text-nowrap">
+                    <action-button (click)="startApplication(program.id)" [color]="'btn-blue'" [icon]="'fa-pencil-alt'" [bTooltip]="'startApplication' | l"></action-button>
+                    <action-button *ngIf="program.canAudit === '1'" (click)="startApplication(program.id, true)" [color]="'btn-blue'" [icon]="'fa-headphones'" [bTooltip]="'startAuditorApplication' | l"></action-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</data-panel>

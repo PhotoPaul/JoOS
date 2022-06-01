@@ -1,0 +1,6 @@
+<data-panel ngId="courses" [heading]="'myCourses' | l">
+    <div class="row">
+        <div *ngIf="!myCoursesData" class="text-center"><loading size="fa-5x">{{ 'loadingCourses' | l }}</loading></div>
+        <circle-tile *ngFor="let tile of myCoursesData" [color]="tile.color" [iconData]="tile.iconData" [heading]="tile.heading" [headingPath]="tile.headingPath" [footer]="tile.footer" [footerPath]="tile.footerPath" [footerLinks]="tile.footerLinks">{{ tile.value }}</circle-tile>
+    </div>
+</data-panel>

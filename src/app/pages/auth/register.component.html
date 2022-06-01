@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login-banner text-center">
+                <h1><i class="fas fa-cogs"></i> JoOS - GrBC</h1>
+            </div>
+            <div class="portlet portlet-green">
+                <div class="portlet-heading login-heading">
+                    <div class="portlet-title">
+                        <h4><strong>{{ 'applicantRegistration' | l }}</strong></h4>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div *ngIf="submitted === -1" id="register" class="portlet-body">
+                    <form (ngSubmit)="onSubmit()" #form="ngForm" id="form-register-candidate-account" accept-charset="UTF-8" role="form">
+                        <language-picker></language-picker>
+                        <fieldset [disabled]="ajaxPending">
+                            <p class="text-center"><span [innerHTML]="'registrationInstructions' | l:'html'"></span></p>
+                            <div class="form-group">
+                                <label for="candidateFirstName">{{ 'firstName' | l }}</label>
+                                <input type="text" [(ngModel)]="model.firstName" id="candidateFirstName" name="candidateFirstName" class="form-control" autocomplete="off" required autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label for="candidateLastName">{{ 'lastName' | l }}</label>
+                                <input type="text" [(ngModel)]="model.lastName" id="candidateLastName" name="candidateLastName" class="form-control" autocomplete="off"
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <label for="candidateEmail">Email</label>
+                                <input type="email" [(ngModel)]="model.email" id="candidateEmail" name="candidateEmail" class="form-control" autocomplete="off" required pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}">
+                            </div>
+                            <div class="form-group" [hidden]="!form.form.valid" [ngClass]="{'ng-invalid': !model.recaptchaToken, 'ng-valid': model.recaptchaToken}">
+                                <re-captcha (captchaResponse)="handleCorrectCaptcha($event)" (captchaExpired)="recaptchaTokenExpired()" [language]="'recaptchaLanguage' | l" site_key="6LcfpCMTAAAAAB-9m0ddsgWRi89Lqq4A2bgyxDCi"></re-captcha>
+                            </div>
+                            <div class="text-center">
+                                <button [disabled]="!form.form.valid || !model.recaptchaToken" id="registerButton" class="btn btn-lg btn-green btn-block" type="submit">
+                                    {{ 'register' | l }}
+                                </button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div *ngIf="submitted === 1" id="success">
+                    <div class="portlet-body">
+                        <p class="text-center">{{ 'thankYou1' | l }}</p>
+                        <p class="text-center">{{ 'thankYou2' | l }}&nbsp;<b>{{ model.email }}</b>&nbsp;{{ 'thankYou3' | l }}</p>
+                    </div>
+                    <div class="portlet-footer">
+                        <p class="text-center"><span [innerHTML]="'thankYou4' | l:'html'"></span></p><br>
+                        <p class="text-center"><span [innerHTML]="'thankYou5' | l:'html'"></span></p>
+                    </div>
+                </div>
+                <div *ngIf="submitted === 0" id="fail">
+                    <div class="portlet-body text-center text-danger">
+                        {{ 'registrationProblem1' | l }}
+                    </div>
+                    <div class="portlet-footer text-center">
+                        <p>{{ 'registrationProblem2' | l }}&nbsp;<b>{{ model.email }}</b>.</p>
+                        <p>{{ 'registrationProblem3' | l }}&nbsp;<a routerLink="/auth/reset">{{ 'registrationProblem4' | l }}</a></p>
+                        <p><span [innerHTML]="'registrationProblem5' | l:'html'"></span></p>
+                    </div>
+                </div>
+                <div class="portlet-footer text-center">
+                    <a routerLink="/auth/login">{{ 'haveAccount' | l }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

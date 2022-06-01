@@ -1,0 +1,54 @@
+<a href="javascript:" (click)="toggleNotifications()" [ngClass]="{ 'alerts-link': unreadNotificationsLength > 0, 'no-alerts-link': true }" class="dropdown-toggle" data-toggle="dropdown">
+    <i class="fas fa-bell"></i>
+    <span class="number">{{ unreadNotificationsLength }}</span><i class="fas fa-caret-down"></i>
+</a>
+<ul class="dropdown-menu dropdown-scroll dropdown-alerts" [ngClass]="{ 'open': +unreadNotificationsLength > 0 }">
+    <!-- Alerts Dropdown Heading -->
+    <!-- <li class="dropdown-header">
+        <i class="fas fa-bell"></i>&nbsp;{{ 'noNotifications' | l }}
+    </li> -->
+    <!-- Alerts Dropdown Body -->
+    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;">
+        <li id="alertScroll" style="overflow: hidden; width: auto;">
+            <ul class="list-unstyled">
+                <li style="position: relative" *ngFor="let notification of notifications">
+                    <a (click)="notificationClicked(notification.id)" [routerLink]="[notification.path]" [ngClass]="{ 'alert-unread': notification.read === '0' }" style="overflow: hidden">
+                        <div style="white-space: nowrap">
+                            <div style="display: inline-block">
+                                <img-thumbnail [src]="notification.photoURI" [noSrcIcon]="+notification.fromUserId != 0 ? 'fa-portrait' : 'fa-bullhorn'" maxHeight="34" [noTooltip]="true"></img-thumbnail>
+                            </div>
+                            <div style="display: inline-block">
+                                <strong>{{ notification.lastName ? ('' | fName:notification.lastName:notification.firstName) : 'systemAnouncement' | l }}</strong><br>
+                                {{ 'body' | l:notification }}
+                            </div>
+                        </div>
+                        <div class="small pull-right">
+                            <strong>
+                                <em>{{ notification.dateTime | date:'dd-MM-y HH:mm':'-0700'}}</em>
+                            </strong>
+                        </div>
+                    </a>
+                    <div style="position: absolute; top: 5px; right: 5px">
+                        <button (click)="clearNotification(notification.id, $event)" type="button" class="close" aria-hidden="true">×</button>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </div>
+
+    <!-- Alerts Dropdown Footer -->
+    <li *ngIf="notificationsLoading ; else clearNotifications" style="margin: 10px" class="text-center">
+        <loading>{{ 'notificationsLoading' | l }}</loading>
+    </li>
+    <ng-template #clearNotifications>
+        <li *ngIf="notifications?.length ; else noNotifications" class="text-center">
+            <hr style="margin: 0">
+            <a href="javascript:" (click)="clearAllNotifications()">{{ 'clearAll' | l }}</a>
+        </li>
+    </ng-template>
+    <ng-template #noNotifications>
+        <li class="dropdown-header text-center">
+            {{ 'noNotifications' | l }}
+        </li>
+    </ng-template>
+</ul>

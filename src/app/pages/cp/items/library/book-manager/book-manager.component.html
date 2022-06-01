@@ -1,0 +1,34 @@
+<data-panel ngId="bookManager" heading="{{ 'bookManager' | l }}" color="portlet-blue">
+    <div class="row">
+        <form (ngSubmit)="onSubmit()" #form="ngForm" id="form-register-candidate-account" accept-charset="UTF-8" role="form">
+            <div class="col-md-12">
+                <input type="text" [(ngModel)]="libraryService.book.barcode" (ngModelChange)="onSubmit()" id="barcode" name="barcode" class="form-control" placeholder="Barcode" autocomplete="off" required minlength="14" maxlength="14" autofocus>
+                <required-field-warning *ngIf="notFound" [warningText]="'noBookWithBarcode' | l"></required-field-warning>
+            </div>
+        </form>
+    </div>
+
+    <div *ngIf="libraryService.book.title" class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="text-center">Barcode</th>
+                <th style="width: 100%">{{ 'title' | l }}</th>
+                <th class="text-center">{{ 'actions' | l }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-center">{{ libraryService.book.barcode }}</td>
+                <td>{{ libraryService.book.title }}{{ libraryService.book.subtitle ? ' : ' + libraryService.book.subtitle : '' }}</td>
+                <td class="text-center text-nowrap">
+                    <action-button *ngIf="!libraryService.book.reservedBookId" (click)="libraryService.removeBook(libraryService.book.barcode)" [color]="'btn-red'" [icon]="'fa-trash-alt'" [bTooltip]="'removeBook' | l" [ajax]="false"></action-button>
+                    <action-button *ngIf="!libraryService.book.reservedBookId" (click)="libraryService.reserveBook(libraryService.book.barcode)" [color]="'btn-green'" [icon]="'fa-toggle-on'" [bTooltip]="'reserveBook' | l"></action-button>
+                    <action-button *ngIf="libraryService.book.reservedBookId" (click)="libraryService.unreserveBook(libraryService.book.barcode)" [color]="'btn-red'" [icon]="'fa-toggle-off'" [bTooltip]="'unreserveBook' | l"></action-button>
+                    <action-button (click)="libraryService.showBook(libraryService.book.barcode)" [color]="'btn-blue'" [icon]="'fa-book'" [bTooltip]="'showBook' | l" [ajax]="false"></action-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</data-panel> 

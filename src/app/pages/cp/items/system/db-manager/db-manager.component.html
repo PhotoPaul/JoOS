@@ -1,0 +1,29 @@
+<div class="row text-right">
+    <action-button (click)="downloadDB()" [icon]="'fa-download fa-2x'" [bTooltip]="'downloadDB' | l" [ajax]="false"></action-button>
+</div>
+<data-panel *ngIf="db" ngId="fsOnlyFiles" heading="Πίνακες από mysql://{{ db.dbSettings.username }}:{{ db.dbSettings.password }}@{{ db.dbSettings.host }}/{{ db.dbSettings.db }}" color="portlet-blue">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th style="width: 100%">{{ 'name' | l }}</th>
+                    <th class="text-center text-nowrap">{{ 'lastChangeDate' | l }}</th>
+                    <th class="text-right">{{ 'size' | l }}</th>
+                    <th class="text-center text-nowrap">{{ 'noRows' | l }}</th>
+                    <th class="text-center">{{ 'actions' | l }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let table of db.tables">
+                    <td>{{ table.name }}</td>
+                    <td class="text-center">{{ table.dateTime?.split('-').join('/') | date:'dd-MM-y' }}</td>
+                    <td class="text-right text-nowrap">{{ table.size | number:'.2' }} MB</td>
+                    <td class="text-right">{{ table.noRows }}</td>
+                    <td class="text-center">
+                        <action-button (click)="downloadTable(table.name)" [color]="'btn-blue'" [icon]="'fa-download'" [bTooltip]="'downloadDBTable' | l" [ajax]="false"></action-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>            
+</data-panel>

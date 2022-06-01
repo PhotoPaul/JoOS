@@ -1,0 +1,147 @@
+<data-panel ngId="courseEnrollment" heading="{{ course ? course.code + ': ' + course.name : '' }}" color="portlet-blue">
+    <data-filter #dataFilter></data-filter>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">{{ 'photo' | l }}</th>
+                    <th style="width: 64%">{{ 'fullName' | l }}</th>
+                    <th class="text-center text-nowrap">{{ 'lastUpdate' | l }}</th>
+                    <th class="text-center">{{ 'grade' | l }}</th>
+                    <th style="width: 22%" class="text-center">{{ 'semester' | l }}</th>
+                    <th style="width: 14%" class="text-center">{{ 'year' | l }}</th>
+                    <th *authIf="['admin', 'registrar']" class="text-center">{{ 'actions' | l }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="!course ; else courseEnrollmentLoaded"><td colspan="7" class="text-center"><loading></loading></td></tr>
+                <ng-template #courseEnrollmentLoaded>
+                    <tr *ngFor="let enrollmentItem of course.enrollmentData | filterByString:['firstName','lastName']:dataFilter.filter" [ngClass]="{ inactive: enrollmentItem.courseEnrollmentActive === '0' }">
+                        <td class="text-center"><img-thumbnail [userId]="enrollmentItem.userId" [src]="enrollmentItem.photoURI" maxHeight="34"></img-thumbnail></td>
+                        <td>
+                            <span class="fa-stack" *ngIf="enrollmentItem.roles.indexOf('professor') >= 0">
+                                <i class="fas fa-user fa-stack-1x" style="font-size:1.7em"></i>
+                                <i class="fas fa-graduation-cap fa-stack-2x" style="font-size:0.9em"></i>
+                            </span>
+                            {{ '' | fName:enrollmentItem.lastName:enrollmentItem.firstName }}
+                        </td>
+                        <td class="text-center">
+                            <div *ngFor="let fraction of enrollmentItem.fractions">
+                                {{ fraction.fractionDateTime?.split('-').join('/') | date:'dd-MM-y' }}
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <input #gradeInput class="form-control gradeInput"
+                                [ngStyle]="{ display: enrollmentItem.gradeInputEnabled ? 'block' : 'none' }"
+                                (keydown)="gradeInputOnKeyDown($event, enrollmentItem)"
+                                (keyup)="gradeInputOnKeyUp($event, enrollmentItem)"
+                                [value]="enrollmentItem.courseEnrollmentGrade | fGrade"
+                                [attr.data-course-enrollment-id]="enrollmentItem.courseEnrollmentId"
+                                [disabled]="!enrollmentItem.gradeInputEnabled">
+                            <span *ngIf="!enrollmentItem.gradeInputEnabled">{{ enrollmentItem.courseEnrollmentGrade | fGrade }}</span>
+                        </td>
+                        <td class="text-center">
+                            <ng-container *ngIf="!enrollmentItem.gradeInputEnabled ; else semesterEdit">
+                                {{ enrollmentItem.courseEnrollmentGradeSemester === '1' ?
+                                        ('fall1st' | l) :
+                                        enrollmentItem.courseEnrollmentGradeSemester === '2' ?
+                                            ('spring2nd' | l) :
+                                            enrollmentItem.courseEnrollmentGradeSemester === '3' ?
+                                                ('summer3rd' | l) : '' }}
+                            </ng-container>
+                            <ng-template #semesterEdit>
+                                <select [(ngModel)]="enrollmentItem.courseEnrollmentGradeSemester" id="gradeSemester" name="gradeSemester" class="form-control">
+                                    <option [value]="'1'">{{ 'fall1st' | l }}</option>
+                                    <option [value]="'2'">{{ 'spring2nd' | l }}</option>
+                                    <option [value]="'3'">{{ 'summer3rd' | l }}</option>
+                                </select>
+                            </ng-template>
+                        </td>
+                        <td class="text-center">
+                            <ng-container *ngIf="!enrollmentItem.gradeInputEnabled ; else yearEdit">
+                                {{ enrollmentItem.courseEnrollmentGradeYear }}
+                            </ng-container>
+                            <ng-template #yearEdit>
+                                <select [(ngModel)]="enrollmentItem.courseEnrollmentGradeYear" id="gradeYear" name="gradeYear" class="form-control">
+                                    <option *ngFor="let year of (date.getFullYear() - 1989) | ngForTimes; let i = index">{{ date.getFullYear() - i }}</option>
+                                </select>
+                            </ng-template>
+                        </td>
+                        <td *authIf="['admin', 'registrar']" class="text-center text-nowrap">
+                            <!-- Student -->
+                            <ng-container *ngIf="!enrollmentItem.isProfessor ; else professor">
+                                <action-button
+                                    *ngIf="!enrollmentItem.isEnrollmentActive ; else studentEnrollmentActive"
+                                    (specialClick)="enrollClicked(enrollmentItem)"
+                                    [color]="'btn-green'"
+                                    [icon]="'fa-user-plus'"
+                                    [bTooltip]="'enrollStudent' | l"
+                                    >
+                                </action-button>
+                                <ng-template #studentEnrollmentActive>
+                                    <action-button
+                                        (specialClick)="unenrollClicked(enrollmentItem)"
+                                        [color]="'btn-red'"
+                                        [icon]="'fa-user-times'"
+                                        [bTooltip]="'unenrollStudent' | l">
+                                    </action-button>
+                                    <action-button *ngIf="!enrollmentItem.gradeInputEnabled"
+                                        (specialClick)="enableGradeInput(enrollmentItem, gradeInput)"
+                                        [color]="'btn-dark-blue'"
+                                        [icon]="'fa-edit'"
+                                        [bTooltip]="'editGrade' | l">
+                                    </action-button>
+                                    <ng-container *ngIf="enrollmentItem.gradeInputEnabled">
+                                        <action-button
+                                            (specialClick)="updateGrade(enrollmentItem, gradeInput)"
+                                            [color]="'btn-dark-blue'"
+                                            [icon]="'fa-save'"
+                                            [bTooltip]="'saveGrade' | l"
+                                            [disabled]="enrollmentItem.courseEnrollmentGrade == -1">
+                                        </action-button>
+                                        <action-button
+                                            (specialClick)="updateGradeToIncomplete(enrollmentItem, gradeInput)"
+                                            [color]="'btn-dark-blue'"
+                                            [icon]="'fa-question'"
+                                            [bTooltip]="'incompleteGrade' | l">
+                                        </action-button>
+                                        <action-button
+                                            (specialClick)="updateGradeToPass(enrollmentItem, gradeInput)"
+                                            [color]="'btn-green'"
+                                            [icon]="'fa-check'"
+                                            [bTooltip]="'passGrade' | l">
+                                        </action-button>
+                                        <action-button
+                                            (specialClick)="updateGradeToNoPass(enrollmentItem, gradeInput)"
+                                            [color]="'btn-red'"
+                                            [icon]="'fa-times'"
+                                            [bTooltip]="'noPassGrade' | l">
+                                        </action-button>
+                                        <action-button
+                                            (specialClick)="deleteGrade(enrollmentItem, gradeInput)"
+                                            [color]="'btn-dark-blue'"
+                                            [icon]="'fa-eraser'"
+                                            [bTooltip]="'deleteGrade' | l">
+                                        </action-button>
+                                    </ng-container>
+                                </ng-template>
+                            </ng-container>
+                            <!-- Professor -->
+                            <ng-template #professor>
+                                <ng-container *ngFor="let fraction of enrollmentItem.fractions">
+                                    <ng-container *ngIf="!fraction.fractionEnrollmentId ; else professorEnrolled">
+                                        <div><span (click)="enrollClicked(enrollmentItem, fraction)" class="label green link">{{ fraction.fractionLabel }} <span class="fas fa-plus"></span></span></div>
+                                    </ng-container>
+                                    <ng-template #professorEnrolled>
+                                        <div><span (click)="unenrollClicked(enrollmentItem, fraction)" class="label red link">{{ fraction.fractionLabel }} <span class="fas fa-times"></span></span></div>
+                                    </ng-template>
+                                </ng-container>
+                                <action-button *ngIf="enrollmentItem.isEnrolled" (specialClick)="sendEvaluationForms(enrollmentItem.userId, $event.actionButtonComponent)" [color]="'btn-orange'" [icon]="'fa-envelope-open-text'" [bTooltip]="'sendEvaluationForms' | l"></action-button>
+                            </ng-template>
+                        </td>
+                    </tr>
+                </ng-template>
+            </tbody>
+        </table>
+    </div>
+</data-panel>

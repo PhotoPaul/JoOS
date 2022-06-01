@@ -1,0 +1,41 @@
+<ng-container *ngIf="applicationData">
+    <data-panel ngId="supportingDocuments" [heading]="'onlineDocumentSubmission' | l" color="portlet-blue">
+        <ng-container *ngIf="applicationData.application.length">
+            <data-filter #dataFilter></data-filter>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 100%">{{ 'filename' | l }}</th>
+                            <th class="text-center text-nowrap">{{ 'filesize' | l }}</th>
+                            <th class="text-center text-nowrap">{{ 'documentType' | l }}</th>
+                            <th class="text-center">{{ 'actions' | l }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let file of applicationData.application | filterByString:['original_filename']:dataFilter.filter">
+                            <td><i class="fas" [ngClass]="fs.getFileIcon(file.original_mime_type)" [tooltip]="file.original_mime_type"></i>&nbsp;{{ file?.original_filename }}</td>
+                            <td class="text-center text-nowrap">{{ file?.filesize/1024/1024 | number:'.2' }} MB</td>
+                            <td class="text-center text-nowrap">{{ 'title' | l:file }}</td>
+                            <td class="text-center text-nowrap">
+                                <action-button (click)="getFile(file?.filename)" [color]="'btn-blue'" [icon]="'fa-download'" [bTooltip]="'Προβολή Αρχείου'" [ajax]="false"></action-button>
+                                <ng-container *ngIf="file?.original_mime_type?.substr(0, 6) === 'image/'">
+                                    <action-button *authIf="['admin', 'registrar']" #$updateProfilePictureButton (specialClick)="updateProfilePicture(file?.filename, $updateProfilePictureButton)" [color]="'btn-green'" [icon]="'fa-id-badge'" [bTooltip]="'Ορισμός ως Φωτογραφία Προφίλ'"></action-button>
+                                </ng-container>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </ng-container>
+    </data-panel>
+    <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles) && applicationData.application.length" class="row text-center extraBottomPadding">
+        <action-collection [actionButtons]="decisionButtons" [collectionAjax]="true"></action-collection>
+    </div>
+    <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+        <action-button (click)="admissionService.editApplication(applicationData.accessControl.editPath, this.userId)" color="btn-blue" icon="fa-pencil-alt" [caption]="'edit' | l" [bTooltip]="'editApplication' | l"></action-button>
+    </div>
+    <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+        <action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+    </div>
+</ng-container>

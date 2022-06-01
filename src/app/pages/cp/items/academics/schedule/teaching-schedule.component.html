@@ -1,0 +1,66 @@
+<teaching-schedule-input *ngIf="scheduleItemInputModel" (onCancelScheduleItemInput)="scheduleItemInputModel = null" (onScheduleItemInputSubmit)="onScheduleItemInputSubmit($event)" [scheduleItemInputModel]="scheduleItemInputModel" [courses]="programs[getProgramIndexByProgramId(teachingScheduleFilter.programId)].courses"></teaching-schedule-input>
+<data-panel ngId="teachingSchedule" [heading]="'teachingSchedule' | l" color="portlet-blue">
+    <div class="row">
+        <div class="col-md-2">
+            <ng-container *ngIf="teachingScheduleFilter.canCustomize">
+                <label class="checkbox-inline">
+                    <input [(ngModel)]="teachingScheduleFilter.myCoursesOnly" (ngModelChange)="fetchTeachingSchedule()" type="checkbox" [name]="'myCoursesOnly'">&nbsp;{{ 'personalized' | l }}
+                </label><br>
+            </ng-container>
+            <label class="checkbox-inline">
+                <input [(ngModel)]="teachingScheduleFilter.weekends" (ngModelChange)="fetchTeachingSchedule()" type="checkbox" name="weekends">&nbsp;{{ 'weekends' | l }}
+            </label>
+        </div>
+        <div class="col-md-3">
+            <ng-container *authIf="['admin', 'registrar', 'cashier', 'professor']">
+                <select *ngIf="!teachingScheduleFilter.myCoursesOnly" [(ngModel)]="teachingScheduleFilter.programId" (ngModelChange)="fetchTeachingSchedule()" class="form-control">
+                    <option *ngFor="let program of programs" [value]="program.id">{{ 'program_name' | l:program }}</option>
+                </select>
+            </ng-container>
+        </div>
+        <div class="col-md-3">
+            <div *authIf="['admin', 'registrar', 'cashier', 'professor']" class="form-group">
+                <ng-container *ngIf="!teachingScheduleFilter.myCoursesOnly && programs">
+                    <label *ngFor="let year of (programs[getProgramIndexByProgramId(teachingScheduleFilter.programId)].number_of_semesters) / 2 | ngForTimes; let i = index" class="checkbox-inline">
+                        <input [(ngModel)]="teachingScheduleFilter.years[i]" (ngModelChange)="fetchTeachingSchedule()" type="checkbox" [name]="'year' + (i + 1)"> {{ i + 1 }}ο&nbsp;{{ 'lYear' | l }}
+                    </label>
+                </ng-container>
+            </div>
+        </div>
+        <div class="col-md-2 text-right">
+            <select [(ngModel)]="teachingScheduleFilter.noWeeks" (ngModelChange)="fetchTeachingSchedule()" class="form-control">
+                <option *ngFor="let week of 4 | ngForTimes; let i = index" [value]="i + 1">{{ i + 1 }}&nbsp;{{ 'weeks' | l }}</option>
+            </select>
+        </div>
+        <div class="col-md-2 text-right">
+            <action-button (specialClick)="fetchPreviousWeek()" icon="fa-chevron-circle-left" color="btn-blue" [tooltip]="'showPreviousWeek' | l" [ajax]="false"></action-button>
+            <action-button (specialClick)="fetchCurrentWeek()" icon="fa-circle" color="btn-blue" [tooltip]="'showCurrentWeek' | l" [ajax]="false"></action-button>
+            <action-button (specialClick)="fetchNextWeek()" icon="fa-chevron-circle-right" color="btn-blue" [tooltip]="'showNextWeek' | l" [ajax]="false"></action-button>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover center-all">
+            <thead>
+            <tr>
+                <th class="text-center">{{ 'monday' | l }}</th>
+                <th class="text-center">{{ 'tuesday' | l }}</th>
+                <th class="text-center">{{ 'wednesday' | l }}</th>
+                <th class="text-center">{{ 'thursday' | l }}</th>
+                <th class="text-center">{{ 'friday' | l }}</th>
+                <th *ngIf="teachingScheduleFilter.weekends" class="text-center">{{ 'saturday' | l }}</th>
+                <th *ngIf="teachingScheduleFilter.weekends" class="text-center">{{ 'sunday' | l }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="!completeTeachingSchedule"><td colspan="7" class="text-center"><loading></loading></td></tr>
+            <tr *ngFor="let completeTeachingScheduleWeek of completeTeachingSchedule | breakEveryN:7 ; let i = index">
+                <ng-container *ngFor="let completeTeachingScheduleDay of completeTeachingScheduleWeek ; let j = index">
+                    <td *ngIf="teachingScheduleFilter.weekends || this.scheduleService.isWeekday(completeTeachingScheduleDay)">
+                        <teaching-day [day]="completeTeachingScheduleDay" [showMonth]="i === 0 && j === 0 ? true : false" (onEditItemClicked)="editItemClicked($event)" (onDeleteItemClicked)="deleteItemClicked($event)" (onNewScheduleItemClicked)="newScheduleItemClicked($event)"></teaching-day>
+                    </td>
+                </ng-container>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</data-panel>

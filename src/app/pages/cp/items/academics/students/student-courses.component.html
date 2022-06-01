@@ -1,0 +1,56 @@
+<data-panel ngId="courses" heading="{{ 'courses' | l }}{{ courses.length?': '+courses.length:''}}" color="portlet-blue">
+    <data-filter #dataFilter></data-filter>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">{{ 'code' | l }}</th>
+                    <th style="width: 100%">{{ 'title' | l }}</th>
+                    <th class="text-center text-nowrap">{{ 'lastUpdate' | l }}</th>
+                    <th *authIf="['admin', 'registrar', 'professor']" class="text-center">{{ 'grade' | l }}</th>
+                    <th class="text-center">{{ 'semester' | l }}</th>
+                    <th class="text-center">{{ 'year' | l }}</th>
+                    <th class="text-center">{{ 'actions' | l }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="!courses.length"><td colspan="10" class="text-center"><loading></loading></td></tr>
+                <tr *ngFor="let course of courses | filterByString:['code_gr','code_en','code','name_gr','name_en']:dataFilter.filter">
+                    <td nowrap><span class="badge green">{{ 'code' | l:course }} {{ course.code }}</span></td>
+                    <td>{{ 'name' | l:course }}</td>
+                    <td class="text-center">{{ course.date_time?.split('-').join('/') | date:'dd-MM-y' }}</td>
+                    <td *authIf="['admin', 'registrar', 'professor']" class="text-center">{{ course.grade | fGrade }}</td>
+                    <td class="text-center">
+                        {{ course.gradeSemester === '1' ?
+                                ('fall1st' | l) :
+                                course.gradeSemester === '2' ?
+                                    ('spring2nd' | l) :
+                                    course.gradeSemester === '3' ?
+                                        ('summer3rd' | l) : '' }}
+                    </td>
+                    <td class="text-center">{{ course.gradeYear }}</td>
+                    <td class="text-center text-nowrap">
+                        <action-button (click)="courseRegistryClicked(course.courseId)" [color]="'btn-blue'" [icon]="'fa-users'" [bTooltip]="'courseRegistry' | l"></action-button>
+                        <action-button *ngIf="course.moodle_id" (click)="courseMoodleClicked(course.moodle_id)" [color]="'btn-blue'" [icon]="'fa-link'" [bTooltip]="'showOnMoodle' | l" [ajax]="false"></action-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ng-container *authIf="['admin']">
+            <table *ngIf="courses.length" class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="text-right">{{ 'gpa' | l }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-right">
+                            <h1>{{ gpa | fGrade:'both' }}</h1>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-container>
+    </div>
+</data-panel>

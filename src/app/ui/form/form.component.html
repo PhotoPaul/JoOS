@@ -1,0 +1,53 @@
+<form #form="ngForm" id="openForm" accept-charset="UTF-8" role="form">
+    <fieldset [disabled]="formLoading">
+        <data-panel [ngId]="formData.id" [heading]="formData.heading" color="portlet-blue">
+            <ng-content></ng-content>
+            <div class="row"><div class="col-md-12"><hr></div></div>
+            <div *ngFor="let question of formData.questions ; let i = index" class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label [for]="'q' + question.questionId">
+                            {{ i + 1 }}.&nbsp;{{ 'title' | l:question }}
+                        </label>
+                        <ng-container *ngIf="question.type === '0'">
+                            <input type="text" [(ngModel)]="question.answer" [id]="'q' + question.questionId" [name]="'q' + question.questionId" class="form-control" autocomplete="off" required>
+                            <required-field-warning *ngIf="validate && !question.answer"></required-field-warning>
+                        </ng-container>
+                        <ng-container *ngIf="question.type === '1'">
+                            <textarea [(ngModel)]="question.answer" [id]="'q' + question.questionId" [name]="'q' + question.questionId" class="form-control" autocomplete="off" rows="4"></textarea>
+                        </ng-container>
+                        <ng-container *ngIf="question.type === '2'">
+                            <div class="row">
+                                <div *ngFor="let child of question.children" class="col-md-2">
+                                    <div class="form-group">
+                                        <label [for]="'q' + question.questionId + child.questionId" class="checkbox-inline"><input type="checkbox" [(ngModel)]="child.answer" [id]="'q' + question.questionId + child.questionId" [name]="'q' + question.questionId + child.questionId">&nbsp;&nbsp;{{ 'title' | l:child }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="question.type === '3'">
+                            <div class="row">
+                                <div *ngFor="let child of question.children" class="col-md-2">
+                                    <div class="form-group">
+                                        <label [for]="'q' + question.questionId + child.questionId" class="radio-inline">
+                                            <input type="radio" [(ngModel)]="question.answer" [id]="'q' + question.questionId + child.questionId" [name]="'q' + question.questionId" [value]="child.questionId" required>&nbsp;&nbsp;{{ 'title' | l:child }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <required-field-warning *ngIf="validate && !question.answer" [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-5">
+                    <button *ngIf="form.valid; else formNotValid" (click)="submitForm()" class="btn btn-green btn-block" type="button">{{ (formData.submitText ? formData.submitText : 'submit') | l }}</button>
+                    <ng-template #formNotValid>
+                        <button class="btn btn-green btn-block" (click)="checkForm()" type="button">{{ 'validate' | l }}</button>
+                    </ng-template>
+                </div>
+            </div>
+        </data-panel>
+    </fieldset>
+</form>

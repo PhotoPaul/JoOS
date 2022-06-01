@@ -1,0 +1,20 @@
+<a [routerLink]="userId ? ['/cp/system/users/folder', userId] : null">
+    <ng-container *ngIf="src" [ngTemplateOutlet]="pictureTemplate"></ng-container>
+    <ng-container *ngIf="!src" [ngTemplateOutlet]="faTemplate"></ng-container>
+</a>
+
+<ng-template #pictureTemplate>
+    <img
+    [ngClass]="{ 'img-circle': circle }"
+    [ngStyle]="{ 'max-width': maxWidth, 'max-height': maxHeight }"
+    [ngStyle]="{ 'max-height.px': maxHeight }"
+    [src]="fs.getImageURI(src, maxWidth, maxHeight)"
+    [placement]="'bottom'" [tooltip]="!noTooltip ? thumbnailTooltip : null">
+</ng-template>
+<ng-template #faTemplate>
+    <i class="fas fa-3x" [ngClass]="noSrcIcon"></i>
+</ng-template>
+
+<ng-template #thumbnailTooltip>
+    <div style="position: absolute; left:0; top: 5px" [innerHTML]="tooltipHtml"></div>
+</ng-template>

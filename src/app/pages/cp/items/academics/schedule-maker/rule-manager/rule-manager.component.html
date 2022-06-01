@@ -1,0 +1,55 @@
+<data-panel ngId="ruleManager" heading="Διαχείριση Κανόνων" color="portlet-green">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Ονομασία</th>
+                <th>Πρόγραμμα</th>
+                <th>Μάθημα</th>
+                <th>Καθηγητής</th>
+                <th>Από</th>
+                <th>Έως</th>
+                <th>Διαθεσιμότητα</th>
+                <th>Ενέργειες</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let rule of smService.model.rules">
+                <td actionText [(text)]="rule.name" (changed)="saveRuleName($event)">{{ rule.name }}</td>
+                <td actionSelect
+                    [options]="smService.model.programs"
+                    optionTextPropertyName="nameGr"
+                    defaultOptionText="Όλα"
+                    [(selectedOption)]="rule.programId" (selectedOptionChange)="saveProgram($event, rule)"
+                >{{ rule.programId ? rule.programNameGr : 'Όλα' }}</td>
+                <td actionSelect
+                    [options]="smService.model.courses"
+                    optionTextPropertyName="fullNameGr"
+                    defaultOptionText="Όλα"
+                    [(selectedOption)]="rule.courseId" (selectedOptionChange)="saveCourse($event, rule)"
+                >
+                    <span *ngIf="rule.courseId ; else allCourses" class="badge green" [tooltip]="rule.courseNameGr">{{ rule.courseCodeGr }}</span>
+                    <ng-template #allCourses>
+                        {{ rule.courseId ? rule.courseNameGr : 'Όλα' }}
+                    </ng-template>
+                </td>
+                <td actionSelect
+                    [options]="smService.model.professors"
+                    optionTextPropertyName="fullName"
+                    defaultOptionText="Όλοι"
+                    [(selectedOption)]="rule.professorId" (selectedOptionChange)="saveProfessor($event, rule)"
+                >{{ rule.professorId ? rule.fullName : 'Όλοι' }}</td>
+                <td actionDate>{{ rule.startDate }}</td>
+                <td actionDate>{{ rule.endDate }}</td>
+                <td actionSelect
+                    [options]="[{ id: 1, available: 'Διαθέσιμη' }]"
+                    optionTextPropertyName="available"
+                    defaultOptionText="Μη Διαθέσιμη"
+                    [(selectedOption)]="rule.available"
+                >{{ rule.available ? 'Διαθέσιμη' : 'Μη Διαθέσιμη' }}</td>
+                <td class="text-center"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</data-panel>

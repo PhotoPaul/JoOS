@@ -1,0 +1,101 @@
+<form *ngIf="applicationData" #form="ngForm" (change)="modelChanged = true" accept-charset="UTF-8" role="form">
+    <data-panel ngId="churchMinistryInfo" heading="Εκκλησία & Διακονία" color="portlet-blue">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="churchName">Όνομα Εκκλησίας που εκκλησιάζεσαι</label>
+                        <input type="text" [(ngModel)]="applicationData.application.churchName" id="churchName" name="churchName" class="form-control" autocomplete="off" required autofocus>
+                        <required-field-warning *ngIf="validate && !applicationData.application.churchName"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="churchMember">Είσαι μέλος</label>
+                        <div class="form-group">
+                            <label for="churchMember" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.churchMember" id="churchMember" name="churchMember" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                            <label for="churchNonMember" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.churchMember" id="churchNonMember" name="churchMember" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                            <required-field-warning *ngIf="validate && applicationData.application.churchMember === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="applicationData.application.churchMember === '1'" class="col-md-5">
+                    <div class="form-group">
+                        <label for="churchMemberHowLong">Πόσο καιρό</label>
+                        <input type="text" [(ngModel)]="applicationData.application.churchMemberHowLong" id="churchMemberHowLong" name="churchMemberHowLong" class="form-control" autocomplete="off" required autofocus>
+                        <required-field-warning *ngIf="validate && !applicationData.application.churchMemberHowLong"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="ministryTalent">Προς ποια Χριστιανική υπηρεσία πιστεύεις ότι έχεις κλίση</label>
+                        <textarea [(ngModel)]="applicationData.application.ministryTalent" id="ministryTalent" name="ministryTalent" class="form-control" rows="2" autocomplete="off" required></textarea>
+                        <required-field-warning *ngIf="validate && !applicationData.application.ministryTalent"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="ministryExperience">Σε ποιους τομείς του Χριστιανικού έργου έχεις εργαστεί</label>
+                        <textarea [(ngModel)]="applicationData.application.ministryExperience" id="ministryExperience" name="ministryExperience" class="form-control" rows="2" autocomplete="off" required></textarea>
+                        <required-field-warning *ngIf="validate && !applicationData.application.ministryExperience"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="churchMinistryInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <data-panel ngId="testimonyInfo" heading="Ομολογία Πίστεως" color="portlet-blue" collapsed="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="testimony">Περιγράψτε με απλά λόγια τη Χριστιανική σας πίστη, διατυπώνοντας τις συνθήκες και τους παράγοντες που σας οδήγησαν σ' αυτήν, καθώς και στην επιθυμία σας να εμβαθύνετε σ' αυτήν (150 - 250 λέξεις)</label>
+                        <textarea [(ngModel)]="applicationData.application.testimony" id="testimony" name="testimony" class="form-control" rows="5" autocomplete="off" required></textarea>
+                        <required-field-warning *ngIf="validate && !applicationData.application.testimony"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="statementOfFaithApproval">Έχετε διαβάσει και αποδέχεστε την <a href="https://www.grbc.gr/who-we-are/statement-of-faith/" target="_new">Ομολογία Πίστης του Ελληνικού Βιβλικού Κολεγίου <i class="fas fa-info-circle" aria-hidden="true"></i></a></label><br>
+                        <label for="statementOfFaithApproval" class="checkbox-inline"><input type="checkbox" [(ngModel)]="applicationData.application.statementOfFaithApproval" id="statementOfFaithApproval" name="statementOfFaithApproval" autocomplete="off" required>&nbsp;{{ 'yes' | l }}</label>
+                        <required-field-warning *ngIf="validate && !applicationData.application.statementOfFaithApproval"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="testimonyInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+    <div *ngIf="!unsavedChanges(); else isNotSaved" class="row">
+        <ng-container *ngIf="form.valid; else isNotValid">
+            <div class="col-md-2 col-md-offset-5 extraBottomPadding">
+                <button class="btn btn-green btn-block" type="button" (click)="submitForm()" [disabled]="formLoading || !form.valid">{{ 'submit' | l }}</button>
+            </div>
+        </ng-container>
+        <ng-template #isNotValid>
+            <div class="col-md-4 col-md-offset-4 extraBottomPadding">
+                <button class="btn btn-green btn-block" type="button" (click)="checkForm()" [disabled]="formLoading">{{ 'validate' | l }}</button>
+            </div>
+        </ng-template>
+    </div>
+    <ng-template #isNotSaved>
+        <div class="alert alert-danger text-center extraBottomPadding">{{ 'pleaseSaveChanges' | l }}</div>
+    </ng-template>
+    <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+        <action-button (click)="applicationService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+    </div>
+</form>
