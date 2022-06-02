@@ -7,5 +7,5 @@ export const environment = {
     production: false,
     version: 'dev', // %1.%2.%3 - %1: App Version, %2: New Feature Version, %3: Bug Fix Version
     appURI: 'http://localhost:4200/',
-    apiURI: 'http://localhost/joos-api/'
+    apiURI: location.protocol + '//' + location.hostname + ':4201/joos-api/'
 };

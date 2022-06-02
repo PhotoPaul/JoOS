@@ -6,5 +6,5 @@
 export const environment = {
     production: false,
     appURI: 'http://localhost:4200/',
-    apiURI: 'http://127.0.0.1/joos-api/'
+    apiURI: location.protocol + '//' + location.hostname + ':4201/joos-api/'
 };
