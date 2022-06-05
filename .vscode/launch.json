@@ -2,9 +2,17 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "version": "dev",
+            "name": "Launch Edge - Debug Container",
+            "request": "launch",
+            "type": "msedge",
+            "url": "http://localhost:4200",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "Launch Edge - Debug Local",
             "type": "edge",
             "request": "launch",
-            "name": "Launch Edge",
             "url": "http://localhost:4200",
             "webRoot": "${workspaceFolder}",
             "sourceMapPathOverrides": {
