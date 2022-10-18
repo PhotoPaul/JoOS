@@ -30,7 +30,7 @@
                                 <input type="email" [(ngModel)]="model.email" id="candidateEmail" name="candidateEmail" class="form-control" autocomplete="off" required pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}">
                             </div>
                             <div class="form-group" [hidden]="!form.form.valid" [ngClass]="{'ng-invalid': !model.recaptchaToken, 'ng-valid': model.recaptchaToken}">
-                                <re-captcha (captchaResponse)="handleCorrectCaptcha($event)" (captchaExpired)="recaptchaTokenExpired()" [language]="'recaptchaLanguage' | l" site_key="6LcfpCMTAAAAAB-9m0ddsgWRi89Lqq4A2bgyxDCi"></re-captcha>
+                                <re-captcha (captchaResponse)="handleCorrectCaptcha($event)" (captchaExpired)="recaptchaTokenExpired()" [language]="'recaptchaLanguage' | l" site_key="6LfyAI0iAAAAAPIpTiHNHmZX-skxUnybuN6wX4aE"></re-captcha>
                             </div>
                             <div class="text-center">
                                 <button [disabled]="!form.form.valid || !model.recaptchaToken" id="registerButton" class="btn btn-lg btn-green btn-block" type="submit">
