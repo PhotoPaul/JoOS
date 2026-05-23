@@ -169,6 +169,11 @@ export class GeneralApplicationComponent implements OnInit {
             applicationData.application.elementaryGraduationYear = null;
             applicationData.application.middleSchoolName = null;
             applicationData.application.middleSchoolGraduationYear = null;
+            if (applicationData.application.secondarySchoolGraduate === '0' || applicationData.application.secondarySchoolGraduate === 0 || !applicationData.application.secondarySchoolGraduate) {
+                applicationData.application.secondarySchoolName = null;
+                applicationData.application.secondarySchoolGraduationYear = null;
+                applicationData.application.secondarySchoolDiscipline = null;
+            }
         } else if (formId === 3) {
             if (applicationData.application.otherDiseases === '0') {
                 applicationData.application.otherDiseasesDetails = null;

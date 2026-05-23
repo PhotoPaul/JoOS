@@ -4,6 +4,19 @@
         <fieldset [disabled]="formLoading">
             <div class="row">
                 <div class="col-md-3">
+                    <label for="secondarySchoolGraduate">{{ 'secondarySchoolGraduateLabel' | l }}</label>
+                    <div class="form-group">
+                        <label for="secondarySchoolGraduate" class="radio-inline"><input type="radio"
+                                 [(ngModel)]="educationData.application.secondarySchoolGraduate" id="secondarySchoolGraduate"
+                                name="secondarySchoolGraduate" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                        <label for="nonSecondarySchoolGraduate" class="radio-inline"><input type="radio"
+                                 [(ngModel)]="educationData.application.secondarySchoolGraduate" id="nonSecondarySchoolGraduate"
+                                name="secondarySchoolGraduate" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                        <required-field-warning *ngIf="validate && educationData.application.secondarySchoolGraduate === null"
+                            [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-3" *ngIf="educationData.application.secondarySchoolGraduate === '1'">
                     <div class="form-group">
                         <label for="secondarySchoolName">{{ 'highSchool' | l }}</label>
                         <input type="text" [(ngModel)]="educationData.application.secondarySchoolName"
@@ -13,7 +26,7 @@
                             *ngIf="validate && !educationData.application.secondarySchoolName"></required-field-warning>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" *ngIf="educationData.application.secondarySchoolGraduate === '1'">
                     <div class="form-group">
                         <label for="secondarySchoolGraduationYear">{{ 'graduationYear' | l }}</label>
                         <input type="text" [(ngModel)]="educationData.application.secondarySchoolGraduationYear"
@@ -23,7 +36,7 @@
                             *ngIf="validate && !educationData.application.secondarySchoolGraduationYear"></required-field-warning>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" *ngIf="educationData.application.secondarySchoolGraduate === '1'">
                     <div class="form-group">
                         <label for="secondarySchoolDiscipline">{{ 'discipline' | l }}</label>
                         <input type="text" [(ngModel)]="educationData.application.secondarySchoolDiscipline"
@@ -34,7 +47,7 @@
                     </div>
                 </div>
             </div> <!-- End row for high school details -->
-            <div class="row">
+            <div class="row" *ngIf="educationData.application.secondarySchoolGraduate === '1'">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>{{ 'highSchoolTranscriptLabel' | l }}</label>
@@ -68,7 +81,7 @@
     <data-panel ngId="languagesInfo" [heading]="'languages' | l" color="portlet-blue" collapsed="true">
         <fieldset [disabled]="formLoading">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <div class="form-group">
                         <label for="greekMedium">{{ 'greekKnowledgeLevel' | l }}</label><br>
                         <label for="greekMedium" class="radio-inline"><input type="radio"
@@ -83,13 +96,16 @@
                         <label for="greekExcellent" class="radio-inline"><input type="radio"
                                  [(ngModel)]="educationData.application.greek" id="greekExcellent" name="greek"
                                 value="4" required>&nbsp;{{ 'levelExcellent' | l }}</label>
+                        <label for="greekNative" class="radio-inline"><input type="radio"
+                                 [(ngModel)]="educationData.application.greek" id="greekNative" name="greek"
+                                value="5" required>&nbsp;{{ 'levelNativeSpeaker' | l }}</label>
                         <required-field-warning *ngIf="validate && educationData.application.greek === null"
                             [warningText]="'requiredChoice' | l"></required-field-warning>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <div class="form-group">
                         <label for="englishMedium">{{ 'englishKnowledgeLevel' | l }}</label><br>
                         <label for="englishMedium" class="radio-inline"><input type="radio"
@@ -104,8 +120,19 @@
                         <label for="englishExcellent" class="radio-inline"><input type="radio"
                                  [(ngModel)]="educationData.application.english" id="englishExcellent" name="english"
                                 value="4" required>&nbsp;{{ 'levelExcellent' | l }}</label>
+                        <label for="englishNative" class="radio-inline"><input type="radio"
+                                 [(ngModel)]="educationData.application.english" id="englishNative" name="english"
+                                value="5" required>&nbsp;{{ 'levelNativeSpeaker' | l }}</label>
                         <required-field-warning *ngIf="validate && educationData.application.english === null"
                             [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="educationData.application.greek !== '5' || educationData.application.english !== '5'">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ 'foreignLanguageCertifications' | l }}</label>
+                        <inline-uploader [userId]="userId" [documentTypeId]="9" [files]="documentsList" [label]="'uploadForeignLanguageCertifications' | l"></inline-uploader>
                     </div>
                 </div>
             </div>
