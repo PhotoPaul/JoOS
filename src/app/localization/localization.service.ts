@@ -692,7 +692,7 @@ export class LocalizationService {
         confirmFile: { gr: 'Επιβεβαίωση Αρχείου', en: 'Confirm File' },
         highSchoolTranscriptNote: {
             gr: 'Αν δεν μπορείτε να προσκομίσετε το απολυτήριο του Λυκείου, παρακαλούμε ανεβάστε το πτυχίο της επόμενης βαθμίδας, εφόσον είναι διαθέσιμο.',
-            en: 'If you cannot provide your high school transcript, please upload your next higher level degree, if available.'
+            en: 'If you are unable to provide your high school diploma, please upload the diploma or degree from the next level of education, if available.'
         },
         familyStatus: { gr: 'Οικογενειακή κατάσταση', en: 'Marital Status' },
         maritalSingle: { gr: 'Ανύπαντρος -η', en: 'Single' },
