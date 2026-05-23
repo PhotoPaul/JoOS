@@ -20,6 +20,8 @@ import { ISPHealthComponent } from './isp/health/health.component';
 import { ISPPersonalComponent } from './isp/personal/personal.component';
 import { ISPReferencesComponent } from './isp/references/references.component';
 import { SupportingDocumentsComponent } from './supporting-documents/supporting-documents.component';
+import { GeneralApplicationComponent } from './general-application/general-application.component';
+import { InlineUploaderComponent } from './general-application/inline-uploader.component';
 
 // Greek Program Components
 // ISP Components
@@ -50,7 +52,9 @@ import { SupportingDocumentsComponent } from './supporting-documents/supporting-
         // Common Components
         SupportingDocumentsComponent,
         ISPApplicationFeeComponent,
-        ISPApplicantClassificationComponent
+        ISPApplicantClassificationComponent,
+        GeneralApplicationComponent,
+        InlineUploaderComponent
     ]
 })
 export class ApplicationModule { }

@@ -8,13 +8,14 @@ export class LocalizationService {
 
     dictionary = {
         grbc: { gr: 'Ελληνικό Βιβλικό Κολέγιο', en: 'Greek Bible College' },
-        applicantIdentityInformation: { gr: 'Στοιχεία Ταυτότητας Υποψηφίου', en: 'Applicant Identity Information' },
-        referenceIdentityInformation: { gr: 'Στοιχεία Ταυτότητας Συντάκτη', en: 'Reference Identity Information' },
+        applicantIdentityInformation: { gr: 'Προσωπικά Στοιχεία Υποψηφίου', en: 'Applicant Personal Information' },
+        referenceIdentityInformation: { gr: 'Προσωπικά Στοιχεία Συντάκτη', en: 'Reference Personal Information' },
         regardingTheApplicant: { gr: 'Σχετικά με τον/την Υποψήφιο/α', en: 'Regarding the Applicant' },
         occupation: { gr: 'Επάγγελμα / Ιδιότητα', en: 'Occupation / Role' },
         address: { gr: 'Οδός, αριθμός', en: 'Address' },
         cityZipCountry: { gr: 'Πόλη, Τ.Κ., Χώρα', en: 'City, State / Province, ZIP / Postcode, Country' },
         phone: { gr: 'Τηλέφωνο', en: 'Phone' },
+        email: { gr: 'Email', en: 'Email' },
         letterOfRecommendationThankYou1: { gr: 'Ευχαριστούμε!', en: 'Thank you!' },
         letterOfRecommendationThankYou2: {
             gr: 'Η συστατική σας επιστολή έχει αποθηκευτεί και θα ληφθεί σοβαρά υπόψιν.',
@@ -205,7 +206,7 @@ export class LocalizationService {
         currentDebt: { gr: 'Τρέχουσες Οφειλές', en: 'Current Debt' },
         myDebt: { gr: 'Οι Οφειλές Μου', en: 'My Debt' },
 
-        showOnlyStudentAccounts: { gr: 'Προβολή μόνο λογαριασμών Φοιτητών', en: 'Show only Student Accounts'},
+        showOnlyStudentAccounts: { gr: 'Προβολή μόνο λογαριασμών Φοιτητών', en: 'Show only Student Accounts' },
         totalDebt: { gr: 'Συνολικές Οφειλές', en: 'Total Debt' },
         totalCredit: { gr: 'Συνολικές Πληρωμές', en: 'Total Credit' },
         lastUpdate: { gr: 'Τελευταία Ενημέρωση', en: 'Last Update' },
@@ -299,7 +300,7 @@ export class LocalizationService {
             gr: 'Είστε σίγουροι ότι θέλετε να προχωρήσετε στην αφαίρεση αυτού του ρόλου από αυτόν τον χρήστη;',
             en: 'Are you sure you want to proceed with the removal of this role from this user?'
         },
-        addProgram: { gr: 'Προσθήκη Προγράμματος', en: 'Add Program'},
+        addProgram: { gr: 'Προσθήκη Προγράμματος', en: 'Add Program' },
         addOperation: { gr: 'Προσθήκη Λειτουργίας', en: 'Add Operation' },
         operationName: { gr: 'Όνομα Λειτουργίας', en: 'Operation Name' },
         date: { gr: 'Ημερομηνία', en: 'Date' },
@@ -501,10 +502,10 @@ export class LocalizationService {
         levelExcellent: { gr: 'Άριστο', en: 'Excellent' },
         accept: { gr: 'Αποδοχή', en: 'Accept' },
         reject: { gr: 'Απόρριψη', en: 'Reject' },
-        hideForm: { gr: 'Απόκρυψη Φόρμας', en: 'Hide Form'},
-        unhideForm: { gr: 'Αποκάλυψη Φόρμας', en: 'Unhide Form'},
-        hideFinancialFormFromApplicant: { gr: 'Απόκρυψη Φόρμας Οικονομικής Ευθύνης', en: 'Hide Financial Liability Form'},
-        unhideFinancialFormForApplicant: { gr: 'Αποκάλυψη Φόρμας Οικονομικής Ευθύνης', en: 'Unhide Financial Liability Form'},
+        hideForm: { gr: 'Απόκρυψη Φόρμας', en: 'Hide Form' },
+        unhideForm: { gr: 'Αποκάλυψη Φόρμας', en: 'Unhide Form' },
+        hideFinancialFormFromApplicant: { gr: 'Απόκρυψη Φόρμας Οικονομικής Ευθύνης', en: 'Hide Financial Liability Form' },
+        unhideFinancialFormForApplicant: { gr: 'Αποκάλυψη Φόρμας Οικονομικής Ευθύνης', en: 'Unhide Financial Liability Form' },
         acceptApplication: { gr: 'Αποδοχή Αίτησης', en: 'Accept Application' },
         rejectApplication: { gr: 'Απόρριψη Αίτησης', en: 'Reject Application' },
         finalizeApplication: { gr: 'Οριστική Αποδοχή Αίτησης', en: 'Finalize Application' },
@@ -535,6 +536,7 @@ export class LocalizationService {
         },
 
         saveAndContinue: { gr: 'Αποθήκευση και Συνέχεια', en: 'Save and Continue' },
+        continue: { gr: 'Συνέχεια', en: 'Continue' },
         validate: { gr: 'Έλεγχος', en: 'Validate' },
         requiredField: { gr: 'Υποχρεωτικό πεδίο', en: 'Required Field' },
         requiredChoice: { gr: 'Υποχρεωτική επιλογή', en: 'Required Choice' },
@@ -551,23 +553,23 @@ export class LocalizationService {
         formSubmissionTitle: { gr: 'Υποβολή Φόρμας', en: 'Form Submission' },
 
         // Evaluations
-        myEvaluationReports: { gr: 'Οι Αξιολογήσεις μου', en: 'My Evaluation Reports'},
-        evaluationReports: { gr: 'Εκθέσεις Αξιολόγησης', en: 'Evaluation Reports'},
-        evaluationReport: { gr: 'Έκθεση Αξιολόγησης', en: 'Evaluation Report'},
+        myEvaluationReports: { gr: 'Οι Αξιολογήσεις μου', en: 'My Evaluation Reports' },
+        evaluationReports: { gr: 'Εκθέσεις Αξιολόγησης', en: 'Evaluation Reports' },
+        evaluationReport: { gr: 'Έκθεση Αξιολόγησης', en: 'Evaluation Report' },
         usersWithEvaluationsPending: { gr: 'Χρήστες με αξιολογήσεις που εκκρεμούν', en: 'Users with evaluations pending' },
         removePendingEvaluation: { gr: 'Διαγραφή εκκρεμότητας αξιολόγηγης', en: 'Remove pending evaluation' },
         removePendingEvaluationConfirmation: {
             gr: 'Είστε σίγουροι ότι θέλετε να προχωρήσετε στη διαγραφή αυτής της εκκρεμότητας αξιολόγησης;',
             en: 'Are you sure you want to proceed with the deletion of this pending evaluation?'
-         },
-        allCourses: { gr: 'Όλα τα διαθέσιμα μαθήματα', en: 'All available courses'},
-        allProfessors: { gr: 'Όλοι οι διαθέσιμοι καθηγητές', en: 'All available professors'},
-        allYears: { gr: 'Όλα τα διαθέσιμα έτη', en: 'All available years'},
-        sendEvaluationForms: { gr: 'Αποστολή Φορμών Αξιολόγησης', en: 'Send Evaluation Forms'},
+        },
+        allCourses: { gr: 'Όλα τα διαθέσιμα μαθήματα', en: 'All available courses' },
+        allProfessors: { gr: 'Όλοι οι διαθέσιμοι καθηγητές', en: 'All available professors' },
+        allYears: { gr: 'Όλα τα διαθέσιμα έτη', en: 'All available years' },
+        sendEvaluationForms: { gr: 'Αποστολή Φορμών Αξιολόγησης', en: 'Send Evaluation Forms' },
         sendEvaluationFormsConfirmation: {
             gr: 'Είστε σίγουροι ότι θέλετε να προχωρήσετε στην αποστολή Φορμών Αξιολόγησης για αυτόν τον καθηγητή;',
             en: 'Are you sure you want to proceed with the sending of Evaluation Forms for this professor?'
-         },
+        },
 
         evaluationFormsPending: {
             gr: '<div class="text-center">Έχετε φόρμες αξιολόγησης σε εκκρεμότητα.<br><br>Οι φόρμες αξιολόγησης είναι <b>ανώνυμες</b> και είναι εξαιρετικά χρήσιμες για τη βελτίωση της ποιότητας των υπηρεσιών που προσφέρει το Ελληνικό Βιβλικό Κολέγιο.</div>',
@@ -629,22 +631,176 @@ export class LocalizationService {
             en: 'Are you sure you want to proceed with the deletion of this book?'
         },
         importFromResourceMate: { gr: 'Εισαγωγή από το ResourceMate', en: 'Import from ResourceMate' },
+
+        // General Application
+        applicationInstructionsTitle: { gr: 'Οδηγίες Συμπλήρωσης Αίτησης', en: 'Application Instructions' },
+        applicationInstructionsContent: {
+            gr: 'Συμπληρώστε όλα τα υποχρεωτικά πεδία της αίτησης και τα στοιχεία σας όπως αναγράφονται στα επίσημα έγγραφά σας (π.χ. στο Δελτίο Ταυτότητας). Η αίτηση θεωρείται ολοκληρωμένη εφόσον υποβληθεί και εφόσον έχει πληρωθεί το παράβολο εγγραφής.',
+            en: 'Please complete all required fields of the application and enter your information exactly as it appears on your official documents (e.g. your ID card). The application is considered complete once it has been submitted and the registration fee has been paid.'
+        },
+        identityInformation: { gr: 'Προσωπικά Στοιχεία', en: 'Personal Information' },
+        familyInformation: { gr: 'Στοιχεία Οικογένειας', en: 'Family Information' },
+        homeAddress: { gr: 'Διεύθυνση Κατοικίας', en: 'Home Address' },
+        guardianInformation: { gr: 'Στοιχεία Κηδεμόνα', en: 'Guardian Information' },
+        primarySecondaryEducation: { gr: 'Πρωτοβάθμια & Δευτεροβάθμια Εκπαίδευση', en: 'Primary & Secondary Education' },
+        languages: { gr: 'Γλώσσες', en: 'Languages' },
+        higherEducation: { gr: 'Τριτοβάθμια Εκπαίδευση', en: 'Higher Education' },
+        healthHistory: { gr: 'Ιστορικό Υγείας', en: 'Health History' },
+        substanceUse: { gr: 'Χρήση Ουσιών', en: 'Substance Use' },
+        currentHealthStatus: { gr: 'Παρούσα Κατάσταση Υγείας', en: 'Current Health Status' },
+        emergencyContacts: { gr: 'Επαφές Έκτακτης Ανάγκης', en: 'Emergency Contacts' },
+        churchMinistry: { gr: 'Εκκλησία & Διακονία', en: 'Church & Ministry' },
+        statementOfFaithSpiritualJourney: { gr: 'Ομολογία Πίστεως & Πνευματική Πορεία', en: 'Statement of Faith & Spiritual Journey' },
+        recommendationLetter1: { gr: 'Συστατική Επιστολή 1: Ποιμένας ή Πρεσβύτερος', en: 'Recommendation Letter 1: Pastor or Elder' },
+        recommendationLetter2: { gr: 'Συστατική Επιστολή 2: Δεύτερο Πρόσωπο', en: 'Recommendation Letter 2: Second Reference' },
+        recommendationLetter3: { gr: 'Συστατική Επιστολή 3: Τρίτο Πρόσωπο', en: 'Recommendation Letter 3: Third Reference' },
+        modeOfStudy: { gr: 'Τρόπος Φοίτησης', en: 'Mode of Study' },
+        applicationProcessingFee: { gr: 'Παράβολο Επεξεργασίας Αίτησης Εγγραφής', en: 'Application Processing Fee' },
+        financialLiability: { gr: 'Ανάληψη Οικονομικής Ευθύνης', en: 'Financial Liability' },
+        birthDate: { gr: 'Ημερομηνία Γέννησης', en: 'Birth Date (dd-mm-yyyy)' },
+        birthPlace: { gr: 'Τόπος Γέννησης', en: 'Place of Birth' },
+        occupationLabel: { gr: 'Επάγγελμα', en: 'Occupation' },
+        greekCitizen: { gr: 'Έλληνας Υπήκοος', en: 'Greek Citizen' },
+        greekSsn: { gr: 'Αριθμός Φορολογικού Μητρώου (Α.Φ.Μ.)', en: 'Tax Identification Number (A.F.M.)' },
+        greekSsnPlaceholder: { gr: 'Εάν δεν υπάρχει Α.Φ.Μ. απαιτείται η έκδοσή του', en: 'If A.F.M. is not available, its issuance is required' },
+        irsOffice: { gr: 'Δημόσια Οικονομική Υπηρεσία (Δ.Ο.Υ.)', en: 'Inland Revenue Office (D.O.Y.)' },
+        greekIdNumber: { gr: 'Αριθμός Δελτίου Ταυτότητας (Α.Δ.Τ.)', en: 'National Identity Card Number (A.D.T.)' },
+        citizenship: { gr: 'Υπηκοότητα', en: 'Citizenship' },
+        euCitizen: { gr: 'Ευρωπαίος Πολίτης', en: 'E.U. Citizen' },
+        passportNumber: { gr: 'Αριθμός Διαβατηρίου', en: 'Passport Number' },
+        residencePermit: { gr: 'Κάτοχος Άδειας Παραμονής', en: 'Residence Permit Holder' },
+        uploadIdCard: { gr: 'Μεταφόρτωση Δελτίου Ταυτότητας', en: 'Upload ID Card Scan' },
+        uploadPassport: { gr: 'Μεταφόρτωση Διαβατηρίου', en: 'Upload Passport Scan' },
+        uploadResidencePermit: { gr: 'Μεταφόρτωση Άδειας Διαμονής', en: 'Upload EU Residence Permit' },
+        highSchoolTranscriptLabel: { gr: 'Απολυτήριο Λυκείου', en: 'High School Transcript' },
+        uploadHighSchoolTranscript: { gr: 'Μεταφόρτωση Απολυτηρίου', en: 'Upload Transcript' },
+        actScoresLabel: { gr: 'Βαθμολογία ACT', en: 'ACT Scores' },
+        uploadActScores: { gr: 'Μεταφόρτωση ACT', en: 'Upload ACT Scores' },
+        satScoresLabel: { gr: 'Βαθμολογία SAT', en: 'SAT Scores' },
+        uploadSatScores: { gr: 'Μεταφόρτωση SAT', en: 'Upload SAT Scores' },
+        passportPhotoLabel: { gr: 'Πρόσφατη φωτογραφία τύπου διαβατηρίου (4 x 6 cm)', en: 'Recent Passport Style Photograph (4 x 6 cm or 2 x 2 in)' },
+        uploadPassportPhoto: { gr: 'Μεταφόρτωση Φωτογραφίας', en: 'Upload Photo' },
+        familyStatus: { gr: 'Οικογενειακή κατάσταση', en: 'Marital Status' },
+        maritalSingle: { gr: 'Ανύπαντρος -η', en: 'Single' },
+        maritalMarried: { gr: 'Παντρεμένος -η', en: 'Married' },
+        maritalDivorced: { gr: 'Διαζευγμένος -η', en: 'Divorced' },
+        maritalWidow: { gr: 'Χήρος -α', en: 'Widow' },
+        spouseFirstName: { gr: 'Όνομα Συζύγου', en: "Spouse's First Name" },
+        spouseLastName: { gr: 'Επώνυμο Συζύγου', en: "Spouse's Last Name" },
+        familyKids: { gr: 'Έχετε Παιδιά', en: 'Do you have Children' },
+        familyKidsNamesAges: { gr: 'Ονόματα και Ηλικίες Παιδιών', en: 'Children Names and Ages' },
+        city: { gr: 'Πόλη', en: 'City' },
+        zipCode: { gr: 'Τ.Κ.', en: 'Zip Code' },
+        country: { gr: 'Χώρα', en: 'Country' },
+        guardianFirstName: { gr: 'Όνομα Κηδεμόνα', en: "Guardian's First Name" },
+        guardianLastName: { gr: 'Επώνυμο Κηδεμόνα', en: "Guardian's Last Name" },
+        guardianOccupation: { gr: 'Επάγγελμα Κηδεμόνα', en: "Guardian's Occupation" },
+        guardianAddressSame: { gr: 'Μένετε με τον Κηδεμόνα σας', en: 'Do you live with your Guardian' },
+        guardianAddress: { gr: 'Οδός, αριθμός (Κηδεμόνα)', en: "Guardian's Street and Number" },
+        guardianOpinion: { gr: 'Περιγράψτε το πώς βλέπουν οι γονείς / κηδεμόνες σας την πρόθεσή σας να σπουδάσετε στο Ελληνικό Βιβλικό Κολέγιο', en: 'Describe how your parents / guardians view your intention to study at the Greek Bible College' },
+        elementarySchool: { gr: 'Δημοτικό Σχολείο', en: 'Elementary School' },
+        graduationYear: { gr: 'Χρονολογία Αποφοίτησης', en: 'Graduation Year' },
+        middleSchool: { gr: 'Γυμνάσιο', en: 'Middle School' },
+        highSchool: { gr: 'Λύκειο / ΤΕΛ', en: 'High School / Voc.' },
+        discipline: { gr: 'Κατεύθυνση / Ειδίκευση', en: 'Field / Major' },
+        greekKnowledgeLevel: { gr: 'Επίπεδο Γνώσης Ελληνικών', en: 'Greek Language Level' },
+        englishKnowledgeLevel: { gr: 'Επίπεδο Γνώσης Αγγλικών', en: 'English Language Level' },
+        postSecondaryStudies: { gr: 'Μεταλυκειακές Σπουδές (ΙΕΚ κλπ.)', en: 'Post-Secondary Studies (Voc. College etc.)' },
+        universityCollege: { gr: 'ΑΕΙ, ΑΤΕΙ κλπ.', en: 'University / College' },
+        postgraduateStudies: { gr: 'Μεταπτυχιακό', en: 'Postgraduate Studies' },
+        healthHistoryLabel: { gr: 'Είχατε ποτέ κάποια από τις παρακάτω ασθένειες;', en: 'Have you ever had any of the following diseases?' },
+        tuberculosis: { gr: 'Φυματίωση', en: 'Tuberculosis' },
+        pneumonia: { gr: 'Πνευμονία', en: 'Pneumonia' },
+        asthma: { gr: 'Άσθμα', en: 'Asthma' },
+        heartDiseases: { gr: 'Καρδιοπάθειες', en: 'Heart Diseases' },
+        hypertension: { gr: 'Υπέρταση', en: 'Hypertension' },
+        gastricUlcer: { gr: 'Έλκος', en: 'Gastric Ulcer' },
+        kidneyDiseases: { gr: 'Νεφροπάθειες', en: 'Kidney Diseases' },
+        diabetes: { gr: 'Διαβήτη', en: 'Diabetes' },
+        epilepsy: { gr: 'Επιληψία', en: 'Epilepsy' },
+        liverDiseases: { gr: 'Ηπατίτιδα / Ίκτερο', en: 'Hepatitis / Jaundice' },
+        rheumatism: { gr: 'Ρευματισμούς', en: 'Rheumatism' },
+        anemia: { gr: 'Αναιμία', en: 'Anemia' },
+        cancer: { gr: 'Καρκίνο', en: 'Cancer' },
+        allergies: { gr: 'Αλλεργίες', en: 'Allergies' },
+        seriousInjury: { gr: 'Σοβαρό τραυματισμό', en: 'Serious Injury' },
+        surgery: { gr: 'Χειρουργική επέμβαση', en: 'Surgery' },
+        physicalDisability: { gr: 'Σωματική αναπηρία', en: 'Physical Disability' },
+        mentalDisorder: { gr: 'Ψυχική ή συναισθηματική διαταραχή', en: 'Mental or Emotional Disorder' },
+        otherDiseases: { gr: 'Άλλη ασθένεια / πρόβλημα υγείας που δεν αναφέρεται παραπάνω;', en: 'Any other illness / health problem not listed above?' },
+        haveOtherSeriousDiseases: { gr: 'Είχατε κάποια άλλη σοβαρή ασθένεια;', en: 'Have you had any other serious illness?' },
+        gallbladderDiseases: { gr: 'Παθήσεις Χολής', en: 'Gallbladder Diseases' },
+        tetanusVaccine: { gr: 'Τετάνου', en: 'Tetanus' },
+        diphtheriaVaccine: { gr: 'Διφθερίτιδας', en: 'Diphtheria' },
+        pertussisVaccine: { gr: 'Κοκκύτη', en: 'Pertussis (Whooping Cough)' },
+        polioVaccine: { gr: 'Πολιομυελίτιδας', en: 'Polio' },
+        measlesVaccine: { gr: 'Ιλαράς', en: 'Measles' },
+        mumpsVaccine: { gr: 'Παρωτίτιδας', en: 'Mumps' },
+        rubellaVaccine: { gr: 'Ερυθράς', en: 'Rubella (German Measles)' },
+        vaccinesLabel: { gr: 'Έχετε κάνει τα παρακάτω εμβόλια;', en: 'Have you had the following vaccinations?' },
+        haveOtherVaccines: { gr: 'Έχετε κάνει άλλα εμβόλια;', en: 'Have you had other vaccinations?' },
+        usedSubstances: { gr: 'Έχετε κάνει ποτέ χρήση εξαρτησιογόνων ουσιών;', en: 'Have you ever used addictive substances?' },
+        details: { gr: 'Λεπτομέρειες', en: 'Details' },
+        otherVaccines: { gr: 'Έχετε κάνει όλα τα προβλεπόμενα εμβόλια;', en: 'Have you had all prescribed vaccinations?' },
+        otherVaccinesDetails: { gr: 'Ποια εμβόλια εκκρεμούν;', en: 'Which vaccinations are pending?' },
+        drugsUse: { gr: 'Έχετε κάνει ποτέ συστηματική χρήση καπνού, αλκοόλ ή άλλων ουσιών;', en: 'Have you ever regularly used tobacco, alcohol, or other substances?' },
+        drugsUseDetails: { gr: 'Ποιες ουσίες, για πόσο διάστημα και πότε σταματήσατε τη χρήση;', en: 'Which substances, for how long, and when did you stop using them?' },
+        currentDiseases: { gr: 'Έχετε κάποιο ενεργό πρόβλημα υγείας;', en: 'Do you have any active health problems?' },
+        currentSymptoms: { gr: 'Έχετε κάποια επίμονα συμπτώματα;', en: 'Do you have any persistent symptoms?' },
+        currentMedicines: { gr: 'Λαμβάνετε κάποια φαρμακευτική αγωγή συστηματικά;', en: 'Are you systematically taking any medication?' },
+        foodAllergy: { gr: 'Έχετε κάποια τροφική αλλεργία ή δυσανεξία;', en: 'Do you have any food allergies or intolerances?' },
+        contactFirstName: { gr: 'Όνομα Επαφής', en: 'Contact First Name' },
+        contactLastName: { gr: 'Επώνυμο Επαφής', en: 'Contact Last Name' },
+        contactPhone: { gr: 'Τηλέφωνο Επαφής', en: 'Contact Phone' },
+        relationship: { gr: 'Σχέση / Συγγένεια', en: 'Relationship' },
+        hasPersonalDoctor: { gr: 'Έχετε Προσωπικό Γιατρό;', en: 'Do you have a Personal Doctor?' },
+        doctorFirstName: { gr: 'Όνομα Γιατρού', en: "Doctor's First Name" },
+        doctorLastName: { gr: 'Επώνυμο Γιατρού', en: "Doctor's Last Name" },
+        doctorPhone: { gr: 'Τηλέφωνο Γιατρού', en: "Doctor's Phone" },
+        doctorAddress: { gr: 'Οδός, αριθμός (Ιατρείου)', en: "Office Address (Doctor's)" },
+        doctorContactApproval: { gr: 'Επιτρέπω στο Κολέγιο να επικοινωνήσει με τον γιατρό μου εάν παραστεί ανάγκη', en: 'I permit the College to contact my doctor if necessary' },
+        churchName: { gr: 'Όνομα Εκκλησίας που εκκλησιάζεσαι', en: 'Name of Church you attend' },
+        pastorName: { gr: 'Όνομα Ποιμένα', en: "Pastor's Name" },
+        churchMember: { gr: 'Είστε μέλος της Εκκλησίας;', en: 'Are you a Church member?' },
+        howLong: { gr: 'Για πόσο διάστημα;', en: 'For how long?' },
+        ministryInvolvement: { gr: 'Συμμετοχή σε Διακονίες / Χριστιανική Υπηρεσία', en: 'Involvement in Ministries / Christian Service' },
+        personalStatement: { gr: 'Περιγράψτε με απλά λόγια τη Χριστιανική σας πίστη και την πνευματική σας πορεία (150 - 250 λέξεις)', en: 'Describe in simple words your Christian faith and your spiritual journey (150 - 250 words)' },
+        statementOfFaithApprovalText1: { gr: 'Έχετε διαβάσει και αποδέχεστε την', en: 'Have you read and do you accept the' },
+        statementOfFaithApprovalLink: { gr: 'Ομολογία Πίστης του Ελληνικού Βιβλικού Κολεγίου', en: 'Statement of Faith of the Greek Bible College' },
+        selectModeOfStudy: { gr: 'Επιλέξτε τον τρόπο φοίτησης που σας ενδιαφέρει', en: 'Select the mode of study you are interested in' },
+        fullOnCampus: { gr: 'Τακτικός, Οικότροφος', en: 'Full-time, Resident' },
+        fullOffCampus: { gr: 'Τακτικός, μη-Οικότροφος', en: 'Full-time, Non-resident' },
+        partTime: { gr: 'μη-Τακτικός', en: 'Part-time' },
+        payProcessingFee: { gr: 'Για την επεξεργασία της παρούσας αίτησης θα καταβάλλετε το ακόλουθο Παράβολο Επεξεργασίας Αίτησης Εγγραφής', en: 'For processing this application, you will pay the following Application Processing Fee' },
+        depositCard: { gr: '30€ (με κάρτα) πριν την έναρξη των μαθημάτων', en: '30€ (by card) before the start of classes' },
+        depositWire: { gr: '30€ (με κατάθεση) πριν την έναρξη των μαθημάτων', en: '30€ (by bank deposit) before the start of classes' },
+        bankDepositInstructions: { gr: 'Η κατάθεση μπορεί να γίνει σε έναν από τους παρακάτω λογαριασμούς:', en: 'The deposit can be made to one of the following accounts:' },
+        nationalBankOfGreece: { gr: 'Εθνική Τράπεζα της Ελλάδος', en: 'National Bank of Greece' },
+        eurobank: { gr: 'EUROBANK', en: 'EUROBANK' },
+        beneficiaryName: { gr: 'Όνομα Δικαιούχου', en: 'Beneficiary Name' },
+        beneficiaryCompany: { gr: 'Εταιρία Βιβλικών Σπουδών', en: 'Greek Bible College' },
+        financialApproval1: { gr: 'Γνωρίζετε το κόστος των διδάκτρων, τροφείων και διαμονής σας στο Κολέγιο και αναλαμβάνετε την ευθύνη εξόφλησής τους στις προκαθορισμένες ημερομηνίες', en: 'Are you aware of the cost of tuition, board, and lodging at the College and do you assume responsibility for paying them on the pre-specified dates' },
+        financialApproval2: { gr: 'Γνωρίζετε το κόστος των διδάκτρων σας στο Κολέγιο και αναλαμβάνετε την ευθύνη εξόφλησής τους στις προκαθορισμένες ημερομηνίες', en: 'Are you aware of the cost of your tuition at the College and do you assume responsibility for paying them on the pre-specified dates' },
+        selfPaidQuestion: { gr: 'Το παραπάνω ποσό θα καλυφθεί αποκλειστικά από δικούς σας πόρους', en: 'Will the above amount be covered exclusively by your own resources' },
+        sponsors: { gr: 'Ονοματεπώνυμα των προσώπων που αναλαμβάνουν την ευθύνη να συνεισφέρουν στην κάλυψη του παραπάνω ποσού', en: 'Full names of the persons who assume the responsibility to contribute to covering the above amount' },
+        sponsorsTotal: { gr: 'Συνολικό ποσό που θα καλυφθεί από τα παραπάνω πρόσωπα', en: 'Total amount to be covered by the above persons' },
+        debtApproval: { gr: 'Αναλαμβάνετε την ευθύνη εξόφλησης σε περίπτωση υπολοίπου', en: 'Do you assume responsibility for payment in case of any remaining balance' },
     };
 
-    constructor (private ajax: AjaxService) { }
+    constructor(private ajax: AjaxService) { }
 
-    getActiveLanguage () {
+    getActiveLanguage() {
         return localStorage.getItem('language') ? localStorage.getItem('language') : 'gr';
     }
 
     // String
-    s (s: string) {
+    s(s: string) {
         const language = this.getActiveLanguage();
         if (s) {
             return this.dictionary.hasOwnProperty(s) ? (
                 this.dictionary[s][language] ?
-                this.dictionary[s][language] :
-                'No ' + language + ' for "' + s
+                    this.dictionary[s][language] :
+                    'No ' + language + ' for "' + s
             ) : s;
         } else {
             return '';
@@ -652,7 +808,7 @@ export class LocalizationService {
     }
 
     // Object / Property
-    op (o: any, p: string) {
+    op(o: any, p: string) {
         const language = this.getActiveLanguage();
         return o[p + '_' + language];
     }

@@ -1,5 +1,5 @@
 <form *ngIf="applicationData" #form="ngForm" (change)="modelChanged = true" accept-charset="UTF-8" role="form">
-    <data-panel ngId="idInfo" heading="Στοιχεία Ταυτότητας" color="portlet-blue">
+    <data-panel ngId="idInfo" heading="Προσωπικά Στοιχεία" color="portlet-blue">
         <fieldset [disabled]="formLoading">
             <div class="row">
                 <div class="col-md-3">
@@ -215,7 +215,7 @@
         </fieldset>
     </data-panel>
 
-    <data-panel *ngIf="underage" ngId="guardianInfo" heading="Στοιχεία Ταυτότητας Κηδεμόνα" color="portlet-blue" collapsed="true">
+    <data-panel *ngIf="underage" ngId="guardianInfo" heading="Στοιχεία Κηδεμόνα" color="portlet-blue" collapsed="true">
         <fieldset [disabled]="formLoading" (change)="guardianInfoFormModelChanged = true">
             <div class="row">
                 <div class="col-md-3">

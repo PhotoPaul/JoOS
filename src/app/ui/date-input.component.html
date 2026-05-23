@@ -1,6 +1,6 @@
 <div>
     <div class="input-group">
-        <input class="form-control" [placeholder]="placeholder" [ngModel]="date | date:'y-MM-dd'" (focus)="toggle()" (keydown)="false" (blur)="test($event)" autocomplete="off" [required]="required">
+        <input class="form-control" [placeholder]="placeholder" [ngModel]="formattedDate" (focus)="toggle()" (keydown)="false" (blur)="test($event)" autocomplete="off" [required]="required">
         <div class="input-group-addon" (click)="toggle()">
             <i class="fas fa-calendar-alt fa-fw" style="cursor: pointer"></i>
         </div>
