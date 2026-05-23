@@ -77,6 +77,11 @@ export class LocalizationService {
         },
         firstName: { gr: 'Όνομα', en: 'First Name' },
         lastName: { gr: 'Επίθετο', en: 'Last Name' },
+        sex: { gr: 'Φύλο', en: 'Sex' },
+        sexFemale: { gr: 'Γυναίκα', en: 'Female' },
+        sexMale: { gr: 'Άνδρας', en: 'Male' },
+        fatherName: { gr: 'Όνομα Πατρός', en: 'Father\'s Name' },
+        motherName: { gr: 'Όνομα Μητρός', en: 'Mother\'s Name' },
         recaptchaLanguage: { gr: 'el', en: 'en' },
         register: { gr: 'Εγγραφή', en: 'Register' },
         thankYou1: { gr: 'Ευχαριστούμε!', en: 'Thank you!' },
@@ -642,7 +647,7 @@ export class LocalizationService {
         familyInformation: { gr: 'Στοιχεία Οικογένειας', en: 'Family Information' },
         homeAddress: { gr: 'Διεύθυνση Κατοικίας', en: 'Home Address' },
         guardianInformation: { gr: 'Στοιχεία Κηδεμόνα', en: 'Guardian Information' },
-        primarySecondaryEducation: { gr: 'Πρωτοβάθμια & Δευτεροβάθμια Εκπαίδευση', en: 'Primary & Secondary Education' },
+        primarySecondaryEducation: { gr: 'Δευτεροβάθμια Εκπαίδευση', en: 'Secondary Education' },
         languages: { gr: 'Γλώσσες', en: 'Languages' },
         higherEducation: { gr: 'Τριτοβάθμια Εκπαίδευση', en: 'Higher Education' },
         healthHistory: { gr: 'Ιστορικό Υγείας', en: 'Health History' },
@@ -680,6 +685,15 @@ export class LocalizationService {
         uploadSatScores: { gr: 'Μεταφόρτωση SAT', en: 'Upload SAT Scores' },
         passportPhotoLabel: { gr: 'Πρόσφατη φωτογραφία τύπου διαβατηρίου (4 x 6 cm)', en: 'Recent Passport Style Photograph (4 x 6 cm or 2 x 2 in)' },
         uploadPassportPhoto: { gr: 'Μεταφόρτωση Φωτογραφίας', en: 'Upload Photo' },
+        inlineUploaderSubtitle: {
+            gr: 'Σύρετε & αποθέστε, κάντε κλικ για επιλογή, ή βγάλτε φωτογραφία',
+            en: 'Drag & drop, click to select, or take a photo'
+        },
+        confirmFile: { gr: 'Επιβεβαίωση Αρχείου', en: 'Confirm File' },
+        highSchoolTranscriptNote: {
+            gr: 'Αν δεν μπορείτε να προσκομίσετε το απολυτήριο του Λυκείου, παρακαλούμε ανεβάστε το πτυχίο της επόμενης βαθμίδας, εφόσον είναι διαθέσιμο.',
+            en: 'If you cannot provide your high school transcript, please upload your next higher level degree, if available.'
+        },
         familyStatus: { gr: 'Οικογενειακή κατάσταση', en: 'Marital Status' },
         maritalSingle: { gr: 'Ανύπαντρος -η', en: 'Single' },
         maritalMarried: { gr: 'Παντρεμένος -η', en: 'Married' },

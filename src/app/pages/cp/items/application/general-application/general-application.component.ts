@@ -160,13 +160,15 @@ export class GeneralApplicationComponent implements OnInit {
                     applicationData.application.residencePermit = null;
                 }
             }
-            if (applicationData.application.familyStatus !== 'familyMarried') {
-                applicationData.application.familySpouseFirstName = null;
-                applicationData.application.familySpouseLastName = null;
-            }
-            if (applicationData.application.familyKids === '0') {
-                applicationData.application.familyKidsNamesAges = null;
-            }
+            applicationData.application.familySpouseFirstName = null;
+            applicationData.application.familySpouseLastName = null;
+            applicationData.application.familyKids = null;
+            applicationData.application.familyKidsNamesAges = null;
+        } else if (formId === 2) {
+            applicationData.application.elementaryName = null;
+            applicationData.application.elementaryGraduationYear = null;
+            applicationData.application.middleSchoolName = null;
+            applicationData.application.middleSchoolGraduationYear = null;
         } else if (formId === 3) {
             if (applicationData.application.otherDiseases === '0') {
                 applicationData.application.otherDiseasesDetails = null;
@@ -228,7 +230,7 @@ export class GeneralApplicationComponent implements OnInit {
         this.validate = true;
         // Expand all panels for user correction
         const panels = [
-            'idInfo', 'familyInfo', 'addressInfo', 'guardianInfo',
+            'idInfo', 'addressInfo', 'guardianInfo',
             'primarySecondaryEducationInfo', 'languagesInfo', 'higherEducationInfo',
             'healthHistoryInfo', 'drugsUseInfo', 'currentHealthInfo', 'emergencyContactsInfo',
             'churchMinistryInfo', 'testimonyInfo',

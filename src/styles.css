@@ -24,6 +24,16 @@ div.ng-invalid, input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
     border-left: 5px solid #e74c3c;
 }
 
+.form-group:has(input[type="radio"][required]) {
+    border-left: 5px solid transparent;
+    padding-left: 10px;
+    transition: border-color 0.2s ease;
+}
+
+.form-group:has(input[type="radio"].ng-invalid[required]) {
+    border-left: 5px solid #e74c3c;
+}
+
 .status-completed {
     border-left: 5px solid #16a085;
 }

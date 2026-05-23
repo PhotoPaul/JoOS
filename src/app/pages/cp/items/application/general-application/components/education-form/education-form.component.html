@@ -1,0 +1,226 @@
+<ng-container *ngIf="educationData">
+    <data-panel ngId="primarySecondaryEducationInfo" [heading]="'primarySecondaryEducation' | l"
+        color="portlet-blue" collapsed="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondarySchoolName">{{ 'highSchool' | l }}</label>
+                        <input type="text" [(ngModel)]="educationData.application.secondarySchoolName"
+                            id="secondarySchoolName" name="secondarySchoolName" class="form-control"
+                            autocomplete="off" required>
+                        <required-field-warning
+                            *ngIf="validate && !educationData.application.secondarySchoolName"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondarySchoolGraduationYear">{{ 'graduationYear' | l }}</label>
+                        <input type="text" [(ngModel)]="educationData.application.secondarySchoolGraduationYear"
+                            id="secondarySchoolGraduationYear" name="secondarySchoolGraduationYear"
+                            class="form-control" autocomplete="off" required>
+                        <required-field-warning
+                            *ngIf="validate && !educationData.application.secondarySchoolGraduationYear"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="secondarySchoolDiscipline">{{ 'discipline' | l }}</label>
+                        <input type="text" [(ngModel)]="educationData.application.secondarySchoolDiscipline"
+                            id="secondarySchoolDiscipline" name="secondarySchoolDiscipline" class="form-control"
+                            autocomplete="off" required>
+                        <required-field-warning
+                            *ngIf="validate && !educationData.application.secondarySchoolDiscipline"></required-field-warning>
+                    </div>
+                </div>
+            </div> <!-- End row for high school details -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>{{ 'highSchoolTranscriptLabel' | l }}</label>
+                        <inline-uploader [userId]="userId" [documentTypeId]="4" [files]="documentsList" [label]="'uploadHighSchoolTranscript' | l"></inline-uploader>
+                        <p style="font-size: 12px; color: #666; margin-top: 6px; line-height: 1.4;">{{ 'highSchoolTranscriptNote' | l }}</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>{{ 'actScoresLabel' | l }}</label>
+                        <inline-uploader [userId]="userId" [documentTypeId]="7" [files]="documentsList" [label]="'uploadActScores' | l"></inline-uploader>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>{{ 'satScoresLabel' | l }}</label>
+                        <inline-uploader [userId]="userId" [documentTypeId]="8" [files]="documentsList" [label]="'uploadSatScores' | l"></inline-uploader>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button"
+                        (click)="onSave('primarySecondaryEducationInfo', 'languagesInfo')">{{
+                        'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <data-panel ngId="languagesInfo" [heading]="'languages' | l" color="portlet-blue" collapsed="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="greekMedium">{{ 'greekKnowledgeLevel' | l }}</label><br>
+                        <label for="greekMedium" class="radio-inline"><input type="radio"
+                                 [(ngModel)]="educationData.application.greek" id="greekMedium" name="greek"
+                                value="1" required>&nbsp;{{ 'levelModerate' | l }}</label>
+                        <label for="greekGood" class="radio-inline"><input type="radio"
+                                 [(ngModel)]="educationData.application.greek" id="greekGood" name="greek" value="2"
+                                required>&nbsp;{{ 'levelGood' | l }}</label>
+                        <label for="greekVeryGood" class="radio-inline"><input type="radio"
+                                 [(ngModel)]="educationData.application.greek" id="greekVeryGood" name="greek"
+                                value="3" required>&nbsp;{{ 'levelVeryGood' | l }}</label>
+                        <label for="greekExcellent" class="radio-inline"><input type="radio"
+                                 [(ngModel)]="educationData.application.greek" id="greekExcellent" name="greek"
+                                value="4" required>&nbsp;{{ 'levelExcellent' | l }}</label>
+                        <required-field-warning *ngIf="validate && educationData.application.greek === null"
+                            [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="englishMedium">{{ 'englishKnowledgeLevel' | l }}</label><br>
+                        <label for="englishMedium" class="radio-inline"><input type="radio"
+                                 [(ngModel)]="educationData.application.english" id="englishMedium" name="english"
+                                value="1" required>&nbsp;{{ 'levelModerate' | l }}</label>
+                        <label for="englishGood" class="radio-inline"><input type="radio"
+                                 [(ngModel)]="educationData.application.english" id="englishGood" name="english"
+                                value="2" required>&nbsp;{{ 'levelGood' | l }}</label>
+                        <label for="englishVeryGood" class="radio-inline"><input type="radio"
+                                 [(ngModel)]="educationData.application.english" id="englishVeryGood" name="english"
+                                value="3" required>&nbsp;{{ 'levelVeryGood' | l }}</label>
+                        <label for="englishExcellent" class="radio-inline"><input type="radio"
+                                 [(ngModel)]="educationData.application.english" id="englishExcellent" name="english"
+                                value="4" required>&nbsp;{{ 'levelExcellent' | l }}</label>
+                        <required-field-warning *ngIf="validate && educationData.application.english === null"
+                            [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button"
+                        (click)="onSave('languagesInfo', 'higherEducationInfo')">{{
+                        'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <data-panel ngId="higherEducationInfo" [heading]="'higherEducation' | l" color="portlet-blue" collapsed="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="communityCollegeName">{{ 'postSecondaryStudies' | l }}</label>
+                        <input type="text" [(ngModel)]="educationData.application.communityCollegeName"
+                            id="communityCollegeName" name="communityCollegeName" class="form-control"
+                            autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="communityCollegeGraduationYear">{{ 'graduationYear' | l }}</label>
+                        <input type="text" [(ngModel)]="educationData.application.communityCollegeGraduationYear"
+                            id="communityCollegeGraduationYear" name="communityCollegeGraduationYear"
+                            class="form-control" autocomplete="off"
+                            [required]="educationData.application.communityCollegeName?.length > 0">
+                        <required-field-warning
+                            *ngIf="validate && !educationData.application.communityCollegeGraduationYear"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="communityCollegeDiscipline">{{ 'discipline' | l }}</label>
+                        <input type="text" [(ngModel)]="educationData.application.communityCollegeDiscipline"
+                            id="communityCollegeDiscipline" name="communityCollegeDiscipline" class="form-control"
+                            autocomplete="off"
+                            [required]="educationData.application.communityCollegeName?.length > 0">
+                        <required-field-warning
+                            *ngIf="validate && !educationData.application.communityCollegeDiscipline"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="collegeName">{{ 'universityCollege' | l }}</label>
+                        <input type="text" [(ngModel)]="educationData.application.collegeName" id="collegeName"
+                            name="collegeName" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="collegeGraduationYear">{{ 'graduationYear' | l }}</label>
+                        <input type="text" [(ngModel)]="educationData.application.collegeGraduationYear"
+                            id="collegeGraduationYear" name="collegeGraduationYear" class="form-control"
+                            autocomplete="off" [required]="educationData.application.collegeName?.length > 0">
+                        <required-field-warning
+                            *ngIf="validate && !educationData.application.collegeGraduationYear"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="collegeDiscipline">{{ 'discipline' | l }}</label>
+                        <input type="text" [(ngModel)]="educationData.application.collegeDiscipline"
+                            id="collegeDiscipline" name="collegeDiscipline" class="form-control" autocomplete="off"
+                            [required]="educationData.application.collegeName?.length > 0">
+                        <required-field-warning
+                            *ngIf="validate && !educationData.application.collegeDiscipline"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="graduateSchoolName">{{ 'postgraduateStudies' | l }}</label>
+                        <input type="text" [(ngModel)]="educationData.application.graduateSchoolName"
+                            id="graduateSchoolName" name="graduateSchoolName" class="form-control"
+                            autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="graduateSchoolGraduationYear">{{ 'graduationYear' | l }}</label>
+                        <input type="text" [(ngModel)]="educationData.application.graduateSchoolGraduationYear"
+                            id="graduateSchoolGraduationYear" name="graduateSchoolGraduationYear"
+                            class="form-control" autocomplete="off"
+                            [required]="educationData.application.graduateSchoolName?.length > 0">
+                        <required-field-warning
+                            *ngIf="validate && !educationData.application.graduateSchoolGraduationYear"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="graduateSchoolDiscipline">{{ 'discipline' | l }}</label>
+                        <input type="text" [(ngModel)]="educationData.application.graduateSchoolDiscipline"
+                            id="graduateSchoolDiscipline" name="graduateSchoolDiscipline" class="form-control"
+                            autocomplete="off"
+                            [required]="educationData.application.graduateSchoolName?.length > 0">
+                        <required-field-warning
+                            *ngIf="validate && !educationData.application.graduateSchoolDiscipline"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button"
+                        (click)="onSave('higherEducationInfo', 'healthHistoryInfo')">{{
+                        'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+</ng-container>

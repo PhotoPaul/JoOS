@@ -22,10 +22,10 @@
          [uploader]="uploader"
          class="inline-drop-zone">
         <div style="font-size: 13px; color: #555; text-align: center; pointer-events: none;">
-            <i class="fas fa-camera" style="margin-right: 5px; color: #5cb85c; font-size: 16px;"></i>
+            <i class="fas fa-camera" style="margin-right: 5px; color: #16a085; font-size: 16px;"></i>
             <strong style="color: #444;">{{ label || ('uploadFile' | l) }}</strong>
             <div style="font-size: 11px; color: #888; margin-top: 2px;">
-                Drag & drop, click to select, or take a photo
+                {{ 'inlineUploaderSubtitle' | l }}
             </div>
         </div>
         <input class="inline-drop-zone-button" type="file" ng2FileSelect [uploader]="uploader" accept="image/*,application/pdf">
@@ -35,7 +35,7 @@
     <div *ngIf="hasPendingFile && !isUploading" class="preview-card">
         <div style="font-weight: bold; font-size: 12px; color: #444; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
             <i class="fas fa-eye" style="color: #5cb85c;"></i>
-            <span>{{ 'preview' | l }} / Επιβεβαίωση Αρχείου</span>
+            <span>{{ 'preview' | l }} / {{ 'confirmFile' | l }}</span>
         </div>
 
         <!-- Render image preview for captured photo/selected image -->

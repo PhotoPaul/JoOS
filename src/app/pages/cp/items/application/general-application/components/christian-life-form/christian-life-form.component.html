@@ -1,0 +1,114 @@
+<ng-container *ngIf="christianLifeData">
+    <data-panel ngId="churchMinistryInfo" [heading]="'churchMinistry' | l" color="portlet-blue" collapsed="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="churchName">{{ 'churchName' | l }}</label>
+                        <input type="text" [(ngModel)]="christianLifeData.application.churchName" id="churchName"
+                            name="churchName" class="form-control" autocomplete="off" required autofocus>
+                        <required-field-warning
+                            *ngIf="validate && !christianLifeData.application.churchName"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="pastorName">{{ 'pastorName' | l }}</label>
+                        <input type="text" [(ngModel)]="christianLifeData.application.pastorName" id="pastorName"
+                            name="pastorName" class="form-control" autocomplete="off" required>
+                        <required-field-warning
+                            *ngIf="validate && !christianLifeData.application.pastorName"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="churchMember">{{ 'churchMember' | l }}</label>
+                        <div class="form-group">
+                            <label for="churchMember" class="radio-inline"><input type="radio"
+                                    [(ngModel)]="christianLifeData.application.churchMember" id="churchMember"
+                                    name="churchMember" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                            <label for="noChurchMember" class="radio-inline"><input type="radio"
+                                    [(ngModel)]="christianLifeData.application.churchMember" id="noChurchMember"
+                                    name="churchMember" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                            <required-field-warning
+                                *ngIf="validate && christianLifeData.application.churchMember === null"
+                                [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="christianLifeData.application.churchMember === '1'" class="col-md-6">
+                    <div class="form-group">
+                        <label for="churchMemberHowLong">{{ 'howLong' | l }}</label>
+                        <input type="text" [(ngModel)]="christianLifeData.application.churchMemberHowLong"
+                            id="churchMemberHowLong" name="churchMemberHowLong" class="form-control"
+                            autocomplete="off" required autofocus>
+                        <required-field-warning
+                            *ngIf="validate && !christianLifeData.application.churchMemberHowLong"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="ministryInvolvement">{{ 'ministryInvolvement' | l }}</label>
+                        <textarea [(ngModel)]="christianLifeData.application.ministryInvolvement"
+                            id="ministryInvolvement" name="ministryInvolvement" class="form-control" rows="5"
+                            autocomplete="off" required></textarea>
+                        <required-field-warning
+                            *ngIf="validate && !christianLifeData.application.ministryInvolvement"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button"
+                        (click)="onSave('churchMinistryInfo', 'testimonyInfo')">{{
+                        'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <data-panel ngId="testimonyInfo" [heading]="'statementOfFaithSpiritualJourney' | l" color="portlet-blue"
+        collapsed="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="personalStatement">{{ 'personalStatement' | l }}</label>
+                        <textarea [(ngModel)]="christianLifeData.application.personalStatement"
+                            id="personalStatement" name="personalStatement" class="form-control" rows="10"
+                            autocomplete="off" required autofocus></textarea>
+                        <required-field-warning
+                            *ngIf="validate && !christianLifeData.application.personalStatement"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="statementOfFaithApproval">{{ 'statementOfFaithApprovalText1' | l }} <a
+                                href="https://www.grbc.gr/who-we-are/statement-of-faith/" target="_new">{{ 'statementOfFaithApprovalLink' | l }} <i class="fas fa-info-circle"
+                                    aria-hidden="true"></i></a></label><br>
+                        <label for="statementOfFaithApproval" class="checkbox-inline"><input type="checkbox"
+                                [(ngModel)]="christianLifeData.application.statementOfFaithApproval"
+                                id="statementOfFaithApproval" name="statementOfFaithApproval" autocomplete="off"
+                                required>&nbsp;{{ 'yes' | l }}</label>
+                        <required-field-warning
+                            *ngIf="validate && !christianLifeData.application.statementOfFaithApproval"
+                            [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button"
+                        (click)="onSave('testimonyInfo', 'firstReferenceInfo')">{{
+                        'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+</ng-container>

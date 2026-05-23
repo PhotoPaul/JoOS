@@ -22,6 +22,12 @@ import { ISPReferencesComponent } from './isp/references/references.component';
 import { SupportingDocumentsComponent } from './supporting-documents/supporting-documents.component';
 import { GeneralApplicationComponent } from './general-application/general-application.component';
 import { InlineUploaderComponent } from './general-application/inline-uploader.component';
+import { PersonalInfoFormComponent } from './general-application/components/personal-info-form/personal-info-form.component';
+import { EducationFormComponent } from './general-application/components/education-form/education-form.component';
+import { HealthFormComponent } from './general-application/components/health-form/health-form.component';
+import { ChristianLifeFormComponent } from './general-application/components/christian-life-form/christian-life-form.component';
+import { ReferencesFormComponent } from './general-application/components/references-form/references-form.component';
+import { FinancialFormComponent } from './general-application/components/financial-form/financial-form.component';
 
 // Greek Program Components
 // ISP Components
@@ -54,7 +60,13 @@ import { InlineUploaderComponent } from './general-application/inline-uploader.c
         ISPApplicationFeeComponent,
         ISPApplicantClassificationComponent,
         GeneralApplicationComponent,
-        InlineUploaderComponent
+        InlineUploaderComponent,
+        PersonalInfoFormComponent,
+        EducationFormComponent,
+        HealthFormComponent,
+        ChristianLifeFormComponent,
+        ReferencesFormComponent,
+        FinancialFormComponent
     ]
 })
 export class ApplicationModule { }
