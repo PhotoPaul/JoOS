@@ -181,7 +181,24 @@
 		</div>
     </data-panel>
 
-    <data-panel ngId="currentHealthInfo" heading="Παρούσα κατάσταση υγείας" color="portlet-blue">
+    <data-panel ngId="currentHealthInfo" [heading]="'currentHealthStatus' | l" color="portlet-blue">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label>{{ 'learningDifficultiesQuestion' | l }}</label>
+					<pre>{{ applicationData.application.learningDifficulties }}</pre>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label>{{ 'healthAccessibilityQuestion' | l }}</label>
+					<pre>{{ applicationData.application.healthAccessibilityCircumstances }}</pre>
+				</div>
+			</div>
+		</div>
+		<hr>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">

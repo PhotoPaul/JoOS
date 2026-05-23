@@ -12,6 +12,7 @@ export class HealthComponent implements OnInit {
     userId;
     applicationId = 3;
     applicationData: ApplicationData;
+    documentsList: any[] = [];
     formLoading = true;
     validate = false;
     modelChanged = false;
@@ -21,10 +22,15 @@ export class HealthComponent implements OnInit {
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
             this.userId = +params['userId'] || null;
-            this.applicationService.getUserApplicationData(this.userId, this.applicationId)
-            .then((applicationData: ApplicationData) => {
+            Promise.all([
+                this.applicationService.getUserApplicationData(this.userId, this.applicationId),
+                this.applicationService.getUserApplicationData(this.userId, 12).catch(() => null)
+            ]).then(([applicationData, documents]: any[]) => {
                 if (applicationData) {
                     this.applicationData = applicationData;
+                }
+                if (documents && documents.application) {
+                    this.documentsList = documents.application;
                 }
                 this.formLoading = false;
             });

@@ -37,6 +37,23 @@ export class EducationComponent implements OnInit {
             .then(() => {
                 this.modelChanged = false;
                 $('#primarySecondaryEducationInfo').collapse('hide');
+                $('#computerUseInfo').collapse('show');
+                this.formLoading = false;
+            });
+    }
+
+    computerUseInfoOnSubmit() {
+        this.formLoading = true;
+        if (this.applicationData.application.computerFluency !== '1' && this.applicationData.application.computerFluency !== 1) {
+            this.applicationData.application.computerAccess = null;
+            this.applicationData.application.internetAccess = null;
+            this.applicationData.application.wordProcessingFluency = null;
+            this.applicationData.application.presentationFluency = null;
+        }
+        this.applicationService.saveUserApplicationData(this.userId, this.applicationId, this.applicationData)
+            .then(() => {
+                this.modelChanged = false;
+                $('#computerUseInfo').collapse('hide');
                 $('#languagesInfo').collapse('show');
                 this.formLoading = false;
             });
@@ -66,6 +83,7 @@ export class EducationComponent implements OnInit {
     checkForm() {
         this.validate = true;
         $('#primarySecondaryEducationInfo').collapse('show');
+        $('#computerUseInfo').collapse('show');
         $('#languagesInfo').collapse('show');
         $('#higherEducationInfo').collapse('show');
     }

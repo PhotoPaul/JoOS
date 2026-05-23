@@ -653,7 +653,7 @@ export class LocalizationService {
         higherEducation: { gr: 'Τριτοβάθμια Εκπαίδευση', en: 'Higher Education' },
         healthHistory: { gr: 'Ιστορικό Υγείας', en: 'Health History' },
         substanceUse: { gr: 'Χρήση Ουσιών', en: 'Substance Use' },
-        currentHealthStatus: { gr: 'Παρούσα Κατάσταση Υγείας', en: 'Current Health Status' },
+        currentHealthStatus: { gr: 'Μαθησιακές Δυσκολίες & Κατάσταση Υγείας', en: 'Educational Needs, Accessibility & Health Status' },
         emergencyContacts: { gr: 'Επαφές Έκτακτης Ανάγκης', en: 'Emergency Contacts' },
         churchMinistry: { gr: 'Εκκλησία & Διακονία', en: 'Church & Ministry' },
         statementOfFaithSpiritualJourney: { gr: 'Ομολογία Πίστεως & Πνευματική Πορεία', en: 'Statement of Faith & Spiritual Journey' },
@@ -720,6 +720,12 @@ export class LocalizationService {
         middleSchool: { gr: 'Γυμνάσιο', en: 'Middle School' },
         highSchool: { gr: 'Λύκειο / ΤΕΛ', en: 'High School / Voc.' },
         secondarySchoolGraduateLabel: { gr: 'Απόφοιτος -η Λυκείου', en: 'High School Graduate' },
+        computerUseSection: { gr: 'Χρήση Ηλεκτρονικού Υπολογιστή (Η/Υ)', en: 'Computer Skills and Access' },
+        computerFluency: { gr: 'Έχω ευχέρεια στη χρήση Η/Υ', en: 'I am proficient in using a computer' },
+        computerAccess: { gr: 'Έχω πρόσβαση σε Η/Υ', en: 'I have access to a computer' },
+        internetAccess: { gr: 'Έχω πρόσβαση σε σταθερή σύνδεση στο Διαδίκτυο', en: 'I have access to a stable internet connection' },
+        wordProcessingFluency: { gr: 'Έχω ευχέρεια στην επεξεργασία κειμένου (π.χ. Microsoft Word)', en: 'I am proficient in word processing (e.g., Microsoft Word)' },
+        presentationFluency: { gr: 'Έχω ευχέρεια στη δημιουργία παρουσίασης (π.χ. Microsoft PowerPoint)', en: 'I am proficient in creating presentations (e.g., Microsoft PowerPoint)' },
         discipline: { gr: 'Κατεύθυνση / Ειδίκευση', en: 'Field / Major' },
         greekKnowledgeLevel: { gr: 'Επίπεδο Γνώσης Ελληνικών', en: 'Greek Language Level' },
         englishKnowledgeLevel: { gr: 'Επίπεδο Γνώσης Αγγλικών', en: 'English Language Level' },
@@ -764,6 +770,18 @@ export class LocalizationService {
         drugsUse: { gr: 'Έχετε κάνει ποτέ συστηματική χρήση καπνού, αλκοόλ ή άλλων ουσιών;', en: 'Have you ever regularly used tobacco, alcohol, or other substances?' },
         drugsUseDetails: { gr: 'Ποιες ουσίες, για πόσο διάστημα και πότε σταματήσατε τη χρήση;', en: 'Which substances, for how long, and when did you stop using them?' },
         currentDiseases: { gr: 'Έχετε κάποιο ενεργό πρόβλημα υγείας;', en: 'Do you have any active health problems?' },
+        learningDifficultiesQuestion: {
+            gr: 'Υπάρχει κάποια μαθησιακή δυσκολία ή αναπτυξιακή διαταραχή που θα μπορούσε να επηρεάσει τη φοίτησή σας (π.χ. δυσλεξία, ΔΕΠ/Υ, νευροαναπτυξιακές διαταραχές, κ.ά.);',
+            en: 'Do you have any learning difficulties or neurodivergent conditions that may affect your learning process (e.g., dyslexia, ADHD, autism, etc.)?'
+        },
+        learningDifficultiesUpload: {
+            gr: 'Εφόσον υπάρχει διάγνωση, προσθέστε το αρχείο εδώ.',
+            en: 'If you have an official diagnosis, please upload the relevant documentation here.'
+        },
+        healthAccessibilityQuestion: {
+            gr: 'Παρακαλούμε ενημερώστε μας για τυχόν ζητήματα υγείας, ανάγκες προσβασιμότητας ή προσωπικές περιστάσεις που ενδέχεται να επηρεάσουν τη φοίτησή σας.',
+            en: 'Please let us know if there are any medical, psychological, accessibility, or personal circumstances that may affect your studies.'
+        },
         currentSymptoms: { gr: 'Έχετε κάποια επίμονα συμπτώματα;', en: 'Do you have any persistent symptoms?' },
         currentMedicines: { gr: 'Λαμβάνετε κάποια φαρμακευτική αγωγή συστηματικά;', en: 'Are you systematically taking any medication?' },
         foodAllergy: { gr: 'Έχετε κάποια τροφική αλλεργία ή δυσανεξία;', en: 'Do you have any food allergies or intolerances?' },
@@ -785,6 +803,7 @@ export class LocalizationService {
         personalStatement: { gr: 'Περιγράψτε με απλά λόγια τη Χριστιανική σας πίστη και την πνευματική σας πορεία (150 - 250 λέξεις)', en: 'Describe in simple words your Christian faith and your spiritual journey (150 - 250 words)' },
         statementOfFaithApprovalText1: { gr: 'Έχετε διαβάσει και αποδέχεστε την', en: 'Have you read and do you accept the' },
         statementOfFaithApprovalLink: { gr: 'Ομολογία Πίστης του Ελληνικού Βιβλικού Κολεγίου', en: 'Statement of Faith of the Greek Bible College' },
+        statementOfFaithApprovalLinkUrl: { gr: 'https://www.grbc.gr/poioi-eimaste/#statement-of-faith', en: 'https://www.grbc.gr/en/who-we-are/#statement-of-faith' },
         selectModeOfStudy: { gr: 'Επιλέξτε τον τρόπο φοίτησης που σας ενδιαφέρει', en: 'Select the mode of study you are interested in' },
         fullOnCampus: { gr: 'Τακτικός, Οικότροφος', en: 'Full-time, Resident' },
         fullOffCampus: { gr: 'Τακτικός, μη-Οικότροφος', en: 'Full-time, Non-resident' },

@@ -42,8 +42,8 @@
                     <div class="form-group">
                         <label for="churchMemberHowLong">{{ 'howLong' | l }}</label>
                         <input type="text" [(ngModel)]="christianLifeData.application.churchMemberHowLong"
-                            id="churchMemberHowLong" name="churchMemberHowLong" class="form-control"
-                            autocomplete="off" required autofocus>
+                            id="churchMemberHowLong" name="churchMemberHowLong" class="form-control" autocomplete="off"
+                            required autofocus>
                         <required-field-warning
                             *ngIf="validate && !christianLifeData.application.churchMemberHowLong"></required-field-warning>
                     </div>
@@ -78,9 +78,9 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="personalStatement">{{ 'personalStatement' | l }}</label>
-                        <textarea [(ngModel)]="christianLifeData.application.personalStatement"
-                            id="personalStatement" name="personalStatement" class="form-control" rows="10"
-                            autocomplete="off" required autofocus></textarea>
+                        <textarea [(ngModel)]="christianLifeData.application.personalStatement" id="personalStatement"
+                            name="personalStatement" class="form-control" rows="10" autocomplete="off" required
+                            autofocus></textarea>
                         <required-field-warning
                             *ngIf="validate && !christianLifeData.application.personalStatement"></required-field-warning>
                     </div>
@@ -90,7 +90,8 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="statementOfFaithApproval">{{ 'statementOfFaithApprovalText1' | l }} <a
-                                href="https://www.grbc.gr/who-we-are/statement-of-faith/" target="_new">{{ 'statementOfFaithApprovalLink' | l }} <i class="fas fa-info-circle"
+                                href="{{ 'statementOfFaithApprovalLinkUrl' | l }}" target="_new">{{
+                                'statementOfFaithApprovalLink' | l }} <i class="fas fa-info-circle"
                                     aria-hidden="true"></i></a></label><br>
                         <label for="statementOfFaithApproval" class="checkbox-inline"><input type="checkbox"
                                 [(ngModel)]="christianLifeData.application.statementOfFaithApproval"

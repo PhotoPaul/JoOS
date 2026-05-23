@@ -50,6 +50,51 @@
 		</div>
     </data-panel>
 
+    <data-panel ngId="computerUseInfo" heading="{{ 'computerUseSection' | l }}" color="portlet-blue">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="computerFluency">{{ 'computerFluency' | l }}</label>
+					<pre>{{ admissionService.boolStringToString(applicationData.application.computerFluency) }}</pre>
+				</div>
+			</div>
+		</div>
+		<ng-container *ngIf="applicationData.application.computerFluency === '1' || applicationData.application.computerFluency === 1">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label for="computerAccess">{{ 'computerAccess' | l }}</label>
+						<pre>{{ admissionService.boolStringToString(applicationData.application.computerAccess) }}</pre>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label for="internetAccess">{{ 'internetAccess' | l }}</label>
+						<pre>{{ admissionService.boolStringToString(applicationData.application.internetAccess) }}</pre>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label for="wordProcessingFluency">{{ 'wordProcessingFluency' | l }}</label>
+						<pre>{{ admissionService.boolStringToString(applicationData.application.wordProcessingFluency) }}</pre>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label for="presentationFluency">{{ 'presentationFluency' | l }}</label>
+						<pre>{{ admissionService.boolStringToString(applicationData.application.presentationFluency) }}</pre>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+    </data-panel>
+
     <data-panel ngId="languagesInfo" heading="Γλώσσες" color="portlet-blue">
 		<div class="row">
 			<div class="col-md-4">

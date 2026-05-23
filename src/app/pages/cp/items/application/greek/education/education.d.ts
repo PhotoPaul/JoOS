@@ -8,6 +8,14 @@ export class PrimarySecondaryFormModel {
     public secondarySchoolDiscipline: string;
 }
 
+export class ComputerUseFormModel {
+    public computerFluency: number;
+    public computerAccess: number;
+    public internetAccess: number;
+    public wordProcessingFluency: number;
+    public presentationFluency: number;
+}
+
 export class LanguagesFormModel {
     public greek: number;
     public english: number;
@@ -27,6 +35,7 @@ export class HigherFormModel {
 
 export class EducationFormModel {
     public primarySecondaryFormModel: PrimarySecondaryFormModel;
+    public computerUseFormModel: ComputerUseFormModel;
     public languagesFormModel: LanguagesFormModel;
     public higherFormModel: HigherFormModel;
 }

@@ -204,8 +204,35 @@
         </fieldset>
     </data-panel>
 
-    <data-panel ngId="currentHealthInfo" heading="Παρούσα κατάσταση υγείας" color="portlet-blue" collapsed="true">
+    <data-panel ngId="currentHealthInfo" [heading]="'currentHealthStatus' | l" color="portlet-blue" collapsed="true">
         <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="learningDifficulties">{{ 'learningDifficultiesQuestion' | l }}</label>
+                        <textarea [(ngModel)]="applicationData.application.learningDifficulties"
+                            id="learningDifficulties" name="learningDifficulties" class="form-control" rows="3"
+                            autocomplete="off"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <inline-uploader [userId]="userId" [documentTypeId]="10" [files]="documentsList"
+                        [label]="'learningDifficultiesUpload' | l"></inline-uploader>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="healthAccessibilityCircumstances">{{ 'healthAccessibilityQuestion' | l }}</label>
+                        <textarea [(ngModel)]="applicationData.application.healthAccessibilityCircumstances"
+                            id="healthAccessibilityCircumstances" name="healthAccessibilityCircumstances"
+                            class="form-control" rows="3" autocomplete="off"></textarea>
+                    </div>
+                </div>
+            </div>
+            <hr>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">

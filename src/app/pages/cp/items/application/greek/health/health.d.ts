@@ -33,6 +33,8 @@ export class DrugsUseModel {
 }
 
 export class CurrentHealthModel {
+    public learningDifficulties: string;
+    public healthAccessibilityCircumstances: string;
     public currentDiseases: boolean;
     public currentDiseasesDetails: string;
     public currentSymptoms: boolean;
@@ -98,6 +100,8 @@ export class HealthFormData {
     public otherVaccinesDetails: string;
     public drugsUse: string;
     public drugsUseDetails: string;
+    public learningDifficulties: string;
+    public healthAccessibilityCircumstances: string;
     public currentDiseases: string;
     public currentDiseasesDetails: string;
     public currentSymptoms: string;

@@ -71,7 +71,96 @@
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <button class="btn btn-green btn-block" type="button"
-                        (click)="onSave('primarySecondaryEducationInfo', 'languagesInfo')">{{
+                        (click)="onSave('primarySecondaryEducationInfo', 'computerUseInfo')">{{
+                        'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <data-panel ngId="computerUseInfo" [heading]="'computerUseSection' | l" color="portlet-blue" collapsed="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="computerFluency">{{ 'computerFluency' | l }}</label><br>
+                        <label for="computerFluencyYes" class="radio-inline"><input type="radio"
+                                 [(ngModel)]="educationData.application.computerFluency" id="computerFluencyYes"
+                                name="computerFluency" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                        <label for="computerFluencyNo" class="radio-inline"><input type="radio"
+                                 [(ngModel)]="educationData.application.computerFluency" id="computerFluencyNo"
+                                name="computerFluency" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                        <required-field-warning *ngIf="validate && educationData.application.computerFluency === null"
+                            [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <ng-container *ngIf="educationData.application.computerFluency === '1'">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="computerAccess">{{ 'computerAccess' | l }}</label><br>
+                            <label for="computerAccessYes" class="radio-inline"><input type="radio"
+                                     [(ngModel)]="educationData.application.computerAccess" id="computerAccessYes"
+                                    name="computerAccess" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                            <label for="computerAccessNo" class="radio-inline"><input type="radio"
+                                     [(ngModel)]="educationData.application.computerAccess" id="computerAccessNo"
+                                    name="computerAccess" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                            <required-field-warning *ngIf="validate && educationData.application.computerAccess === null"
+                                [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="internetAccess">{{ 'internetAccess' | l }}</label><br>
+                            <label for="internetAccessYes" class="radio-inline"><input type="radio"
+                                     [(ngModel)]="educationData.application.internetAccess" id="internetAccessYes"
+                                    name="internetAccess" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                            <label for="internetAccessNo" class="radio-inline"><input type="radio"
+                                     [(ngModel)]="educationData.application.internetAccess" id="internetAccessNo"
+                                    name="internetAccess" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                            <required-field-warning *ngIf="validate && educationData.application.internetAccess === null"
+                                [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="wordProcessingFluency">{{ 'wordProcessingFluency' | l }}</label><br>
+                            <label for="wordProcessingFluencyYes" class="radio-inline"><input type="radio"
+                                     [(ngModel)]="educationData.application.wordProcessingFluency" id="wordProcessingFluencyYes"
+                                    name="wordProcessingFluency" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                            <label for="wordProcessingFluencyNo" class="radio-inline"><input type="radio"
+                                     [(ngModel)]="educationData.application.wordProcessingFluency" id="wordProcessingFluencyNo"
+                                    name="wordProcessingFluency" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                            <required-field-warning *ngIf="validate && educationData.application.wordProcessingFluency === null"
+                                [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="presentationFluency">{{ 'presentationFluency' | l }}</label><br>
+                            <label for="presentationFluencyYes" class="radio-inline"><input type="radio"
+                                     [(ngModel)]="educationData.application.presentationFluency" id="presentationFluencyYes"
+                                    name="presentationFluency" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                            <label for="presentationFluencyNo" class="radio-inline"><input type="radio"
+                                     [(ngModel)]="educationData.application.presentationFluency" id="presentationFluencyNo"
+                                    name="presentationFluency" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                            <required-field-warning *ngIf="validate && educationData.application.presentationFluency === null"
+                                [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button"
+                        (click)="onSave('computerUseInfo', 'languagesInfo')">{{
                         'saveAndContinue' | l }}</button>
                 </div>
             </div>

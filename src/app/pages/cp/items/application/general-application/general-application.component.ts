@@ -174,6 +174,12 @@ export class GeneralApplicationComponent implements OnInit {
                 applicationData.application.secondarySchoolGraduationYear = null;
                 applicationData.application.secondarySchoolDiscipline = null;
             }
+            if (applicationData.application.computerFluency !== '1' && applicationData.application.computerFluency !== 1) {
+                applicationData.application.computerAccess = null;
+                applicationData.application.internetAccess = null;
+                applicationData.application.wordProcessingFluency = null;
+                applicationData.application.presentationFluency = null;
+            }
         } else if (formId === 3) {
             if (applicationData.application.otherDiseases === '0') {
                 applicationData.application.otherDiseasesDetails = null;
@@ -236,7 +242,7 @@ export class GeneralApplicationComponent implements OnInit {
         // Expand all panels for user correction
         const panels = [
             'idInfo', 'addressInfo', 'guardianInfo',
-            'primarySecondaryEducationInfo', 'languagesInfo', 'higherEducationInfo',
+            'primarySecondaryEducationInfo', 'computerUseInfo', 'languagesInfo', 'higherEducationInfo',
             'healthHistoryInfo', 'drugsUseInfo', 'currentHealthInfo', 'emergencyContactsInfo',
             'churchMinistryInfo', 'testimonyInfo',
             'firstReferenceInfo', 'secondReferenceInfo', 'thirdReferenceInfo',
