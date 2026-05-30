@@ -238,18 +238,26 @@ export class GeneralApplicationComponent implements OnInit {
 
     checkForm() {
         this.validate = true;
-        // Expand all panels for user correction
+        
+        // Find all panels that contain invalid elements
         const panels = [
             'idInfo', 'addressInfo', 'guardianInfo',
             'primarySecondaryEducationInfo', 'higherEducationInfo', 'languagesInfo', 'computerUseInfo',
             'healthHistoryInfo', 'drugsUseInfo', 'currentHealthInfo', 'emergencyContactsInfo',
             'churchMinistryInfo', 'testimonyInfo',
             'firstReferenceInfo', 'secondReferenceInfo',
-            'studentPackage', 'depositInfo', 'financialInfo'
+            'studentPackage', 'financialInfo', 'depositInfo'
         ];
+
         panels.forEach(id => {
-            $(`#${id}`).collapse('show');
+            const panelEl = $(`#${id}`);
+            // Check if there's any element inside this panel with class 'ng-invalid'
+            const hasInvalidElements = panelEl.find('input.ng-invalid, select.ng-invalid, textarea.ng-invalid').length > 0;
+            if (hasInvalidElements) {
+                panelEl.collapse('show');
+            }
         });
+
         setTimeout(() => {
             const firstInvalid = $('input.ng-invalid:visible, select.ng-invalid:visible, textarea.ng-invalid:visible').first();
             console.log('First invalid element:', firstInvalid);

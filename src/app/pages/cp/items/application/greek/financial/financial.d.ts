@@ -6,6 +6,8 @@ export class ApprovalsFormModel {
     public sponsorsTotal: number;
     public debtApproval: boolean;
     public deposit: string;
+    public programInterested: string;
+    public programInterestedDetails: string;
 }
 
 export class FinancialFormModel {

@@ -668,6 +668,16 @@ export class LocalizationService {
         modeOfStudy: { gr: 'Τρόπος Φοίτησης', en: 'Mode of Study' },
         applicationProcessingFee: { gr: 'Παράβολο Επεξεργασίας Αίτησης Εγγραφής', en: 'Application Processing Fee' },
         financialLiability: { gr: 'Ανάληψη Οικονομικής Ευθύνης', en: 'Financial Liability' },
+        statementOfTruthTitle: { gr: 'Δήλωση αλήθειας και πληρότητας', en: 'Statement of Truth and Completeness' },
+        statementOfTruthBody: {
+            gr: 'Με την υποβολή της παρούσας αίτησης, βεβαιώνω ότι οι πληροφορίες που καταθέτω είναι ακριβείς, πλήρεις και αληθείς, όσο μπορώ να γνωρίζω. Κατανοώ ότι οποιαδήποτε παραπλανητική ή ελλιπής πληροφορία μπορεί να οδηγήσει στην απόρριψη της αίτησής μου ή στην ανάκληση της εγγραφής μου αργότερα.',
+            en: 'By submitting this application, I confirm that the information I have provided is accurate, complete, and truthful to the best of my knowledge. I understand that any misleading or incomplete information may result in the rejection of my application or may later lead to the withdrawal of my enrolment.'
+        },
+        whichProgramAreYouInterestedIn: { gr: 'Για ποιο πρόγραμμα / μάθημα ενδιαφέρεστε;', en: 'Which program are you interested in?' },
+        greekProgram: { gr: 'Ελληνικό Πρόγραμμα', en: 'Greek Program' },
+        ispProgram: { gr: 'International Student Program', en: 'International Student Program' },
+        otherProgram: { gr: 'Άλλο', en: 'Other' },
+        whichClassAreYouInterestedIn: { gr: 'Για ποιό μάθημα / μαθήματα ενδιαφέρεστε;', en: 'Which other program or specific class are you interested in?' },
         birthDate: { gr: 'Ημερομηνία Γέννησης', en: 'Birth Date (dd-mm-yyyy)' },
         birthPlace: { gr: 'Τόπος Γέννησης', en: 'Place of Birth' },
         occupationLabel: { gr: 'Επάγγελμα', en: 'Occupation' },

@@ -91,24 +91,24 @@
                             autocomplete="off">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" *ngIf="educationData.application.communityCollegeName && educationData.application.communityCollegeName.trim().length > 0">
                     <div class="form-group">
                         <label for="communityCollegeGraduationYear">{{ 'graduationYear' | l }}</label>
                         <input type="text" [(ngModel)]="educationData.application.communityCollegeGraduationYear"
                             id="communityCollegeGraduationYear" name="communityCollegeGraduationYear"
                             class="form-control" autocomplete="off"
-                            [required]="educationData.application.communityCollegeName?.length > 0">
+                            required>
                         <required-field-warning
                             *ngIf="validate && !educationData.application.communityCollegeGraduationYear"></required-field-warning>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-5" *ngIf="educationData.application.communityCollegeName && educationData.application.communityCollegeName.trim().length > 0">
                     <div class="form-group">
                         <label for="communityCollegeDiscipline">{{ 'discipline' | l }}</label>
                         <input type="text" [(ngModel)]="educationData.application.communityCollegeDiscipline"
                             id="communityCollegeDiscipline" name="communityCollegeDiscipline" class="form-control"
                             autocomplete="off"
-                            [required]="educationData.application.communityCollegeName?.length > 0">
+                            required>
                         <required-field-warning
                             *ngIf="validate && !educationData.application.communityCollegeDiscipline"></required-field-warning>
                     </div>
@@ -122,22 +122,22 @@
                             name="collegeName" class="form-control" autocomplete="off">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" *ngIf="educationData.application.collegeName && educationData.application.collegeName.trim().length > 0">
                     <div class="form-group">
                         <label for="collegeGraduationYear">{{ 'graduationYear' | l }}</label>
                         <input type="text" [(ngModel)]="educationData.application.collegeGraduationYear"
                             id="collegeGraduationYear" name="collegeGraduationYear" class="form-control"
-                            autocomplete="off" [required]="educationData.application.collegeName?.length > 0">
+                            autocomplete="off" required>
                         <required-field-warning
                             *ngIf="validate && !educationData.application.collegeGraduationYear"></required-field-warning>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-5" *ngIf="educationData.application.collegeName && educationData.application.collegeName.trim().length > 0">
                     <div class="form-group">
                         <label for="collegeDiscipline">{{ 'discipline' | l }}</label>
                         <input type="text" [(ngModel)]="educationData.application.collegeDiscipline"
                             id="collegeDiscipline" name="collegeDiscipline" class="form-control" autocomplete="off"
-                            [required]="educationData.application.collegeName?.length > 0">
+                            required>
                         <required-field-warning
                             *ngIf="validate && !educationData.application.collegeDiscipline"></required-field-warning>
                     </div>
@@ -152,24 +152,24 @@
                             autocomplete="off">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" *ngIf="educationData.application.graduateSchoolName && educationData.application.graduateSchoolName.trim().length > 0">
                     <div class="form-group">
                         <label for="graduateSchoolGraduationYear">{{ 'graduationYear' | l }}</label>
                         <input type="text" [(ngModel)]="educationData.application.graduateSchoolGraduationYear"
                             id="graduateSchoolGraduationYear" name="graduateSchoolGraduationYear"
                             class="form-control" autocomplete="off"
-                            [required]="educationData.application.graduateSchoolName?.length > 0">
+                            required>
                         <required-field-warning
                             *ngIf="validate && !educationData.application.graduateSchoolGraduationYear"></required-field-warning>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-5" *ngIf="educationData.application.graduateSchoolName && educationData.application.graduateSchoolName.trim().length > 0">
                     <div class="form-group">
                         <label for="graduateSchoolDiscipline">{{ 'discipline' | l }}</label>
                         <input type="text" [(ngModel)]="educationData.application.graduateSchoolDiscipline"
                             id="graduateSchoolDiscipline" name="graduateSchoolDiscipline" class="form-control"
                             autocomplete="off"
-                            [required]="educationData.application.graduateSchoolName?.length > 0">
+                            required>
                         <required-field-warning
                             *ngIf="validate && !educationData.application.graduateSchoolDiscipline"></required-field-warning>
                     </div>

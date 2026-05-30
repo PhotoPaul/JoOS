@@ -27,16 +27,119 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="programInterested">{{ 'whichProgramAreYouInterestedIn' | l }}</label><br>
+                        <label class="radio-inline">
+                            <input type="radio" [(ngModel)]="financialData.application.programInterested" name="programInterested" value="greek" required> {{ 'greekProgram' | l }}
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" [(ngModel)]="financialData.application.programInterested" name="programInterested" value="isp" required> {{ 'ispProgram' | l }}
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" [(ngModel)]="financialData.application.programInterested" name="programInterested" value="other" required> {{ 'otherProgram' | l }}
+                        </label>
+                        <required-field-warning
+                            *ngIf="validate && !financialData.application.programInterested"
+                            [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="financialData.application.programInterested === 'other'" class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="programInterestedDetails">{{ 'whichClassAreYouInterestedIn' | l }}</label>
+                        <textarea [(ngModel)]="financialData.application.programInterestedDetails" id="programInterestedDetails" name="programInterestedDetails"
+                            class="form-control" rows="2" autocomplete="off" required autofocus></textarea>
+                        <required-field-warning
+                            *ngIf="validate && !financialData.application.programInterestedDetails"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <button class="btn btn-green btn-block" type="button"
-                        (click)="onSave('studentPackage', 'depositInfo')">{{
+                        (click)="onSave('studentPackage', 'financialInfo')">{{
                         'saveAndContinue' | l }}</button>
                 </div>
             </div>
         </fieldset>
     </data-panel>
 
-    <data-panel [hidden]="financialData.application.studentPackage === null" ngId="depositInfo"
+    <data-panel ngId="financialInfo"
+        [heading]="'financialLiability' | l" color="portlet-blue" collapsed="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="financialApproval">{{ (financialData.application.studentPackage === '1') ? ('financialApproval1' | l) : ('financialApproval2' | l) }}</label><br>
+                        <label for="financialApproval" class="checkbox-inline"><input type="checkbox"
+                                [(ngModel)]="financialData.application.financialApproval" id="financialApproval"
+                                name="financialApproval" autocomplete="off" required autofocus>&nbsp;{{ 'yes' | l
+                            }}</label>
+                        <required-field-warning *ngIf="validate && !financialData.application.financialApproval"
+                            [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="selfPaid">{{ 'selfPaidQuestion' | l }}</label><br>
+                        <label for="selfPaid" class="radio-inline"><input type="radio"
+                                [(ngModel)]="financialData.application.selfPaid" id="selfPaid" name="selfPaid"
+                                value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                        <label for="notSelfPaid" class="radio-inline"><input type="radio"
+                                [(ngModel)]="financialData.application.selfPaid" id="notSelfPaid"
+                                name="selfPaid" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                        <required-field-warning *ngIf="validate && financialData.application.selfPaid === null"
+                            [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="financialData.application.selfPaid === '0'" class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="sponsors">{{ 'sponsors' | l }}</label>
+                        <textarea [(ngModel)]="financialData.application.sponsors" id="sponsors" name="sponsors"
+                            class="form-control" rows="2" autocomplete="off" required autofocus></textarea>
+                        <required-field-warning
+                            *ngIf="validate && !financialData.application.sponsors"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="financialData.application.selfPaid === '0'" class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="sponsorsTotal">{{ 'sponsorsTotal' | l }}</label>
+                        <input type="text" [(ngModel)]="financialData.application.sponsorsTotal" id="sponsorsTotal"
+                            name="sponsorsTotal" class="form-control" autocomplete="off" required>
+                        <required-field-warning
+                            *ngIf="validate && !financialData.application.sponsorsTotal"></required-field-warning>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="debtApproval">{{ 'debtApproval' | l }}</label><br>
+                        <label for="debtApproval" class="checkbox-inline"><input type="checkbox"
+                                [(ngModel)]="financialData.application.debtApproval" id="debtApproval"
+                                name="debtApproval" autocomplete="off" required>&nbsp;{{ 'yes' | l }}</label>
+                        <required-field-warning *ngIf="validate && !financialData.application.debtApproval"
+                            [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button"
+                        (click)="onSave('financialInfo', 'depositInfo')">{{ 'saveAndContinue'
+                        | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+
+    <data-panel ngId="depositInfo"
         [heading]="'applicationProcessingFee' | l" color="portlet-blue" collapsed="true">
         <fieldset [disabled]="formLoading">
             <div class="row">
@@ -113,94 +216,7 @@
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <button class="btn btn-green btn-block" type="button"
-                        (click)="onSave('depositInfo', 'financialInfo')">{{ 'saveAndContinue'
-                        | l }}</button>
-                </div>
-            </div>
-        </fieldset>
-    </data-panel>
-
-    <data-panel [hidden]="financialData.application.studentPackage === null" ngId="financialInfo"
-        [heading]="'financialLiability' | l" color="portlet-blue" collapsed="true">
-        <fieldset [disabled]="formLoading">
-            <div *ngIf="financialData.application.studentPackage === '1'" class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="financialApproval">{{ 'financialApproval1' | l }}</label><br>
-                        <label for="financialApproval" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="financialData.application.financialApproval" id="financialApproval"
-                                name="financialApproval" autocomplete="off" required autofocus>&nbsp;{{ 'yes' | l
-                            }}</label>
-                        <required-field-warning *ngIf="validate && !financialData.application.financialApproval"
-                            [warningText]="'requiredChoice' | l"></required-field-warning>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="financialData.application.studentPackage === '2' || financialData.application.studentPackage === '3'"
-                class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="financialApproval">{{ 'financialApproval2' | l }}</label><br>
-                        <label for="financialApproval" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="financialData.application.financialApproval" id="financialApproval"
-                                name="financialApproval" autocomplete="off" required autofocus>&nbsp;{{ 'yes' | l
-                            }}</label>
-                        <required-field-warning *ngIf="validate && !financialData.application.financialApproval"
-                            [warningText]="'requiredChoice' | l"></required-field-warning>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="financialData.application.studentPackage" class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="selfPaid">{{ 'selfPaidQuestion' | l }}</label><br>
-                        <label for="selfPaid" class="radio-inline"><input type="radio"
-                                [(ngModel)]="financialData.application.selfPaid" id="selfPaid" name="selfPaid"
-                                value="1" required>&nbsp;{{ 'yes' | l }}</label>
-                        <label for="notSelfPaid" class="radio-inline"><input type="radio"
-                                [(ngModel)]="financialData.application.selfPaid" id="notSelfPaid"
-                                name="selfPaid" value="0" required>&nbsp;{{ 'no' | l }}</label>
-                        <required-field-warning *ngIf="validate && financialData.application.selfPaid === null"
-                            [warningText]="'requiredChoice' | l"></required-field-warning>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="financialData.application.selfPaid === '0'" class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="sponsors">{{ 'sponsors' | l }}</label>
-                        <textarea [(ngModel)]="financialData.application.sponsors" id="sponsors" name="sponsors"
-                            class="form-control" rows="2" autocomplete="off" required autofocus></textarea>
-                        <required-field-warning
-                            *ngIf="validate && !financialData.application.sponsors"></required-field-warning>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="financialData.application.selfPaid === '0'" class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="sponsorsTotal">{{ 'sponsorsTotal' | l }}</label>
-                        <input type="text" [(ngModel)]="financialData.application.sponsorsTotal" id="sponsorsTotal"
-                            name="sponsorsTotal" class="form-control" autocomplete="off" required>
-                        <required-field-warning
-                            *ngIf="validate && !financialData.application.sponsorsTotal"></required-field-warning>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="debtApproval">{{ 'debtApproval' | l }}</label><br>
-                        <label for="debtApproval" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="financialData.application.debtApproval" id="debtApproval"
-                                name="debtApproval" autocomplete="off" required>&nbsp;{{ 'yes' | l }}</label>
-                        <required-field-warning *ngIf="validate && !financialData.application.debtApproval"
-                            [warningText]="'requiredChoice' | l"></required-field-warning>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <button class="btn btn-green btn-block" type="button"
-                            (click)="onSave('financialInfo', null)">{{ 'saveAndContinue' | l }}</button>
+                            (click)="onSave('depositInfo', null)">{{ 'saveAndContinue' | l }}</button>
                 </div>
             </div>
         </fieldset>
