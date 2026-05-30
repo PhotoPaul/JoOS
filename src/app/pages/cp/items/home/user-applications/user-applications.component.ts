@@ -9,8 +9,8 @@ import { ApplicationService } from '../../application/application.service';
     templateUrl: './user-applications.component.html'
 })
 export class UserApplicationsComponent implements OnInit {
-    @Input() applications: any [];
-    @Input() programs: any [];
+    @Input() applications: any[];
+    @Input() programs: any[];
 
     constructor(
         private modal: ModalService,
@@ -32,9 +32,9 @@ export class UserApplicationsComponent implements OnInit {
         if (!this.applications) {
             return [];
         }
-        
+
         // Find if there are any Greek application forms (IDs 1 to 6)
-        const greekForms = this.applications.filter(app => 
+        const greekForms = this.applications.filter(app =>
             [1, 2, 3, 4, 5, 6].indexOf(+app.applicationId) !== -1
         );
 
@@ -43,7 +43,7 @@ export class UserApplicationsComponent implements OnInit {
         }
 
         // Filter out the individual Greek forms
-        const nonGreekForms = this.applications.filter(app => 
+        const nonGreekForms = this.applications.filter(app =>
             [1, 2, 3, 4, 5, 6].indexOf(+app.applicationId) === -1
         );
 
@@ -78,18 +78,18 @@ export class UserApplicationsComponent implements OnInit {
 
     startApplication(programId, asAuditor?) {
         this.applicationService.setProgramForApplicant(programId, asAuditor)
-            .then((applications: any []) => {
+            .then((applications: any[]) => {
                 this.programs = [];
                 this.applications = applications;
             });
     }
 
     getStatusText(value): string {
-        if (typeof value === 'undefined' || value === '0') {
+        if (typeof value === 'undefined' || value === null || +value === 0) {
             return this.localization.s('pending');
-        } else if (value === '1') {
+        } else if (value === 1) {
             return this.localization.s('completed');
-        } else if (value === '2') {
+        } else if (value === 2) {
             return this.localization.s('underReview');
         } else { // (value === '3')
             return this.localization.s('rejected');
