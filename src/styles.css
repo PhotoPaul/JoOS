@@ -20,7 +20,7 @@ div.ng-valid, input.ng-valid[required] {
 }
 */
 
-div.ng-invalid, input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
+div.ng-invalid, input.ng-invalid:not([type="radio"]):not([type="checkbox"]), select.ng-invalid, textarea.ng-invalid {
     border-left: 5px solid #e74c3c;
 }
 

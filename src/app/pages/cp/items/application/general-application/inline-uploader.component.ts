@@ -35,6 +35,7 @@ export class InlineUploaderComponent implements OnInit {
     public hasDropZoneOver = false;
     public uploadProgress = 0;
     public isUploading = false;
+    public showUploadArea = false;
 
     // Preview state properties
     public hasPendingFile = false;
@@ -101,6 +102,7 @@ export class InlineUploaderComponent implements OnInit {
             this.isUploading = false;
             this.uploadProgress = 0;
             this.resetPendingFile();
+            this.showUploadArea = false;
             
             try {
                 const filename = JSON.parse(response).data;

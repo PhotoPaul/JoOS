@@ -644,6 +644,11 @@ export class LocalizationService {
             gr: 'Συμπληρώστε όλα τα υποχρεωτικά πεδία της αίτησης και τα στοιχεία σας όπως αναγράφονται στα επίσημα έγγραφά σας (π.χ. στο Δελτίο Ταυτότητας). Η αίτηση θεωρείται ολοκληρωμένη εφόσον υποβληθεί και εφόσον έχει πληρωθεί το παράβολο εγγραφής.',
             en: 'Please complete all required fields of the application and enter your information exactly as it appears on your official documents (e.g. your ID card). The application is considered complete once it has been submitted and the registration fee has been paid.'
         },
+        gdprInfo: { gr: 'Πολιτική Απορρήτου', en: 'Privacy Information' },
+        gdprInfoText: {
+            gr: 'Το Ελληνικό Βιβλικό Κολέγιο (εφεξής «ΕΒΚ») αναγνωρίζει και σέβεται τη σημασία του απορρήτου σας και δεσμεύεται να χειρίζεται τα προσωπικά σας δεδομένα με τη μέγιστη προσοχή και σύμφωνα με τον Κανονισμό (ΕΕ) 2016/679 του Ευρωπαϊκού Κοινοβουλίου σχετικά με την προστασία δεδομένων <a href="https://www.grbc.gr/privacy-policy/" target="_blank">https://www.grbc.gr/privacy-policy/</a>. Η Δήλωση Απορρήτου του ΕΒΚ η οποία, μεταξύ άλλων, περιγράφει τον τρόπο επεξεργασίας των προσωπικών σας δεδομένων και ποια είναι τα δικαιώματά σας, είναι διαθέσιμη στο διαδίκτυο στη διεύθυνση: <a href="https://www.grbc.gr/politiki-aporritou/" target="_blank">https://www.grbc.gr/politiki-aporritou/</a>. Το ΕΒΚ χρειάζεται να επεξεργάζεται τα προσωπικά σας δεδομένα για τους σκοπούς της αξιολόγησης της αίτησής σας και, εάν εγγραφείτε ως φοιτητής, για τη διαχείριση των σπουδών σας, για την παροχή υποστήριξης (συμπεριλαμβανομένης της παροχής συμβουλών και καθοδήγησης για την επαγγελματική σταδιοδρομία) και για την εκπλήρωση των νομίμων υποχρεώσεών μας σε κυβερνητικές υπηρεσίες και θεσμικούς φορείς (π.χ. Υπουργείο Παιδείας και Θρησκευμάτων).',
+            en: 'The Greek Bible College (hereinafter \u201cGrBC\u201d) recognizes and respects the importance of your privacy and is committed to handling your personal data with the utmost care and in accordance with Regulation (EU) 2016/679 of the European Parliament on data protection: <a href="https://www.grbc.gr/privacy-policy/" target="_blank">https://www.grbc.gr/privacy-policy/</a>. The GrBC Privacy Statement, which among other things describes how your personal data is processed and what your rights are, is available online at: <a href="https://www.grbc.gr/politiki-aporritou/" target="_blank">https://www.grbc.gr/politiki-aporritou/</a>. GrBC needs to process your personal data for the purposes of evaluating your application and, if you enroll as a student, for administering your studies, providing support (including career advice and guidance), and fulfilling our legal obligations to government services and institutional bodies (e.g. the Ministry of Education and Religious Affairs).'
+        },
         identityInformation: { gr: 'Προσωπικά Στοιχεία', en: 'Personal Information' },
         familyInformation: { gr: 'Στοιχεία Οικογένειας', en: 'Family Information' },
         homeAddress: { gr: 'Διεύθυνση Κατοικίας', en: 'Home Address' },
@@ -667,8 +672,9 @@ export class LocalizationService {
         birthPlace: { gr: 'Τόπος Γέννησης', en: 'Place of Birth' },
         occupationLabel: { gr: 'Επάγγελμα', en: 'Occupation' },
         greekCitizen: { gr: 'Έλληνας Υπήκοος', en: 'Greek Citizen' },
-        greekSsn: { gr: 'Αριθμός Φορολογικού Μητρώου (Α.Φ.Μ.)', en: 'Tax Identification Number (A.F.M.)' },
+        greekSsn: { gr: '9-ψήφιος Αριθμός Φορολογικού Μητρώου (Α.Φ.Μ.)', en: '9-Digit Tax Identification Number (A.F.M.)' },
         greekSsnPlaceholder: { gr: 'Εάν δεν υπάρχει Α.Φ.Μ. απαιτείται η έκδοσή του', en: 'If A.F.M. is not available, its issuance is required' },
+        greekSsnInvalidLength: { gr: 'Το Α.Φ.Μ. πρέπει να είναι ακριβώς 9 ψηφία!', en: 'The T.I.N. (A.F.M.) must be exactly 9 digits!' },
         irsOffice: { gr: 'Δημόσια Οικονομική Υπηρεσία (Δ.Ο.Υ.)', en: 'Inland Revenue Office (D.O.Y.)' },
         greekIdNumber: { gr: 'Αριθμός Δελτίου Ταυτότητας (Α.Δ.Τ.)', en: 'National Identity Card Number (A.D.T.)' },
         citizenship: { gr: 'Υπηκοότητα', en: 'Citizenship' },
@@ -678,6 +684,7 @@ export class LocalizationService {
         uploadIdCard: { gr: 'Μεταφόρτωση Δελτίου Ταυτότητας', en: 'Upload ID Card Scan' },
         uploadPassport: { gr: 'Μεταφόρτωση Διαβατηρίου', en: 'Upload Passport Scan' },
         uploadResidencePermit: { gr: 'Μεταφόρτωση Άδειας Διαμονής', en: 'Upload EU Residence Permit' },
+        uploadAnotherFile: { gr: 'Προσθήκη κι άλλου αρχείου', en: 'Upload another file' },
         highSchoolTranscriptLabel: { gr: 'Απολυτήριο Λυκείου', en: 'High School Transcript' },
         uploadHighSchoolTranscript: { gr: 'Μεταφόρτωση Απολυτηρίου', en: 'Upload Transcript' },
         actScoresLabel: { gr: 'Βαθμολογία ACT', en: 'ACT Scores' },
@@ -686,6 +693,10 @@ export class LocalizationService {
         uploadSatScores: { gr: 'Μεταφόρτωση SAT', en: 'Upload SAT Scores' },
         passportPhotoLabel: { gr: 'Πρόσφατη φωτογραφία τύπου διαβατηρίου (4 x 6 cm)', en: 'Recent Passport Style Photograph (4 x 6 cm or 2 x 2 in)' },
         uploadPassportPhoto: { gr: 'Μεταφόρτωση Φωτογραφίας', en: 'Upload Photo' },
+        universityCollegeDegree: { gr: 'Πτυχίο Τριτοβάθμιας Εκπαίδευσης', en: 'University / College Degree' },
+        uploadUniversityCollegeDegree: { gr: 'Μεταφόρτωση Πτυχίου', en: 'Upload Degree' },
+        universityCollegeTranscript: { gr: 'Αναλυτική Βαθμολογία Τριτοβάθμιας Εκπαίδευσης', en: 'University / College Academic Transcript' },
+        uploadUniversityCollegeTranscript: { gr: 'Μεταφόρτωση Αναλυτικής Βαθμολογίας', en: 'Upload Academic Transcript' },
         inlineUploaderSubtitle: {
             gr: 'Σύρετε & αποθέστε, κάντε κλικ για επιλογή, ή βγάλτε φωτογραφία',
             en: 'Drag & drop, click to select, or take a photo'

@@ -14,8 +14,8 @@
         </div>
     </div>
 
-    <!-- Upload/Dropzone Area (only shown when there is no pending file and not currently uploading) -->
-    <div *ngIf="!hasPendingFile && !isUploading"
+    <!-- Upload/Dropzone Area (only shown when there is no pending file, not currently uploading, and either no files exist or user requested to add another) -->
+    <div *ngIf="(!uploadedFiles.length || showUploadArea) && !hasPendingFile && !isUploading"
          ng2FileDrop
          [ngClass]="{'nv-file-over': hasDropZoneOver}"
          (fileOver)="fileOver($event)"
@@ -29,6 +29,13 @@
             </div>
         </div>
         <input class="inline-drop-zone-button" type="file" ng2FileSelect [uploader]="uploader" accept="image/*,application/pdf">
+    </div>
+
+    <!-- Link to add another file (shown when a file is already uploaded, but upload area is hidden) -->
+    <div *ngIf="uploadedFiles.length > 0 && !showUploadArea && !hasPendingFile && !isUploading" style="margin-top: 6px; text-align: center;">
+        <a href="javascript:void(0)" (click)="showUploadArea = true" class="btn btn-xs btn-green" style="color: #ffffff; background-color: #16a085; border-color: #16a085; font-weight: 600; padding: 5px 12px; border-radius: 4px; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;">
+            <i class="fas fa-plus" style="color: #ffffff;"></i> {{ 'uploadAnotherFile' | l }}
+        </a>
     </div>
 
     <!-- Preview Step (shown when a file has been selected/snapped but not yet uploaded) -->

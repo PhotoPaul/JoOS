@@ -4,27 +4,25 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="studentPackage">{{ 'selectModeOfStudy' | l }}</label>
-                        <div class="form-group">
-                            <label for="fullOnCampus" class="radio-inline"><input type="radio"
-                                    [(ngModel)]="financialData.application.studentPackage" id="fullOnCampus"
-                                    name="studentPackage" value="1" required> {{ 'fullOnCampus' | l }} <a
-                                    href="https://www.grbc.gr/program-profile/fees/" target="_new"><i
-                                        class="fas fa-info-circle" aria-hidden="true"></i></a></label>
-                            <label for="fullOffCampus" class="radio-inline"><input type="radio"
-                                    [(ngModel)]="financialData.application.studentPackage" id="fullOffCampus"
-                                    name="studentPackage" value="2" required> {{ 'fullOffCampus' | l }} <a
-                                    href="https://www.grbc.gr/program-profile/fees/" target="_new"><i
-                                        class="fas fa-info-circle" aria-hidden="true"></i></a></label>
-                            <label for="partTime" class="radio-inline"><input type="radio"
-                                    [(ngModel)]="financialData.application.studentPackage" id="partTime"
-                                    name="studentPackage" value="3" required> {{ 'partTime' | l }} <a
-                                    href="https://www.grbc.gr/program-profile/registration/special-cases/"
-                                    target="_new"><i class="fas fa-info-circle" aria-hidden="true"></i></a></label>
-                            <required-field-warning
-                                *ngIf="validate && financialData.application.studentPackage === null"
-                                [warningText]="'requiredChoice' | l"></required-field-warning>
-                        </div>
+                        <label for="studentPackage">{{ 'selectModeOfStudy' | l }}</label><br>
+                        <label for="fullOnCampus" class="radio-inline"><input type="radio"
+                                [(ngModel)]="financialData.application.studentPackage" id="fullOnCampus"
+                                name="studentPackage" value="1" required> {{ 'fullOnCampus' | l }} <a
+                                href="https://www.grbc.gr/program-profile/fees/" target="_new"><i
+                                    class="fas fa-info-circle" aria-hidden="true"></i></a></label>
+                        <label for="fullOffCampus" class="radio-inline"><input type="radio"
+                                [(ngModel)]="financialData.application.studentPackage" id="fullOffCampus"
+                                name="studentPackage" value="2" required> {{ 'fullOffCampus' | l }} <a
+                                href="https://www.grbc.gr/program-profile/fees/" target="_new"><i
+                                    class="fas fa-info-circle" aria-hidden="true"></i></a></label>
+                        <label for="partTime" class="radio-inline"><input type="radio"
+                                [(ngModel)]="financialData.application.studentPackage" id="partTime"
+                                name="studentPackage" value="3" required> {{ 'partTime' | l }} <a
+                                href="https://www.grbc.gr/program-profile/registration/special-cases/"
+                                target="_new"><i class="fas fa-info-circle" aria-hidden="true"></i></a></label>
+                        <required-field-warning
+                            *ngIf="validate && financialData.application.studentPackage === null"
+                            [warningText]="'requiredChoice' | l"></required-field-warning>
                     </div>
                 </div>
             </div>
@@ -44,17 +42,15 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="deposit30">{{ 'payProcessingFee' | l }}</label>
-                        <div class="form-group">
-                            <label for="deposit31" class="radio-inline"><input (click)="onCreateOrder()" type="radio"
-                                    [(ngModel)]="financialData.application.deposit" id="deposit31" name="deposit"
-                                    value="31" required> {{ 'depositCard' | l }}</label><br>
-                            <label for="deposit30" class="radio-inline"><input type="radio"
-                                    [(ngModel)]="financialData.application.deposit" id="deposit30" name="deposit"
-                                    value="30" required> {{ 'depositWire' | l }}</label><br>
-                            <required-field-warning *ngIf="validate && !financialData.application.deposit"
-                                [warningText]="'requiredChoice' | l"></required-field-warning>
-                        </div>
+                        <label for="deposit30">{{ 'payProcessingFee' | l }}</label><br>
+                        <label for="deposit31" class="radio-inline"><input (click)="onCreateOrder()" type="radio"
+                                [(ngModel)]="financialData.application.deposit" id="deposit31" name="deposit"
+                                value="31" required> {{ 'depositCard' | l }}</label><br>
+                        <label for="deposit30" class="radio-inline"><input type="radio"
+                                [(ngModel)]="financialData.application.deposit" id="deposit30" name="deposit"
+                                value="30" required> {{ 'depositWire' | l }}</label><br>
+                        <required-field-warning *ngIf="validate && !financialData.application.deposit"
+                            [warningText]="'requiredChoice' | l"></required-field-warning>
                     </div>
                 </div>
             </div>
@@ -157,17 +153,15 @@
             <div *ngIf="financialData.application.studentPackage" class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="selfPaid">{{ 'selfPaidQuestion' | l }}</label>
-                        <div class="form-group">
-                            <label for="selfPaid" class="radio-inline"><input type="radio"
-                                    [(ngModel)]="financialData.application.selfPaid" id="selfPaid" name="selfPaid"
-                                    value="1" required>&nbsp;{{ 'yes' | l }}</label>
-                            <label for="notSelfPaid" class="radio-inline"><input type="radio"
-                                    [(ngModel)]="financialData.application.selfPaid" id="notSelfPaid"
-                                    name="selfPaid" value="0" required>&nbsp;{{ 'no' | l }}</label>
-                            <required-field-warning *ngIf="validate && financialData.application.selfPaid === null"
-                                [warningText]="'requiredChoice' | l"></required-field-warning>
-                        </div>
+                        <label for="selfPaid">{{ 'selfPaidQuestion' | l }}</label><br>
+                        <label for="selfPaid" class="radio-inline"><input type="radio"
+                                [(ngModel)]="financialData.application.selfPaid" id="selfPaid" name="selfPaid"
+                                value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                        <label for="notSelfPaid" class="radio-inline"><input type="radio"
+                                [(ngModel)]="financialData.application.selfPaid" id="notSelfPaid"
+                                name="selfPaid" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                        <required-field-warning *ngIf="validate && financialData.application.selfPaid === null"
+                            [warningText]="'requiredChoice' | l"></required-field-warning>
                     </div>
                 </div>
             </div>

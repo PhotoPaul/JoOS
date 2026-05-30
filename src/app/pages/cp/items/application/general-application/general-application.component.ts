@@ -202,16 +202,15 @@ export class GeneralApplicationComponent implements OnInit {
             if (applicationData.application.foodAllergy === '0') {
                 applicationData.application.foodAllergyDetails = null;
             }
-            if (applicationData.application.doctor === '0') {
-                applicationData.application.doctorFirstName = null;
-                applicationData.application.doctorLastName = null;
-                applicationData.application.doctorPhone = null;
-                applicationData.application.doctorAddress = null;
-                applicationData.application.doctorCity = null;
-                applicationData.application.doctorZipCode = null;
-                applicationData.application.doctorCountry = null;
-                applicationData.application.doctorContactApproval = null;
-            }
+            applicationData.application.doctor = '0';
+            applicationData.application.doctorFirstName = null;
+            applicationData.application.doctorLastName = null;
+            applicationData.application.doctorPhone = null;
+            applicationData.application.doctorAddress = null;
+            applicationData.application.doctorCity = null;
+            applicationData.application.doctorZipCode = null;
+            applicationData.application.doctorCountry = null;
+            applicationData.application.doctorContactApproval = null;
         } else if (formId === 4) {
             if (applicationData.application.churchMember === '0') {
                 applicationData.application.churchMemberHowLong = null;
@@ -242,15 +241,24 @@ export class GeneralApplicationComponent implements OnInit {
         // Expand all panels for user correction
         const panels = [
             'idInfo', 'addressInfo', 'guardianInfo',
-            'primarySecondaryEducationInfo', 'computerUseInfo', 'languagesInfo', 'higherEducationInfo',
+            'primarySecondaryEducationInfo', 'higherEducationInfo', 'languagesInfo', 'computerUseInfo',
             'healthHistoryInfo', 'drugsUseInfo', 'currentHealthInfo', 'emergencyContactsInfo',
             'churchMinistryInfo', 'testimonyInfo',
-            'firstReferenceInfo', 'secondReferenceInfo', 'thirdReferenceInfo',
+            'firstReferenceInfo', 'secondReferenceInfo',
             'studentPackage', 'depositInfo', 'financialInfo'
         ];
         panels.forEach(id => {
             $(`#${id}`).collapse('show');
         });
+        setTimeout(() => {
+            const firstInvalid = $('input.ng-invalid:visible, select.ng-invalid:visible, textarea.ng-invalid:visible').first();
+            console.log('First invalid element:', firstInvalid);
+            if (firstInvalid.length > 0) {
+                $('html, body').animate({
+                    scrollTop: firstInvalid.offset().top - 100
+                }, 500);
+            }
+        }, 500);
     }
 
     unsavedChanges() {

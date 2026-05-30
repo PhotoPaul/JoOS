@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ApplicationService } from '../../application.service';
+import { LocalizationService } from '../../../../../../localization/localization.service';
+import { CITIZENSHIP_COUNTRIES } from '../../general-application/components/personal-info-form/countries';
 
 declare let $;
 
@@ -16,7 +18,27 @@ export class ISPReferencesComponent implements OnInit {
     validate = false;
     modelChanged = false;
 
-    constructor(private route: ActivatedRoute, public applicationService: ApplicationService, private router: Router) { }
+    countries = CITIZENSHIP_COUNTRIES;
+
+    constructor(
+        private route: ActivatedRoute,
+        public applicationService: ApplicationService,
+        private router: Router,
+        private localizationService: LocalizationService
+    ) { }
+
+    get isEnglish(): boolean {
+        return this.localizationService.getActiveLanguage() === 'en';
+    }
+
+    get sortedCountries() {
+        const isEng = this.isEnglish;
+        return [...this.countries].sort((a, b) => {
+            const nameA = isEng ? a.en : a.gr;
+            const nameB = isEng ? b.en : b.gr;
+            return nameA.localeCompare(nameB, isEng ? 'en' : 'el');
+        });
+    }
 
     ngOnInit() {
         this.route.queryParams.subscribe(params => {

@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { FinancesService } from '../../../../finances/finances.service';
+import { LocalizationService } from '../../../../../../../localization/localization.service';
+import { CITIZENSHIP_COUNTRIES } from './countries';
 
 declare let $;
 
@@ -32,8 +34,25 @@ export class PersonalInfoFormComponent {
     @Output() dateChanged = new EventEmitter<void>();
 
     underage = false;
+    countries = CITIZENSHIP_COUNTRIES;
 
-    constructor(private financesService: FinancesService) {}
+    constructor(
+        private financesService: FinancesService,
+        private localizationService: LocalizationService
+    ) {}
+
+    get isEnglish(): boolean {
+        return this.localizationService.getActiveLanguage() === 'en';
+    }
+
+    get sortedCountries() {
+        const isEng = this.isEnglish;
+        return [...this.countries].sort((a, b) => {
+            const nameA = isEng ? a.en : a.gr;
+            const nameB = isEng ? b.en : b.gr;
+            return nameA.localeCompare(nameB, isEng ? 'en' : 'el');
+        });
+    }
 
     updateDateModel($event: Date | any) {
         if (this.personalData) {
