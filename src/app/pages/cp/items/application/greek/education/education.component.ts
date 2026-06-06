@@ -44,12 +44,6 @@ export class EducationComponent implements OnInit {
 
     computerUseInfoOnSubmit() {
         this.formLoading = true;
-        if (this.applicationData.application.computerFluency !== '1' && this.applicationData.application.computerFluency !== 1) {
-            this.applicationData.application.computerAccess = null;
-            this.applicationData.application.internetAccess = null;
-            this.applicationData.application.wordProcessingFluency = null;
-            this.applicationData.application.presentationFluency = null;
-        }
         this.applicationService.saveUserApplicationData(this.userId, this.applicationId, this.applicationData)
             .then(() => {
                 this.modelChanged = false;

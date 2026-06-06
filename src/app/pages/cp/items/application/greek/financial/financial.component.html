@@ -1,31 +1,23 @@
 <form *ngIf="applicationData" #form="ngForm" (change)="modelChanged = true" accept-charset="UTF-8" role="form">
-    <data-panel ngId="studentPackage" heading="Τρόπος Φοίτησης" color="portlet-blue">
+    <data-panel ngId="studentPackage" [heading]="'modeOfStudy' | l" color="portlet-blue">
         <fieldset [disabled]="formLoading">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="studentPackage">Επιλέξτε τον τρόπο φοίτησης που σας ενδιαφέρει</label>
-                        <div class="form-group">
-                            <label for="fullOnCampus" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.studentPackage" id="fullOnCampus" name="studentPackage" value="1" required> Τακτικός, Οικότροφος <a href="https://www.grbc.gr/program-profile/fees/" target="_new"><i class="fas fa-info-circle" aria-hidden="true"></i></a></label>
-                            <label for="fullOffCampus" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.studentPackage" id="fullOffCampus" name="studentPackage" value="2" required> Τακτικός, μη-Οικότροφος <a href="https://www.grbc.gr/program-profile/fees/" target="_new"><i class="fas fa-info-circle" aria-hidden="true"></i></a></label>
-                            <label for="partTime" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.studentPackage" id="partTime" name="studentPackage" value="3" required> μη-Τακτικός <a href="https://www.grbc.gr/program-profile/registration/special-cases/" target="_new"><i class="fas fa-info-circle" aria-hidden="true"></i></a></label>
-                            <required-field-warning *ngIf="validate && applicationData.application.studentPackage === null" [warningText]="'requiredChoice' | l"></required-field-warning>
-                        </div>
-                    </div>
+                    <p>Παρακαλώ προχωρήστε στις επόμενες ενότητες.</p>
                 </div>
             </div>
         </fieldset>
     </data-panel>
 
-    <data-panel [hidden]="applicationData.application.studentPackage === null" ngId="depositInfo" heading="Παράβολο Επεξεργασίας Αίτησης Εγγραφής" color="portlet-blue">
+    <data-panel ngId="depositInfo" heading="Παράβολο Επεξεργασίας Αίτησης Εγγραφής" color="portlet-blue">
         <fieldset [disabled]="formLoading">
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="deposit30">Για την επεξεργασία της παρούσας αίτησης θα καταβάλλετε το ακόλουθο Παράβολο Επεξεργασίας Αίτησης Εγγραφής</label>
                         <div class="form-group">
-                            <label for="deposit31" class="radio-inline"><input (click)="createOrder()" type="radio" [(ngModel)]="applicationData.application.deposit" id="deposit31" name="deposit" value="31" required> 30€ (με κάρτα) πριν την έναρξη των μαθημάτων</label><br>
-                            <label for="deposit30" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.deposit" id="deposit30" name="deposit" value="30" required> 30€ (με κατάθεση) πριν την έναρξη των μαθημάτων</label><br>
+                            <label for="deposit31" class="radio-inline"><input (click)="createOrder()" type="radio" [(ngModel)]="applicationData.application.deposit" id="deposit31" name="deposit" value="31" required> 30€ (με κάρτα)</label><br>
+                            <label for="deposit30" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.deposit" id="deposit30" name="deposit" value="30" required> 30€ (με κατάθεση)</label><br>
                             <!-- <label for="deposit50" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.deposit" id="deposit50" name="deposit" value="50" required> 50€ (με μετρητά ή κατάθεση) με την έναρξη των μαθημάτων</label><br> -->
                             <required-field-warning *ngIf="validate && !applicationData.application.deposit" [warningText]="'requiredChoice' | l"></required-field-warning>
                         </div>
@@ -101,18 +93,9 @@
         </fieldset>
     </data-panel>
 
-    <data-panel [hidden]="applicationData.application.studentPackage === null" ngId="financialInfo" heading="Ανάληψη Οικονομικής Ευθύνης" color="portlet-blue" collapsed="true">
+    <data-panel ngId="financialInfo" heading="Ανάληψη Οικονομικής Ευθύνης" color="portlet-blue" collapsed="true">
         <fieldset [disabled]="formLoading">
-            <div *ngIf="applicationData.application.studentPackage === '1'" class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="financialApproval">Γνωρίζετε το κόστος των διδάκτρων, τροφείων και διαμονής σας στο Κολέγιο και αναλαμβάνετε την ευθύνη εξόφλησής τους στις προκαθορισμένες ημερομηνίες</label><br>
-                        <label for="financialApproval" class="checkbox-inline"><input type="checkbox" [(ngModel)]="applicationData.application.financialApproval" id="financialApproval" name="financialApproval" autocomplete="off" required autofocus>&nbsp;{{ 'yes' | l }}</label>
-                        <required-field-warning *ngIf="validate && !applicationData.application.financialApproval" [warningText]="'requiredChoice' | l"></required-field-warning>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="applicationData.application.studentPackage === '2' || applicationData.application.studentPackage === '3'" class="row">
+            <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="financialApproval">Γνωρίζετε το κόστος των διδάκτρων σας στο Κολέγιο και αναλαμβάνετε την ευθύνη εξόφλησής τους στις προκαθορισμένες ημερομηνίες</label><br>
@@ -121,7 +104,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="applicationData.application.studentPackage" class="row">
+            <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="selfPaid">Το παραπάνω ποσό θα καλυφθεί αποκλειστικά από δικούς σας πόρους</label>

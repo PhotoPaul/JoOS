@@ -1,9 +1,8 @@
 <div *ngIf="applicationData">
-    <data-panel ngId="studentPackage" heading="Τρόπος Φοίτησης" color="portlet-blue">
+    <data-panel ngId="studentPackage" [heading]="'modeOfStudy' | l" color="portlet-blue">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
-					<label for="studentPackage">Επιλέξτε τον τρόπο φοίτησης που σας ενδιαφέρει</label>
 					<div class="form-group">
 						<pre>{{ getPackage(applicationData.application.studentPackage) }}</pre>
 					</div>

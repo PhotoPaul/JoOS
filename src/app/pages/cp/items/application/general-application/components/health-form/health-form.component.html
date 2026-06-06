@@ -1,248 +1,239 @@
 <ng-container *ngIf="healthData">
-    <data-panel ngId="healthHistoryInfo" [heading]="'healthHistory' | l" color="portlet-blue" collapsed="true">
-        <fieldset [disabled]="formLoading">
-            <div class="row">
-                <div class="col-md-12">
-                    <label>{{ 'healthHistoryLabel' | l }}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="tuberculosis" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.tuberculosis" id="tuberculosis"
-                                name="tuberculosis" autocomplete="off">&nbsp;{{ 'tuberculosis' | l }}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="pneumonia" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.pneumonia" id="pneumonia" name="pneumonia"
-                                autocomplete="off">&nbsp;{{ 'pneumonia' | l }}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="asthma" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.asthma" id="asthma" name="asthma"
-                                autocomplete="off">&nbsp;{{ 'asthma' | l }}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="heartDiseases" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.heartDiseases" id="heartDiseases"
-                                name="heartDiseases" autocomplete="off">&nbsp;{{ 'heartDiseases' | l }}</label>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="hypertension" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.hypertension" id="hypertension"
-                                name="hypertension" autocomplete="off">&nbsp;{{ 'hypertension' | l }}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="gastricUlcer" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.gastricUlcer" id="gastricUlcer"
-                                name="gastricUlcer" autocomplete="off">&nbsp;{{ 'gastricUlcer' | l }}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="kidneyDiseases" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.kidneyDiseases" id="kidneyDiseases"
-                                name="kidneyDiseases" autocomplete="off">&nbsp;{{ 'kidneyDiseases' | l }}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="diabetes" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.diabetes" id="diabetes" name="diabetes"
-                                autocomplete="off">&nbsp;{{ 'diabetes' | l }}</label>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="epilepsy" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.epilepsy" id="epilepsy" name="epilepsy"
-                                autocomplete="off">&nbsp;{{ 'epilepsy' | l }}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="liverDiseases" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.liverDiseases" id="liverDiseases"
-                                name="liverDiseases" autocomplete="off">&nbsp;{{ 'liverDiseases' | l }}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="rheumatism" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.rheumatism" id="rheumatism" name="rheumatism"
-                                autocomplete="off">&nbsp;{{ 'rheumatism' | l }}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="anemia" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.anemia" id="anemia" name="anemia"
-                                autocomplete="off">&nbsp;{{ 'anemia' | l }}</label>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="cancer" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.cancer" id="cancer" name="cancer"
-                                autocomplete="off">&nbsp;{{ 'cancer' | l }}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="physicalDisability" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.physicalDisability" id="physicalDisability"
-                                name="physicalDisability" autocomplete="off">&nbsp;{{ 'physicalDisability' | l }}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="gallbladderDiseases" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.gallbladderDiseases" id="gallbladderDiseases"
-                                name="gallbladderDiseases" autocomplete="off">&nbsp;{{ 'gallbladderDiseases' | l }}</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="otherDiseases">{{ 'haveOtherSeriousDiseases' | l }}</label><br>
-                        <label for="otherDiseases" class="radio-inline"><input type="radio"
-                                [(ngModel)]="healthData.application.otherDiseases" id="otherDiseases"
-                                name="otherDiseases" value="1" required>&nbsp;{{ 'yes' | l }}</label>
-                        <label for="noOtherDiseases" class="radio-inline"><input type="radio"
-                                [(ngModel)]="healthData.application.otherDiseases" id="noOtherDiseases"
-                                name="otherDiseases" value="0" required>&nbsp;{{ 'no' | l }}</label>
-                        <required-field-warning
-                            *ngIf="validate && healthData.application.otherDiseases === null"
-                            [warningText]="'requiredChoice' | l"></required-field-warning>
-                    </div>
-                </div>
-                <div *ngIf="healthData.application.otherDiseases === '1'" class="col-md-6">
-                    <div class="form-group">
-                        <label for="otherDiseasesDetails">{{ 'details' | l }}</label>
-                        <textarea [(ngModel)]="healthData.application.otherDiseasesDetails"
-                            id="otherDiseasesDetails" name="otherDiseasesDetails" class="form-control" rows="3"
-                            autocomplete="off" required autofocus></textarea>
-                        <required-field-warning
-                            *ngIf="validate && !healthData.application.otherDiseasesDetails"></required-field-warning>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-12">
-                    <label>{{ 'vaccinesLabel' | l }}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="tetanusVaccine" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.tetanusVaccine" id="tetanusVaccine"
-                                name="tetanusVaccine" autocomplete="off">&nbsp;{{ 'tetanusVaccine' | l }}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="diphtheriaVaccine" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.diphtheriaVaccine" id="diphtheriaVaccine"
-                                name="diphtheriaVaccine" autocomplete="off">&nbsp;{{ 'diphtheriaVaccine' | l }}</label>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="pertussisVaccine" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.pertussisVaccine" id="pertussisVaccine"
-                                name="pertussisVaccine" autocomplete="off">&nbsp;{{ 'pertussisVaccine' | l }}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="polioVaccine" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.polioVaccine" id="polioVaccine"
-                                name="polioVaccine" autocomplete="off">&nbsp;{{ 'polioVaccine' | l }}</label>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="measlesVaccine" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.measlesVaccine" id="measlesVaccine"
-                                name="measlesVaccine" autocomplete="off">&nbsp;{{ 'measlesVaccine' | l }}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="mumpsVaccine" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.mumpsVaccine" id="mumpsVaccine"
-                                name="mumpsVaccine" autocomplete="off">&nbsp;{{ 'mumpsVaccine' | l }}</label>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="rubellaVaccine" class="checkbox-inline"><input type="checkbox"
-                                [(ngModel)]="healthData.application.rubellaVaccine" id="rubellaVaccine"
-                                name="rubellaVaccine" autocomplete="off">&nbsp;{{ 'rubellaVaccine' | l }}</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="otherVaccines">{{ 'haveOtherVaccines' | l }}</label><br>
-                        <label for="otherVaccines" class="radio-inline"><input type="radio"
-                                [(ngModel)]="healthData.application.otherVaccines" id="otherVaccines"
-                                name="otherVaccines" value="1" required>&nbsp;{{ 'yes' | l }}</label>
-                        <label for="noOtherVaccines" class="radio-inline"><input type="radio"
-                                [(ngModel)]="healthData.application.otherVaccines" id="noOtherVaccines"
-                                name="otherVaccines" value="0" required>&nbsp;{{ 'no' | l }}</label>
-                        <required-field-warning
-                            *ngIf="validate && healthData.application.otherVaccines === null"
-                            [warningText]="'requiredChoice' | l"></required-field-warning>
-                    </div>
-                </div>
-                <div *ngIf="healthData.application.otherVaccines === '1'" class="col-md-6">
-                    <div class="form-group">
-                        <label for="otherVaccinesDetails">{{ 'details' | l }}</label>
-                        <textarea [(ngModel)]="healthData.application.otherVaccinesDetails"
-                            id="otherVaccinesDetails" name="otherVaccinesDetails" class="form-control" rows="3"
-                            autocomplete="off" required autofocus></textarea>
-                        <required-field-warning
-                            *ngIf="validate && !healthData.application.otherVaccinesDetails"></required-field-warning>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <button class="btn btn-green btn-block" type="button"
-                        (click)="onSave('healthHistoryInfo', 'drugsUseInfo')">{{
-                        'saveAndContinue' | l }}</button>
-                </div>
-            </div>
-        </fieldset>
-    </data-panel>
-
-    <data-panel ngId="drugsUseInfo" [heading]="'substanceUse' | l" color="portlet-blue" collapsed="true">
-        <fieldset [disabled]="formLoading">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="drugsUse">{{ 'usedSubstances' | l }}</label><br>
-                        <label for="drugsUse" class="radio-inline"><input type="radio"
-                                [(ngModel)]="healthData.application.drugsUse" id="drugsUse" name="drugsUse"
-                                value="1" required>&nbsp;{{ 'yes' | l }}</label>
-                        <label for="noDrugsUse" class="radio-inline"><input type="radio"
-                                [(ngModel)]="healthData.application.drugsUse" id="noDrugsUse" name="drugsUse"
-                                value="0" required>&nbsp;{{ 'no' | l }}</label>
-                        <required-field-warning *ngIf="validate && healthData.application.drugsUse === null"
-                            [warningText]="'requiredChoice' | l"></required-field-warning>
-                    </div>
-                </div>
-                <div *ngIf="healthData.application.drugsUse === '1'" class="col-md-6">
-                    <div class="form-group">
-                        <label for="drugsUseDetails">{{ 'drugsUseDetails' | l }}</label>
-                        <textarea [(ngModel)]="healthData.application.drugsUseDetails" id="drugsUseDetails"
-                            name="drugsUseDetails" class="form-control" rows="5" autocomplete="off" required
-                            autofocus></textarea>
-                        <required-field-warning
-                            *ngIf="validate && !healthData.application.drugsUseDetails"></required-field-warning>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <button class="btn btn-green btn-block" type="button"
-                        (click)="onSave('drugsUseInfo', 'currentHealthInfo')">{{
-                        'saveAndContinue' | l }}</button>
-                </div>
-            </div>
-        </fieldset>
-    </data-panel>
-
     <data-panel ngId="currentHealthInfo" [heading]="'currentHealthStatus' | l" color="portlet-blue" collapsed="true">
         <fieldset [disabled]="formLoading">
+            
+            
+            <!-- Hidden Subsections: Ιστορικό Υγείας and Χρήση Ουσιών -->
+            <div style="display: none;">
+                <!-- Category 1: Ιστορικό Υγείας -->
+                <h4 style="font-weight: bold; margin-top: 10px; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid #e5e5e5; color: #333;">
+                    {{ 'healthHistory' | l }}
+                </h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>{{ 'healthHistoryLabel' | l }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="tuberculosis" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.tuberculosis" id="tuberculosis"
+                                    name="tuberculosis" autocomplete="off">&nbsp;{{ 'tuberculosis' | l }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="pneumonia" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.pneumonia" id="pneumonia" name="pneumonia"
+                                    autocomplete="off">&nbsp;{{ 'pneumonia' | l }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="asthma" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.asthma" id="asthma" name="asthma"
+                                    autocomplete="off">&nbsp;{{ 'asthma' | l }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="heartDiseases" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.heartDiseases" id="heartDiseases"
+                                    name="heartDiseases" autocomplete="off">&nbsp;{{ 'heartDiseases' | l }}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="hypertension" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.hypertension" id="hypertension"
+                                    name="hypertension" autocomplete="off">&nbsp;{{ 'hypertension' | l }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="gastricUlcer" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.gastricUlcer" id="gastricUlcer"
+                                    name="gastricUlcer" autocomplete="off">&nbsp;{{ 'gastricUlcer' | l }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="kidneyDiseases" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.kidneyDiseases" id="kidneyDiseases"
+                                    name="kidneyDiseases" autocomplete="off">&nbsp;{{ 'kidneyDiseases' | l }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="diabetes" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.diabetes" id="diabetes" name="diabetes"
+                                    autocomplete="off">&nbsp;{{ 'diabetes' | l }}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="epilepsy" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.epilepsy" id="epilepsy" name="epilepsy"
+                                    autocomplete="off">&nbsp;{{ 'epilepsy' | l }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="liverDiseases" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.liverDiseases" id="liverDiseases"
+                                    name="liverDiseases" autocomplete="off">&nbsp;{{ 'liverDiseases' | l }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="rheumatism" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.rheumatism" id="rheumatism" name="rheumatism"
+                                    autocomplete="off">&nbsp;{{ 'rheumatism' | l }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="anemia" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.anemia" id="anemia" name="anemia"
+                                    autocomplete="off">&nbsp;{{ 'anemia' | l }}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="cancer" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.cancer" id="cancer" name="cancer"
+                                    autocomplete="off">&nbsp;{{ 'cancer' | l }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="physicalDisability" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.physicalDisability" id="physicalDisability"
+                                    name="physicalDisability" autocomplete="off">&nbsp;{{ 'physicalDisability' | l }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="gallbladderDiseases" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.gallbladderDiseases" id="gallbladderDiseases"
+                                    name="gallbladderDiseases" autocomplete="off">&nbsp;{{ 'gallbladderDiseases' | l }}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="otherDiseases">{{ 'haveOtherSeriousDiseases' | l }}</label><br>
+                            <label for="otherDiseases" class="radio-inline"><input type="radio"
+                                    [(ngModel)]="healthData.application.otherDiseases" id="otherDiseases"
+                                    name="otherDiseases" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                            <label for="noOtherDiseases" class="radio-inline"><input type="radio"
+                                    [(ngModel)]="healthData.application.otherDiseases" id="noOtherDiseases"
+                                    name="otherDiseases" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                            <required-field-warning
+                                *ngIf="validate && healthData.application.otherDiseases === null"
+                                [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                    <div *ngIf="healthData.application.otherDiseases === '1'" class="col-md-6">
+                        <div class="form-group">
+                            <label for="otherDiseasesDetails">{{ 'details' | l }}</label>
+                            <textarea [(ngModel)]="healthData.application.otherDiseasesDetails"
+                                id="otherDiseasesDetails" name="otherDiseasesDetails" class="form-control" rows="3"
+                                autocomplete="off" required autofocus></textarea>
+                            <required-field-warning
+                                *ngIf="validate && !healthData.application.otherDiseasesDetails"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>{{ 'vaccinesLabel' | l }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="tetanusVaccine" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.tetanusVaccine" id="tetanusVaccine"
+                                    name="tetanusVaccine" autocomplete="off">&nbsp;{{ 'tetanusVaccine' | l }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="diphtheriaVaccine" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.diphtheriaVaccine" id="diphtheriaVaccine"
+                                    name="diphtheriaVaccine" autocomplete="off">&nbsp;{{ 'diphtheriaVaccine' | l }}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="pertussisVaccine" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.pertussisVaccine" id="pertussisVaccine"
+                                    name="pertussisVaccine" autocomplete="off">&nbsp;{{ 'pertussisVaccine' | l }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="polioVaccine" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.polioVaccine" id="polioVaccine"
+                                    name="polioVaccine" autocomplete="off">&nbsp;{{ 'polioVaccine' | l }}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="measlesVaccine" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.measlesVaccine" id="measlesVaccine"
+                                    name="measlesVaccine" autocomplete="off">&nbsp;{{ 'measlesVaccine' | l }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="mumpsVaccine" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.mumpsVaccine" id="mumpsVaccine"
+                                    name="mumpsVaccine" autocomplete="off">&nbsp;{{ 'mumpsVaccine' | l }}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="rubellaVaccine" class="checkbox-inline"><input type="checkbox"
+                                    [(ngModel)]="healthData.application.rubellaVaccine" id="rubellaVaccine"
+                                    name="rubellaVaccine" autocomplete="off">&nbsp;{{ 'rubellaVaccine' | l }}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="otherVaccines">{{ 'haveOtherVaccines' | l }}</label><br>
+                            <label for="otherVaccines" class="radio-inline"><input type="radio"
+                                    [(ngModel)]="healthData.application.otherVaccines" id="otherVaccines"
+                                    name="otherVaccines" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                            <label for="noOtherVaccines" class="radio-inline"><input type="radio"
+                                    [(ngModel)]="healthData.application.otherVaccines" id="noOtherVaccines"
+                                    name="otherVaccines" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                            <required-field-warning
+                                *ngIf="validate && healthData.application.otherVaccines === null"
+                                [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                    <div *ngIf="healthData.application.otherVaccines === '1'" class="col-md-6">
+                        <div class="form-group">
+                            <label for="otherVaccinesDetails">{{ 'details' | l }}</label>
+                            <textarea [(ngModel)]="healthData.application.otherVaccinesDetails"
+                                id="otherVaccinesDetails" name="otherVaccinesDetails" class="form-control" rows="3"
+                                autocomplete="off" required autofocus></textarea>
+                            <required-field-warning
+                                *ngIf="validate && !healthData.application.otherVaccinesDetails"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 2: Χρήση Ουσιών -->
+                <h4 style="font-weight: bold; margin-top: 25px; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid #e5e5e5; color: #333;">
+                    {{ 'substanceUse' | l }}
+                </h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="drugsUse">{{ 'usedSubstances' | l }}</label><br>
+                            <label for="drugsUse" class="radio-inline"><input type="radio"
+                                    [(ngModel)]="healthData.application.drugsUse" id="drugsUse" name="drugsUse"
+                                    value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                            <label for="noDrugsUse" class="radio-inline"><input type="radio"
+                                    [(ngModel)]="healthData.application.drugsUse" id="noDrugsUse" name="drugsUse"
+                                    value="0" required>&nbsp;{{ 'no' | l }}</label>
+                            <required-field-warning *ngIf="validate && healthData.application.drugsUse === null"
+                                [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                    <div *ngIf="healthData.application.drugsUse === '1'" class="col-md-6">
+                        <div class="form-group">
+                            <label for="drugsUseDetails">{{ 'drugsUseDetails' | l }}</label>
+                            <textarea [(ngModel)]="healthData.application.drugsUseDetails" id="drugsUseDetails"
+                                name="drugsUseDetails" class="form-control" rows="5" autocomplete="off" required
+                                autofocus></textarea>
+                            <required-field-warning
+                                *ngIf="validate && !healthData.application.drugsUseDetails"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
@@ -269,123 +260,10 @@
                     </div>
                 </div>
             </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="currentDiseases">{{ 'currentDiseases' | l }}</label><br>
-                        <label for="currentDiseases" class="radio-inline"><input type="radio"
-                                [(ngModel)]="healthData.application.currentDiseases" id="currentDiseases"
-                                name="currentDiseases" value="1" required>&nbsp;{{ 'yes' | l }}</label>
-                        <label for="noCurrentDiseases" class="radio-inline"><input type="radio"
-                                [(ngModel)]="healthData.application.currentDiseases" id="noCurrentDiseases"
-                                name="currentDiseases" value="0" required>&nbsp;{{ 'no' | l }}</label>
-                        <required-field-warning
-                            *ngIf="validate && healthData.application.currentDiseases === null"
-                            [warningText]="'requiredChoice' | l"></required-field-warning>
-                    </div>
-                </div>
-                <div *ngIf="healthData.application.currentDiseases === '1'" class="col-md-6">
-                    <div class="form-group">
-                        <label for="currentDiseasesDetails">{{ 'details' | l }}</label>
-                        <textarea [(ngModel)]="healthData.application.currentDiseasesDetails"
-                            id="currentDiseasesDetails" name="currentDiseasesDetails" class="form-control" rows="3"
-                            autocomplete="off" required autofocus></textarea>
-                        <required-field-warning
-                            *ngIf="validate && !healthData.application.currentDiseasesDetails"></required-field-warning>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="currentSymptoms">{{ 'currentSymptoms' | l }}</label><br>
-                        <label for="currentSymptoms" class="radio-inline"><input type="radio"
-                                [(ngModel)]="healthData.application.currentSymptoms" id="currentSymptoms"
-                                name="currentSymptoms" value="1" required>&nbsp;{{ 'yes' | l }}</label>
-                        <label for="noCurrentSymptoms" class="radio-inline"><input type="radio"
-                                [(ngModel)]="healthData.application.currentSymptoms" id="noCurrentSymptoms"
-                                name="currentSymptoms" value="0" required>&nbsp;{{ 'no' | l }}</label>
-                        <required-field-warning
-                            *ngIf="validate && healthData.application.currentSymptoms === null"
-                            [warningText]="'requiredChoice' | l"></required-field-warning>
-                    </div>
-                </div>
-                <div *ngIf="healthData.application.currentSymptoms === '1'" class="col-md-6">
-                    <div class="form-group">
-                        <label for="currentSymptomsDetails">{{ 'details' | l }}</label>
-                        <textarea [(ngModel)]="healthData.application.currentSymptomsDetails"
-                            id="currentSymptomsDetails" name="currentSymptomsDetails" class="form-control" rows="3"
-                            autocomplete="off" required autofocus></textarea>
-                        <required-field-warning
-                            *ngIf="validate && !healthData.application.currentSymptomsDetails"></required-field-warning>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="currentMedicines">{{ 'currentMedicines' | l }}</label><br>
-                        <label for="currentMedicines" class="radio-inline"><input type="radio"
-                                [(ngModel)]="healthData.application.currentMedicines" id="currentMedicines"
-                                name="currentMedicines" value="1" required>&nbsp;{{ 'yes' | l }}</label>
-                        <label for="noCurrentMedicines" class="radio-inline"><input type="radio"
-                                [(ngModel)]="healthData.application.currentMedicines" id="noCurrentMedicines"
-                                name="currentMedicines" value="0" required>&nbsp;{{ 'no' | l }}</label>
-                        <required-field-warning
-                            *ngIf="validate && healthData.application.currentMedicines === null"
-                            [warningText]="'requiredChoice' | l"></required-field-warning>
-                    </div>
-                </div>
-                <div *ngIf="healthData.application.currentMedicines === '1'" class="col-md-6">
-                    <div class="form-group">
-                        <label for="currentMedicinesDetails">{{ 'details' | l }}</label>
-                        <textarea [(ngModel)]="healthData.application.currentMedicinesDetails"
-                            id="currentMedicinesDetails" name="currentMedicinesDetails" class="form-control"
-                            rows="3" autocomplete="off" required autofocus></textarea>
-                        <required-field-warning
-                            *ngIf="validate && !healthData.application.currentMedicinesDetails"></required-field-warning>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="foodAllergy">{{ 'foodAllergy' | l }}</label><br>
-                        <label for="foodAllergy" class="radio-inline"><input type="radio"
-                                [(ngModel)]="healthData.application.foodAllergy" id="foodAllergy"
-                                name="foodAllergy" value="1" required>&nbsp;{{ 'yes' | l }}</label>
-                        <label for="noFoodAllergy" class="radio-inline"><input type="radio"
-                                [(ngModel)]="healthData.application.foodAllergy" id="noFoodAllergy"
-                                name="foodAllergy" value="0" required>&nbsp;{{ 'no' | l }}</label>
-                        <required-field-warning *ngIf="validate && healthData.application.foodAllergy === null"
-                            [warningText]="'requiredChoice' | l"></required-field-warning>
-                    </div>
-                </div>
-                <div *ngIf="healthData.application.foodAllergy === '1'" class="col-md-6">
-                    <div class="form-group">
-                        <label for="foodAllergyDetails">{{ 'details' | l }}</label>
-                        <textarea [(ngModel)]="healthData.application.foodAllergyDetails" id="foodAllergyDetails"
-                            name="foodAllergyDetails" class="form-control" rows="3" autocomplete="off" required
-                            autofocus></textarea>
-                        <required-field-warning
-                            *ngIf="validate && !healthData.application.foodAllergyDetails"></required-field-warning>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <button class="btn btn-green btn-block" type="button"
-                        (click)="onSave('currentHealthInfo', 'emergencyContactsInfo')">{{
-                        'saveAndContinue' | l }}</button>
-                </div>
-            </div>
-        </fieldset>
-    </data-panel>
-
-    <data-panel ngId="emergencyContactsInfo" [heading]="'emergencyContacts' | l" color="portlet-blue"
-        collapsed="true">
-        <fieldset [disabled]="formLoading">
+            <!-- Category 4: Επαφή Έκτακτης Ανάγκης -->
+            <h4 style="font-weight: bold; margin-top: 25px; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid #e5e5e5; color: #333;">
+                {{ 'emergencyContact' | l }}
+            </h4>
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
@@ -427,13 +305,16 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+
+            <!-- Save & Continue button at the bottom of combined section -->
+            <div class="row" style="margin-top: 30px;">
                 <div class="col-md-4 col-md-offset-4">
                     <button class="btn btn-green btn-block" type="button"
-                        (click)="onSave('emergencyContactsInfo', 'testimonyInfo')">{{
+                        (click)="onSave('currentHealthInfo', 'testimonyInfo')">{{
                         'saveAndContinue' | l }}</button>
                 </div>
             </div>
+            
         </fieldset>
     </data-panel>
 </ng-container>

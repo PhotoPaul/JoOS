@@ -76,7 +76,6 @@
                     </div>
                 </div>
             </div>
-            <ng-container *ngIf="applicationData.application.computerFluency === '1'">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -117,7 +116,6 @@
                         </div>
                     </div>
                 </div>
-            </ng-container>
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <button class="btn btn-green btn-block" type="button" (click)="computerUseInfoOnSubmit()">{{ 'saveAndContinue' | l }}</button>
@@ -129,9 +127,10 @@
     <data-panel ngId="languagesInfo" heading="Γλώσσες" color="portlet-blue" collapsed="true">
         <fieldset [disabled]="formLoading">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="greekMedium">Επίπεδο Γνώσης Ελληνικών</label><br>
+                        <label for="greekNone" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.greek" id="greekNone" name="greek" value="0" required> Καθόλου</label>
                         <label for="greekMedium" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.greek" id="greekMedium" name="greek" value="1" required> Μέτριο</label>
                         <label for="greekGood" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.greek" id="greekGood" name="greek" value="2" required> Καλό</label>
                         <label for="greekVeryGood" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.greek" id="greekVeryGood" name="greek" value="3" required> Πολύ Καλό</label>
@@ -141,9 +140,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="englishMedium">Επίπεδο Γνώσης Αγγλικών</label><br>
+                        <label for="englishNone" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.english" id="englishNone" name="english" value="0" required> Καθόλου</label>
                         <label for="englishMedium" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.english" id="englishMedium" name="english" value="1" required> Μέτριο</label>
                         <label for="englishGood" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.english" id="englishGood" name="english" value="2" required> Καλό</label>
                         <label for="englishVeryGood" class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.english" id="englishVeryGood" name="english" value="3" required> Πολύ Καλό</label>

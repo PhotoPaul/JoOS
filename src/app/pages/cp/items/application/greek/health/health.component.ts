@@ -19,6 +19,30 @@ export class HealthComponent implements OnInit {
 
     constructor(private route: ActivatedRoute, public applicationService: ApplicationService, private router: Router) { }
 
+    sanitizeData() {
+        if (!this.applicationData || !this.applicationData.application) return;
+        const booleanFields = [
+            'tonsillitis', 'chickenPox', 'bronchialAsthma', 'diphtheria', 'epilepsy',
+            'rubella', 'measles', 'yellowFever', 'meningitis', 'mumps', 'polio', 'cholera',
+            'heartAbnormality', 'otherDiseases', 'vaccineDiphtheria', 'vaccinePertussis',
+            'vaccineTetanus', 'vaccineSmallpox', 'vaccineRubella', 'vaccineMeasles',
+            'vaccineMumps', 'vaccinePolio', 'vaccineCholera', 'otherVaccines',
+            'tuberculosis', 'pneumonia', 'asthma', 'heartDiseases', 'hypertension',
+            'gastricUlcer', 'kidneyDiseases', 'diabetes', 'liverDiseases', 'rheumatism',
+            'anemia', 'cancer', 'physicalDisability', 'gallbladderDiseases',
+            'tetanusVaccine', 'diphtheriaVaccine', 'pertussisVaccine', 'polioVaccine',
+            'measlesVaccine', 'mumpsVaccine', 'rubellaVaccine', 'drugsUse'
+        ];
+        booleanFields.forEach(field => {
+            const val = this.applicationData.application[field];
+            if (val === true || val === '1') {
+                this.applicationData.application[field] = '1';
+            } else {
+                this.applicationData.application[field] = '0';
+            }
+        });
+    }
+
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
             this.userId = +params['userId'] || null;
@@ -28,6 +52,7 @@ export class HealthComponent implements OnInit {
             ]).then(([applicationData, documents]: any[]) => {
                 if (applicationData) {
                     this.applicationData = applicationData;
+                    this.sanitizeData();
                 }
                 if (documents && documents.application) {
                     this.documentsList = documents.application;
@@ -39,6 +64,7 @@ export class HealthComponent implements OnInit {
 
     healthHistoryInfoOnSubmit() {
         this.formLoading = true;
+        this.sanitizeData();
         if (this.applicationData.application.otherDiseases === '0') {
             this.applicationData.application.otherDiseasesDetails = null;
         }
@@ -57,6 +83,7 @@ export class HealthComponent implements OnInit {
 
     drugsUseInfoOnSubmit() {
         this.formLoading = true;
+        this.sanitizeData();
         if (this.applicationData.application.drugsUse === '0') {
             this.applicationData.application.drugsUseDetails = null;
         }
@@ -72,6 +99,7 @@ export class HealthComponent implements OnInit {
 
     currentHealthInfoOnSubmit() {
         this.formLoading = true;
+        this.sanitizeData();
         if (this.applicationData.application.currentDiseases === '0') {
             this.applicationData.application.currentDiseasesDetails = null;
         }
@@ -96,6 +124,7 @@ export class HealthComponent implements OnInit {
 
     emergencyContactsInfoOnSubmit() {
         this.formLoading = true;
+        this.sanitizeData();
         if (this.applicationData.application.doctor === '0') {
             this.applicationData.application.doctorFirstName = null;
             this.applicationData.application.doctorLastName = null;

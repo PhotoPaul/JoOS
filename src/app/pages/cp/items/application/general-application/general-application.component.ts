@@ -174,13 +174,28 @@ export class GeneralApplicationComponent implements OnInit {
                 applicationData.application.secondarySchoolGraduationYear = null;
                 applicationData.application.secondarySchoolDiscipline = null;
             }
-            if (applicationData.application.computerFluency !== '1' && applicationData.application.computerFluency !== 1) {
-                applicationData.application.computerAccess = null;
-                applicationData.application.internetAccess = null;
-                applicationData.application.wordProcessingFluency = null;
-                applicationData.application.presentationFluency = null;
-            }
         } else if (formId === 3) {
+            const booleanFields = [
+                'tonsillitis', 'chickenPox', 'bronchialAsthma', 'diphtheria', 'epilepsy',
+                'rubella', 'measles', 'yellowFever', 'meningitis', 'mumps', 'polio', 'cholera',
+                'heartAbnormality', 'otherDiseases', 'vaccineDiphtheria', 'vaccinePertussis',
+                'vaccineTetanus', 'vaccineSmallpox', 'vaccineRubella', 'vaccineMeasles',
+                'vaccineMumps', 'vaccinePolio', 'vaccineCholera', 'otherVaccines',
+                'tuberculosis', 'pneumonia', 'asthma', 'heartDiseases', 'hypertension',
+                'gastricUlcer', 'kidneyDiseases', 'diabetes', 'liverDiseases', 'rheumatism',
+                'anemia', 'cancer', 'physicalDisability', 'gallbladderDiseases',
+                'tetanusVaccine', 'diphtheriaVaccine', 'pertussisVaccine', 'polioVaccine',
+                'measlesVaccine', 'mumpsVaccine', 'rubellaVaccine', 'drugsUse'
+            ];
+            booleanFields.forEach(field => {
+                const val = applicationData.application[field];
+                if (val === true || val === '1') {
+                    applicationData.application[field] = '1';
+                } else {
+                    applicationData.application[field] = '0';
+                }
+            });
+
             if (applicationData.application.otherDiseases === '0') {
                 applicationData.application.otherDiseasesDetails = null;
             }
@@ -212,6 +227,15 @@ export class GeneralApplicationComponent implements OnInit {
             applicationData.application.doctorCountry = null;
             applicationData.application.doctorContactApproval = null;
         } else if (formId === 4) {
+            const booleanFields = ['statementOfFaithApproval', 'churchMember'];
+            booleanFields.forEach(field => {
+                const val = applicationData.application[field];
+                if (val === true || val === '1') {
+                    applicationData.application[field] = '1';
+                } else {
+                    applicationData.application[field] = '0';
+                }
+            });
             if (applicationData.application.churchMember === '0') {
                 applicationData.application.churchMemberHowLong = null;
             }
@@ -241,11 +265,11 @@ export class GeneralApplicationComponent implements OnInit {
         
         // Find all panels that contain invalid elements
         const panels = [
-            'idInfo', 'addressInfo', 'guardianInfo',
-            'primarySecondaryEducationInfo', 'higherEducationInfo', 'languagesInfo', 'computerUseInfo',
-            'healthHistoryInfo', 'drugsUseInfo', 'currentHealthInfo', 'emergencyContactsInfo',
-            'churchMinistryInfo', 'testimonyInfo',
-            'firstReferenceInfo', 'secondReferenceInfo',
+            'idInfo', 'guardianInfo',
+            'educationInfo',
+            'currentHealthInfo',
+            'testimonyInfo',
+            'recommendationsInfo',
             'studentPackage', 'financialInfo', 'depositInfo'
         ];
 

@@ -160,7 +160,13 @@
                                     name="greekIdNumber" class="form-control" autocomplete="off" required>
                                 <required-field-warning
                                     *ngIf="validate && !personalData.application.greekIdNumber"></required-field-warning>
+                            </div>
+                            <div class="form-group"
+                                 [style.border-left]="!hasDocument(1) ? '5px solid #e74c3c' : '5px solid transparent'"
+                                 [style.padding-left]="!hasDocument(1) ? '10px' : '0px'">
+                                <input type="hidden" [ngModel]="hasDocument(1) ? 'uploaded' : ''" name="idCardFile" required>
                                 <inline-uploader [userId]="userId" [documentTypeId]="1" [files]="documentsList" [label]="'uploadIdCard' | l"></inline-uploader>
+                                <required-field-warning *ngIf="validate && !hasDocument(1)" [warningText]="'requiredField' | l"></required-field-warning>
                             </div>
                         </div>
                     </div>
@@ -180,10 +186,10 @@
                             <div class="form-group">
                                 <label for="euCitizen">{{ 'euCitizen' | l }}</label><br>
                                 <label for="euCitizen" class="radio-inline"><input type="radio"
-                                        [(ngModel)]="personalData.application.euCitizen" id="euCitizen" name="euCitizen"
+                                         [(ngModel)]="personalData.application.euCitizen" id="euCitizen" name="euCitizen"
                                         value="1" required>&nbsp;{{ 'yes' | l }}</label>
                                 <label for="nonEuCitizen" class="radio-inline"><input type="radio"
-                                        [(ngModel)]="personalData.application.euCitizen" id="nonEuCitizen" name="euCitizen"
+                                         [(ngModel)]="personalData.application.euCitizen" id="nonEuCitizen" name="euCitizen"
                                         value="0" required>&nbsp;{{ 'no' | l }}</label>
                                 <required-field-warning *ngIf="validate && personalData.application.euCitizen === null"
                                     [warningText]="'requiredChoice' | l"></required-field-warning>
@@ -196,7 +202,13 @@
                                     name="passportNumber" class="form-control" autocomplete="off" required>
                                 <required-field-warning
                                     *ngIf="validate && !personalData.application.passportNumber"></required-field-warning>
+                            </div>
+                            <div class="form-group"
+                                 [style.border-left]="!hasDocument(2) ? '5px solid #e74c3c' : '5px solid transparent'"
+                                 [style.padding-left]="!hasDocument(2) ? '10px' : '0px'">
+                                <input type="hidden" [ngModel]="hasDocument(2) ? 'uploaded' : ''" name="passportFile" required>
                                 <inline-uploader [userId]="userId" [documentTypeId]="2" [files]="documentsList" [label]="'uploadPassport' | l"></inline-uploader>
+                                <required-field-warning *ngIf="validate && !hasDocument(2)" [warningText]="'requiredField' | l"></required-field-warning>
                             </div>
                         </div>
                         <div *ngIf="personalData.application.euCitizen === '0'" class="col-md-3">
@@ -211,7 +223,13 @@
                                 <required-field-warning
                                     *ngIf="validate && personalData.application.residencePermit === null"
                                     [warningText]="'requiredChoice' | l"></required-field-warning>
-                                <inline-uploader *ngIf="personalData.application.residencePermit === '1'" [userId]="userId" [documentTypeId]="3" [files]="documentsList" [label]="'uploadResidencePermit' | l"></inline-uploader>
+                            </div>
+                            <div *ngIf="personalData.application.residencePermit === '1'" class="form-group"
+                                 [style.border-left]="!hasDocument(3) ? '5px solid #e74c3c' : '5px solid transparent'"
+                                 [style.padding-left]="!hasDocument(3) ? '10px' : '0px'">
+                                <input type="hidden" [ngModel]="hasDocument(3) ? 'uploaded' : ''" name="residencePermitFile" required>
+                                <inline-uploader [userId]="userId" [documentTypeId]="3" [files]="documentsList" [label]="'uploadResidencePermit' | l"></inline-uploader>
+                                <required-field-warning *ngIf="validate && !hasDocument(3)" [warningText]="'requiredField' | l"></required-field-warning>
                             </div>
                         </div>
                     </div>
@@ -244,24 +262,21 @@
                 </div> <!-- End col-md-9 Details Column -->
 
                 <div class="col-md-3">
-                    <div class="form-group text-center">
+                    <div class="form-group text-center"
+                         [style.border-left]="!hasDocument(5) ? '5px solid #e74c3c' : '5px solid transparent'"
+                         [style.padding-left]="!hasDocument(5) ? '10px' : '0px'">
                         <label style="font-weight: bold; color: #444; margin-bottom: 8px; display: block;">{{ 'passportPhotoLabel' | l }}</label>
+                        <input type="hidden" [ngModel]="hasDocument(5) ? 'uploaded' : ''" name="passportPhotoFile" required>
                         <inline-uploader [userId]="userId" [documentTypeId]="5" [files]="documentsList" [label]="'uploadPassportPhoto' | l"></inline-uploader>
+                        <required-field-warning *ngIf="validate && !hasDocument(5)" [warningText]="'requiredField' | l"></required-field-warning>
                     </div>
                 </div>
             </div> <!-- End Outer row -->
 
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <button class="btn btn-green btn-block" type="button"
-                        (click)="onSave('idInfo', 'addressInfo')">{{ 'saveAndContinue' | l }}</button>
-                </div>
-            </div>
-        </fieldset>
-    </data-panel>
+            <h4 style="font-weight: bold; margin-top: 25px; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid #e5e5e5; color: #333;">
+                {{ 'homeAddress' | l }}
+            </h4>
 
-    <data-panel ngId="addressInfo" [heading]="'homeAddress' | l" color="portlet-blue" collapsed="true">
-        <fieldset [disabled]="formLoading">
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -302,11 +317,11 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <button class="btn btn-green btn-block" type="button"
-                        (click)="onSave('addressInfo', underage ? 'guardianInfo' : 'primarySecondaryEducationInfo')">{{
-                        'saveAndContinue' | l }}</button>
+                        (click)="onSave('idInfo', underage ? 'guardianInfo' : 'educationInfo')">{{ 'saveAndContinue' | l }}</button>
                 </div>
             </div>
         </fieldset>
@@ -439,7 +454,7 @@
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <button class="btn btn-green btn-block" type="button"
-                        (click)="onSave('guardianInfo', 'primarySecondaryEducationInfo')">{{
+                        (click)="onSave('guardianInfo', 'educationInfo')">{{
                         'saveAndContinue' | l }}</button>
                 </div>
             </div>

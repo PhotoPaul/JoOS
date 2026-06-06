@@ -4,40 +4,15 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="studentPackage">{{ 'selectModeOfStudy' | l }}</label><br>
-                        <label for="fullOnCampus" class="radio-inline"><input type="radio"
-                                [(ngModel)]="financialData.application.studentPackage" id="fullOnCampus"
-                                name="studentPackage" value="1" required> {{ 'fullOnCampus' | l }} <a
-                                href="https://www.grbc.gr/program-profile/fees/" target="_new"><i
-                                    class="fas fa-info-circle" aria-hidden="true"></i></a></label>
-                        <label for="fullOffCampus" class="radio-inline"><input type="radio"
-                                [(ngModel)]="financialData.application.studentPackage" id="fullOffCampus"
-                                name="studentPackage" value="2" required> {{ 'fullOffCampus' | l }} <a
-                                href="https://www.grbc.gr/program-profile/fees/" target="_new"><i
-                                    class="fas fa-info-circle" aria-hidden="true"></i></a></label>
-                        <label for="partTime" class="radio-inline"><input type="radio"
-                                [(ngModel)]="financialData.application.studentPackage" id="partTime"
-                                name="studentPackage" value="3" required> {{ 'partTime' | l }} <a
-                                href="https://www.grbc.gr/program-profile/registration/special-cases/"
-                                target="_new"><i class="fas fa-info-circle" aria-hidden="true"></i></a></label>
-                        <required-field-warning
-                            *ngIf="validate && financialData.application.studentPackage === null"
-                            [warningText]="'requiredChoice' | l"></required-field-warning>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
                         <label for="programInterested">{{ 'whichProgramAreYouInterestedIn' | l }}</label><br>
                         <label class="radio-inline">
-                            <input type="radio" [(ngModel)]="financialData.application.programInterested" name="programInterested" value="greek" required> {{ 'greekProgram' | l }}
+                             <input type="radio" [(ngModel)]="financialData.application.programInterested" name="programInterested" value="greek" required> {{ 'greekProgram' | l }}
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" [(ngModel)]="financialData.application.programInterested" name="programInterested" value="isp" required> {{ 'ispProgram' | l }}
+                             <input type="radio" [(ngModel)]="financialData.application.programInterested" name="programInterested" value="isp" required> {{ 'ispProgram' | l }}
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" [(ngModel)]="financialData.application.programInterested" name="programInterested" value="other" required> {{ 'otherProgram' | l }}
+                             <input type="radio" [(ngModel)]="financialData.application.programInterested" name="programInterested" value="other" required> {{ 'otherProgram' | l }}
                         </label>
                         <required-field-warning
                             *ngIf="validate && !financialData.application.programInterested"
@@ -72,7 +47,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="financialApproval">{{ (financialData.application.studentPackage === '1') ? ('financialApproval1' | l) : ('financialApproval2' | l) }}</label><br>
+                        <label for="financialApproval">{{ 'financialApproval2' | l }}</label><br>
                         <label for="financialApproval" class="checkbox-inline"><input type="checkbox"
                                 [(ngModel)]="financialData.application.financialApproval" id="financialApproval"
                                 name="financialApproval" autocomplete="off" required autofocus>&nbsp;{{ 'yes' | l

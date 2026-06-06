@@ -15,6 +15,11 @@ export class EducationFormComponent {
 
     @Output() save = new EventEmitter<{ current: string, next: string }>();
 
+    hasDocument(typeId: number): boolean {
+        if (!this.documentsList) return false;
+        return this.documentsList.some(f => +f.documentTypeId === +typeId);
+    }
+
     onSave(current: string, next: string) {
         this.save.emit({ current, next });
     }

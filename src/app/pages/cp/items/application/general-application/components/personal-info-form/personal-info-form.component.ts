@@ -79,6 +79,11 @@ export class PersonalInfoFormComponent {
         }
     }
 
+    hasDocument(typeId: number): boolean {
+        if (!this.documentsList) return false;
+        return this.documentsList.some(f => +f.documentTypeId === +typeId);
+    }
+
     onSave(current: string, next: string) {
         this.save.emit({ current, next });
     }

@@ -18,6 +18,19 @@ export class ChristianLifeComponent implements OnInit {
 
     constructor(private route: ActivatedRoute, public applicationService: ApplicationService, private router: Router) { }
 
+    sanitizeData() {
+        if (!this.applicationData || !this.applicationData.application) return;
+        const booleanFields = ['statementOfFaithApproval', 'churchMember'];
+        booleanFields.forEach(field => {
+            const val = this.applicationData.application[field];
+            if (val === true || val === '1') {
+                this.applicationData.application[field] = '1';
+            } else {
+                this.applicationData.application[field] = '0';
+            }
+        });
+    }
+
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
             this.userId = +params['userId'] || null;
@@ -25,6 +38,7 @@ export class ChristianLifeComponent implements OnInit {
             .then((applicationData: ApplicationData) => {
                 if (applicationData) {
                     this.applicationData = applicationData;
+                    this.sanitizeData();
                 }
                 this.formLoading = false;
             });
@@ -33,6 +47,7 @@ export class ChristianLifeComponent implements OnInit {
 
     churchMinistryInfoOnSubmit() {
         this.formLoading = true;
+        this.sanitizeData();
         if (this.applicationData.application.churchMember === '0') {
             this.applicationData.application.churchMemberHowLong = null;
         }
@@ -47,6 +62,7 @@ export class ChristianLifeComponent implements OnInit {
 
     testimonyInfoOnSubmit() {
         this.formLoading = true;
+        this.sanitizeData();
         this.applicationService.saveUserApplicationData(this.userId, this.applicationId, this.applicationData)
             .then(() => {
                 this.modelChanged = false;
