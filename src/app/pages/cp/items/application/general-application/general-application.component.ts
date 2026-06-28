@@ -174,18 +174,16 @@ export class GeneralApplicationComponent implements OnInit {
                 applicationData.application.secondarySchoolGraduationYear = null;
                 applicationData.application.secondarySchoolDiscipline = null;
             }
+            applicationData.application.presentationFluency = null;
         } else if (formId === 3) {
             const booleanFields = [
                 'tonsillitis', 'chickenPox', 'bronchialAsthma', 'diphtheria', 'epilepsy',
                 'rubella', 'measles', 'yellowFever', 'meningitis', 'mumps', 'polio', 'cholera',
-                'heartAbnormality', 'otherDiseases', 'vaccineDiphtheria', 'vaccinePertussis',
-                'vaccineTetanus', 'vaccineSmallpox', 'vaccineRubella', 'vaccineMeasles',
-                'vaccineMumps', 'vaccinePolio', 'vaccineCholera', 'otherVaccines',
+                'heartAbnormality', 'otherDiseases',
                 'tuberculosis', 'pneumonia', 'asthma', 'heartDiseases', 'hypertension',
                 'gastricUlcer', 'kidneyDiseases', 'diabetes', 'liverDiseases', 'rheumatism',
                 'anemia', 'cancer', 'physicalDisability', 'gallbladderDiseases',
-                'tetanusVaccine', 'diphtheriaVaccine', 'pertussisVaccine', 'polioVaccine',
-                'measlesVaccine', 'mumpsVaccine', 'rubellaVaccine', 'drugsUse'
+                'drugsUse'
             ];
             booleanFields.forEach(field => {
                 const val = applicationData.application[field];
@@ -198,9 +196,6 @@ export class GeneralApplicationComponent implements OnInit {
 
             if (applicationData.application.otherDiseases === '0') {
                 applicationData.application.otherDiseasesDetails = null;
-            }
-            if (applicationData.application.otherVaccines === '0') {
-                applicationData.application.otherVaccinesDetails = null;
             }
             if (applicationData.application.drugsUse === '0') {
                 applicationData.application.drugsUseDetails = null;
@@ -240,11 +235,11 @@ export class GeneralApplicationComponent implements OnInit {
                 applicationData.application.churchMemberHowLong = null;
             }
         } else if (formId === 6) {
-            if (applicationData.application.selfPaid === '1') {
-                applicationData.application.sponsors = null;
-                applicationData.application.sponsorsTotal = null;
-                applicationData.application.debtApproval = null;
-            }
+            applicationData.application.selfPaid = null;
+            applicationData.application.sponsors = null;
+            applicationData.application.sponsorsTotal = null;
+            applicationData.application.debtApproval = null;
+            applicationData.application.programInterested = 'other';
         }
 
         this.applicationService.saveUserApplicationData(this.userId, formId, applicationData)

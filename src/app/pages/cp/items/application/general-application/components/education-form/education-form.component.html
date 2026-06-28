@@ -324,21 +324,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="presentationFluency">{{ 'presentationFluency' | l }}</label><br>
-                            <label for="presentationFluencyYes" class="radio-inline"><input type="radio"
-                                     [(ngModel)]="educationData.application.presentationFluency" id="presentationFluencyYes"
-                                    name="presentationFluency" value="1" required>&nbsp;{{ 'yes' | l }}</label>
-                            <label for="presentationFluencyNo" class="radio-inline"><input type="radio"
-                                     [(ngModel)]="educationData.application.presentationFluency" id="presentationFluencyNo"
-                                    name="presentationFluency" value="0" required>&nbsp;{{ 'no' | l }}</label>
-                            <required-field-warning *ngIf="validate && educationData.application.presentationFluency === null"
-                                [warningText]="'requiredChoice' | l"></required-field-warning>
-                        </div>
-                    </div>
-                </div>
 
             <!-- Save & Continue button at the bottom of combined section -->
             <div class="row" style="margin-top: 30px;">

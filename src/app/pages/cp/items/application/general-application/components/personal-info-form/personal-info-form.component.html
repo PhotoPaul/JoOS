@@ -253,9 +253,7 @@
                             <div class="form-group">
                                 <label for="irsOffice">{{ 'irsOffice' | l }}</label><br>
                                 <input type="text" [(ngModel)]="personalData.application.irsOffice" id="irsOffice"
-                                    name="irsOffice" class="form-control" autocomplete="off" required>
-                                <required-field-warning
-                                    *ngIf="validate && !personalData.application.irsOffice"></required-field-warning>
+                                    name="irsOffice" class="form-control" autocomplete="off">
                             </div>
                         </div>
                     </div> <!-- End Left Column Inner Rows -->
