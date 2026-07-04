@@ -1,5 +1,5 @@
 <div *ngIf="applicationData">
-    <data-panel ngId="studentPackage" [heading]="'modeOfStudy' | l" color="portlet-blue">
+	<data-panel ngId="studentPackage" [heading]="'modeOfStudy' | l" color="portlet-blue">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
@@ -8,16 +8,17 @@
 					</div>
 				</div>
 			</div>
-        </div>
-    </data-panel>
+		</div>
+	</data-panel>
 
-    <data-panel ngId="depositInfo" heading="Παράβολο Επεξεργασίας Αίτησης Εγγραφής" color="portlet-blue">
+	<data-panel ngId="depositInfo" heading="Παράβολο Επεξεργασίας Αίτησης Εγγραφής" color="portlet-blue">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
-					<label for="deposit30">Για την επεξεργασία της παρούσας αίτησης θα καταβάλλετε το ακόλουθο Παράβολο Επεξεργασίας Αίτησης Εγγραφής</label>
-                    <br>31 = 30€ με κάρτα
-                    <br>30 = 30€ με κατάθεση
+					<label for="deposit30">Για την επεξεργασία της παρούσας αίτησης θα καταβάλετε το ακόλουθο Παράβολο
+						Επεξεργασίας Αίτησης Εγγραφής</label>
+					<br>31 = 30€ με κάρτα
+					<br>30 = 30€ με κατάθεση
 					<div class="form-group">
 						<pre>{{ applicationData.application.deposit }}</pre>
 					</div>
@@ -73,13 +74,14 @@
 				</div>
 			</div>
 		</div>
-    </data-panel>
+	</data-panel>
 
-    <data-panel ngId="financialInfo" heading="Ανάληψη Οικονομικής Ευθύνης" color="portlet-blue">
+	<data-panel ngId="financialInfo" heading="Ανάληψη Οικονομικής Ευθύνης" color="portlet-blue">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
-					<label for="financialApproval">Γνωρίζετε το κόστος των διδάκτρων, τροφείων και διαμονής σας στο Κολέγιο και αναλαμβάνετε την ευθύνη εξόφλησής τους στις προκαθορισμένες ημερομηνίες</label><br>
+					<label for="financialApproval">Γνωρίζετε το κόστος των διδάκτρων, τροφείων και διαμονής σας στο
+						Κολέγιο και αναλαμβάνετε την ευθύνη εξόφλησής τους στις προκαθορισμένες ημερομηνίες</label><br>
 					<pre>{{ applicationData.application.financialApproval }}</pre>
 				</div>
 			</div>
@@ -87,7 +89,8 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
-					<label for="financialApproval">Γνωρίζετε το κόστος των διδάκτρων σας στο Κολέγιο και αναλαμβάνετε την ευθύνη εξόφλησής τους στις προκαθορισμένες ημερομηνίες</label><br>
+					<label for="financialApproval">Γνωρίζετε το κόστος των διδάκτρων σας στο Κολέγιο και αναλαμβάνετε
+						την ευθύνη εξόφλησής τους στις προκαθορισμένες ημερομηνίες</label><br>
 					<pre>{{ applicationData.application.financialApproval }}</pre>
 				</div>
 			</div>
@@ -105,7 +108,8 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
-					<label for="sponsors">Ονοματεπώνυμα των προσώπων που αναλαμβάνουν την ευθύνη να συνεισφέρουν στην κάλυψη του παραπάνω ποσού</label>
+					<label for="sponsors">Ονοματεπώνυμα των προσώπων που αναλαμβάνουν την ευθύνη να συνεισφέρουν στην
+						κάλυψη του παραπάνω ποσού</label>
 					<pre>{{ applicationData.application.sponsors }}</pre>
 				</div>
 			</div>
@@ -124,17 +128,23 @@
 				</div>
 			</div>
 		</div>
-    </data-panel>
+	</data-panel>
 
-    <ng-container>
-        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
-            <action-collection [actionButtons]="decisionButtons" [collectionAjax]="true"></action-collection>
-        </div>
-        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
-            <action-button (click)="admissionService.editApplication(applicationData.accessControl.editPath, this.userId)" color="btn-blue" icon="fa-pencil-alt" [caption]="'edit' | l" [bTooltip]="'editApplication' | l"></action-button>
-        </div>
-        <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
-            <action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
-        </div>
-    </ng-container>
+	<ng-container>
+		<div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)"
+			class="row text-center extraBottomPadding">
+			<action-collection [actionButtons]="decisionButtons" [collectionAjax]="true"></action-collection>
+		</div>
+		<div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)"
+			class="row text-center extraBottomPadding">
+			<action-button
+				(click)="admissionService.editApplication(applicationData.accessControl.editPath, this.userId)"
+				color="btn-blue" icon="fa-pencil-alt" [caption]="'edit' | l"
+				[bTooltip]="'editApplication' | l"></action-button>
+		</div>
+		<div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+			<action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue"
+				[caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+		</div>
+	</ng-container>
 </div>
