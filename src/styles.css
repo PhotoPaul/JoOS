@@ -24,13 +24,13 @@ div.ng-invalid, input.ng-invalid:not([type="radio"]):not([type="checkbox"]), sel
     border-left: 5px solid #e74c3c;
 }
 
-.form-group:has(input[type="radio"][required]) {
+.form-group:has(input[type="radio"][required]), .form-group:has(input[type="checkbox"][required]) {
     border-left: 5px solid transparent;
     padding-left: 10px;
     transition: border-color 0.2s ease;
 }
 
-.form-group:has(input[type="radio"].ng-invalid[required]) {
+.form-group:has(input[type="radio"].ng-invalid[required]), .form-group:has(input[type="checkbox"].ng-invalid[required]) {
     border-left: 5px solid #e74c3c;
 }
 

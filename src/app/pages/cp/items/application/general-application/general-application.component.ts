@@ -55,6 +55,12 @@ export class GeneralApplicationComponent implements OnInit {
                 this.referencesData = references;
                 this.financialData = financial;
 
+                if (this.financialData && this.financialData.application) {
+                    if (this.financialData.application.financialApproval !== true && this.financialData.application.financialApproval !== '1') {
+                        this.financialData.application.financialApproval = false;
+                    }
+                }
+
                 if (documents && documents.application) {
                     this.documentsList = documents.application;
                 }
@@ -257,7 +263,7 @@ export class GeneralApplicationComponent implements OnInit {
 
     checkForm() {
         this.validate = true;
-        
+
         // Find all panels that contain invalid elements
         const panels = [
             'idInfo', 'guardianInfo',
@@ -278,11 +284,18 @@ export class GeneralApplicationComponent implements OnInit {
         });
 
         setTimeout(() => {
-            const firstInvalid = $('input.ng-invalid:visible, select.ng-invalid:visible, textarea.ng-invalid:visible').first();
+            const firstInvalid = $('input.ng-invalid, select.ng-invalid, textarea.ng-invalid').first();
             console.log('First invalid element:', firstInvalid);
             if (firstInvalid.length > 0) {
+                let scrollToEl = firstInvalid;
+                if (firstInvalid.attr('type') === 'hidden' || firstInvalid.is(':hidden')) {
+                    const formGroup = firstInvalid.closest('.form-group');
+                    if (formGroup.length > 0) {
+                        scrollToEl = formGroup;
+                    }
+                }
                 $('html, body').animate({
-                    scrollTop: firstInvalid.offset().top - 100
+                    scrollTop: scrollToEl.offset().top - 100
                 }, 500);
             }
         }, 500);
@@ -301,6 +314,9 @@ export class GeneralApplicationComponent implements OnInit {
         if (this.christianLifeData) activeFormIds.push(4);
         if (this.referencesData) activeFormIds.push(5);
         if (this.financialData) activeFormIds.push(6);
+        if (this.personalData || this.educationData || this.healthData || this.christianLifeData || this.referencesData || this.financialData) {
+            activeFormIds.push(23);
+        }
 
         const submissions = activeFormIds.map(id => this.applicationService.submitUserApplication(this.userId, id));
 

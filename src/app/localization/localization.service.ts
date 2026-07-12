@@ -721,6 +721,8 @@ export class LocalizationService {
             en: 'Drag & drop, click to select, or take a photo'
         },
         confirmFile: { gr: 'Επιβεβαίωση Αρχείου', en: 'Confirm File' },
+        maxFileSizeLimitExceeded: { gr: 'Το αρχείο που επιλέξατε είναι πολύ μεγάλο. Το μέγιστο επιτρεπτό μέγεθος είναι 20 MB.', en: 'The file you selected is too large. The maximum allowed size is 20 MB.' },
+        invalidEmail: { gr: 'Η διεύθυνση Email δεν είναι έγκυρη.', en: 'The Email address is not valid.' },
         highSchoolTranscriptNote: {
             gr: 'Αν δεν μπορείτε να προσκομίσετε το απολυτήριο του Λυκείου, παρακαλούμε ανεβάστε το πτυχίο της επόμενης βαθμίδας, εφόσον είναι διαθέσιμο.',
             en: 'If you are unable to provide your high school diploma, please upload the diploma or degree from the next level of education, if available.'

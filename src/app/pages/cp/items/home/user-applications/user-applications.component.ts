@@ -87,23 +87,23 @@ export class UserApplicationsComponent implements OnInit {
     getStatusText(value): string {
         if (typeof value === 'undefined' || value === null || +value === 0) {
             return this.localization.s('pending');
-        } else if (value === 1) {
+        } else if (+value === 1) {
             return this.localization.s('completed');
-        } else if (value === 2) {
+        } else if (+value === 2) {
             return this.localization.s('underReview');
-        } else { // (value === '3')
+        } else { // (+value === 3)
             return this.localization.s('rejected');
         }
     }
 
     getStatusColor(value): string {
-        if (typeof value === 'undefined' || value === '0') {
+        if (typeof value === 'undefined' || +value === 0) {
             return 'blue';
-        } else if (value === '1') {
+        } else if (+value === 1) {
             return 'green';
-        } else if (value === '2') {
+        } else if (+value === 2) {
             return 'orange';
-        } else { // (value === '3')
+        } else { // (+value === 3)
             return 'red';
         }
     }

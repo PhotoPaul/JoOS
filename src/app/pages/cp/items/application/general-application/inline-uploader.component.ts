@@ -44,6 +44,7 @@ export class InlineUploaderComponent implements OnInit {
     public pendingFileName = '';
     public pendingFileSize = '';
     public isPendingImage = false;
+    public fileSizeError = false;
 
     private rawPreviewUrl: string | null = null;
 
@@ -58,7 +59,7 @@ export class InlineUploaderComponent implements OnInit {
     ngOnInit() {
         this.uploader = new FileUploader({
             url: this.ajax.apiURI,
-            maxFileSize: 20971520, // 20 MB
+            maxFileSize: 209715200, // 200 MB (High limit so file enters preview for custom error display)
             autoUpload: false, // Wait for user confirmation!
             removeAfterUpload: true,
             additionalParameter: {
@@ -71,7 +72,14 @@ export class InlineUploaderComponent implements OnInit {
             const rawFile = fileItem._file;
             this.pendingFileItem = fileItem;
             this.pendingFileName = rawFile.name;
-            this.pendingFileSize = (rawFile.size / 1024 / 1024).toFixed(2) + ' MB';
+            
+            if (rawFile.size > 20971520) { // 20 MB server limit
+                this.pendingFileSize = this.localization.s('maxFileSizeLimitExceeded');
+                this.fileSizeError = true;
+            } else {
+                this.pendingFileSize = (rawFile.size / 1024 / 1024).toFixed(2) + ' MB';
+                this.fileSizeError = false;
+            }
             this.hasPendingFile = true;
 
             // Generate image preview if it's an image
@@ -105,7 +113,12 @@ export class InlineUploaderComponent implements OnInit {
             this.showUploadArea = false;
             
             try {
-                const filename = JSON.parse(response).data;
+                const parsed = JSON.parse(response);
+                if (parsed && parsed.errorReason) {
+                    alert(parsed.errorReason);
+                    return;
+                }
+                const filename = parsed.data;
                 const newFile = {
                     filename: filename,
                     filesize: item.file.size,
@@ -165,6 +178,7 @@ export class InlineUploaderComponent implements OnInit {
         this.pendingFileName = '';
         this.pendingFileSize = '';
         this.isPendingImage = false;
+        this.fileSizeError = false;
         this.changeDetector.detectChanges();
     }
 

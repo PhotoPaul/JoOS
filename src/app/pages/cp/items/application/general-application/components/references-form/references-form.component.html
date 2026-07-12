@@ -37,9 +37,13 @@
                         <label for="firstReferenceEmail">{{ 'email' | l }}</label>
                         <input type="text" [(ngModel)]="referencesData.application[0].email"
                             id="firstReferenceEmail" name="firstReferenceEmail" class="form-control"
-                            autocomplete="off" required>
+                            autocomplete="off" required #firstReferenceEmailInput="ngModel"
+                            pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}">
                         <required-field-warning
                             *ngIf="validate && !referencesData.application[0].email"></required-field-warning>
+                        <required-field-warning
+                            *ngIf="validate && referencesData.application[0].email && firstReferenceEmailInput.errors?.pattern"
+                            [warningText]="'invalidEmail' | l" [noLink]="true"></required-field-warning>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -102,9 +106,13 @@
                         <label for="secondReferenceEmail">{{ 'email' | l }}</label>
                         <input type="text" [(ngModel)]="referencesData.application[1].email"
                             id="secondReferenceEmail" name="secondReferenceEmail" class="form-control"
-                            autocomplete="off" required>
+                            autocomplete="off" required #secondReferenceEmailInput="ngModel"
+                            pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}">
                         <required-field-warning
                             *ngIf="validate && !referencesData.application[1].email"></required-field-warning>
+                        <required-field-warning
+                            *ngIf="validate && referencesData.application[1].email && secondReferenceEmailInput.errors?.pattern"
+                            [warningText]="'invalidEmail' | l" [noLink]="true"></required-field-warning>
                     </div>
                 </div>
                 <div class="col-md-3">
