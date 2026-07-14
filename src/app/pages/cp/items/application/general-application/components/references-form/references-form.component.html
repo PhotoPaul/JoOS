@@ -1,13 +1,8 @@
 <ng-container *ngIf="referencesData">
     <data-panel ngId="recommendationsInfo" [heading]="'recommendationLetters' | l"
-        [color]="'portlet-' + getDecisionColor(referencesData.application[0].referenceId)" collapsed="true">
-        <fieldset [disabled]="formLoading">
-            
-            <div class="alert alert-warning" style="margin-top: 10px; margin-bottom: 20px; font-weight: 500;">
-                <i class="fas fa-exclamation-triangle"></i>&nbsp;{{ 'referencesFamilyWarning' | l }}
-            </div>
-
-            <!-- Category 1: Recommendation Letter 1 -->
+        [color]="'portlet-' + getDecisionColor(referencesData.application[0].referenceId)" [collapsed]="collapsed">
+        <!-- Category 1: Recommendation Letter 1 -->
+        <fieldset [disabled]="formLoading || (referencesData.application[0].referenceId && referencesData.application[0].referenceId !== '0')">
             <h4 style="font-weight: bold; margin-top: 10px; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid #e5e5e5; color: #333;">
                 {{ 'recommendationLetter1' | l }}
             </h4>
@@ -35,14 +30,13 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="firstReferenceEmail">{{ 'email' | l }}</label>
-                        <input type="text" [(ngModel)]="referencesData.application[0].email"
+                        <input type="email" [(ngModel)]="referencesData.application[0].email"
                             id="firstReferenceEmail" name="firstReferenceEmail" class="form-control"
-                            autocomplete="off" required #firstReferenceEmailInput="ngModel"
-                            pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}">
+                            autocomplete="off" required #firstReferenceEmailInput="ngModel" email>
                         <required-field-warning
                             *ngIf="validate && !referencesData.application[0].email"></required-field-warning>
                         <required-field-warning
-                            *ngIf="validate && referencesData.application[0].email && firstReferenceEmailInput.errors?.pattern"
+                            *ngIf="validate && referencesData.application[0].email && firstReferenceEmailInput.invalid"
                             [warningText]="'invalidEmail' | l" [noLink]="true"></required-field-warning>
                     </div>
                 </div>
@@ -75,8 +69,10 @@
                     </div>
                 </div>
             </div>
+        </fieldset>
 
-            <!-- Category 2: Recommendation Letter 2 -->
+        <!-- Category 2: Recommendation Letter 2 -->
+        <fieldset [disabled]="formLoading || (referencesData.application[1].referenceId && referencesData.application[1].referenceId !== '0')">
             <h4 style="font-weight: bold; margin-top: 25px; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid #e5e5e5; color: #333;">
                 {{ 'recommendationLetter2' | l }}
             </h4>
@@ -104,14 +100,13 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="secondReferenceEmail">{{ 'email' | l }}</label>
-                        <input type="text" [(ngModel)]="referencesData.application[1].email"
+                        <input type="email" [(ngModel)]="referencesData.application[1].email"
                             id="secondReferenceEmail" name="secondReferenceEmail" class="form-control"
-                            autocomplete="off" required #secondReferenceEmailInput="ngModel"
-                            pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}">
+                            autocomplete="off" required #secondReferenceEmailInput="ngModel" email>
                         <required-field-warning
                             *ngIf="validate && !referencesData.application[1].email"></required-field-warning>
                         <required-field-warning
-                            *ngIf="validate && referencesData.application[1].email && secondReferenceEmailInput.errors?.pattern"
+                            *ngIf="validate && referencesData.application[1].email && secondReferenceEmailInput.invalid"
                             [warningText]="'invalidEmail' | l" [noLink]="true"></required-field-warning>
                     </div>
                 </div>
@@ -144,16 +139,15 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Save & Continue button at the bottom of combined section -->
-            <div class="row" style="margin-top: 30px;">
-                <div class="col-md-4 col-md-offset-4">
-                    <button class="btn btn-green btn-block" type="button"
-                        (click)="onSave('recommendationsInfo', 'studentPackage')">{{
-                        'saveAndContinue' | l }}</button>
-                </div>
-            </div>
-            
         </fieldset>
+
+        <!-- Save & Continue button at the bottom of combined section -->
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-md-4 col-md-offset-4">
+                <button class="btn btn-green btn-block" type="button"
+                    (click)="onSave('recommendationsInfo', 'studentPackage')">{{
+                    'saveAndContinue' | l }}</button>
+            </div>
+        </div>
     </data-panel>
 </ng-container>

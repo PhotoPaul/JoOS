@@ -14,14 +14,12 @@
             <thead>
             <tr>
                 <th style="width: 100%">{{ 'title' | l }}</th>
-                <th class="text-center">{{ 'semesters' | l }}</th>
                 <th class="text-center">{{ 'actions' | l }}</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let program of programs">
                 <td>{{ 'program_name' | l:program }}</td>
-                <td class="text-center">{{ program.number_of_semesters }}</td>
                 <td class="text-center text-nowrap">
                     <action-button (click)="startApplication(program.id)" [color]="'btn-blue'" [icon]="'fa-pencil-alt'" [bTooltip]="'startApplication' | l"></action-button>
                     <action-button *ngIf="program.canAudit === '1'" (click)="startApplication(program.id, true)" [color]="'btn-blue'" [icon]="'fa-headphones'" [bTooltip]="'startAuditorApplication' | l"></action-button>

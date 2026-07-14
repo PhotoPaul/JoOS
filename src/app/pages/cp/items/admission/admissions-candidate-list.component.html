@@ -39,7 +39,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let application of candidate.applications">
+                    <tr *ngFor="let application of getProcessedApplications(candidate)">
                         <ng-container *ngIf="admissionService.hasAccess(application.viewRoles)">
                             <td>
                                 <span><i class="fas {{ application.icon }} fa-fw"></i>&nbsp;{{ 'heading' | l:application }}</span><br>

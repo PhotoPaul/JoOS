@@ -25,6 +25,8 @@ import { CompleteISPHealthComponent } from './isp/health/complete-health.compone
 import { CompleteISPPersonalComponent } from './isp/personal/complete-personal.component';
 import { CompleteISPReferencesComponent } from './isp/references/complete-references.component';
 import { CompleteSupportingDocumentsComponent } from './supporting-documents/complete-supporting-documents.component';
+import { CompleteGeneralApplicationComponent } from './general-application/complete-general-application.component';
+import { CompleteGeneralReferencesComponent } from './general-application/complete-general-references/complete-general-references.component';
 
 @NgModule({
     imports: [
@@ -55,7 +57,9 @@ import { CompleteSupportingDocumentsComponent } from './supporting-documents/com
         CompleteISPApplicantClassificationComponent,
         // Common Components
         CompleteSupportingDocumentsComponent,
-        CompleteISPApplicationFeeComponent
+        CompleteISPApplicationFeeComponent,
+        CompleteGeneralApplicationComponent,
+        CompleteGeneralReferencesComponent
     ]
 })
 export class AdmissionModule { }

@@ -33,9 +33,16 @@ export class UserApplicationsComponent implements OnInit {
             return [];
         }
 
-        // Find if there are any Greek application forms (IDs 1 to 6)
+        const hasGeneralApp = this.applications.some(app => +app.applicationId === 23);
+
+        if (hasGeneralApp) {
+            // Filter out 12 (Supporting Documents) because it is filled inline inside General Application (23)
+            return this.applications.filter(app => +app.applicationId !== 12);
+        }
+
+        // Find if there are any Greek application forms (IDs 1 to 6 and 12, EXCEPT 5 references!)
         const greekForms = this.applications.filter(app =>
-            [1, 2, 3, 4, 5, 6].indexOf(+app.applicationId) !== -1
+            [1, 2, 3, 4, 6, 12].indexOf(+app.applicationId) !== -1
         );
 
         if (greekForms.length === 0) {
@@ -44,7 +51,7 @@ export class UserApplicationsComponent implements OnInit {
 
         // Filter out the individual Greek forms
         const nonGreekForms = this.applications.filter(app =>
-            [1, 2, 3, 4, 5, 6].indexOf(+app.applicationId) === -1
+            [1, 2, 3, 4, 6, 12].indexOf(+app.applicationId) === -1
         );
 
         // Determine the consolidated status of the General Application

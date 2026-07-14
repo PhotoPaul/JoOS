@@ -704,6 +704,7 @@ export class LocalizationService {
         uploadPassport: { gr: 'Μεταφόρτωση Διαβατηρίου', en: 'Upload Passport Scan' },
         uploadResidencePermit: { gr: 'Μεταφόρτωση Άδειας Διαμονής', en: 'Upload EU Residence Permit' },
         uploadAnotherFile: { gr: 'Προσθήκη κι άλλου αρχείου', en: 'Upload another file' },
+        notUploaded: { gr: 'Μη μεταφορτωμένο', en: 'Not Uploaded' },
         highSchoolTranscriptLabel: { gr: 'Απολυτήριο Λυκείου', en: 'High School Transcript' },
         uploadHighSchoolTranscript: { gr: 'Μεταφόρτωση Απολυτηρίου', en: 'Upload Transcript' },
         actScoresLabel: { gr: 'Βαθμολογία ACT', en: 'ACT Scores' },

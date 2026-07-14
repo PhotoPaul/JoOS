@@ -12,7 +12,7 @@
                     <input type="text" [(ngModel)]="userAddModel.lastName" id="lastName" name="lastName" class="form-control" [placeholder]="'lastName' | l" autocomplete="off" required>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" [(ngModel)]="userAddModel.email" id="email" name="email" class="form-control" placeholder="Email" autocomplete="off" required pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}">
+                    <input type="email" [(ngModel)]="userAddModel.email" id="email" name="email" class="form-control" placeholder="Email" autocomplete="off" required email>
                 </div>
                 <div class="col-md-2">
                     <select id="roleName" name="roleName" class="form-control" required [(ngModel)]="userAddModel.roleName">

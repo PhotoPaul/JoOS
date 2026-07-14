@@ -38,22 +38,18 @@ export class GeneralApplicationComponent implements OnInit {
         this.route.queryParams.subscribe(params => {
             this.userId = +params['userId'] || null;
 
-            // Concurrently load all Greek application forms and supporting documents
+            // Concurrently load the General Application form, References, and Supporting Documents
             Promise.all([
-                this.applicationService.getUserApplicationData(this.userId, 1).catch(() => null), // Personal
-                this.applicationService.getUserApplicationData(this.userId, 2).catch(() => null), // Education
-                this.applicationService.getUserApplicationData(this.userId, 3).catch(() => null), // Health
-                this.applicationService.getUserApplicationData(this.userId, 4).catch(() => null), // Christian Life
+                this.applicationService.getUserApplicationData(this.userId, 23).catch(() => null), // General Application
                 this.applicationService.getUserApplicationData(this.userId, 5).catch(() => null), // References
-                this.applicationService.getUserApplicationData(this.userId, 6).catch(() => null), // Financial
                 this.applicationService.getUserApplicationData(this.userId, 12).catch(() => null) // Supporting Documents
-            ]).then(([personal, education, health, christianLife, references, financial, documents]: any[]) => {
-                this.personalData = personal;
-                this.educationData = education;
-                this.healthData = health;
-                this.christianLifeData = christianLife;
+            ]).then(([general, references, documents]: any[]) => {
+                this.personalData = general;
+                this.educationData = general;
+                this.healthData = general;
+                this.christianLifeData = general;
                 this.referencesData = references;
-                this.financialData = financial;
+                this.financialData = general;
 
                 if (this.financialData && this.financialData.application) {
                     if (this.financialData.application.financialApproval !== true && this.financialData.application.financialApproval !== '1') {
@@ -65,11 +61,11 @@ export class GeneralApplicationComponent implements OnInit {
                     this.documentsList = documents.application;
                 }
 
-                if (this.personalData) {
+                if (this.personalData && this.personalData.application) {
                     this.updateUnderage(this.personalData.application.birthDate);
                 }
 
-                if (this.financialData && this.financialData.application.deposit === '31') {
+                if (this.financialData && this.financialData.application && this.financialData.application.deposit === '31') {
                     this.createOrder();
                 }
 
@@ -152,35 +148,38 @@ export class GeneralApplicationComponent implements OnInit {
     saveSection(currentPanel: string, nextPanel: string, formId: number, applicationData: any) {
         this.formLoading = true;
 
+        // Clone applicationData to avoid mutating the in-memory Angular model
+        const payload = JSON.parse(JSON.stringify(applicationData));
+
         // Perform standard conditional fields sanitization before saving
         if (formId === 1) {
-            this.updateUnderage(applicationData.application.birthDate);
-            if (applicationData.application.greekCitizen === '1') {
-                applicationData.application.citizenship = null;
-                applicationData.application.euCitizen = null;
-                applicationData.application.passportNumber = null;
-                applicationData.application.residencePermit = null;
+            this.updateUnderage(payload.application.birthDate);
+            if (payload.application.greekCitizen === '1') {
+                payload.application.citizenship = null;
+                payload.application.euCitizen = null;
+                payload.application.passportNumber = null;
+                payload.application.residencePermit = null;
             } else {
-                applicationData.application.greekIdNumber = null;
-                if (applicationData.application.euCitizen === '1') {
-                    applicationData.application.residencePermit = null;
+                payload.application.greekIdNumber = null;
+                if (payload.application.euCitizen === '1') {
+                    payload.application.residencePermit = null;
                 }
             }
-            applicationData.application.familySpouseFirstName = null;
-            applicationData.application.familySpouseLastName = null;
-            applicationData.application.familyKids = null;
-            applicationData.application.familyKidsNamesAges = null;
+            payload.application.familySpouseFirstName = null;
+            payload.application.familySpouseLastName = null;
+            payload.application.familyKids = null;
+            payload.application.familyKidsNamesAges = null;
         } else if (formId === 2) {
-            applicationData.application.elementaryName = null;
-            applicationData.application.elementaryGraduationYear = null;
-            applicationData.application.middleSchoolName = null;
-            applicationData.application.middleSchoolGraduationYear = null;
-            if (applicationData.application.secondarySchoolGraduate === '0' || applicationData.application.secondarySchoolGraduate === 0 || !applicationData.application.secondarySchoolGraduate) {
-                applicationData.application.secondarySchoolName = null;
-                applicationData.application.secondarySchoolGraduationYear = null;
-                applicationData.application.secondarySchoolDiscipline = null;
+            payload.application.elementaryName = null;
+            payload.application.elementaryGraduationYear = null;
+            payload.application.middleSchoolName = null;
+            payload.application.middleSchoolGraduationYear = null;
+            if (payload.application.secondarySchoolGraduate === '0' || payload.application.secondarySchoolGraduate === 0 || !payload.application.secondarySchoolGraduate) {
+                payload.application.secondarySchoolName = null;
+                payload.application.secondarySchoolGraduationYear = null;
+                payload.application.secondarySchoolDiscipline = null;
             }
-            applicationData.application.presentationFluency = null;
+            payload.application.presentationFluency = null;
         } else if (formId === 3) {
             const booleanFields = [
                 'tonsillitis', 'chickenPox', 'bronchialAsthma', 'diphtheria', 'epilepsy',
@@ -192,63 +191,64 @@ export class GeneralApplicationComponent implements OnInit {
                 'drugsUse'
             ];
             booleanFields.forEach(field => {
-                const val = applicationData.application[field];
+                const val = payload.application[field];
                 if (val === true || val === '1') {
-                    applicationData.application[field] = '1';
+                    payload.application[field] = '1';
                 } else {
-                    applicationData.application[field] = '0';
+                    payload.application[field] = '0';
                 }
             });
 
-            if (applicationData.application.otherDiseases === '0') {
-                applicationData.application.otherDiseasesDetails = null;
+            if (payload.application.otherDiseases === '0') {
+                payload.application.otherDiseasesDetails = null;
             }
-            if (applicationData.application.drugsUse === '0') {
-                applicationData.application.drugsUseDetails = null;
+            if (payload.application.drugsUse === '0') {
+                payload.application.drugsUseDetails = null;
             }
-            if (applicationData.application.currentDiseases === '0') {
-                applicationData.application.currentDiseasesDetails = null;
+            if (payload.application.currentDiseases === '0') {
+                payload.application.currentDiseasesDetails = null;
             }
-            if (applicationData.application.currentSymptoms === '0') {
-                applicationData.application.currentSymptomsDetails = null;
+            if (payload.application.currentSymptoms === '0') {
+                payload.application.currentSymptomsDetails = null;
             }
-            if (applicationData.application.currentMedicines === '0') {
-                applicationData.application.currentMedicinesDetails = null;
+            if (payload.application.currentMedicines === '0') {
+                payload.application.currentMedicinesDetails = null;
             }
-            if (applicationData.application.foodAllergy === '0') {
-                applicationData.application.foodAllergyDetails = null;
+            if (payload.application.foodAllergy === '0') {
+                payload.application.foodAllergyDetails = null;
             }
-            applicationData.application.doctor = '0';
-            applicationData.application.doctorFirstName = null;
-            applicationData.application.doctorLastName = null;
-            applicationData.application.doctorPhone = null;
-            applicationData.application.doctorAddress = null;
-            applicationData.application.doctorCity = null;
-            applicationData.application.doctorZipCode = null;
-            applicationData.application.doctorCountry = null;
-            applicationData.application.doctorContactApproval = null;
+            payload.application.doctor = '0';
+            payload.application.doctorFirstName = null;
+            payload.application.doctorLastName = null;
+            payload.application.doctorPhone = null;
+            payload.application.doctorAddress = null;
+            payload.application.doctorCity = null;
+            payload.application.doctorZipCode = null;
+            payload.application.doctorCountry = null;
+            payload.application.doctorContactApproval = null;
         } else if (formId === 4) {
             const booleanFields = ['statementOfFaithApproval', 'churchMember'];
             booleanFields.forEach(field => {
-                const val = applicationData.application[field];
+                const val = payload.application[field];
                 if (val === true || val === '1') {
-                    applicationData.application[field] = '1';
+                    payload.application[field] = '1';
                 } else {
-                    applicationData.application[field] = '0';
+                    payload.application[field] = '0';
                 }
             });
-            if (applicationData.application.churchMember === '0') {
-                applicationData.application.churchMemberHowLong = null;
+            if (payload.application.churchMember === '0') {
+                payload.application.churchMemberHowLong = null;
             }
         } else if (formId === 6) {
-            applicationData.application.selfPaid = null;
-            applicationData.application.sponsors = null;
-            applicationData.application.sponsorsTotal = null;
-            applicationData.application.debtApproval = null;
-            applicationData.application.programInterested = 'other';
+            payload.application.selfPaid = null;
+            payload.application.sponsors = null;
+            payload.application.sponsorsTotal = null;
+            payload.application.debtApproval = null;
+            payload.application.programInterested = 'other';
         }
 
-        this.applicationService.saveUserApplicationData(this.userId, formId, applicationData)
+        const targetFormId = (formId === 5) ? 5 : 23;
+        this.applicationService.saveUserApplicationData(this.userId, targetFormId, payload)
             .then(() => {
                 this.modelChanged = false;
                 if (currentPanel) {
@@ -308,15 +308,8 @@ export class GeneralApplicationComponent implements OnInit {
     submitForm() {
         this.formLoading = true;
         const activeFormIds = [];
-        if (this.personalData) activeFormIds.push(1);
-        if (this.educationData) activeFormIds.push(2);
-        if (this.healthData) activeFormIds.push(3);
-        if (this.christianLifeData) activeFormIds.push(4);
         if (this.referencesData) activeFormIds.push(5);
-        if (this.financialData) activeFormIds.push(6);
-        if (this.personalData || this.educationData || this.healthData || this.christianLifeData || this.referencesData || this.financialData) {
-            activeFormIds.push(23);
-        }
+        activeFormIds.push(23);
 
         const submissions = activeFormIds.map(id => this.applicationService.submitUserApplication(this.userId, id));
 

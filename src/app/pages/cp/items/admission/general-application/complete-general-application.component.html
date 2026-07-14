@@ -1,0 +1,677 @@
+<div *ngIf="applicationData && applicationData.application">
+    
+    <!-- 1. Personal Information & Home Address -->
+    <data-panel ngId="idInfo" [heading]="'identityInformation' | l" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'firstName' | l }}</label>
+                    <pre>{{ applicationData.application.firstName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'lastName' | l }}</label>
+                    <pre>{{ applicationData.application.lastName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'sex' | l }}</label>
+                    <pre>{{ applicationData.application.sex | l }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'birthDate' | l }}</label>
+                    <pre>{{ applicationData.application.birthDate }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'birthPlace' | l }}</label>
+                    <pre>{{ applicationData.application.birthPlace }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'fatherName' | l }}</label>
+                    <pre>{{ applicationData.application.fatherName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'motherName' | l }}</label>
+                    <pre>{{ applicationData.application.motherName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'email' | l }}</label>
+                    <pre>{{ applicationData.application.email }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'phone' | l }}</label>
+                    <pre>{{ applicationData.application.phone }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'occupationLabel' | l }}</label>
+                    <pre>{{ applicationData.application.occupation }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'greekCitizen' | l }}</label>
+                    <pre>{{ boolToString(applicationData.application.greekCitizen) }}</pre>
+                </div>
+            </div>
+            <!-- Passport Photo -->
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'passportPhotoLabel' | l }}</label><br>
+                    <div *ngFor="let doc of getDocuments(5)">
+                        <a [href]="fs.getFileURI(doc.filename)" target="_blank" style="text-decoration: underline; font-weight: bold;">
+                            <i class="fas fa-image"></i> {{ doc.original_filename }}
+                        </a>
+                    </div>
+                    <span *ngIf="getDocuments(5).length === 0" class="text-danger" style="font-weight: bold;">{{ 'notUploaded' | l }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conditional: Greek ID/SSN Details -->
+        <div class="row" *ngIf="applicationData.application.greekCitizen == 1 || applicationData.application.greekCitizen === null || applicationData.application.greekCitizen === undefined">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'greekIdNumber' | l }}</label>
+                    <pre>{{ applicationData.application.greekIdNumber }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'greekSsn' | l }}</label>
+                    <pre>{{ applicationData.application.greekSsn }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'irsOffice' | l }}</label>
+                    <pre>{{ applicationData.application.irsOffice }}</pre>
+                </div>
+            </div>
+            <!-- ID Card -->
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'uploadIdCard' | l }}</label><br>
+                    <div *ngFor="let doc of getDocuments(1)">
+                        <a [href]="fs.getFileURI(doc.filename)" target="_blank" style="text-decoration: underline; font-weight: bold;">
+                            <i class="fas fa-file-pdf"></i> {{ doc.original_filename }}
+                        </a>
+                    </div>
+                    <span *ngIf="getDocuments(1).length === 0" class="text-danger" style="font-weight: bold;">{{ 'notUploaded' | l }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conditional: Non-Greek Details -->
+        <div class="row" *ngIf="applicationData.application.greekCitizen == 0 || applicationData.application.greekCitizen === null || applicationData.application.greekCitizen === undefined">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'citizenship' | l }}</label>
+                    <pre>{{ applicationData.application.citizenship }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'euCitizen' | l }}</label>
+                    <pre>{{ boolToString(applicationData.application.euCitizen) }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3" *ngIf="applicationData.application.euCitizen == 1 || applicationData.application.euCitizen === null || applicationData.application.euCitizen === undefined">
+                <div class="form-group">
+                    <label>{{ 'passportNumber' | l }}</label>
+                    <pre>{{ applicationData.application.passportNumber }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3" *ngIf="applicationData.application.euCitizen == 0 || applicationData.application.euCitizen === null || applicationData.application.euCitizen === undefined">
+                <div class="form-group">
+                    <label>{{ 'residencePermit' | l }}</label>
+                    <pre>{{ boolToString(applicationData.application.residencePermit) }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="applicationData.application.greekCitizen == 0 || applicationData.application.greekCitizen === null || applicationData.application.greekCitizen === undefined">
+            <!-- Passport File -->
+            <div class="col-md-6" *ngIf="applicationData.application.euCitizen == 1 || applicationData.application.euCitizen === null || applicationData.application.euCitizen === undefined">
+                <div class="form-group">
+                    <label>{{ 'uploadPassport' | l }}</label><br>
+                    <div *ngFor="let doc of getDocuments(2)">
+                        <a [href]="fs.getFileURI(doc.filename)" target="_blank" style="text-decoration: underline; font-weight: bold;">
+                            <i class="fas fa-file-pdf"></i> {{ doc.original_filename }}
+                        </a>
+                    </div>
+                    <span *ngIf="getDocuments(2).length === 0" class="text-danger" style="font-weight: bold;">{{ 'notUploaded' | l }}</span>
+                </div>
+            </div>
+            <!-- Residence Permit File -->
+            <div class="col-md-6" *ngIf="applicationData.application.euCitizen == 0 || applicationData.application.euCitizen === null || applicationData.application.euCitizen === undefined">
+                <div class="form-group">
+                    <label>{{ 'uploadResidencePermit' | l }}</label><br>
+                    <div *ngFor="let doc of getDocuments(3)">
+                        <a [href]="fs.getFileURI(doc.filename)" target="_blank" style="text-decoration: underline; font-weight: bold;">
+                            <i class="fas fa-file-pdf"></i> {{ doc.original_filename }}
+                        </a>
+                    </div>
+                    <span *ngIf="getDocuments(3).length === 0" class="text-danger" style="font-weight: bold;">{{ 'notUploaded' | l }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Family Status & Spouse Details -->
+        <div class="row" style="margin-top: 15px;">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'familyStatus' | l }}</label>
+                    <pre>{{ applicationData.application.familyStatus | l }}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Address Separator -->
+        <h4 style="font-weight: bold; margin-top: 25px; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid #e5e5e5; color: #333;">
+            {{ 'homeAddress' | l }}
+        </h4>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'address' | l }}</label>
+                    <pre>{{ applicationData.application.address }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'city' | l }}</label>
+                    <pre>{{ applicationData.application.city }}</pre>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>{{ 'zipCode' | l }}</label>
+                    <pre>{{ applicationData.application.zipCode }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'country' | l }}</label>
+                    <pre>{{ applicationData.application.country }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <!-- Conditional: Guardian Information for Underage Candidates -->
+    <data-panel ngId="guardianInfo" *ngIf="underage || applicationData.application.guardianFirstName" [heading]="'guardianInformation' | l" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'guardianFirstName' | l }}</label>
+                    <pre>{{ applicationData.application.guardianFirstName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'guardianLastName' | l }}</label>
+                    <pre>{{ applicationData.application.guardianLastName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'guardianOccupation' | l }}</label>
+                    <pre>{{ applicationData.application.guardianOccupation }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'guardianEmail' | l }}</label>
+                    <pre>{{ applicationData.application.guardianEmail }}</pre>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'guardianPhone' | l }}</label>
+                    <pre>{{ applicationData.application.guardianPhone }}</pre>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'guardianAddressSame' | l }}</label>
+                    <pre>{{ boolToString(applicationData.application.guardianAddressSame) }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="applicationData.application.guardianAddressSame == 0 || applicationData.application.guardianAddressSame === null || applicationData.application.guardianAddressSame === undefined">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'address' | l }}</label>
+                    <pre>{{ applicationData.application.guardianAddress }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'city' | l }}</label>
+                    <pre>{{ applicationData.application.guardianCity }}</pre>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>{{ 'zipCode' | l }}</label>
+                    <pre>{{ applicationData.application.guardianZipCode }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'country' | l }}</label>
+                    <pre>{{ applicationData.application.guardianCountry }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'guardianOpinion' | l }}</label>
+                    <pre>{{ applicationData.application.guardianOpinion }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <!-- 2. Education -->
+    <data-panel ngId="educationInfo" [heading]="'education' | l" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'secondarySchoolGraduateLabel' | l }}</label>
+                    <pre>{{ boolToString(applicationData.application.secondarySchoolGraduate) }}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conditional: Secondary School Info -->
+        <div class="row" *ngIf="applicationData.application.secondarySchoolGraduate == 1 || applicationData.application.secondarySchoolGraduate === null || applicationData.application.secondarySchoolGraduate === undefined">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'highSchool' | l }}</label>
+                    <pre>{{ applicationData.application.secondarySchoolName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'graduationYear' | l }}</label>
+                    <pre>{{ applicationData.application.secondarySchoolGraduationYear }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'discipline' | l }}</label>
+                    <pre>{{ applicationData.application.secondarySchoolDiscipline }}</pre>
+                </div>
+            </div>
+            <!-- High School Transcript -->
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'highSchoolTranscriptLabel' | l }}</label><br>
+                    <div *ngFor="let doc of getDocuments(4)">
+                        <a [href]="fs.getFileURI(doc.filename)" target="_blank" style="text-decoration: underline; font-weight: bold;">
+                            <i class="fas fa-file-pdf"></i> {{ doc.original_filename }}
+                        </a>
+                    </div>
+                    <span *ngIf="getDocuments(4).length === 0" class="text-danger" style="font-weight: bold;">{{ 'notUploaded' | l }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACT/SAT Scores -->
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'actScoresLabel' | l }}</label><br>
+                    <div *ngFor="let doc of getDocuments(7)">
+                        <a [href]="fs.getFileURI(doc.filename)" target="_blank" style="text-decoration: underline; font-weight: bold;">
+                            <i class="fas fa-file-pdf"></i> {{ doc.original_filename }}
+                        </a>
+                    </div>
+                    <span *ngIf="getDocuments(7).length === 0" class="text-danger" style="font-weight: bold;">{{ 'notUploaded' | l }}</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'satScoresLabel' | l }}</label><br>
+                    <div *ngFor="let doc of getDocuments(8)">
+                        <a [href]="fs.getFileURI(doc.filename)" target="_blank" style="text-decoration: underline; font-weight: bold;">
+                            <i class="fas fa-file-pdf"></i> {{ doc.original_filename }}
+                        </a>
+                    </div>
+                    <span *ngIf="getDocuments(8).length === 0" class="text-danger" style="font-weight: bold;">{{ 'notUploaded' | l }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conditional Higher Ed: Community College -->
+        <div class="row" *ngIf="applicationData.application.communityCollegeName || applicationData.application.secondarySchoolGraduate === null || applicationData.application.secondarySchoolGraduate === undefined" style="border-top: 1px dashed #e5e5e5; padding-top: 15px; margin-top: 10px;">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'postSecondaryStudies' | l }}</label>
+                    <pre>{{ applicationData.application.communityCollegeName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'graduationYear' | l }}</label>
+                    <pre>{{ applicationData.application.communityCollegeGraduationYear }}</pre>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'discipline' | l }}</label>
+                    <pre>{{ applicationData.application.communityCollegeDiscipline }}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conditional Higher Ed: College -->
+        <div class="row" *ngIf="applicationData.application.collegeName || applicationData.application.secondarySchoolGraduate === null || applicationData.application.secondarySchoolGraduate === undefined" style="border-top: 1px dashed #e5e5e5; padding-top: 15px; margin-top: 10px;">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'universityCollege' | l }}</label>
+                    <pre>{{ applicationData.application.collegeName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'graduationYear' | l }}</label>
+                    <pre>{{ applicationData.application.collegeGraduationYear }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'discipline' | l }}</label>
+                    <pre>{{ applicationData.application.collegeDiscipline }}</pre>
+                </div>
+            </div>
+            <!-- University Degree -->
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'universityCollegeDegree' | l }}</label><br>
+                    <div *ngFor="let doc of getDocuments(5)">
+                        <!-- Display as PDF/Doc icon or image -->
+                        <a [href]="fs.getFileURI(doc.filename)" target="_blank" style="text-decoration: underline; font-weight: bold;">
+                            <i class="fas fa-file-pdf"></i> {{ doc.original_filename }}
+                        </a>
+                    </div>
+                    <span *ngIf="getDocuments(5).length === 0" class="text-danger" style="font-weight: bold;">{{ 'notUploaded' | l }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+            <!-- University Transcript -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'universityCollegeTranscript' | l }}</label><br>
+                    <div *ngFor="let doc of getDocuments(6)">
+                        <a [href]="fs.getFileURI(doc.filename)" target="_blank" style="text-decoration: underline; font-weight: bold;">
+                            <i class="fas fa-file-pdf"></i> {{ doc.original_filename }}
+                        </a>
+                    </div>
+                    <span *ngIf="getDocuments(6).length === 0" class="text-danger" style="font-weight: bold;">{{ 'notUploaded' | l }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conditional Higher Ed: Graduate School -->
+        <div class="row" *ngIf="applicationData.application.graduateSchoolName || applicationData.application.secondarySchoolGraduate === null || applicationData.application.secondarySchoolGraduate === undefined" style="border-top: 1px dashed #e5e5e5; padding-top: 15px; margin-top: 10px;">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'postgraduateStudies' | l }}</label>
+                    <pre>{{ applicationData.application.graduateSchoolName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'graduationYear' | l }}</label>
+                    <pre>{{ applicationData.application.graduateSchoolGraduationYear }}</pre>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'discipline' | l }}</label>
+                    <pre>{{ applicationData.application.graduateSchoolDiscipline }}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Languages -->
+        <h4 style="font-weight: bold; margin-top: 25px; margin-bottom: 15px; color: #333;">{{ 'languages' | l }}</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'greekKnowledgeLevel' | l }}</label>
+                    <pre>{{ getLanguageLevelKey(applicationData.application.greek) | l }}</pre>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'englishKnowledgeLevel' | l }}</label>
+                    <pre>{{ getLanguageLevelKey(applicationData.application.english) | l }}</pre>
+                </div>
+            </div>
+        </div>
+        <!-- Foreign language certifications inline link -->
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'uploadForeignLanguageCertifications' | l }}</label><br>
+                    <div *ngFor="let doc of getDocuments(9)">
+                        <a [href]="fs.getFileURI(doc.filename)" target="_blank" style="text-decoration: underline; font-weight: bold;">
+                            <i class="fas fa-file-pdf"></i> {{ doc.original_filename }}
+                        </a>
+                    </div>
+                    <span *ngIf="getDocuments(9).length === 0" class="text-danger" style="font-weight: bold;">{{ 'notUploaded' | l }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conditional: Computer Use details -->
+        <h4 style="font-weight: bold; margin-top: 25px; margin-bottom: 15px; color: #333;">{{ 'computerUseSection' | l }}</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'computerFluency' | l }}</label>
+                    <pre>{{ boolToString(applicationData.application.computerFluency) }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="applicationData.application.computerFluency == 1 || applicationData.application.computerFluency === null || applicationData.application.computerFluency === undefined">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'computerAccess' | l }}</label>
+                    <pre>{{ boolToString(applicationData.application.computerAccess) }}</pre>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'internetAccess' | l }}</label>
+                    <pre>{{ boolToString(applicationData.application.internetAccess) }}</pre>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'wordProcessingFluency' | l }}</label>
+                    <pre>{{ boolToString(applicationData.application.wordProcessingFluency) }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <!-- 3. Educational Needs, Accessibility & Health Status -->
+    <data-panel ngId="healthAccessibilityInfo" [heading]="'currentHealthStatus' | l" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'learningDifficultiesQuestion' | l }}</label>
+                    <pre>{{ applicationData.application.learningDifficulties }}</pre>
+                </div>
+            </div>
+        </div>
+        <!-- Diagnostic diagnosis inline file attachment -->
+        <div class="row" style="margin-bottom: 15px;">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'learningDifficultiesUpload' | l }}</label><br>
+                    <div *ngFor="let doc of getDocuments(10)">
+                        <a [href]="fs.getFileURI(doc.filename)" target="_blank" style="text-decoration: underline; font-weight: bold;">
+                            <i class="fas fa-file-pdf"></i> {{ doc.original_filename }}
+                        </a>
+                    </div>
+                    <span *ngIf="getDocuments(10).length === 0" class="text-danger" style="font-weight: bold;">{{ 'notUploaded' | l }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'healthAccessibilityQuestion' | l }}</label>
+                    <pre>{{ applicationData.application.healthAccessibilityCircumstances }}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emergency Contact -->
+        <h4 style="font-weight: bold; margin-top: 25px; margin-bottom: 15px; color: #333;">{{ 'emergencyContact' | l }}</h4>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'contactFirstName' | l }}</label>
+                    <pre>{{ applicationData.application.firstEmergencyContactFirstName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'contactLastName' | l }}</label>
+                    <pre>{{ applicationData.application.firstEmergencyContactLastName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'contactPhone' | l }}</label>
+                    <pre>{{ applicationData.application.firstEmergencyContactPhone }}</pre>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ 'relationship' | l }}</label>
+                    <pre>{{ applicationData.application.firstEmergencyContactRelationship }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <!-- 4. Spiritual Journey / Christian Life -->
+    <data-panel ngId="christianLifeInfo" [heading]="'statementOfFaithSpiritualJourney' | l" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'personalStatement' | l }}</label>
+                    <pre style="white-space: pre-wrap;">{{ applicationData.application.personalStatement }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'statementOfFaithApprovalText1' | l }}</label>
+                    <pre>{{ boolToString(applicationData.application.statementOfFaithApproval) }}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Church & Ministry -->
+        <h4 style="font-weight: bold; margin-top: 25px; margin-bottom: 15px; color: #333;">{{ 'churchMinistry' | l }}</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'churchName' | l }}</label>
+                    <pre>{{ applicationData.application.churchName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'pastorName' | l }}</label>
+                    <pre>{{ applicationData.application.pastorName }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'ministryInvolvement' | l }}</label>
+                    <pre style="white-space: pre-wrap;">{{ applicationData.application.ministryInvolvement }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+
+    <!-- 6. Financial Information -->
+    <data-panel ngId="financialInfoPanel" [heading]="'modeOfStudy' | l" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'whichClassAreYouInterestedIn' | l }}</label>
+                    <pre style="white-space: pre-wrap;">{{ applicationData.application.programInterestedDetails }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'financialApproval' | l }}</label>
+                    <pre>{{ boolToString(applicationData.application.financialApproval) }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="applicationData.application.deposit">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'payProcessingFee' | l }}</label>
+                    <pre>{{ getDepositKey(applicationData.application.deposit) | l }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <!-- Decision / Action Buttons -->
+    <ng-container>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+            <action-collection [actionButtons]="decisionButtons" [collectionAjax]="true"></action-collection>
+        </div>
+        <div *ngIf="admissionService.hasAccess(applicationData.accessControl.editRoles)" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.editApplication(applicationData.accessControl.editPath, this.userId)"
+                color="btn-blue" icon="fa-pencil-alt" [caption]="'edit' | l" [bTooltip]="'editApplication' | l"></action-button>
+        </div>
+        <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue"
+                [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+        </div>
+    </ng-container>
+</div>

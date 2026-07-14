@@ -1,0 +1,13 @@
+<form *ngIf="referencesData" #form="ngForm" accept-charset="UTF-8" role="form">
+    <app-references-form
+        [referencesData]="referencesData"
+        [validate]="validate"
+        [formLoading]="formLoading"
+        [collapsed]="false"
+        (save)="onSave()">
+    </app-references-form>
+
+    <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding" style="margin-top: 20px;">
+        <action-button (click)="applicationService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue" [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+    </div>
+</form>

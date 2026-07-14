@@ -28,6 +28,7 @@ import { HealthFormComponent } from './general-application/components/health-for
 import { ChristianLifeFormComponent } from './general-application/components/christian-life-form/christian-life-form.component';
 import { ReferencesFormComponent } from './general-application/components/references-form/references-form.component';
 import { FinancialFormComponent } from './general-application/components/financial-form/financial-form.component';
+import { GeneralReferencesComponent } from './general-references/general-references.component';
 
 // Greek Program Components
 // ISP Components
@@ -66,7 +67,8 @@ import { FinancialFormComponent } from './general-application/components/financi
         HealthFormComponent,
         ChristianLifeFormComponent,
         ReferencesFormComponent,
-        FinancialFormComponent
+        FinancialFormComponent,
+        GeneralReferencesComponent
     ]
 })
 export class ApplicationModule { }

@@ -21,6 +21,8 @@ import { CompleteISPHealthComponent } from './isp/health/complete-health.compone
 import { CompleteISPPersonalComponent } from './isp/personal/complete-personal.component';
 import { CompleteISPReferencesComponent } from './isp/references/complete-references.component';
 import { CompleteSupportingDocumentsComponent } from './supporting-documents/complete-supporting-documents.component';
+import { CompleteGeneralApplicationComponent } from './general-application/complete-general-application.component';
+import { CompleteGeneralReferencesComponent } from './general-application/complete-general-references/complete-general-references.component';
 
 // Greek Program Components
 // ISP Components
@@ -56,6 +58,8 @@ const routes: Routes = [
         { path: 'application-fee/:id', data: { faIcon: 'fa-euro-sign', path_title_gr: 'Παράβολο Αίτησης', path_title_en: 'Application Fee', noNav: true }, component: CompleteISPApplicationFeeComponent }
     ]},
     { path: 'supporting-documents/:id', data: { faIcon: 'fa-file', path_title_gr: 'Δικαιολογητικά', path_title_en: 'Application Documents', noNav: true }, component: CompleteSupportingDocumentsComponent },
+    { path: 'general-application/:id', data: { faIcon: 'fa-edit', path_title_gr: 'Γενική Αίτηση', path_title_en: 'General Application', noNav: true }, component: CompleteGeneralApplicationComponent },
+    { path: 'general-references/:id', data: { faIcon: 'fa-envelope', path_title_gr: 'Συστατικές Επιστολές', path_title_en: 'Recommendation Letters', noNav: true }, component: CompleteGeneralReferencesComponent },
     { path: ':id', data: { faIcon: 'fa-edit', path_title_gr: 'Φάκελος Εγγραφής', path_title_en: 'Applications', noNav: true, roles: ['admin', 'registrar', 'cashier', 'admissions'] }, component: ApplicationFolderComponent }
 ];
 

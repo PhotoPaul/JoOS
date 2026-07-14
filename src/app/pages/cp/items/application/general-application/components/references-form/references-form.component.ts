@@ -14,6 +14,7 @@ export class ReferencesFormComponent {
     @Input() documentsList: any[] = [];
     @Input() validate: boolean;
     @Input() formLoading: boolean;
+    @Input() collapsed: boolean = true;
 
     @Output() save = new EventEmitter<{ current: string, next: string }>();
 

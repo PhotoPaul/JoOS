@@ -1,0 +1,169 @@
+<div *ngIf="applicationData">
+    <!-- Reference 1 -->
+    <data-panel ngId="firstReferenceInfo" [heading]="'recommendationLetter1' | l" [color]="'portlet-' + getDecisionColor(applicationData.application[0]?.referenceId)">
+        <ng-container *ngIf="applicationData.application[0]?.documentUrl; else firstReference">
+            <iframe [src]="applicationData.application[0].documentUrl" style="width: 100%; height: 400px"></iframe>
+            <div class="row">
+                <div class="col-md-12 text-center" style="margin-top: 15px;">
+                    <action-button (click)="deleteConfidentialLetterOfRecommendation(applicationData.application[0].documentId, 0)" icon="fa-trash-alt" color="btn-red" [caption]="'delete' | l" [bTooltip]="'deleteConfidentialLetterOfRecommendation' | l" [ajax]="false"></action-button>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #firstReference>
+            <div class="row" *ngIf="applicationData.application[0]">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>{{ 'firstName' | l }}</label>
+                        <pre>{{ applicationData.application[0].firstName }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>{{ 'lastName' | l }}</label>
+                        <pre>{{ applicationData.application[0].lastName }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>{{ 'email' | l }}</label>
+                        <pre>{{ applicationData.application[0].email }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>{{ 'phone' | l }}</label>
+                        <pre>{{ applicationData.application[0].phone }}</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="applicationData.application[0]">
+                <div class="col-md-4" *ngIf="applicationData.application[0].address">
+                    <div class="form-group">
+                        <label>{{ 'address' | l }}</label>
+                        <pre>{{ applicationData.application[0].address }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3" *ngIf="applicationData.application[0].city">
+                    <div class="form-group">
+                        <label>{{ 'city' | l }}</label>
+                        <pre>{{ applicationData.application[0].city }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-2" *ngIf="applicationData.application[0].zipCode">
+                    <div class="form-group">
+                        <label>{{ 'zipCode' | l }}</label>
+                        <pre>{{ applicationData.application[0].zipCode }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3" *ngIf="applicationData.application[0].country">
+                    <div class="form-group">
+                        <label>{{ 'country' | l }}</label>
+                        <pre>{{ applicationData.application[0].country }}</pre>
+                    </div>
+                </div>
+            </div>
+            <div *authIf="['admin', 'registrar']">
+                <div class="row" *ngIf="applicationData.application[0]">
+                    <div class="col-md-12 text-center" style="margin-top: 15px;">
+                        <ng-container *ngIf="applicationData.application[0].referenceId?.length === 34">
+                            <div class="form-group">
+                                <label for="firstReferenceUrl">{{ 'uniqueConfidentialLetterOfRecommendationLink' | l }}</label>
+                                <input type="text" (click)="$event.target.select()" id="firstReferenceUrl" name="firstReferenceUrl" class="form-control text-center" readonly="readonly" [value]="appURI + 'forms/letter-of-recommendation?token=' + encodeURIComponent(applicationData.application[0].referenceId)">
+                            </div>
+                            <p>{{ localization.language === 'gr' ? 'Εάν το πρόσωπο αυτό δεν είναι πλέον αποδεκτό επιλέξτε "Απόρριψη"' : 'If this person is no longer accepted click "Reject"' }}</p>
+                        </ng-container>
+                        <action-button *ngIf="applicationData.application[0].referenceId?.length < 34" (specialClick)="decideForReference(0, true)" icon="fa-thumbs-up" color="btn-green" [caption]="'accept' | l" [bTooltip]="localization.language === 'gr' ? 'Αποδοχή 1ου Προσώπου' : 'Accept 1st Reference'"></action-button>
+                        <action-button *ngIf="applicationData.application[0].referenceId != '0'" (specialClick)="decideForReference(0, false)" icon="fa-thumbs-down" color="btn-red" [caption]="'reject' | l" [bTooltip]="localization.language === 'gr' ? 'Απόρριψη 1ου Προσώπου' : 'Reject 1st Reference'"></action-button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </data-panel>
+
+    <!-- Reference 2 -->
+    <data-panel ngId="secondReferenceInfo" [heading]="'recommendationLetter2' | l" [color]="'portlet-' + getDecisionColor(applicationData.application[1]?.referenceId)">
+        <ng-container *ngIf="applicationData.application[1]?.documentUrl; else secondReference">
+            <iframe [src]="applicationData.application[1].documentUrl" style="width: 100%; height: 400px"></iframe>
+            <div class="row">
+                <div class="col-md-12 text-center" style="margin-top: 15px;">
+                    <action-button (click)="deleteConfidentialLetterOfRecommendation(applicationData.application[1].documentId, 1)" icon="fa-trash-alt" color="btn-red" [caption]="'delete' | l" [bTooltip]="'deleteConfidentialLetterOfRecommendation' | l" [ajax]="false"></action-button>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #secondReference>
+            <div class="row" *ngIf="applicationData.application[1]">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>{{ 'firstName' | l }}</label>
+                        <pre>{{ applicationData.application[1].firstName }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>{{ 'lastName' | l }}</label>
+                        <pre>{{ applicationData.application[1].lastName }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>{{ 'email' | l }}</label>
+                        <pre>{{ applicationData.application[1].email }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>{{ 'phone' | l }}</label>
+                        <pre>{{ applicationData.application[1].phone }}</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="applicationData.application[1]">
+                <div class="col-md-4" *ngIf="applicationData.application[1].address">
+                    <div class="form-group">
+                        <label>{{ 'address' | l }}</label>
+                        <pre>{{ applicationData.application[1].address }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3" *ngIf="applicationData.application[1].city">
+                    <div class="form-group">
+                        <label>{{ 'city' | l }}</label>
+                        <pre>{{ applicationData.application[1].city }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-2" *ngIf="applicationData.application[1].zipCode">
+                    <div class="form-group">
+                        <label>{{ 'zipCode' | l }}</label>
+                        <pre>{{ applicationData.application[1].zipCode }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-3" *ngIf="applicationData.application[1].country">
+                    <div class="form-group">
+                        <label>{{ 'country' | l }}</label>
+                        <pre>{{ applicationData.application[1].country }}</pre>
+                    </div>
+                </div>
+            </div>
+            <div *authIf="['admin', 'registrar']">
+                <div class="row" *ngIf="applicationData.application[1]">
+                    <div class="col-md-12 text-center" style="margin-top: 15px;">
+                        <ng-container *ngIf="applicationData.application[1].referenceId?.length === 34">
+                            <div class="form-group">
+                                <label for="secondReferenceUrl">{{ 'uniqueConfidentialLetterOfRecommendationLink' | l }}</label>
+                                <input type="text" (click)="$event.target.select()" id="secondReferenceUrl" name="secondReferenceUrl" class="form-control text-center" readonly="readonly" [value]="appURI + 'forms/letter-of-recommendation?token=' + encodeURIComponent(applicationData.application[1].referenceId)">
+                            </div>
+                            <p>{{ localization.language === 'gr' ? 'Εάν το πρόσωπο αυτό δεν είναι πλέον αποδεκτό επιλέξτε "Απόρριψη"' : 'If this person is no longer accepted click "Reject"' }}</p>
+                        </ng-container>
+                        <action-button *ngIf="applicationData.application[1].referenceId?.length < 34" (specialClick)="decideForReference(1, true)" icon="fa-thumbs-up" color="btn-green" [caption]="'accept' | l" [bTooltip]="localization.language === 'gr' ? 'Αποδοχή 2ου Προσώπου' : 'Accept 2nd Reference'"></action-button>
+                        <action-button *ngIf="applicationData.application[1].referenceId != '0'" (specialClick)="decideForReference(1, false)" icon="fa-thumbs-down" color="btn-red" [caption]="'reject' | l" [bTooltip]="localization.language === 'gr' ? 'Απόρριψη 2ου Προσώπου' : 'Reject 2nd Reference'"></action-button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </data-panel>
+
+    <div class="row">
+        <div class="col-md-12 text-center" style="margin-top: 20px;">
+            <action-button (click)="admissionService.returnToList(userId)" [caption]="'backToApplicants' | l" icon="fa-arrow-left" color="btn-blue" [ajax]="false"></action-button>
+        </div>
+    </div>
+</div>

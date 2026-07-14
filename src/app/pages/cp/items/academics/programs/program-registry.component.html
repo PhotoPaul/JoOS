@@ -11,7 +11,7 @@
                         <input type="text" [(ngModel)]="professorModel.lastName" id="lastName" name="lastName" class="form-control" [placeholder]="'lastName' | l" autocomplete="off" required>
                     </div>
                     <div class="col-md-4">
-                        <input type="text" [(ngModel)]="professorModel.email" id="email" name="email" class="form-control" placeholder="Email" autocomplete="off" required pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}">
+                        <input type="email" [(ngModel)]="professorModel.email" id="email" name="email" class="form-control" placeholder="Email" autocomplete="off" required email>
                     </div>
                     <div class="col-md-2 text-center">
                         <label for="languageGr" class="radio-inline"><input type="radio" [(ngModel)]="professorModel.language" id="languageGr" name="language" value="gr" required>&nbsp;{{ 'greek' | l }}</label>

@@ -17,6 +17,7 @@ import { ISPPersonalComponent } from './isp/personal/personal.component';
 import { ISPReferencesComponent } from './isp/references/references.component';
 import { SupportingDocumentsComponent } from './supporting-documents/supporting-documents.component';
 import { GeneralApplicationComponent } from './general-application/general-application.component';
+import { GeneralReferencesComponent } from './general-references/general-references.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', data: { noNav: true }, redirectTo: 'personal' },
@@ -46,6 +47,7 @@ const routes: Routes = [
     },
     // Common Components
     { path: 'general-application', data: { faIcon: 'fa-edit', path_title_gr: 'Γενική Αίτηση Εισαγωγής', path_title_en: 'General Application', roles: ['candidate'] }, component: GeneralApplicationComponent },
+    { path: 'general-references', data: { faIcon: 'fa-envelope', path_title_gr: 'Συστατικές Επιστολές', path_title_en: 'Recommendation Letters', roles: ['candidate'] }, component: GeneralReferencesComponent },
     { path: 'supporting-documents', data: { faIcon: 'fa-file', path_title_gr: 'Δικαιολογητικά', path_title_en: 'Application Documents', roles: ['candidate'] }, component: SupportingDocumentsComponent },
     { path: '', redirectTo: '/cp' }
 ];
