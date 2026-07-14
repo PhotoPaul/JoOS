@@ -2,7 +2,7 @@
     <!-- PERSONAL INFORMATION -->
     <app-personal-info-form *ngIf="personalData"
         [personalData]="personalData" [userId]="userId" [documentsList]="documentsList"
-        [validate]="validate" [formLoading]="formLoading" [maxDate]="maxDate"
+        [validate]="validate" [formLoading]="formLoading || personalData?.applicationStatus === '1'" [maxDate]="maxDate"
         (dateChanged)="modelChanged = true"
         (save)="saveSection($event.current, $event.next, 1, personalData)">
     </app-personal-info-form>
@@ -10,64 +10,66 @@
     <!-- EDUCATION -->
     <app-education-form *ngIf="educationData"
         [educationData]="educationData" [userId]="userId" [documentsList]="documentsList"
-        [validate]="validate" [formLoading]="formLoading"
+        [validate]="validate" [formLoading]="formLoading || personalData?.applicationStatus === '1'"
         (save)="saveSection($event.current, $event.next, 2, educationData)">
     </app-education-form>
 
     <!-- HEALTH -->
     <app-health-form *ngIf="healthData"
         [healthData]="healthData" [userId]="userId" [documentsList]="documentsList"
-        [validate]="validate" [formLoading]="formLoading"
+        [validate]="validate" [formLoading]="formLoading || personalData?.applicationStatus === '1'"
         (save)="saveSection($event.current, $event.next, 3, healthData)">
     </app-health-form>
 
     <!-- CHRISTIAN LIFE -->
     <app-christian-life-form *ngIf="christianLifeData"
         [christianLifeData]="christianLifeData"
-        [validate]="validate" [formLoading]="formLoading"
+        [validate]="validate" [formLoading]="formLoading || personalData?.applicationStatus === '1'"
         (save)="saveSection($event.current, $event.next, 4, christianLifeData)">
     </app-christian-life-form>
 
     <!-- REFERENCES -->
     <app-references-form *ngIf="referencesData"
         [referencesData]="referencesData" [userId]="userId" [documentsList]="documentsList"
-        [validate]="validate" [formLoading]="formLoading"
+        [validate]="validate" [formLoading]="formLoading || personalData?.applicationStatus === '1'"
         (save)="saveSection($event.current, $event.next, 5, referencesData)">
     </app-references-form>
 
     <!-- FINANCIAL -->
     <app-financial-form *ngIf="financialData"
         [financialData]="financialData" [userId]="userId" [documentsList]="documentsList"
-        [validate]="validate" [formLoading]="formLoading" [orderUrl]="orderUrl"
+        [validate]="validate" [formLoading]="formLoading || personalData?.applicationStatus === '1'" [orderUrl]="orderUrl"
         (save)="saveSection($event.current, $event.next, 6, financialData)"
         (createOrder)="createOrder()"
         (openOrder)="openOrder()">
     </app-financial-form>
 
     <!-- ==================== SUBMIT & VALIDATION CONTROLS ==================== -->
-    <div *ngIf="!unsavedChanges(); else isNotSaved" class="row">
-        <ng-container *ngIf="form.valid; else isNotValid">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 text-center" style="margin-bottom: 20px;">
-                    <h4 style="font-weight: bold; margin-bottom: 10px;">{{ 'statementOfTruthTitle' | l }}</h4>
-                    <p style="font-size: 14px; line-height: 1.6; color: #333;">{{ 'statementOfTruthBody' | l }}</p>
+    <ng-container *ngIf="personalData?.applicationStatus !== '1'">
+        <div *ngIf="!unsavedChanges(); else isNotSaved" class="row">
+            <ng-container *ngIf="form.valid; else isNotValid">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center" style="margin-bottom: 20px;">
+                        <h4 style="font-weight: bold; margin-bottom: 10px;">{{ 'statementOfTruthTitle' | l }}</h4>
+                        <p style="font-size: 14px; line-height: 1.6; color: #333;">{{ 'statementOfTruthBody' | l }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-2 col-md-offset-5 extraBottomPadding">
-                <button class="btn btn-green btn-block" type="button" (click)="submitForm()"
-                    [disabled]="formLoading || !form.valid">{{ 'submit' | l }}</button>
-            </div>
-        </ng-container>
-        <ng-template #isNotValid>
-            <div class="col-md-4 col-md-offset-4 extraBottomPadding">
-                <button class="btn btn-green btn-block" type="button" (click)="checkForm()" [disabled]="formLoading">{{
-                    'validate' | l }}</button>
-            </div>
+                <div class="col-md-2 col-md-offset-5 extraBottomPadding">
+                    <button class="btn btn-green btn-block" type="button" (click)="submitForm()"
+                        [disabled]="formLoading || !form.valid">{{ 'submit' | l }}</button>
+                </div>
+            </ng-container>
+            <ng-template #isNotValid>
+                <div class="col-md-4 col-md-offset-4 extraBottomPadding">
+                    <button class="btn btn-green btn-block" type="button" (click)="checkForm()" [disabled]="formLoading">{{
+                        'validate' | l }}</button>
+                </div>
+            </ng-template>
+        </div>
+        <ng-template #isNotSaved>
+            <div class="alert alert-danger text-center extraBottomPadding">{{ 'pleaseSaveChanges' | l }}</div>
         </ng-template>
-    </div>
-    <ng-template #isNotSaved>
-        <div class="alert alert-danger text-center extraBottomPadding">{{ 'pleaseSaveChanges' | l }}</div>
-    </ng-template>
+    </ng-container>
     <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
         <action-button (click)="applicationService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue"
             [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>

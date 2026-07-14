@@ -120,7 +120,7 @@ export class UserApplicationsComponent implements OnInit {
             if (id === '5' || id === '11' || id === '12') {
                 return '';
             } else if (id === '23') {
-                return viewPath;
+                return '/cp/application/general-application';
             } else {
                 return viewPath + '/0';
             }
@@ -144,7 +144,7 @@ export class UserApplicationsComponent implements OnInit {
             } else if (id === '23') {
                 return [{
                     text: this.localization.s('viewInformation'),
-                    path: viewPath
+                    path: '/cp/application/general-application'
                 }];
             } else {
                 return [{
