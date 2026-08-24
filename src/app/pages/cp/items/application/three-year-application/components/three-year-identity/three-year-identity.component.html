@@ -1,0 +1,98 @@
+<ng-container *ngIf="applicationData">
+    <data-panel ngId="threeYearIdentityInfo" [heading]="'personalInfo' | l" color="portlet-blue" [collapsed]="false">
+        <fieldset [disabled]="formLoading">
+            <!-- Identity display (read-only) -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ 'lastName' | l }}</label>
+                        <input type="text" [value]="applicationData.application.lastName" class="form-control" disabled>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ 'firstName' | l }}</label>
+                        <input type="text" [value]="applicationData.application.firstName" class="form-control" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ 'email' | l }}</label>
+                        <input type="text" [value]="applicationData.application.email" class="form-control" disabled>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ 'phone' | l }}</label>
+                        <input type="text" [value]="applicationData.application.phone" class="form-control" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ 'birthDate' | l }}</label>
+                        <input type="text" [value]="applicationData.application.birthDate" class="form-control" disabled>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ 'birthPlace' | l }}</label>
+                        <input type="text" [value]="applicationData.application.birthPlace" class="form-control" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ 'address' | l }}</label>
+                        <input type="text" [value]="applicationData.application.address" class="form-control" disabled>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>{{ 'city' | l }}</label>
+                        <input type="text" [value]="applicationData.application.city" class="form-control" disabled>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>{{ 'postalCode' | l }}</label>
+                        <input type="text" [value]="applicationData.application.zipCode" class="form-control" disabled>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marital Status -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="maritalStatusRadio">{{ 'maritalStatus' | l }}</label><br>
+                        <label class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.maritalStatus" name="maritalStatus" value="maritalStatusSame" required>&nbsp;{{ 'maritalStatusSame' | l }}</label>
+                        <label class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.maritalStatus" name="maritalStatus" value="maritalStatusChanged" required>&nbsp;{{ 'maritalStatusChanged' | l }}</label>
+                        <required-field-warning *ngIf="validate && !applicationData.application.maritalStatus" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marital Status Details -->
+            <div *ngIf="applicationData.application.maritalStatus === 'maritalStatusChanged'" class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="maritalStatusDetailsInput">{{ 'maritalStatusDetails' | l }}</label>
+                        <textarea [(ngModel)]="applicationData.application.maritalStatusDetails" id="maritalStatusDetailsInput" name="maritalStatusDetails" class="form-control" rows="3" required autofocus></textarea>
+                        <required-field-warning *ngIf="validate && !applicationData.application.maritalStatusDetails"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="onSave('threeYearIdentityInfo', 'threeYearFinancialInfo')">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+</ng-container>

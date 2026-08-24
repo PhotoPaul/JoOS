@@ -1,0 +1,26 @@
+<ng-container *ngIf="registrationData">
+    <data-panel ngId="regFinancialInfo" [heading]="'financialLiability2' | l" color="portlet-blue" [collapsed]="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                         [style.border-left]="!registrationData.application.financialLiabilityApproval ? '5px solid #e74c3c' : '5px solid transparent'"
+                         [style.padding-left]="!registrationData.application.financialLiabilityApproval ? '10px' : '0px'"
+                         style="transition: border-color 0.2s ease;">
+                        <label for="financialLiabilityApprovalCheckbox">{{ 'financialApproval2' | l }}</label><br>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" [(ngModel)]="registrationData.application.financialLiabilityApproval" id="financialLiabilityApprovalCheckbox" name="financialLiabilityApproval" required>&nbsp;{{ 'yes' | l }}
+                        </label>
+                        <required-field-warning *ngIf="validate && !registrationData.application.financialLiabilityApproval" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="onSave('regFinancialInfo', null)">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+</ng-container>

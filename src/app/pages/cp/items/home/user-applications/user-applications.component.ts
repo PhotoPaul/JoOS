@@ -121,6 +121,10 @@ export class UserApplicationsComponent implements OnInit {
                 return '';
             } else if (id === '23') {
                 return '/cp/application/general-application';
+            } else if (id === '24') {
+                return '/cp/application/general-registration';
+            } else if (id === '25') {
+                return '/cp/application/three-year-application';
             } else {
                 return viewPath + '/0';
             }
@@ -145,6 +149,16 @@ export class UserApplicationsComponent implements OnInit {
                 return [{
                     text: this.localization.s('viewInformation'),
                     path: '/cp/application/general-application'
+                }];
+            } else if (id === '24') {
+                return [{
+                    text: this.localization.s('viewInformation'),
+                    path: '/cp/application/general-registration'
+                }];
+            } else if (id === '25') {
+                return [{
+                    text: this.localization.s('viewInformation'),
+                    path: '/cp/application/three-year-application'
                 }];
             } else {
                 return [{

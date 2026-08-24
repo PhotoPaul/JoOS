@@ -1,0 +1,44 @@
+<ng-container *ngIf="registrationData">
+    <data-panel ngId="regCourseSelectionInfo" [heading]="'courseEnrollment' | l" color="portlet-blue" [collapsed]="true">
+        <fieldset [disabled]="formLoading">
+            <div *ngIf="registrationData.application.studyMode !== 'auditor'">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="coursesFirstSemesterInput">{{ 'coursesFirstSemester' | l }}</label>
+                            <textarea [(ngModel)]="registrationData.application.coursesFirstSemester" id="coursesFirstSemesterInput" name="coursesFirstSemester" class="form-control" rows="4" placeholder="e.g. Course 1, Course 2, Course 3..." required></textarea>
+                            <required-field-warning *ngIf="validate && !registrationData.application.coursesFirstSemester"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="coursesSecondSemesterInput">{{ 'coursesSecondSemester' | l }}</label>
+                            <textarea [(ngModel)]="registrationData.application.coursesSecondSemester" id="coursesSecondSemesterInput" name="coursesSecondSemester" class="form-control" rows="4" placeholder="e.g. Course 1, Course 2, Course 3..." required></textarea>
+                            <required-field-warning *ngIf="validate && !registrationData.application.coursesSecondSemester"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="registrationData.application.studyMode === 'auditor'">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="coursesAuditorInput">{{ 'coursesAuditor' | l }}</label>
+                            <textarea [(ngModel)]="registrationData.application.coursesAuditor" id="coursesAuditorInput" name="coursesAuditor" class="form-control" rows="4" placeholder="e.g. Course 1, Course 2, Course 3..." required></textarea>
+                            <required-field-warning *ngIf="validate && !registrationData.application.coursesAuditor"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="onSave('regCourseSelectionInfo', 'regMedicalInfo')">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+</ng-container>

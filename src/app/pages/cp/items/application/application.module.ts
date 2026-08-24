@@ -29,6 +29,17 @@ import { ChristianLifeFormComponent } from './general-application/components/chr
 import { ReferencesFormComponent } from './general-application/components/references-form/references-form.component';
 import { FinancialFormComponent } from './general-application/components/financial-form/financial-form.component';
 import { GeneralReferencesComponent } from './general-references/general-references.component';
+import { GeneralRegistrationComponent } from './general-registration/general-registration.component';
+import { RegStudyModeComponent } from './general-registration/components/reg-study-mode/reg-study-mode.component';
+import { RegCourseSelectionComponent } from './general-registration/components/reg-course-selection/reg-course-selection.component';
+import { RegMedicalComponent } from './general-registration/components/reg-medical/reg-medical.component';
+import { RegContractComponent } from './general-registration/components/reg-contract/reg-contract.component';
+import { RegFinancialComponent } from './general-registration/components/reg-financial/reg-financial.component';
+import { ThreeYearApplicationComponent } from './three-year-application/three-year-application.component';
+import { ThreeYearIdentityComponent } from './three-year-application/components/three-year-identity/three-year-identity.component';
+import { ThreeYearFinancialComponent } from './three-year-application/components/three-year-financial/three-year-financial.component';
+import { ThreeYearCallingComponent } from './three-year-application/components/three-year-calling/three-year-calling.component';
+import { ThreeYearSubmissionComponent } from './three-year-application/components/three-year-submission/three-year-submission.component';
 
 // Greek Program Components
 // ISP Components
@@ -68,7 +79,18 @@ import { GeneralReferencesComponent } from './general-references/general-referen
         ChristianLifeFormComponent,
         ReferencesFormComponent,
         FinancialFormComponent,
-        GeneralReferencesComponent
+        GeneralReferencesComponent,
+        GeneralRegistrationComponent,
+        RegStudyModeComponent,
+        RegCourseSelectionComponent,
+        RegMedicalComponent,
+        RegContractComponent,
+        RegFinancialComponent,
+        ThreeYearApplicationComponent,
+        ThreeYearIdentityComponent,
+        ThreeYearFinancialComponent,
+        ThreeYearCallingComponent,
+        ThreeYearSubmissionComponent
     ]
 })
 export class ApplicationModule { }

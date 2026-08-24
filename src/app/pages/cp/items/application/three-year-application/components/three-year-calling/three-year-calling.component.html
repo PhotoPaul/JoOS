@@ -1,0 +1,67 @@
+<ng-container *ngIf="applicationData">
+    <data-panel ngId="threeYearCallingInfo" [heading]="'christianCalling' | l" color="portlet-blue" [collapsed]="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="reasonToContinueInput">{{ 'reasonToContinueQuestion' | l }}</label>
+                        <textarea [(ngModel)]="applicationData.application.reasonToContinue" id="reasonToContinueInput" name="reasonToContinue" class="form-control" rows="4" required></textarea>
+                        <required-field-warning *ngIf="validate && !applicationData.application.reasonToContinue"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="pastorDiscussionInput">{{ 'pastorDiscussionQuestion' | l }}</label>
+                        <textarea [(ngModel)]="applicationData.application.pastorDiscussion" id="pastorDiscussionInput" name="pastorDiscussion" class="form-control" rows="4" required></textarea>
+                        <required-field-warning *ngIf="validate && !applicationData.application.pastorDiscussion"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="ministryCallingInput">{{ 'ministryCallingQuestion' | l }}</label>
+                        <textarea [(ngModel)]="applicationData.application.ministryCalling" id="ministryCallingInput" name="ministryCalling" class="form-control" rows="4" required></textarea>
+                        <required-field-warning *ngIf="validate && !applicationData.application.ministryCalling"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="currentServiceInput">{{ 'currentServiceQuestion' | l }}</label>
+                        <textarea [(ngModel)]="applicationData.application.currentService" id="currentServiceInput" name="currentService" class="form-control" rows="4" required></textarea>
+                        <required-field-warning *ngIf="validate && !applicationData.application.currentService"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <!-- School Regulations Agreement (Student Manual) -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                         [style.border-left]="!applicationData.application.schoolRegulationsAgreement ? '5px solid #e74c3c' : '5px solid transparent'"
+                         [style.padding-left]="!applicationData.application.schoolRegulationsAgreement ? '10px' : '0px'"
+                         style="transition: border-color 0.2s ease;">
+                        <label for="schoolRegulationsAgreementCheckbox">{{ 'schoolRegulationsAgreementQuestion' | l }}</label><br>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" [(ngModel)]="applicationData.application.schoolRegulationsAgreement" id="schoolRegulationsAgreementCheckbox" name="schoolRegulationsAgreement" required>&nbsp;{{ 'yes' | l }}
+                        </label>
+                        <required-field-warning *ngIf="validate && !applicationData.application.schoolRegulationsAgreement" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="onSave('threeYearCallingInfo', 'threeYearSubmissionInfo')">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+</ng-container>

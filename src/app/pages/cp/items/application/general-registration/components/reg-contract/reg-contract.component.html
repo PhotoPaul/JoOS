@@ -1,0 +1,59 @@
+<ng-container *ngIf="registrationData">
+    <data-panel ngId="regContractInfo" [heading]="'studentManual' | l" color="portlet-blue" [collapsed]="true">
+        <fieldset [disabled]="formLoading">
+            <!-- Standard Student Manual -->
+            <div *ngIf="registrationData.application.studyMode !== 'online'" class="row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                         [style.border-left]="!registrationData.application.acceptStudentManual ? '5px solid #e74c3c' : '5px solid transparent'"
+                         [style.padding-left]="!registrationData.application.acceptStudentManual ? '10px' : '0px'"
+                         style="transition: border-color 0.2s ease;">
+                        <label for="acceptStudentManualCheckbox">{{ 'studentManual' | l }}</label><br>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" [(ngModel)]="registrationData.application.acceptStudentManual" id="acceptStudentManualCheckbox" name="acceptStudentManual" required>&nbsp;{{ 'acceptStudentManualText' | l }}
+                        </label>
+                        <required-field-warning *ngIf="validate && !registrationData.application.acceptStudentManual" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Online Student Manual -->
+            <div *ngIf="registrationData.application.studyMode === 'online'" class="row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                         [style.border-left]="!registrationData.application.acceptOnlineManual ? '5px solid #e74c3c' : '5px solid transparent'"
+                         [style.padding-left]="!registrationData.application.acceptOnlineManual ? '10px' : '0px'"
+                         style="transition: border-color 0.2s ease;">
+                        <label for="acceptOnlineManualCheckbox">{{ 'studentManualOnline' | l }}</label><br>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" [(ngModel)]="registrationData.application.acceptOnlineManual" id="acceptOnlineManualCheckbox" name="acceptOnlineManual" required>&nbsp;{{ 'acceptStudentManualText' | l }}
+                        </label>
+                        <required-field-warning *ngIf="validate && !registrationData.application.acceptOnlineManual" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GDPR / Privacy Policy -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                         [style.border-left]="!registrationData.application.acceptPrivacyPolicy ? '5px solid #e74c3c' : '5px solid transparent'"
+                         [style.padding-left]="!registrationData.application.acceptPrivacyPolicy ? '10px' : '0px'"
+                         style="transition: border-color 0.2s ease;">
+                        <label for="acceptPrivacyPolicyCheckbox">{{ 'acceptPrivacyPolicyText' | l }} <a href="{{ 'privacyPolicyLinkText' | l }}" target="_blank"><i class="fas fa-info-circle"></i></a></label><br>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" [(ngModel)]="registrationData.application.acceptPrivacyPolicy" id="acceptPrivacyPolicyCheckbox" name="acceptPrivacyPolicy" required>&nbsp;{{ 'yes' | l }}
+                        </label>
+                        <required-field-warning *ngIf="validate && !registrationData.application.acceptPrivacyPolicy" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="onSave('regContractInfo', 'regFinancialInfo')">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+</ng-container>

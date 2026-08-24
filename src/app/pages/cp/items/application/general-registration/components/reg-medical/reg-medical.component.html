@@ -1,0 +1,52 @@
+<ng-container *ngIf="registrationData">
+    <data-panel ngId="regMedicalInfo" [heading]="'communicableDiseases' | l" color="portlet-blue" [collapsed]="true">
+        <fieldset [disabled]="formLoading">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="hasContagiousDiseaseRadio">{{ 'hasContagiousDiseaseQuestion' | l }}</label><br>
+                        <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.hasContagiousDisease" name="hasContagiousDisease" value="1" required>&nbsp;{{ 'yes' | l }}</label>
+                        <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.hasContagiousDisease" name="hasContagiousDisease" value="0" required>&nbsp;{{ 'no' | l }}</label>
+                        <required-field-warning *ngIf="validate && registrationData.application.hasContagiousDisease === null" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="registrationData.application.hasContagiousDisease === '1'" class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="contagiousDiseaseDetailsInput">{{ 'details' | l }}</label>
+                        <textarea [(ngModel)]="registrationData.application.contagiousDiseaseDetails" id="contagiousDiseaseDetailsInput" name="contagiousDiseaseDetails" class="form-control" rows="3" required autofocus></textarea>
+                        <required-field-warning *ngIf="validate && !registrationData.application.contagiousDiseaseDetails"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="medicalTreatmentDetailsInput">{{ 'medicalTreatmentQuestion' | l }}</label>
+                        <textarea [(ngModel)]="registrationData.application.medicalTreatmentDetails" id="medicalTreatmentDetailsInput" name="medicalTreatmentDetails" class="form-control" rows="3" required></textarea>
+                        <required-field-warning *ngIf="validate && !registrationData.application.medicalTreatmentDetails"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="foodAllergiesInput">{{ 'foodAllergiesQuestion' | l }}</label>
+                        <textarea [(ngModel)]="registrationData.application.foodAllergies" id="foodAllergiesInput" name="foodAllergies" class="form-control" rows="3" required></textarea>
+                        <required-field-warning *ngIf="validate && !registrationData.application.foodAllergies"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-green btn-block" type="button" (click)="onSave('regMedicalInfo', 'regContractInfo')">{{ 'saveAndContinue' | l }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </data-panel>
+</ng-container>
