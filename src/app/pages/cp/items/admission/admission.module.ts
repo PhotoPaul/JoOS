@@ -27,6 +27,8 @@ import { CompleteISPReferencesComponent } from './isp/references/complete-refere
 import { CompleteSupportingDocumentsComponent } from './supporting-documents/complete-supporting-documents.component';
 import { CompleteGeneralApplicationComponent } from './general-application/complete-general-application.component';
 import { CompleteGeneralReferencesComponent } from './general-application/complete-general-references/complete-general-references.component';
+import { CompleteGeneralRegistrationComponent } from './general-registration/complete-general-registration.component';
+import { CompleteThreeYearApplicationComponent } from './three-year-application/complete-three-year-application.component';
 
 @NgModule({
     imports: [
@@ -59,7 +61,9 @@ import { CompleteGeneralReferencesComponent } from './general-application/comple
         CompleteSupportingDocumentsComponent,
         CompleteISPApplicationFeeComponent,
         CompleteGeneralApplicationComponent,
-        CompleteGeneralReferencesComponent
+        CompleteGeneralReferencesComponent,
+        CompleteGeneralRegistrationComponent,
+        CompleteThreeYearApplicationComponent
     ]
 })
 export class AdmissionModule { }

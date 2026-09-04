@@ -1,0 +1,227 @@
+<div *ngIf="applicationData && applicationData.application">
+
+    <!-- 1. Study Mode / Τρόπος Φοίτησης -->
+    <data-panel ngId="regStudyModeInfo" [heading]="'studyMode' | l" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'studyMode' | l }}</label>
+                    <pre>{{ (applicationData.application.studyMode === 'greek' ? 'greekProgram' : (applicationData.application.studyMode === 'isp' ? 'isp' : '')) | l }}</pre>
+                </div>
+            </div>
+
+            <!-- Greek program details -->
+            <ng-container *ngIf="applicationData.application.studyMode === 'greek'">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>{{ 'inPersonClasses' | l }} / {{ 'onlineCourses' | l }}</label>
+                        <pre>{{ (applicationData.application.greekTrack === 'online' ? 'onlineCourses' : (applicationData.application.greekTrack === 'in-person' ? 'inPersonClasses' : '')) | l }}</pre>
+                    </div>
+                </div>
+
+                <div class="col-md-4" *ngIf="applicationData.application.greekTrack === 'in-person'">
+                    <div class="form-group">
+                        <label>{{ 'studyMode' | l }}</label>
+                        <pre>{{ (applicationData.application.greekLoad === 'full-time' ? 'fullTime' : (applicationData.application.greekLoad === 'part-time' ? 'partTimeStudy' : (applicationData.application.greekLoad === 'auditor' ? 'auditor' : ''))) | l }}</pre>
+                    </div>
+                </div>
+            </ng-container>
+
+            <!-- ISP program details -->
+            <ng-container *ngIf="applicationData.application.studyMode === 'isp'">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>{{ 'studyMode' | l }}</label>
+                        <pre>{{ (applicationData.application.ispLoad === 'full-time' ? 'fullTime' : (applicationData.application.ispLoad === 'part-time' ? 'partTimeStudy' : '')) | l }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-4" *ngIf="applicationData.application.ispLoad === 'part-time'">
+                    <div class="form-group">
+                        <label>{{ 'ispTrack' | l }}</label>
+                        <pre>{{ (applicationData.application.ispTrack === 'ministry' ? 'ministryIsp' : (applicationData.application.ispTrack === 'ethnic-church' ? 'ethnicChurch' : (applicationData.application.ispTrack === 'language-track' ? 'languageTrack' : ''))) | l }}</pre>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <!-- Duration & Residence rows for Greek -->
+        <div class="row" *ngIf="applicationData.application.studyMode === 'greek' && applicationData.application.greekTrack === 'in-person'">
+            <div class="col-md-6" *ngIf="applicationData.application.greekLoad === 'full-time'">
+                <div class="form-group">
+                    <label>{{ 'oneYear' | l }} / {{ 'threeYear' | l }}</label>
+                    <pre>{{ (applicationData.application.greekDuration === 'one-year' ? 'oneYear' : (applicationData.application.greekDuration === 'three-year' ? 'threeYear' : '')) | l }}</pre>
+                </div>
+            </div>
+            <div class="col-md-6" *ngIf="applicationData.application.greekLoad === 'full-time' || applicationData.application.greekLoad === 'part-time'">
+                <div class="form-group">
+                    <label>{{ 'residentStudent' | l }} / {{ 'nonResidentStudent' | l }}</label>
+                    <pre>{{ (applicationData.application.greekResidence === 'residential' ? 'residentStudent' : (applicationData.application.greekResidence === 'non-residential' ? 'nonResidentStudent' : '')) | l }}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Residence for ISP -->
+        <div class="row" *ngIf="applicationData.application.studyMode === 'isp'">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'residentStudent' | l }} / {{ 'nonResidentStudent' | l }}</label>
+                    <pre>{{ (applicationData.application.ispResidence === 'residential' ? 'residentStudent' : (applicationData.application.ispResidence === 'non-residential' ? 'nonResidentStudent' : '')) | l }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <!-- 2. Course Selection / Εγγραφή σε Μαθήματα (If applicable) -->
+    <data-panel *ngIf="needsCourseEnrollment()" ngId="regCourseSelectionInfo" [heading]="'courseEnrollment' | l" color="portlet-blue">
+        <div *ngIf="applicationData.application.greekLoad !== 'auditor'">
+            <h4 style="font-weight: bold; margin-top: 5px; margin-bottom: 10px;">{{ 'coursesFirstSemester' | l }}</h4>
+            <div class="row">
+                <div class="col-md-3" *ngIf="applicationData.application.course1Sem1">
+                    <div class="form-group"><label>{{ 'course1' | l }}</label><pre>{{ applicationData.application.course1Sem1 }}</pre></div>
+                </div>
+                <div class="col-md-3" *ngIf="applicationData.application.course2Sem1">
+                    <div class="form-group"><label>{{ 'course2' | l }}</label><pre>{{ applicationData.application.course2Sem1 }}</pre></div>
+                </div>
+                <div class="col-md-3" *ngIf="applicationData.application.course3Sem1">
+                    <div class="form-group"><label>{{ 'course3' | l }}</label><pre>{{ applicationData.application.course3Sem1 }}</pre></div>
+                </div>
+                <div class="col-md-3" *ngIf="applicationData.application.course4Sem1">
+                    <div class="form-group"><label>{{ 'course4' | l }}</label><pre>{{ applicationData.application.course4Sem1 }}</pre></div>
+                </div>
+            </div>
+
+            <h4 style="font-weight: bold; margin-top: 15px; margin-bottom: 10px;">{{ 'coursesSecondSemester' | l }}</h4>
+            <div class="row">
+                <div class="col-md-3" *ngIf="applicationData.application.course1Sem2">
+                    <div class="form-group"><label>{{ 'course1' | l }}</label><pre>{{ applicationData.application.course1Sem2 }}</pre></div>
+                </div>
+                <div class="col-md-3" *ngIf="applicationData.application.course2Sem2">
+                    <div class="form-group"><label>{{ 'course2' | l }}</label><pre>{{ applicationData.application.course2Sem2 }}</pre></div>
+                </div>
+                <div class="col-md-3" *ngIf="applicationData.application.course3Sem2">
+                    <div class="form-group"><label>{{ 'course3' | l }}</label><pre>{{ applicationData.application.course3Sem2 }}</pre></div>
+                </div>
+                <div class="col-md-3" *ngIf="applicationData.application.course4Sem2">
+                    <div class="form-group"><label>{{ 'course4' | l }}</label><pre>{{ applicationData.application.course4Sem2 }}</pre></div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="applicationData.application.coursesOther">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>{{ 'other' | l }}</label>
+                        <pre style="white-space: pre-wrap;">{{ applicationData.application.coursesOther }}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="applicationData.application.greekLoad === 'auditor'">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>{{ 'coursesAuditor' | l }}</label>
+                        <pre style="white-space: pre-wrap;">{{ applicationData.application.coursesAuditor }}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <!-- 3. Health & Medical / Κατάσταση Υγείας -->
+    <data-panel ngId="regMedicalInfo" [heading]="'communicableDiseases' | l" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'hasContagiousDiseaseQuestion' | l }}</label>
+                    <pre>{{ boolToString(applicationData.application.hasContagiousDisease) }}</pre>
+                </div>
+            </div>
+            <div class="col-md-6" *ngIf="applicationData.application.hasContagiousDisease === '1'">
+                <div class="form-group">
+                    <label>{{ 'details' | l }}</label>
+                    <pre style="white-space: pre-wrap;">{{ applicationData.application.contagiousDiseaseDetails }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="applicationData.application.medicalTreatmentDetails">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'medicalTreatmentQuestion' | l }}</label>
+                    <pre style="white-space: pre-wrap;">{{ applicationData.application.medicalTreatmentDetails }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="applicationData.application.foodAllergies">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'foodAllergiesQuestion' | l }}</label>
+                    <pre style="white-space: pre-wrap;">{{ applicationData.application.foodAllergies }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <!-- 4. Contract / Student Handbook -->
+    <data-panel ngId="regContractInfo" [heading]="'studentManual' | l" color="portlet-blue">
+        <div class="row" *ngIf="!(applicationData.application.studyMode === 'greek' && applicationData.application.greekTrack === 'online')">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'studentManual' | l }}</label>
+                    <pre>{{ boolToString(applicationData.application.acceptStudentManual) }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="applicationData.application.studyMode === 'greek' && applicationData.application.greekTrack === 'online'">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'studentManualOnline' | l }}</label>
+                    <pre>{{ boolToString(applicationData.application.acceptOnlineManual) }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'privacyPolicy' | l }}</label>
+                    <pre>{{ boolToString(applicationData.application.acceptPrivacyPolicy) }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <!-- 5. Financial Liability -->
+    <data-panel ngId="regFinancialInfo" [heading]="'financialLiability2' | l" color="portlet-blue">
+        <div *authIf="['admin', 'registrar', 'cashier']" class="row" style="margin-bottom: 15px;">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label><i class="fas fa-lock text-muted" style="margin-right: 5px;"></i>{{ 'accountingNotes' | l }}</label>
+                    <pre style="white-space: pre-wrap;">{{ applicationData.application.financialNotes }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'financialApproval2' | l }}</label>
+                    <pre>{{ boolToString(applicationData.application.financialLiabilityApproval) }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <!-- Decision / Action Buttons -->
+    <ng-container>
+        <div *ngIf="admissionService.hasAccess(applicationData?.accessControl?.editRoles)" class="row text-center extraBottomPadding">
+            <action-collection [actionButtons]="decisionButtons" [collectionAjax]="true"></action-collection>
+        </div>
+        <div *ngIf="admissionService.hasAccess(applicationData?.accessControl?.editRoles)" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.editApplication(applicationData?.accessControl?.editPath, this.userId)"
+                color="btn-blue" icon="fa-pencil-alt" [caption]="'edit' | l" [bTooltip]="'editApplication' | l"></action-button>
+        </div>
+        <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue"
+                [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+        </div>
+    </ng-container>
+</div>

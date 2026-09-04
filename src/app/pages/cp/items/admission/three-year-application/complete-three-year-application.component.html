@@ -1,0 +1,208 @@
+<div *ngIf="applicationData && applicationData.application">
+
+    <!-- 1. Personal Information -->
+    <data-panel ngId="threeYearIdentityInfo" [heading]="'personalInfo' | l" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'lastName' | l }}</label>
+                    <pre>{{ applicationData.application.lastName }}</pre>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'firstName' | l }}</label>
+                    <pre>{{ applicationData.application.firstName }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'email' | l }}</label>
+                    <pre>{{ applicationData.application.email }}</pre>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'phone' | l }}</label>
+                    <pre>{{ applicationData.application.phone }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'birthDate' | l }}</label>
+                    <pre>{{ applicationData.application.birthDate }}</pre>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'maritalStatus' | l }}</label>
+                    <pre>{{ applicationData.application.maritalStatus | l }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'address' | l }}</label>
+                    <pre>{{ applicationData.application.address }}</pre>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'city' | l }}</label>
+                    <pre>{{ applicationData.application.city }}</pre>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{ 'postalCode' | l }}</label>
+                    <pre>{{ applicationData.application.zipCode }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <!-- 2. Financial Responsibility -->
+    <data-panel ngId="threeYearFinancialInfo" [heading]="'financialLiability2' | l" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'studentType' | l }}</label>
+                    <pre>{{ (applicationData.application.studentType === 'studentInternal' ? 'studentInternal' : (applicationData.application.studentType === 'studentExternal' ? 'studentExternal' : '')) | l }}</pre>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'fundingSource' | l }}</label>
+                    <pre>{{ (applicationData.application.fundingSource === 'fundingSelf' ? 'fundingSelf' : (applicationData.application.fundingSource === 'fundingThirdParty' ? 'fundingThirdParty' : (applicationData.application.fundingSource === 'fundingPartial' ? 'fundingPartial' : ''))) | l }}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sponsor Details -->
+        <div *ngIf="applicationData.application.fundingSource === 'fundingThirdParty' || applicationData.application.fundingSource === 'fundingPartial'">
+            <h4 style="font-weight: bold; margin-top: 15px; margin-bottom: 10px;">{{ 'sponsorDetails' | l }}</h4>
+            <div class="row">
+                <div class="col-md-4" *ngIf="applicationData.application.sponsorName">
+                    <div class="form-group">
+                        <label>{{ 'sponsorName' | l }}</label>
+                        <pre>{{ applicationData.application.sponsorName }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-4" *ngIf="applicationData.application.sponsorPhone">
+                    <div class="form-group">
+                        <label>{{ 'sponsorPhone' | l }}</label>
+                        <pre>{{ applicationData.application.sponsorPhone }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-4" *ngIf="applicationData.application.sponsorAmount">
+                    <div class="form-group">
+                        <label>{{ 'sponsorAmount' | l }}</label>
+                        <pre>{{ applicationData.application.sponsorAmount }} €</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Remaining Amount -->
+        <div class="row" *ngIf="applicationData.application.fundingSource === 'fundingPartial' && applicationData.application.studentAmount">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'studentAmount' | l }}</label>
+                    <pre>{{ applicationData.application.studentAmount }} €</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Church / Mission Details -->
+        <div class="row" *ngIf="(applicationData.application.fundingSource === 'fundingThirdParty' || applicationData.application.fundingSource === 'fundingPartial') && applicationData.application.churchMissionDetails">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'churchMissionDetails' | l }}</label>
+                    <pre style="white-space: pre-wrap;">{{ applicationData.application.churchMissionDetails }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <!-- 3. Christian Calling -->
+    <data-panel ngId="threeYearCallingInfo" [heading]="'christianCalling' | l" color="portlet-blue">
+        <div class="row" *ngIf="applicationData.application.reasonToContinue">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'reasonToContinueQuestion' | l }}</label>
+                    <pre style="white-space: pre-wrap;">{{ applicationData.application.reasonToContinue }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="applicationData.application.pastorDiscussion">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'pastorDiscussionQuestion' | l }}</label>
+                    <pre style="white-space: pre-wrap;">{{ applicationData.application.pastorDiscussion }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="applicationData.application.ministryCalling">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'ministryCallingQuestion' | l }}</label>
+                    <pre style="white-space: pre-wrap;">{{ applicationData.application.ministryCalling }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="applicationData.application.currentService">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'currentServiceQuestion' | l }}</label>
+                    <pre style="white-space: pre-wrap;">{{ applicationData.application.currentService }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'schoolRegulationsAgreementQuestion' | l }}</label>
+                    <pre>{{ boolToString(applicationData.application.schoolRegulationsAgreement) }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <!-- 4. Submission -->
+    <data-panel ngId="threeYearSubmissionInfo" [heading]="'submission' | l" color="portlet-blue">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'submissionDate' | l }}</label>
+                    <pre>{{ applicationData.application.submissionDate }}</pre>
+                </div>
+            </div>
+            <div class="col-md-6" *ngIf="applicationData.application.studentSignature">
+                <div class="form-group">
+                    <label>{{ 'studentSignature' | l }}</label>
+                    <pre>{{ applicationData.application.studentSignature }}</pre>
+                </div>
+            </div>
+        </div>
+    </data-panel>
+
+    <!-- Decision / Action Buttons -->
+    <ng-container>
+        <div *ngIf="admissionService.hasAccess(applicationData?.accessControl?.editRoles)" class="row text-center extraBottomPadding">
+            <action-collection [actionButtons]="decisionButtons" [collectionAjax]="true"></action-collection>
+        </div>
+        <div *ngIf="admissionService.hasAccess(applicationData?.accessControl?.editRoles)" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.editApplication(applicationData?.accessControl?.editPath, this.userId)"
+                color="btn-blue" icon="fa-pencil-alt" [caption]="'edit' | l" [bTooltip]="'editApplication' | l"></action-button>
+        </div>
+        <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
+            <action-button (click)="admissionService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue"
+                [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>
+        </div>
+    </ng-container>
+</div>
