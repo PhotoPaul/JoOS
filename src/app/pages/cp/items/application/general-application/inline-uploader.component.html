@@ -9,13 +9,19 @@
             </div>
             <div class="uploaded-file-actions" style="display: flex; gap: 5px; flex-shrink: 0;">
                 <action-button (click)="getFile(file.filename)" [color]="'btn-blue'" [icon]="'fa-download'" [bTooltip]="'viewFile' | l" [ajax]="false"></action-button>
-                <action-button (click)="deleteFile(file.filename)" [color]="'btn-red'" [icon]="'fa-trash-alt'" [bTooltip]="'deleteFile' | l" [ajax]="false"></action-button>
+                <action-button *ngIf="!disabled" (click)="deleteFile(file.filename)" [color]="'btn-red'" [icon]="'fa-trash-alt'" [bTooltip]="'deleteFile' | l" [ajax]="false"></action-button>
             </div>
         </div>
     </div>
 
-    <!-- Upload/Dropzone Area (only shown when there is no pending file, not currently uploading, and either no files exist or user requested to add another) -->
-    <div *ngIf="(!uploadedFiles.length || showUploadArea) && !hasPendingFile && !isUploading"
+    <!-- If no file is uploaded and uploader is disabled, show a simple localized message -->
+    <div *ngIf="uploadedFiles.length === 0 && disabled" style="padding: 12px; border: 2px dashed #ddd; border-radius: 6px; background: #fafafa; text-align: center; color: #777; font-style: italic; font-size: 13px;">
+        <i class="fas fa-file-excel" style="margin-right: 6px; color: #aaa;"></i>
+        {{ localization.getActiveLanguage() === 'gr' ? 'Δεν έχει μεταφορτωθεί αρχείο.' : 'No file has been uploaded.' }}
+    </div>
+
+    <!-- Upload/Dropzone Area (only shown when there is no pending file, not currently uploading, either no files exist or user requested to add another, and not disabled) -->
+    <div *ngIf="(!uploadedFiles.length || showUploadArea) && !hasPendingFile && !isUploading && !disabled"
          ng2FileDrop
          [ngClass]="{'nv-file-over': hasDropZoneOver}"
          (fileOver)="fileOver($event)"
@@ -29,10 +35,10 @@
             </div>
         </div>
         <input class="inline-drop-zone-button" type="file" ng2FileSelect [uploader]="uploader" accept="image/*,application/pdf">
-    </div>
+     </div>
 
-    <!-- Link to add another file (shown when a file is already uploaded, but upload area is hidden) -->
-    <div *ngIf="uploadedFiles.length > 0 && !showUploadArea && !hasPendingFile && !isUploading" style="margin-top: 6px; text-align: center;">
+    <!-- Link to add another file (shown when a file is already uploaded, upload area is hidden, and not disabled) -->
+    <div *ngIf="uploadedFiles.length > 0 && !showUploadArea && !hasPendingFile && !isUploading && !disabled" style="margin-top: 6px; text-align: center;">
         <a href="javascript:void(0)" (click)="showUploadArea = true" class="btn btn-xs btn-green" style="color: #ffffff; background-color: #16a085; border-color: #16a085; font-weight: 600; padding: 5px 12px; border-radius: 4px; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;">
             <i class="fas fa-plus" style="color: #ffffff;"></i> {{ 'uploadAnotherFile' | l }}
         </a>

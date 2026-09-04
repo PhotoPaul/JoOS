@@ -48,24 +48,39 @@ export class ThreeYearApplicationComponent implements OnInit {
     saveSection(currentPanel: string, nextPanel: string, appData: any) {
         this.formLoading = true;
 
+        // Clone appData to avoid mutating the in-memory Angular model
+        const payload = JSON.parse(JSON.stringify(appData));
+
         // Boolean mapping
         const booleanFields = [
             'schoolRegulationsAgreement', 'academicDirectorApproval', 'generalDirectorApproval'
         ];
         booleanFields.forEach(field => {
-            const val = appData.application[field];
+            const val = payload.application[field];
             if (val === true || val === '1') {
-                appData.application[field] = '1';
+                payload.application[field] = '1';
             } else {
-                appData.application[field] = '0';
+                payload.application[field] = '0';
             }
         });
 
-        if (appData.application.maritalStatus !== 'maritalStatusChanged') {
-            appData.application.maritalStatusDetails = null;
+        if (payload.application.fundingSource === 'fundingSelf') {
+            payload.application.churchMissionDetails = null;
+            payload.application.studentAmount = null;
+            payload.application.sponsorName = null;
+            payload.application.sponsorPhone = null;
+            payload.application.sponsorAmount = null;
+        } else if (payload.application.fundingSource === 'fundingThirdParty') {
+            payload.application.studentAmount = null;
+        } else if (!payload.application.fundingSource) {
+            payload.application.churchMissionDetails = null;
+            payload.application.studentAmount = null;
+            payload.application.sponsorName = null;
+            payload.application.sponsorPhone = null;
+            payload.application.sponsorAmount = null;
         }
 
-        this.applicationService.saveUserApplicationData(this.userId, 25, appData)
+        this.applicationService.saveUserApplicationData(this.userId, 25, payload)
             .then(() => {
                 this.modelChanged = false;
                 if (currentPanel) {

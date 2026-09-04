@@ -2,7 +2,7 @@
     <!-- PERSONAL INFORMATION -->
     <app-personal-info-form *ngIf="personalData"
         [personalData]="personalData" [userId]="userId" [documentsList]="documentsList"
-        [validate]="validate" [formLoading]="formLoading || personalData?.applicationStatus === '1'" [maxDate]="maxDate"
+        [validate]="validate" [formLoading]="formLoading || personalData?.application?.applicationStatus === '1'" [maxDate]="maxDate"
         (dateChanged)="modelChanged = true"
         (save)="saveSection($event.current, $event.next, 1, personalData)">
     </app-personal-info-form>
@@ -10,42 +10,42 @@
     <!-- EDUCATION -->
     <app-education-form *ngIf="educationData"
         [educationData]="educationData" [userId]="userId" [documentsList]="documentsList"
-        [validate]="validate" [formLoading]="formLoading || personalData?.applicationStatus === '1'"
+        [validate]="validate" [formLoading]="formLoading || personalData?.application?.applicationStatus === '1'"
         (save)="saveSection($event.current, $event.next, 2, educationData)">
     </app-education-form>
 
     <!-- HEALTH -->
     <app-health-form *ngIf="healthData"
         [healthData]="healthData" [userId]="userId" [documentsList]="documentsList"
-        [validate]="validate" [formLoading]="formLoading || personalData?.applicationStatus === '1'"
+        [validate]="validate" [formLoading]="formLoading || personalData?.application?.applicationStatus === '1'"
         (save)="saveSection($event.current, $event.next, 3, healthData)">
     </app-health-form>
 
     <!-- CHRISTIAN LIFE -->
     <app-christian-life-form *ngIf="christianLifeData"
         [christianLifeData]="christianLifeData"
-        [validate]="validate" [formLoading]="formLoading || personalData?.applicationStatus === '1'"
+        [validate]="validate" [formLoading]="formLoading || personalData?.application?.applicationStatus === '1'"
         (save)="saveSection($event.current, $event.next, 4, christianLifeData)">
     </app-christian-life-form>
 
     <!-- REFERENCES -->
-    <app-references-form *ngIf="referencesData"
+    <app-references-form *ngIf="referencesData" [collapsed]="personalData?.application?.applicationStatus !== '1'"
         [referencesData]="referencesData" [userId]="userId" [documentsList]="documentsList"
-        [validate]="validate" [formLoading]="formLoading || personalData?.applicationStatus === '1'"
+        [validate]="validate" [formLoading]="formLoading || personalData?.application?.applicationStatus === '1'"
         (save)="saveSection($event.current, $event.next, 5, referencesData)">
     </app-references-form>
 
     <!-- FINANCIAL -->
     <app-financial-form *ngIf="financialData"
         [financialData]="financialData" [userId]="userId" [documentsList]="documentsList"
-        [validate]="validate" [formLoading]="formLoading || personalData?.applicationStatus === '1'" [orderUrl]="orderUrl"
+        [validate]="validate" [formLoading]="formLoading || personalData?.application?.applicationStatus === '1'" [orderUrl]="orderUrl"
         (save)="saveSection($event.current, $event.next, 6, financialData)"
         (createOrder)="createOrder()"
         (openOrder)="openOrder()">
     </app-financial-form>
 
     <!-- ==================== SUBMIT & VALIDATION CONTROLS ==================== -->
-    <ng-container *ngIf="personalData?.applicationStatus !== '1'">
+    <ng-container *ngIf="personalData?.application?.applicationStatus !== '1'">
         <div *ngIf="!unsavedChanges(); else isNotSaved" class="row">
             <ng-container *ngIf="form.valid; else isNotValid">
                 <div class="row">

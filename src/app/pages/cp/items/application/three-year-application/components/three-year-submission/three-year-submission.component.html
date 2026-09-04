@@ -1,11 +1,11 @@
 <ng-container *ngIf="applicationData">
-    <data-panel ngId="threeYearSubmissionInfo" [heading]="'submission' | l" color="portlet-blue" [collapsed]="true">
+    <data-panel ngId="threeYearSubmissionInfo" [heading]="'submission' | l" color="portlet-blue" [collapsed]="applicationData?.application?.applicationStatus != '1'">
         <fieldset [disabled]="formLoading">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="submissionDateInput">{{ 'date' | l }}</label>
-                        <input type="text" [(ngModel)]="applicationData.application.submissionDate" id="submissionDateInput" name="submissionDate" class="form-control" placeholder="e.g. DD-MM-YYYY" required>
+                        <input type="text" [(ngModel)]="applicationData.application.submissionDate" id="submissionDateInput" name="submissionDate" class="form-control" readonly required>
                         <required-field-warning *ngIf="validate && !applicationData.application.submissionDate"></required-field-warning>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            <div class="row" style="margin-top: 20px;">
+            <div *ngIf="applicationData?.application?.applicationStatus != '1'" class="row" style="margin-top: 20px;">
                 <div class="col-md-4 col-md-offset-4">
                     <button class="btn btn-green btn-block" type="button" (click)="onSave('threeYearSubmissionInfo', null)">{{ 'saveAndContinue' | l }}</button>
                 </div>

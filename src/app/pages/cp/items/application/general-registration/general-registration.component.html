@@ -2,40 +2,41 @@
     <!-- STUDY MODE -->
     <app-reg-study-mode *ngIf="registrationData"
         [registrationData]="registrationData"
-        [validate]="validate" [formLoading]="formLoading"
+        [validate]="validate" [formLoading]="formLoading || registrationData?.application?.applicationStatus == '1'"
         (save)="saveSection($event.current, $event.next, registrationData)">
     </app-reg-study-mode>
 
     <!-- COURSE SELECTION -->
-    <app-reg-course-selection *ngIf="registrationData"
+    <app-reg-course-selection *ngIf="registrationData && needsCourseEnrollment()"
         [registrationData]="registrationData"
-        [validate]="validate" [formLoading]="formLoading"
+        [validate]="validate" [formLoading]="formLoading || registrationData?.application?.applicationStatus == '1'"
         (save)="saveSection($event.current, $event.next, registrationData)">
     </app-reg-course-selection>
 
     <!-- MEDICAL -->
     <app-reg-medical *ngIf="registrationData"
         [registrationData]="registrationData"
-        [validate]="validate" [formLoading]="formLoading"
+        [validate]="validate" [formLoading]="formLoading || registrationData?.application?.applicationStatus == '1'"
         (save)="saveSection($event.current, $event.next, registrationData)">
     </app-reg-medical>
 
     <!-- CONTRACT -->
     <app-reg-contract *ngIf="registrationData"
         [registrationData]="registrationData"
-        [validate]="validate" [formLoading]="formLoading"
+        [validate]="validate" [formLoading]="formLoading || registrationData?.application?.applicationStatus == '1'"
         (save)="saveSection($event.current, $event.next, registrationData)">
     </app-reg-contract>
 
     <!-- FINANCIAL -->
     <app-reg-financial *ngIf="registrationData"
         [registrationData]="registrationData"
-        [validate]="validate" [formLoading]="formLoading"
+        [validate]="validate" [formLoading]="formLoading || registrationData?.application?.applicationStatus == '1'"
         (save)="saveSection($event.current, $event.next, registrationData)">
     </app-reg-financial>
 
     <!-- ==================== SUBMIT & VALIDATION CONTROLS ==================== -->
-    <div *ngIf="!unsavedChanges(); else isNotSaved" class="row">
+    <ng-container *ngIf="registrationData?.application?.applicationStatus != '1'">
+        <div *ngIf="!unsavedChanges(); else isNotSaved" class="row">
         <ng-container *ngIf="form.valid; else isNotValid">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center" style="margin-bottom: 20px;">
@@ -58,6 +59,7 @@
     <ng-template #isNotSaved>
         <div class="alert alert-danger text-center extraBottomPadding">{{ 'pleaseSaveChanges' | l }}</div>
     </ng-template>
+    </ng-container>
     <div *authIf="['admin', 'registrar', 'cashier', 'admissions']" class="row text-center extraBottomPadding">
         <action-button (click)="applicationService.returnToList(this.userId)" icon="fa-arrow-left" color="btn-blue"
             [caption]="'back' | l" [bTooltip]="'backToApplicants' | l"></action-button>

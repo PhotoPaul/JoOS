@@ -20,7 +20,8 @@ import { FileSystemService } from '../../../../../services/file-system.service';
         '.uploaded-file-info { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #2e5a44; overflow: hidden; }',
         '.preview-card { border: 2px solid #5cb85c; border-radius: 6px; padding: 12px; background: #fbfdfb; margin-top: 5px; }',
         '.preview-img { max-width: 100%; max-height: 200px; border-radius: 4px; border: 1px solid #ddd; margin: 8px auto; display: block; object-fit: contain; }',
-        '.progress-container { margin-top: 8px; }'
+        '.progress-container { margin-top: 8px; }',
+        '::ng-deep fieldset[disabled] .uploaded-file-actions .btn { pointer-events: auto !important; opacity: 1 !important; cursor: pointer !important; }'
     ]
 })
 export class InlineUploaderComponent implements OnInit {
@@ -28,6 +29,7 @@ export class InlineUploaderComponent implements OnInit {
     @Input() documentTypeId: number;
     @Input() files: any[] = [];
     @Input() label: string = '';
+    @Input() disabled: boolean = false;
     
     @Output() filesChanged = new EventEmitter<any[]>();
 
@@ -49,7 +51,7 @@ export class InlineUploaderComponent implements OnInit {
     private rawPreviewUrl: string | null = null;
 
     constructor(
-        private localization: LocalizationService,
+        public localization: LocalizationService,
         private ajax: AjaxService,
         public fs: FileSystemService,
         private changeDetector: ChangeDetectorRef,

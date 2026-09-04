@@ -26,7 +26,8 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>{{ 'phone' | l }}</label>
-                        <input type="text" [value]="applicationData.application.phone" class="form-control" disabled>
+                        <input type="text" [(ngModel)]="applicationData.application.phone" name="phone" class="form-control" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.phone"></required-field-warning>
                     </div>
                 </div>
             </div>
@@ -48,19 +49,22 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>{{ 'address' | l }}</label>
-                        <input type="text" [value]="applicationData.application.address" class="form-control" disabled>
+                        <input type="text" [(ngModel)]="applicationData.application.address" name="address" class="form-control" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.address"></required-field-warning>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>{{ 'city' | l }}</label>
-                        <input type="text" [value]="applicationData.application.city" class="form-control" disabled>
+                        <input type="text" [(ngModel)]="applicationData.application.city" name="city" class="form-control" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.city"></required-field-warning>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>{{ 'postalCode' | l }}</label>
-                        <input type="text" [value]="applicationData.application.zipCode" class="form-control" disabled>
+                        <input type="text" [(ngModel)]="applicationData.application.zipCode" name="zipCode" class="form-control" required>
+                        <required-field-warning *ngIf="validate && !applicationData.application.zipCode"></required-field-warning>
                     </div>
                 </div>
             </div>
@@ -69,26 +73,26 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="maritalStatusRadio">{{ 'maritalStatus' | l }}</label><br>
-                        <label class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.maritalStatus" name="maritalStatus" value="maritalStatusSame" required>&nbsp;{{ 'maritalStatusSame' | l }}</label>
-                        <label class="radio-inline"><input type="radio" [(ngModel)]="applicationData.application.maritalStatus" name="maritalStatus" value="maritalStatusChanged" required>&nbsp;{{ 'maritalStatusChanged' | l }}</label>
-                        <required-field-warning *ngIf="validate && !applicationData.application.maritalStatus" [warningText]="'requiredChoice' | l"></required-field-warning>
+                        <label for="familySingle">{{ 'maritalStatus' | l }}</label><br>
+                        <label for="familySingle" class="radio-inline"><input type="radio"
+                                [(ngModel)]="applicationData.application.maritalStatus" id="familySingle"
+                                name="maritalStatus" value="familySingle" required>&nbsp;{{ 'maritalSingle' | l }}</label>
+                        <label for="familyMarried" class="radio-inline"><input type="radio"
+                                [(ngModel)]="applicationData.application.maritalStatus" id="familyMarried"
+                                name="maritalStatus" value="familyMarried" required>&nbsp;{{ 'maritalMarried' | l }}</label>
+                        <label for="familyDivorced" class="radio-inline"><input type="radio"
+                                [(ngModel)]="applicationData.application.maritalStatus" id="familyDivorced"
+                                name="maritalStatus" value="familyDivorced" required>&nbsp;{{ 'maritalDivorced' | l }}</label>
+                        <label for="familyWidow" class="radio-inline"><input type="radio"
+                                [(ngModel)]="applicationData.application.maritalStatus" id="familyWidow"
+                                name="maritalStatus" value="familyWidow" required>&nbsp;{{ 'maritalWidow' | l }}</label>
+                        <required-field-warning *ngIf="validate && !applicationData.application.maritalStatus"
+                            [warningText]="'requiredChoice' | l"></required-field-warning>
                     </div>
                 </div>
             </div>
 
-            <!-- Marital Status Details -->
-            <div *ngIf="applicationData.application.maritalStatus === 'maritalStatusChanged'" class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="maritalStatusDetailsInput">{{ 'maritalStatusDetails' | l }}</label>
-                        <textarea [(ngModel)]="applicationData.application.maritalStatusDetails" id="maritalStatusDetailsInput" name="maritalStatusDetails" class="form-control" rows="3" required autofocus></textarea>
-                        <required-field-warning *ngIf="validate && !applicationData.application.maritalStatusDetails"></required-field-warning>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row" style="margin-top: 20px;">
+            <div *ngIf="applicationData?.application?.applicationStatus != '1'" class="row" style="margin-top: 20px;">
                 <div class="col-md-4 col-md-offset-4">
                     <button class="btn btn-green btn-block" type="button" (click)="onSave('threeYearIdentityInfo', 'threeYearFinancialInfo')">{{ 'saveAndContinue' | l }}</button>
                 </div>

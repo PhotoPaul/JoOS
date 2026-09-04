@@ -7,6 +7,7 @@ import { DatepickerModule, ModalModule, TimepickerModule, TooltipModule } from '
 
 import { AuthIfDirective } from '../directives/authIf.directive';
 import { AutofocusDirective } from '../directives/autofocus.directive';
+import { NoEmojiValidatorDirective } from '../directives/no-emoji.directive';
 import { LocalizationModule } from '../localization/localization.module';
 import { LocalizationPipe } from '../localization/localization.pipe';
 import { BreakEveryNPipe } from '../pipes/breakEveryN.pipe';
@@ -51,6 +52,7 @@ import { TimeInputComponent } from './time-input.component';
     declarations: [
         AutofocusDirective,
         AuthIfDirective,
+        NoEmojiValidatorDirective,
         FNamePipe,
         FStatusPipe,
         FUpperCasePipe,
@@ -86,6 +88,7 @@ import { TimeInputComponent } from './time-input.component';
         TooltipModule,
         AutofocusDirective,
         AuthIfDirective,
+        NoEmojiValidatorDirective,
         FNamePipe,
         FStatusPipe,
         FUpperCasePipe,

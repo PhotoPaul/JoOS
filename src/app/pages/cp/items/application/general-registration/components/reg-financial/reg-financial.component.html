@@ -1,6 +1,16 @@
 <ng-container *ngIf="registrationData">
-    <data-panel ngId="regFinancialInfo" [heading]="'financialLiability2' | l" color="portlet-blue" [collapsed]="true">
+    <data-panel ngId="regFinancialInfo" [heading]="'financialLiability2' | l" color="portlet-blue" [collapsed]="registrationData?.application?.applicationStatus != '1'">
         <fieldset [disabled]="formLoading">
+            <!-- Back Office / Accounting Notes (Staff Only) -->
+            <div *authIf="['admin', 'registrar', 'cashier']" class="row" style="margin-bottom: 15px;">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="financialNotesInput"><i class="fas fa-lock text-muted" style="margin-right: 5px;"></i>{{ 'accountingNotes' | l }}</label>
+                        <textarea [(ngModel)]="registrationData.application.financialNotes" id="financialNotesInput" name="financialNotes" class="form-control" rows="3" autocomplete="off"></textarea>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group"
@@ -16,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="row" style="margin-top: 20px;">
+            <div *ngIf="registrationData?.application?.applicationStatus != '1'" class="row" style="margin-top: 20px;">
                 <div class="col-md-4 col-md-offset-4">
                     <button class="btn btn-green btn-block" type="button" (click)="onSave('regFinancialInfo', null)">{{ 'saveAndContinue' | l }}</button>
                 </div>

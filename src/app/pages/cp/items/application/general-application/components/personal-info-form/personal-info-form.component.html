@@ -21,7 +21,7 @@
         </div>
     </data-panel>
 
-    <data-panel ngId="idInfo" [heading]="'identityInformation' | l" color="portlet-blue" collapsed="true">
+    <data-panel ngId="idInfo" [heading]="'identityInformation' | l" color="portlet-blue" [collapsed]="personalData?.application?.applicationStatus != '1'">
         <fieldset [disabled]="formLoading">
             <div class="row">
                 <!-- Left: Details Column -->
@@ -165,7 +165,7 @@
                                  [style.border-left]="!hasDocument(1) ? '5px solid #e74c3c' : '5px solid transparent'"
                                  [style.padding-left]="!hasDocument(1) ? '10px' : '0px'">
                                 <input type="hidden" [ngModel]="hasDocument(1) ? 'uploaded' : ''" name="idCardFile" required>
-                                <inline-uploader [userId]="userId" [documentTypeId]="1" [files]="documentsList" [label]="'uploadIdCard' | l"></inline-uploader>
+                                <inline-uploader [disabled]="formLoading" [userId]="userId" [documentTypeId]="1" [files]="documentsList" [label]="'uploadIdCard' | l"></inline-uploader>
                                 <required-field-warning *ngIf="validate && !hasDocument(1)" [warningText]="'requiredField' | l"></required-field-warning>
                             </div>
                         </div>
@@ -207,7 +207,7 @@
                                  [style.border-left]="!hasDocument(2) ? '5px solid #e74c3c' : '5px solid transparent'"
                                  [style.padding-left]="!hasDocument(2) ? '10px' : '0px'">
                                 <input type="hidden" [ngModel]="hasDocument(2) ? 'uploaded' : ''" name="passportFile" required>
-                                <inline-uploader [userId]="userId" [documentTypeId]="2" [files]="documentsList" [label]="'uploadPassport' | l"></inline-uploader>
+                                <inline-uploader [disabled]="formLoading" [userId]="userId" [documentTypeId]="2" [files]="documentsList" [label]="'uploadPassport' | l"></inline-uploader>
                                 <required-field-warning *ngIf="validate && !hasDocument(2)" [warningText]="'requiredField' | l"></required-field-warning>
                             </div>
                         </div>
@@ -228,7 +228,7 @@
                                  [style.border-left]="!hasDocument(3) ? '5px solid #e74c3c' : '5px solid transparent'"
                                  [style.padding-left]="!hasDocument(3) ? '10px' : '0px'">
                                 <input type="hidden" [ngModel]="hasDocument(3) ? 'uploaded' : ''" name="residencePermitFile" required>
-                                <inline-uploader [userId]="userId" [documentTypeId]="3" [files]="documentsList" [label]="'uploadResidencePermit' | l"></inline-uploader>
+                                <inline-uploader [disabled]="formLoading" [userId]="userId" [documentTypeId]="3" [files]="documentsList" [label]="'uploadResidencePermit' | l"></inline-uploader>
                                 <required-field-warning *ngIf="validate && !hasDocument(3)" [warningText]="'requiredField' | l"></required-field-warning>
                             </div>
                         </div>
@@ -265,7 +265,7 @@
                          [style.padding-left]="!hasDocument(5) ? '10px' : '0px'">
                         <label style="font-weight: bold; color: #444; margin-bottom: 8px; display: block;">{{ 'passportPhotoLabel' | l }}</label>
                         <input type="hidden" [ngModel]="hasDocument(5) ? 'uploaded' : ''" name="passportPhotoFile" required>
-                        <inline-uploader [userId]="userId" [documentTypeId]="5" [files]="documentsList" [label]="'uploadPassportPhoto' | l"></inline-uploader>
+                        <inline-uploader [disabled]="formLoading" [userId]="userId" [documentTypeId]="5" [files]="documentsList" [label]="'uploadPassportPhoto' | l"></inline-uploader>
                         <required-field-warning *ngIf="validate && !hasDocument(5)" [warningText]="'requiredField' | l"></required-field-warning>
                     </div>
                 </div>
@@ -316,7 +316,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div *ngIf="personalData?.application?.applicationStatus != '1'" class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <button class="btn btn-green btn-block" type="button"
                         (click)="onSave('idInfo', underage ? 'guardianInfo' : 'educationInfo')">{{ 'saveAndContinue' | l }}</button>
@@ -326,7 +326,7 @@
     </data-panel>
 
     <data-panel *ngIf="underage" ngId="guardianInfo" [heading]="'guardianInformation' | l" color="portlet-blue"
-        collapsed="true">
+        [collapsed]="personalData?.application?.applicationStatus != '1'">
         <fieldset [disabled]="formLoading">
             <div class="row">
                 <div class="col-md-3">
@@ -449,7 +449,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div *ngIf="personalData?.application?.applicationStatus != '1'" class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <button class="btn btn-green btn-block" type="button"
                         (click)="onSave('guardianInfo', 'educationInfo')">{{

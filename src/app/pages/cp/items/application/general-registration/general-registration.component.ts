@@ -45,28 +45,105 @@ export class GeneralRegistrationComponent implements OnInit {
         }
     }
 
+    needsCourseEnrollment(): boolean {
+        if (!this.registrationData || !this.registrationData.application) {
+            return false;
+        }
+        const app = this.registrationData.application;
+        if (app.studyMode === 'greek') {
+            if (app.greekTrack === 'online') {
+                return true;
+            }
+            if (app.greekTrack === 'in-person' && (app.greekLoad === 'part-time' || app.greekLoad === 'auditor')) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     saveSection(currentPanel: string, nextPanel: string, applicationData: any) {
         this.formLoading = true;
+
+        // Clone applicationData to avoid mutating the in-memory Angular model
+        const payload = JSON.parse(JSON.stringify(applicationData));
+
+        // Clean up fields based on studyMode branches
+        if (payload.application.studyMode === 'greek') {
+            payload.application.ispLoad = null;
+            payload.application.ispTrack = null;
+            payload.application.ispResidence = null;
+
+            if (payload.application.greekTrack === 'online') {
+                payload.application.greekLoad = null;
+                payload.application.greekDuration = null;
+                payload.application.greekResidence = null;
+            } else if (payload.application.greekTrack === 'in-person') {
+                if (payload.application.greekLoad !== 'full-time') {
+                    payload.application.greekDuration = null;
+                }
+                if (payload.application.greekLoad === 'auditor') {
+                    payload.application.greekResidence = null;
+                }
+            }
+        } else if (payload.application.studyMode === 'isp') {
+            payload.application.greekTrack = null;
+            payload.application.greekLoad = null;
+            payload.application.greekDuration = null;
+            payload.application.greekResidence = null;
+
+            if (payload.application.ispLoad === 'full-time') {
+                payload.application.ispTrack = null;
+            }
+        }
+
+        // If courses are not needed for this study mode, clear course fields
+        if (!this.needsCourseEnrollment()) {
+            payload.application.course1Sem1 = null;
+            payload.application.course2Sem1 = null;
+            payload.application.course3Sem1 = null;
+            payload.application.course4Sem1 = null;
+            payload.application.course1Sem2 = null;
+            payload.application.course2Sem2 = null;
+            payload.application.course3Sem2 = null;
+            payload.application.course4Sem2 = null;
+            payload.application.coursesOther = null;
+            payload.application.coursesAuditor = null;
+        } else {
+            // If auditor, clear regular course fields; if regular, clear auditor course fields
+            if (payload.application.greekLoad === 'auditor') {
+                payload.application.course1Sem1 = null;
+                payload.application.course2Sem1 = null;
+                payload.application.course3Sem1 = null;
+                payload.application.course4Sem1 = null;
+                payload.application.course1Sem2 = null;
+                payload.application.course2Sem2 = null;
+                payload.application.course3Sem2 = null;
+                payload.application.course4Sem2 = null;
+                payload.application.coursesOther = null;
+            } else {
+                payload.application.coursesAuditor = null;
+            }
+        }
 
         // Boolean values formatting before saving
         const booleanFields = [
             'acceptStudentManual', 'acceptOnlineManual', 'acceptPrivacyPolicy', 'financialLiabilityApproval'
         ];
         booleanFields.forEach(field => {
-            const val = applicationData.application[field];
+            const val = payload.application[field];
             if (val === true || val === '1') {
-                applicationData.application[field] = '1';
+                payload.application[field] = '1';
             } else {
-                applicationData.application[field] = '0';
+                payload.application[field] = '0';
             }
         });
 
-        if (applicationData.application.hasContagiousDisease === '0') {
-            applicationData.application.hasContagiousDisease = '0';
-            applicationData.application.contagiousDiseaseDetails = null;
+        if (payload.application.hasContagiousDisease === '0') {
+            payload.application.hasContagiousDisease = '0';
+            payload.application.contagiousDiseaseDetails = null;
         }
 
-        this.applicationService.saveUserApplicationData(this.userId, 24, applicationData)
+        this.applicationService.saveUserApplicationData(this.userId, 24, payload)
             .then(() => {
                 this.modelChanged = false;
                 if (currentPanel) {

@@ -1,6 +1,6 @@
 <ng-container *ngIf="christianLifeData">
     <data-panel ngId="testimonyInfo" [heading]="'statementOfFaithSpiritualJourney' | l" color="portlet-blue"
-        collapsed="true">
+        [collapsed]="christianLifeData?.application?.applicationStatus != '1'">
         <fieldset [disabled]="formLoading">
             
             <div class="row">
@@ -75,7 +75,7 @@
             </div>
 
             <!-- Save & Continue redirecting to references -->
-            <div class="row" style="margin-top: 30px;">
+            <div *ngIf="christianLifeData?.application?.applicationStatus != '1'" class="row" style="margin-top: 30px;">
                 <div class="col-md-4 col-md-offset-4">
                     <button class="btn btn-green btn-block" type="button"
                         (click)="onSave('testimonyInfo', 'recommendationsInfo')">{{

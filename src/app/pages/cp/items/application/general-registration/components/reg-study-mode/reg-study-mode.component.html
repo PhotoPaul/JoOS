@@ -1,78 +1,138 @@
 <ng-container *ngIf="registrationData">
     <data-panel ngId="regStudyModeInfo" [heading]="'studyMode' | l" color="portlet-blue" [collapsed]="false">
         <fieldset [disabled]="formLoading">
+            <!-- First Choice: Greek or ISP -->
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="studyModeSelect">{{ 'studyMode' | l }}</label><br>
-                        <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.studyMode" name="studyMode" value="greek" required>&nbsp;{{ 'greekProgram' | l }}</label>
-                        <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.studyMode" name="studyMode" value="isp" required>&nbsp;{{ 'ispProgram' | l }}</label>
-                        <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.studyMode" name="studyMode" value="online" required>&nbsp;{{ 'onlineCourses' | l }}</label>
-                        <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.studyMode" name="studyMode" value="auditor" required>&nbsp;{{ 'auditor' | l }}</label>
+                        <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.studyMode" (change)="onStudyModeChange()" name="studyMode" value="greek" required>&nbsp;{{ 'greekProgram' | l }}</label>
+                        <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.studyMode" (change)="onStudyModeChange()" name="studyMode" value="isp" required>&nbsp;{{ 'ispProgram' | l }}</label>
                         <required-field-warning *ngIf="validate && !registrationData.application.studyMode" [warningText]="'requiredChoice' | l"></required-field-warning>
                     </div>
                 </div>
             </div>
 
-            <!-- Greek Program Details -->
+            <!-- Greek Program Branch -->
             <div *ngIf="registrationData.application.studyMode === 'greek'">
                 <h4 style="font-weight: bold; margin-top: 20px; border-bottom: 1px solid #eee; padding-bottom: 5px;">{{ 'greekProgram' | l }}</h4>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label for="greekTrackSelect">{{ 'inPersonClasses' | l }} / {{ 'partTime' | l }}</label><br>
-                            <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekTrack" name="greekTrack" value="in-person" required>&nbsp;{{ 'inPersonClasses' | l }}</label>
-                            <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekTrack" name="greekTrack" value="part-time" required>&nbsp;{{ 'partTime' | l }}</label>
+                            <label for="greekTrackSelect">{{ 'inPersonClasses' | l }} / {{ 'onlineCourses' | l }}</label><br>
+                            <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekTrack" (change)="onGreekTrackChange()" name="greekTrack" value="online" required>&nbsp;{{ 'onlineCourses' | l }}</label>
+                            <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekTrack" (change)="onGreekTrackChange()" name="greekTrack" value="in-person" required>&nbsp;{{ 'inPersonClasses' | l }}</label>
                             <required-field-warning *ngIf="validate && !registrationData.application.greekTrack" [warningText]="'requiredChoice' | l"></required-field-warning>
                         </div>
                     </div>
                 </div>
 
-                <div *ngIf="registrationData.application.greekTrack === 'in-person'" class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="greekDurationSelect">{{ 'oneYear' | l }} / {{ 'threeYear' | l }}</label><br>
-                            <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekDuration" name="greekDuration" value="one-year" required>&nbsp;{{ 'oneYear' | l }}</label>
-                            <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekDuration" name="greekDuration" value="three-year" required>&nbsp;{{ 'threeYear' | l }}</label>
-                            <required-field-warning *ngIf="validate && !registrationData.application.greekDuration" [warningText]="'requiredChoice' | l"></required-field-warning>
+                <!-- Greek In-Person options -->
+                <div *ngIf="registrationData.application.greekTrack === 'in-person'">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="greekLoadSelect">{{ 'studyMode' | l }}</label><br>
+                                <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekLoad" (change)="onGreekLoadChange()" name="greekLoad" value="full-time" required>&nbsp;{{ 'fullTime' | l }}</label>
+                                <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekLoad" (change)="onGreekLoadChange()" name="greekLoad" value="part-time" required>&nbsp;{{ 'partTimeStudy' | l }}</label>
+                                <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekLoad" (change)="onGreekLoadChange()" name="greekLoad" value="auditor" required>&nbsp;{{ 'auditor' | l }}</label>
+                                <required-field-warning *ngIf="validate && !registrationData.application.greekLoad" [warningText]="'requiredChoice' | l"></required-field-warning>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="greekLoadSelect">{{ 'fullTime' | l }} / {{ 'partTime' | l }}</label><br>
-                            <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekLoad" name="greekLoad" value="full-time" required>&nbsp;{{ 'fullTime' | l }}</label>
-                            <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekLoad" name="greekLoad" value="part-time" required>&nbsp;{{ 'partTime' | l }}</label>
-                            <required-field-warning *ngIf="validate && !registrationData.application.greekLoad" [warningText]="'requiredChoice' | l"></required-field-warning>
+
+                    <!-- Full-time Greek In-person -->
+                    <div *ngIf="registrationData.application.greekLoad === 'full-time'">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="greekDurationSelect">{{ 'oneYear' | l }} / {{ 'threeYear' | l }}</label><br>
+                                    <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekDuration" name="greekDuration" value="one-year" required>&nbsp;{{ 'oneYear' | l }}</label>
+                                    <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekDuration" name="greekDuration" value="three-year" required>&nbsp;{{ 'threeYear' | l }}</label>
+                                    <required-field-warning *ngIf="validate && !registrationData.application.greekDuration" [warningText]="'requiredChoice' | l"></required-field-warning>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="greekResidenceSelect">{{ 'residentStudent' | l }} / {{ 'nonResidentStudent' | l }}</label><br>
+                                    <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekResidence" name="greekResidence" value="residential" required>&nbsp;{{ 'residentStudent' | l }}</label>
+                                    <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekResidence" name="greekResidence" value="non-residential" required>&nbsp;{{ 'nonResidentStudent' | l }}</label>
+                                    <required-field-warning *ngIf="validate && !registrationData.application.greekResidence" [warningText]="'requiredChoice' | l"></required-field-warning>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="greekResidenceSelect">{{ 'residentialStudent' | l }} / {{ 'nonResidentialStudent' | l }}</label><br>
-                            <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekResidence" name="greekResidence" value="residential" required>&nbsp;{{ 'residentialStudent' | l }}</label>
-                            <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekResidence" name="greekResidence" value="non-residential" required>&nbsp;{{ 'nonResidentialStudent' | l }}</label>
-                            <required-field-warning *ngIf="validate && !registrationData.application.greekResidence" [warningText]="'requiredChoice' | l"></required-field-warning>
+
+                    <!-- Part-time Greek In-person -->
+                    <div *ngIf="registrationData.application.greekLoad === 'part-time'" class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="greekResidencePartTimeSelect">{{ 'residentStudent' | l }} / {{ 'nonResidentStudent' | l }}</label><br>
+                                <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekResidence" name="greekResidence" value="residential" required>&nbsp;{{ 'residentStudent' | l }}</label>
+                                <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.greekResidence" name="greekResidence" value="non-residential" required>&nbsp;{{ 'nonResidentStudent' | l }}</label>
+                                <required-field-warning *ngIf="validate && !registrationData.application.greekResidence" [warningText]="'requiredChoice' | l"></required-field-warning>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- ISP Program Details -->
+            <!-- ISP Program Branch -->
             <div *ngIf="registrationData.application.studyMode === 'isp'">
                 <h4 style="font-weight: bold; margin-top: 20px; border-bottom: 1px solid #eee; padding-bottom: 5px;">{{ 'ispProgram' | l }}</h4>
+                <!-- ISP Load: Full time or Part time -->
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="ispTrackSelect">{{ 'ispProgram' | l }}</label><br>
-                            <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.ispTrack" name="ispTrack" value="ministry" required>&nbsp;{{ 'ispMinistry' | l }}</label>
-                            <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.ispTrack" name="ispTrack" value="ethnic-church" required>&nbsp;{{ 'ispEthnicChurch' | l }}</label>
-                            <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.ispTrack" name="ispTrack" value="language-track" required>&nbsp;{{ 'ispLanguageTrack' | l }}</label>
-                            <required-field-warning *ngIf="validate && !registrationData.application.ispTrack" [warningText]="'requiredChoice' | l"></required-field-warning>
+                            <label for="ispLoadSelect">{{ 'studyMode' | l }}</label><br>
+                            <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.ispLoad" (change)="onIspLoadChange()" name="ispLoad" value="full-time" required>&nbsp;{{ 'fullTime' | l }}</label>
+                            <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.ispLoad" (change)="onIspLoadChange()" name="ispLoad" value="part-time" required>&nbsp;{{ 'partTimeStudy' | l }}</label>
+                            <required-field-warning *ngIf="validate && !registrationData.application.ispLoad" [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ISP Full Time: Resident or Non-resident -->
+                <div *ngIf="registrationData.application.ispLoad === 'full-time'" class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="ispResidenceFullSelect">{{ 'residentStudent' | l }} / {{ 'nonResidentStudent' | l }}</label><br>
+                            <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.ispResidence" name="ispResidence" value="residential" required>&nbsp;{{ 'residentStudent' | l }}</label>
+                            <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.ispResidence" name="ispResidence" value="non-residential" required>&nbsp;{{ 'nonResidentStudent' | l }}</label>
+                            <required-field-warning *ngIf="validate && !registrationData.application.ispResidence" [warningText]="'requiredChoice' | l"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ISP Part Time: Track + Resident / Non-resident -->
+                <div *ngIf="registrationData.application.ispLoad === 'part-time'">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="ispTrackSelect">{{ 'ispProgram' | l }}</label><br>
+                                <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.ispTrack" name="ispTrack" value="ministry" required>&nbsp;{{ 'ispMinistry' | l }}</label>
+                                <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.ispTrack" name="ispTrack" value="ethnic-church" required>&nbsp;{{ 'ispEthnicChurch' | l }}</label>
+                                <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.ispTrack" name="ispTrack" value="language-track" required>&nbsp;{{ 'ispLanguageTrack' | l }}</label>
+                                <required-field-warning *ngIf="validate && !registrationData.application.ispTrack" [warningText]="'requiredChoice' | l"></required-field-warning>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ispResidencePartSelect">{{ 'residentStudent' | l }} / {{ 'nonResidentStudent' | l }}</label><br>
+                                <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.ispResidence" name="ispResidence" value="residential" required>&nbsp;{{ 'residentStudent' | l }}</label>
+                                <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.ispResidence" name="ispResidence" value="non-residential" required>&nbsp;{{ 'nonResidentStudent' | l }}</label>
+                                <required-field-warning *ngIf="validate && !registrationData.application.ispResidence" [warningText]="'requiredChoice' | l"></required-field-warning>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row" style="margin-top: 20px;">
+            <div *ngIf="registrationData?.application?.applicationStatus != '1'" class="row" style="margin-top: 20px;">
                 <div class="col-md-4 col-md-offset-4">
                     <button class="btn btn-green btn-block" type="button" (click)="onSave('regStudyModeInfo', 'regCourseSelectionInfo')">{{ 'saveAndContinue' | l }}</button>
                 </div>

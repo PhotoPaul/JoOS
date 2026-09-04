@@ -1,8 +1,8 @@
 <ng-container *ngIf="registrationData">
-    <data-panel ngId="regContractInfo" [heading]="'studentManual' | l" color="portlet-blue" [collapsed]="true">
+    <data-panel ngId="regContractInfo" [heading]="'studentManual' | l" color="portlet-blue" [collapsed]="registrationData?.application?.applicationStatus != '1'">
         <fieldset [disabled]="formLoading">
             <!-- Standard Student Manual -->
-            <div *ngIf="registrationData.application.studyMode !== 'online'" class="row">
+            <div *ngIf="!(registrationData.application.studyMode === 'greek' && registrationData.application.greekTrack === 'online')" class="row">
                 <div class="col-md-12">
                     <div class="form-group"
                          [style.border-left]="!registrationData.application.acceptStudentManual ? '5px solid #e74c3c' : '5px solid transparent'"
@@ -18,7 +18,7 @@
             </div>
 
             <!-- Online Student Manual -->
-            <div *ngIf="registrationData.application.studyMode === 'online'" class="row">
+            <div *ngIf="registrationData.application.studyMode === 'greek' && registrationData.application.greekTrack === 'online'" class="row">
                 <div class="col-md-12">
                     <div class="form-group"
                          [style.border-left]="!registrationData.application.acceptOnlineManual ? '5px solid #e74c3c' : '5px solid transparent'"
@@ -49,7 +49,7 @@
                 </div>
             </div>
 
-            <div class="row" style="margin-top: 20px;">
+            <div *ngIf="registrationData?.application?.applicationStatus != '1'" class="row" style="margin-top: 20px;">
                 <div class="col-md-4 col-md-offset-4">
                     <button class="btn btn-green btn-block" type="button" (click)="onSave('regContractInfo', 'regFinancialInfo')">{{ 'saveAndContinue' | l }}</button>
                 </div>
