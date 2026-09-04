@@ -914,7 +914,7 @@ export class LocalizationService {
         pastorDiscussionQuestion: { gr: 'Συζήτησες με τον ποιμένα σου ή με κάποιον καθηγητή του Ε.Β.Κ. την επιθυμία σου αυτή; Σε ενθάρρυνε σ’ αυτή την κατεύθυνση;', en: 'Did you discuss this desire with your pastor or a GBC professor? Did they encourage you in this direction?' },
         ministryCallingQuestion: { gr: 'Έχεις κάποια συγκεκριμένη κλήση για υπηρεσία; Αν ναι ποια;', en: 'Do you have a specific calling for ministry? If yes, which?' },
         currentServiceQuestion: { gr: 'Πού υπηρετείς στο έργο του Θεού σήμερα και ποιος σε επιβλέπει;', en: 'Where do you serve in God\'s work today and who supervises you?' },
-        schoolRegulationsAgreementQuestion: { gr: 'Γνωρίζω τους κανονισμούς του κολεγίου όπως περιγράφονται στο «ΣΥΜΒΟΛΑΙΟ ΜΑΣ» και δεσμεύομαι να ζήσω με σεβασμό προς αυτούς και το προσωπικό του κολεγίου.', en: 'I know the school regulations as described in "OUR CONTRACT" and promise to live with respect for them and the college staff.' },
+        schoolRegulationsAgreementQuestion: { gr: 'Γνωρίζω τους κανονισμούς του κολεγίου όπως περιγράφονται στο «ΣΥΜΒΟΛΑΙΟ ΜΑΣ» και δεσμεύομαι να ζήσω με σεβασμό προς αυτούς και το προσωπικό του κολεγίου.', en: 'I know the school regulations as described in the "Student Handbook" and promise to live with respect for them and the college staff.' },
         studentSignature: { gr: 'Υπογραφή Φοιτητή/ριας', en: 'Student\'s Signature' },
         sponsorDetails: { gr: 'Στοιχεία Χορηγού', en: 'Sponsor Details' },
         personalInfo: { gr: 'Προσωπικά Στοιχεία', en: 'Personal Information' },

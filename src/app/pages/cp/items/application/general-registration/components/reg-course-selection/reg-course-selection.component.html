@@ -80,7 +80,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="coursesAuditorInput">{{ 'coursesAuditor' | l }}</label>
-                            <textarea [(ngModel)]="registrationData.application.coursesAuditor" id="coursesAuditorInput" name="coursesAuditor" class="form-control" rows="4" placeholder="e.g. Course 1, Course 2, Course 3..." required></textarea>
+                            <textarea [(ngModel)]="registrationData.application.coursesAuditor" id="coursesAuditorInput" name="coursesAuditor" class="form-control" rows="4" required></textarea>
                             <required-field-warning *ngIf="validate && !registrationData.application.coursesAuditor"></required-field-warning>
                         </div>
                     </div>
