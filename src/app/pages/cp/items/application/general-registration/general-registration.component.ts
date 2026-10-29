@@ -62,6 +62,10 @@ export class GeneralRegistrationComponent implements OnInit {
     }
 
     saveSection(currentPanel: string, nextPanel: string, applicationData: any) {
+        if (!applicationData || !applicationData.application) {
+            return;
+        }
+
         this.formLoading = true;
 
         // Clone applicationData to avoid mutating the in-memory Angular model

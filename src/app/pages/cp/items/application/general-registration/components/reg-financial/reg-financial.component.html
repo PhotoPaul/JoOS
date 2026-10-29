@@ -11,6 +11,17 @@
                 </div>
             </div>
 
+            <!-- Tuition Costs (Back Office enters free form text, Applicant / Student is read only) -->
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="financialCostInput">{{ 'tuitionCosts' | l }}</label>
+                        <textarea *authIf="['admin', 'registrar', 'cashier']" [(ngModel)]="registrationData.application.financialCost" id="financialCostInput" name="financialCost" class="form-control" rows="4" autocomplete="off"></textarea>
+                        <textarea *authIf="'candidate'" [value]="registrationData.application.financialCost || ''" id="financialCostInput" name="financialCost" class="form-control" rows="4" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group"

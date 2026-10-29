@@ -867,6 +867,7 @@ export class LocalizationService {
         acceptPrivacyPolicyText: { gr: 'Έχω διαβάσει την πολιτική απορρήτου του ΕΒΚ και συμφωνώ με τις διατάξεις περί συλλογής και επεξεργασίας των προσωπικών μου δεδομένων.', en: 'I have read the privacy policy of the GrBC and I agree with its clauses on the collection and use of my personal data.' },
         privacyPolicyLinkText: { gr: 'https://www.grbc.gr/privacy-policy/', en: 'https://www.grbc.gr/en/privacy-policy/' },
         financialLiability2: { gr: 'Οικονομική ευθύνη', en: 'Financial liability' },
+        tuitionCosts: { gr: 'Κόστος Διδάκτρων', en: 'Tuition Costs' },
         accountingNotes: { gr: 'Σημειώσεις Λογιστηρίου', en: 'Accounting Notes' },
         coursesFirstSemester: { gr: 'Ποια μαθήματα θα παρακολουθήσει στο 1ο εξάμηνο', en: 'Courses to attend in the 1st semester' },
         coursesSecondSemester: { gr: 'Ποια μαθήματα θα παρακολουθήσει στο 2ο εξάμηνο', en: 'Courses to attend in the 2nd semester' },
