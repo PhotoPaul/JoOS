@@ -1,0 +1,119 @@
+<div class="row" style="margin-bottom: 15px;">
+    <div class="col-md-12">
+        <div class="alert alert-info">
+            <i class="fas fa-shield-alt fa-fw"></i>&nbsp;
+            <strong>{{ 'gdprReport' | l }}:</strong>&nbsp;{{ 'acceptPrivacyPolicyText' | l }}
+        </div>
+    </div>
+</div>
+
+<div *ngIf="loading" class="text-center">
+    <loading></loading>
+</div>
+
+<div *ngIf="!loading && reportData">
+    <!-- 1. Persons who have signed GDPR -->
+    <data-panel ngId="signedStudentsPanel"
+                heading="{{ 'signedGDPR' | l }} ({{ reportData.signed.length }})"
+                color="portlet-green"
+                [collapsed]="false">
+        <data-filter #signedFilter></data-filter>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 30%">{{ 'fullName' | l }}</th>
+                        <th style="width: 25%">Email</th>
+                        <th style="width: 20%">{{ 'role' | l }}</th>
+                        <th style="width: 15%">{{ 'programs' | l }}</th>
+                        <th style="width: 10%" class="text-center">{{ 'status' | l }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="!reportData.signed.length">
+                        <td colspan="5" class="text-center text-muted">
+                            <em>{{ 'noStudentsSignedGDPR' | l }}</em>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let student of reportData.signed | filterByString:['firstName','lastName']:signedFilter.filter">
+                        <td>
+                            <strong>{{ '' | fName:student.lastName:student.firstName }}</strong>
+                        </td>
+                        <td>{{ student.email }}</td>
+                        <td>
+                            <span *ngFor="let r of student.roles" class="label label-default" style="margin-right: 4px;">
+                                {{ 'role' | l:r }}
+                            </span>
+                        </td>
+                        <td>
+                            <ul class="bulletless" *ngIf="student.programs?.length">
+                                <li *ngFor="let program of student.programs">
+                                    <i class="fas fa-certificate fa-fw"></i>&nbsp;{{ 'program_name' | l:program }}
+                                </li>
+                            </ul>
+                            <span *ngIf="!student.programs?.length" class="text-muted">&mdash;</span>
+                        </td>
+                        <td class="text-center">
+                            <span class="label green">
+                                <i class="fas fa-check"></i>&nbsp;{{ 'consentSigned' | l }}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </data-panel>
+
+    <!-- 2. Persons who have NOT signed GDPR -->
+    <data-panel ngId="notSignedStudentsPanel"
+                heading="{{ 'notSignedGDPR' | l }} ({{ reportData.notSigned.length }})"
+                color="portlet-red"
+                [collapsed]="false">
+        <data-filter #notSignedFilter></data-filter>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 30%">{{ 'fullName' | l }}</th>
+                        <th style="width: 25%">Email</th>
+                        <th style="width: 20%">{{ 'role' | l }}</th>
+                        <th style="width: 15%">{{ 'programs' | l }}</th>
+                        <th style="width: 10%" class="text-center">{{ 'status' | l }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="!reportData.notSigned.length">
+                        <td colspan="5" class="text-center text-success">
+                            <i class="fas fa-check-circle"></i>&nbsp;<em>{{ 'noStudentsNotSignedGDPR' | l }}</em>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let student of reportData.notSigned | filterByString:['firstName','lastName']:notSignedFilter.filter">
+                        <td>
+                            <strong>{{ '' | fName:student.lastName:student.firstName }}</strong>
+                        </td>
+                        <td>{{ student.email }}</td>
+                        <td>
+                            <span *ngFor="let r of student.roles" class="label label-default" style="margin-right: 4px;">
+                                {{ 'role' | l:r }}
+                            </span>
+                        </td>
+                        <td>
+                            <ul class="bulletless" *ngIf="student.programs?.length">
+                                <li *ngFor="let program of student.programs">
+                                    <i class="fas fa-certificate fa-fw"></i>&nbsp;{{ 'program_name' | l:program }}
+                                </li>
+                            </ul>
+                            <span *ngIf="!student.programs?.length" class="text-muted">&mdash;</span>
+                        </td>
+                        <td class="text-center">
+                            <span class="label red">
+                                <i class="fas fa-times"></i>&nbsp;{{ 'consentPending' | l }}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </data-panel>
+</div>
+

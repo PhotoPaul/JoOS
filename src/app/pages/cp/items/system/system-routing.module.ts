@@ -12,6 +12,7 @@ import { UserFolderComponent } from './users/user-folder.component';
 import { UserListComponent } from './users/user-list.component';
 import { UserProfileComponent } from './users/user-profile.component';
 import { VariablesComponent } from './variables/variables.component';
+import { DPOReportComponent } from './reports/dpo-report.component';
 
 const routes: Routes = [
     { path: 'users', data: { faIcon: 'fa-users', path_title_gr: 'Χρήστες', path_title_en: 'Users', roles: ['admin'] }, component: UserListComponent },
@@ -24,7 +25,9 @@ const routes: Routes = [
     { path: 'users/profile/:id', data: { faIcon: 'fa-user', path_title_gr: 'Προφίλ Χρήστη', path_title_en: 'User Profile', noNav: true }, component: UserProfileComponent },
     { path: 'logs', data: { faIcon: 'fa-history', path_title_gr: 'Ιστορικό', path_title_en: 'Logs', roles: ['admin'] }, component: LogsComponent },
     { path: 'errors', data: { faIcon: 'fa-exclamation-triangle', path_title_gr: 'Σφάλματα', path_title_en: 'Errors', roles: ['admin'] }, component: ErrorsComponent },
-    { path: 'variables', data: { faIcon: 'fa-cog', path_title_gr: 'Μεταβλητές Συστήματος', path_title_en: 'System Variables', roles: ['admin'] }, component: VariablesComponent }
+    { path: 'variables', data: { faIcon: 'fa-cog', path_title_gr: 'Μεταβλητές Συστήματος', path_title_en: 'System Variables', roles: ['admin'] }, component: VariablesComponent },
+    { path: 'reports', data: { faIcon: 'fa-chart-bar', path_title_gr: 'Αναφορές', path_title_en: 'Reports', roles: ['admin'] }, component: DPOReportComponent },
+    { path: 'reports/gdpr', data: { faIcon: 'fa-shield-alt', path_title_gr: 'Αναφορά GDPR', path_title_en: 'GDPR Report', roles: ['admin'], noNav: true }, component: DPOReportComponent }
 ];
 
 @NgModule({

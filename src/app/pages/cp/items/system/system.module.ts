@@ -9,6 +9,7 @@ import { FileManagerComponent } from './file-manager/file-manager.component';
 import { LogsComponent } from './logs/logs.component';
 import { NotificationTemplatesComponent } from './notification-templates/notification-templates.component';
 import { OperationsManagerComponent } from './operations-manager/operations-manager.component';
+import { DPOReportComponent } from './reports/dpo-report.component';
 import { SystemRoutingModule } from './system-routing.module';
 import { UserFilesComponent } from './users/user-files.component';
 import { UserFolderComponent } from './users/user-folder.component';
@@ -34,7 +35,8 @@ import { VariablesComponent } from './variables/variables.component';
         ErrorsComponent,
         NotificationTemplatesComponent,
         DBManagerComponent,
-        VariablesComponent
+        VariablesComponent,
+        DPOReportComponent
     ]
 })
 export class SystemModule { }

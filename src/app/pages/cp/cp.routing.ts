@@ -21,7 +21,8 @@ export const CPRoutes: Routes = [
             { path: 'users/profile/:id', data: { faIcon: 'fa-user', path_title_gr: 'Προφίλ Χρήστη', path_title_en: 'User Profile', noNav: true } },
             { path: 'logs', data: { faIcon: 'fa-history', path_title_gr: 'Ιστορικό', path_title_en: 'Logs', roles: ['admin'] } },
             { path: 'errors', data: { faIcon: 'fa-exclamation-triangle', path_title_gr: 'Σφάλματα', path_title_en: 'Errors', roles: ['admin'] } },
-            { path: 'variables', data: { faIcon: 'fa-cog', path_title_gr: 'Μεταβλητές Συστήματος', path_title_en: 'System Variables', roles: ['admin'] } }
+            { path: 'variables', data: { faIcon: 'fa-cog', path_title_gr: 'Μεταβλητές Συστήματος', path_title_en: 'System Variables', roles: ['admin'] } },
+            { path: 'reports', data: { faIcon: 'fa-chart-bar', path_title_gr: 'Αναφορές', path_title_en: 'Reports', roles: ['admin'] } }
         ]},
         { path: 'academics', data: { faIcon: 'fa-building', path_title_gr: 'Ακαδημαϊκά', path_title_en: 'Academics', noNav: true }, canActivate: [CPGuard], loadChildren: './items/academics/academics.module#AcademicsModule' },
         { path: 'academics', data: { faIcon: 'fa-building', path_title_gr: 'Ακαδημαϊκά', path_title_en: 'Academics', roles: ['admin', 'registrar', 'cashier', 'professor', 'student', 'chaplain'] }, children: [

@@ -158,6 +158,15 @@ export class LocalizationService {
 
         errors: { gr: 'Σφάλματα', en: 'Errors' },
         users: { gr: 'Χρήστες', en: 'Users' },
+        reports: { gr: 'Αναφορές', en: 'Reports' },
+        gdprReport: { gr: 'Αναφορά GDPR', en: 'GDPR Report' },
+        gdprReportSubtitle: { gr: 'Κατάσταση αποδοχής πολιτικής απορρήτου / συλλογής δεδομένων', en: 'Status of privacy policy / data processing consent' },
+        signedGDPR: { gr: 'Έχουν Υπογράψει το GDPR', en: 'Signed GDPR' },
+        notSignedGDPR: { gr: 'Δεν Έχουν Υπογράψει το GDPR', en: 'Not Signed GDPR' },
+        noStudentsSignedGDPR: { gr: 'Δεν υπάρχουν άτομα που έχουν υπογράψει το GDPR', en: 'No users have signed the GDPR consent' },
+        noStudentsNotSignedGDPR: { gr: 'Όλοι έχουν υπογράψει το GDPR', en: 'All users have signed the GDPR consent' },
+        consentSigned: { gr: 'Υπεγράφη', en: 'Signed' },
+        consentPending: { gr: 'Εκκρεμεί', en: 'Pending' },
         operation: { gr: 'Λειτουργία', en: 'Operation' },
         operations: { gr: 'Λειτουργίες', en: 'Operations' },
         logs: { gr: 'Ιστορικό', en: 'Logs' },
@@ -930,7 +939,9 @@ export class LocalizationService {
         personalInfo: { gr: 'Προσωπικά Στοιχεία', en: 'Personal Information' },
         christianCalling: { gr: 'Χριστιανική Κλήση', en: 'Christian Calling' },
         submission: { gr: 'Υποβολή Αίτησης', en: 'Application Submission' },
-        postalCode: { gr: 'Τ.Κ.', en: 'Postal Code' }
+        postalCode: { gr: 'Τ.Κ.', en: 'Postal Code' },
+        role: { gr: 'Ρόλος', en: 'Role' },
+        totalUsers: { gr: 'Σύνολο Ατόμων', en: 'Total Users' }
     };
 
     constructor(private ajax: AjaxService) { }
