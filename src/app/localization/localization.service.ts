@@ -338,6 +338,11 @@ export class LocalizationService {
             gr: 'Είστε σίγουροι ότι θέλετε να προχωρήσετε στη διαγραφή όλων των αιτήσεων αυτού του υποψηφίου;',
             en: 'Are you sure you want to proceed with the deletion of all the applications of this applicant?'
         },
+        deleteApplication: { gr: 'Διαγραφή Αίτησης', en: 'Delete Application' },
+        deleteApplicationConfirmation: {
+            gr: 'Είστε σίγουροι ότι θέλετε να προχωρήσετε στη διαγραφή της αίτησης "$$" για τον υποψήφιο "$$"; Όλα τα δεδομένα της αίτησης θα διαγραφούν οριστικά.',
+            en: 'Are you sure you want to delete the application "$$" from applicant "$$"? All data within this application will be permanently deleted.'
+        },
         exportApplications: { gr: 'Εκτύπωση Πλήρους Αίτησης', en: 'Export Applications' },
         uploadFile: { gr: 'Μεταφόρτωση Αρχείου', en: 'Upload File' },
         viewFile: { gr: 'Προβολή Αρχείου', en: 'Open File' },
@@ -497,6 +502,10 @@ export class LocalizationService {
         notRecorded: { gr: 'Δεν Καταγράφηκε', en: 'Not Recorded' },
         showApplication: { gr: 'Προβολή Αίτησης', en: 'Show Application' },
         editApplication: { gr: 'Επεξεργασία Αίτησης', en: 'Edit Application' },
+        addApplication: { gr: 'Προσθήκη Αίτησης', en: 'Add Application' },
+        selectApplication: { gr: 'Επιλέξτε Αίτηση...', en: 'Select Application...' },
+        noAvailableApplicationsToAdd: { gr: 'Δεν υπάρχουν διαθέσιμες αιτήσεις για προσθήκη', en: 'No available applications to add' },
+        noApplicationsToDelete: { gr: 'Δεν υπάρχουν αιτήσεις προς διαγραφή', en: 'No applications to delete' },
         familySingle: { gr: 'Άγαμος/η', en: 'Single' },
         familyMarried: { gr: 'Έγγαμος/η', en: 'Married' },
         familyDivorced: { gr: 'Διαζευγμένος/η', en: 'Divorced' },

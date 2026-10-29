@@ -98,11 +98,16 @@ export class SupportingDocumentsComponent implements OnInit {
     }
 
     getDocumentTitle(documentTypeIds: number[]) {
-        const documentTypeTitles = documentTypeIds.map((documentTypeId) => {
-            return this.applicationData.collections[this.applicationData.collections.findIndex(documentType => {
-                return +documentType.documentTypeId === documentTypeId;
-            })]['title_' + this.localization.getActiveLanguage()];
-        });
+        if (!this.applicationData || !this.applicationData.collections) {
+            return '';
+        }
+        const lang = this.localization.getActiveLanguage();
+        const documentTypeTitles = documentTypeIds
+            .map((documentTypeId) => {
+                const docType = this.applicationData.collections.find(d => +d.documentTypeId === documentTypeId);
+                return docType ? docType['title_' + lang] || docType.title_en || '' : '';
+            })
+            .filter(title => !!title);
         return documentTypeTitles.join(this.localization.s('or'));
     }
 

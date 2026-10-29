@@ -220,6 +220,55 @@ export class AdmissionService {
         this.router.navigate([editPath], { queryParams: { userId: userId } });
     }
 
+    getAvailableApplications() {
+        return new Promise((resolve) => {
+            this.ajax.get('getAvailableApplications')
+                .then((response: AjaxResponse) => {
+                    resolve(response.data);
+                });
+        });
+    }
+
+    addUserApplication(userId: number, applicationId: number) {
+        return new Promise((resolve) => {
+            this.ajax.get('addUserApplication', { userId: userId, applicationId: applicationId })
+                .then((response: AjaxResponse) => {
+                    resolve(response.data);
+                });
+        });
+    }
+
+    deleteUserApplication(userId: number, applicationId: number) {
+        return new Promise((resolve) => {
+            this.ajax.get('deleteUserApplication', { userId: userId, applicationId: applicationId })
+                .then((response: AjaxResponse) => {
+                    resolve(response.data);
+                });
+        });
+    }
+
+    deleteUserApplicationWithConfirmation(candidate: any, application: any) {
+        return new Promise((resolve) => {
+            const candidateName = (candidate.lastName ? candidate.lastName + ', ' : '') + (candidate.firstName || '');
+            const appName = this.localization.op(application, 'heading');
+            this.modalService.show({
+                type: 'yesNo',
+                message: ['deleteApplicationConfirmation', appName, candidateName],
+                onYes: (event, actionButtonClicked, actionButtons, modalRef) => {
+                    this.ajax.get('deleteUserApplication', { userId: candidate.id, applicationId: application.applicationId })
+                        .then((response: AjaxResponse) => {
+                            modalRef.hide();
+                            resolve(response.data);
+                        });
+                },
+                onNo: (event, actionButtonClicked, actionButtons, modalRef) => {
+                    modalRef.hide();
+                    resolve(false);
+                }
+            });
+        });
+    }
+
     returnToList(userId) {
         this.router.navigate(['cp/admission/applications', userId]);
     }

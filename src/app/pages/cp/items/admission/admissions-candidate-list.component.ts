@@ -15,6 +15,14 @@ export class AdmissionsCandidateListComponent implements OnInit {
     activeCandidateId: number;
     candidates: Candidate[];
     programs: Program[];
+    availableApplications: any[] = [];
+    addingAppForCandidateId: number = null;
+    selectedAppIdToAdd: number = null;
+    addingAppLoading: boolean = false;
+
+    deletingAppForCandidateId: number = null;
+    selectedAppToDelete: any = null;
+
     filter = {} as {
         programId: string;
         hiddenOnly: boolean;
@@ -25,7 +33,7 @@ export class AdmissionsCandidateListComponent implements OnInit {
         private router: Router,
         public admissionService: AdmissionService,
         public userService: UserService,
-        private auth: AuthenticationService,
+        public auth: AuthenticationService,
         private changeDetectorRef: ChangeDetectorRef
     ) { }
 
@@ -39,10 +47,17 @@ export class AdmissionsCandidateListComponent implements OnInit {
     }
 
     async fetchCandidateProgramData() {
-        const db: any = await this.admissionService.getApplicantsData(this.filter, this.activeCandidateId);
+        const filter = {
+            programId: this.filter.programId || '0',
+            hiddenOnly: !!this.filter.hiddenOnly
+        };
+        const db: any = await this.admissionService.getApplicantsData(filter, this.activeCandidateId);
         this.candidates = db.applicantsData as Candidate[];
         this.programs = db.programsData as Program[];
-        this.changeDetectorRef.detectChanges();
+        if (!this.availableApplications || this.availableApplications.length === 0) {
+            this.availableApplications = (await this.admissionService.getAvailableApplications()) as any[];
+        }
+        this.changeDetectorRef.markForCheck();
     }
 
     onActiveProgramChange(programId) {
@@ -129,8 +144,7 @@ export class AdmissionsCandidateListComponent implements OnInit {
         const hasGeneralApp = candidate.applications.some(app => +app.applicationId === 23);
 
         if (hasGeneralApp) {
-            // Filter out 12 (Supporting Documents) because it is filled inline inside General Application (23)
-            return candidate.applications.filter(app => +app.applicationId !== 12);
+            return candidate.applications;
         }
 
         // Find if there are any Greek application forms (IDs 1 to 6 and 12, EXCEPT 5 references!)
@@ -198,5 +212,78 @@ export class AdmissionsCandidateListComponent implements OnInit {
                 }
             });
         });
+    }
+
+    getAvailableApplicationsForCandidate(candidate: any): any[] {
+        if (!this.availableApplications || !candidate || !candidate.applications) {
+            return [];
+        }
+        const existingAppIds = candidate.applications.map(app => +app.applicationId);
+        return this.availableApplications.filter(app => existingAppIds.indexOf(+app.id) === -1);
+    }
+
+    startAddApplication(candidateId: number) {
+        this.addingAppForCandidateId = candidateId;
+        this.selectedAppIdToAdd = null;
+        this.deletingAppForCandidateId = null;
+        this.selectedAppToDelete = null;
+        this.changeDetectorRef.markForCheck();
+    }
+
+    cancelAddApplication() {
+        this.addingAppForCandidateId = null;
+        this.selectedAppIdToAdd = null;
+        this.changeDetectorRef.markForCheck();
+    }
+
+    confirmAddApplication(candidateId: number) {
+        if (!this.selectedAppIdToAdd) {
+            return;
+        }
+        this.addingAppLoading = true;
+        this.activeCandidateId = candidateId;
+        this.admissionService.addUserApplication(candidateId, this.selectedAppIdToAdd)
+            .then(async () => {
+                this.addingAppLoading = false;
+                this.addingAppForCandidateId = null;
+                this.selectedAppIdToAdd = null;
+                await this.fetchCandidateProgramData();
+            })
+            .catch(() => {
+                this.addingAppLoading = false;
+                this.changeDetectorRef.markForCheck();
+            });
+    }
+
+    startDeleteApplication(candidateId: number) {
+        this.deletingAppForCandidateId = candidateId;
+        this.selectedAppToDelete = null;
+        this.addingAppForCandidateId = null;
+        this.selectedAppIdToAdd = null;
+        this.changeDetectorRef.markForCheck();
+    }
+
+    cancelDeleteApplication() {
+        this.deletingAppForCandidateId = null;
+        this.selectedAppToDelete = null;
+        this.changeDetectorRef.markForCheck();
+    }
+
+    onSelectAppToDelete(candidate: Candidate, app: any) {
+        if (!app) {
+            return;
+        }
+        this.selectedAppToDelete = app;
+        this.admissionService.deleteUserApplicationWithConfirmation(candidate, app)
+            .then(async (result) => {
+                this.deletingAppForCandidateId = null;
+                this.selectedAppToDelete = null;
+                if (result) {
+                    this.activeCandidateId = candidate.id;
+                    await this.fetchCandidateProgramData();
+                } else {
+                    this.changeDetectorRef.markForCheck();
+                }
+            });
     }
 }

@@ -69,7 +69,53 @@
                     </tr>
                     <tr *authIf="['admin', { roleName: 'registrar', forProgramId: auth.getRoleRecordIfExists(candidate.roles, { roleId: '5' }).forProgramId }]">
                         <td colspan="4" class="text-center text-nowrap">
-                            <action-button (click)="resetApplicant(candidate.id)" color="btn-red" icon="fa-user-times" [bTooltip]="'resetApplicant' | l" [ajax]="false"></action-button>
+                            <!-- Add Application Controls -->
+                            <div *ngIf="addingAppForCandidateId === candidate.id; else checkDeleteControls" class="form-inline" style="margin-bottom: 8px;">
+                                <div class="form-group" style="margin-right: 8px;">
+                                    <select [(ngModel)]="selectedAppIdToAdd" name="selectedAppIdToAdd" class="form-control" [disabled]="addingAppLoading">
+                                        <option [ngValue]="null" disabled selected>{{ 'selectApplication' | l }}</option>
+                                        <option *ngFor="let app of getAvailableApplicationsForCandidate(candidate)" [ngValue]="app.id">
+                                            {{ 'heading' | l:app }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <button type="button" class="btn btn-green" (click)="confirmAddApplication(candidate.id)" [disabled]="!selectedAppIdToAdd || addingAppLoading" style="margin-right: 5px;">
+                                    <i class="fas fa-check"></i>&nbsp;{{ 'addApplication' | l }}
+                                </button>
+                                <button type="button" class="btn btn-default" (click)="cancelAddApplication()" [disabled]="addingAppLoading">
+                                    <i class="fas fa-times"></i>&nbsp;{{ 'cancel' | l }}
+                                </button>
+                                <div *ngIf="getAvailableApplicationsForCandidate(candidate).length === 0" class="text-danger" style="margin-top: 5px;">
+                                    <small>{{ 'noAvailableApplicationsToAdd' | l }}</small>
+                                </div>
+                            </div>
+
+                            <!-- Delete Application Controls -->
+                            <ng-template #checkDeleteControls>
+                                <div *ngIf="deletingAppForCandidateId === candidate.id; else showActionButtons" class="form-inline" style="margin-bottom: 8px;">
+                                    <div class="form-group" style="margin-right: 8px;">
+                                        <select [ngModel]="selectedAppToDelete" (ngModelChange)="onSelectAppToDelete(candidate, $event)" name="selectedAppToDelete" class="form-control">
+                                            <option [ngValue]="null" disabled selected>{{ 'selectApplication' | l }}</option>
+                                            <option *ngFor="let app of getProcessedApplications(candidate)" [ngValue]="app">
+                                                {{ 'heading' | l:app }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <button type="button" class="btn btn-default" (click)="cancelDeleteApplication()">
+                                        <i class="fas fa-times"></i>&nbsp;{{ 'cancel' | l }}
+                                    </button>
+                                    <div *ngIf="getProcessedApplications(candidate).length === 0" class="text-danger" style="margin-top: 5px;">
+                                        <small>{{ 'noApplicationsToDelete' | l }}</small>
+                                    </div>
+                                </div>
+                            </ng-template>
+
+                            <!-- Default Action Buttons -->
+                            <ng-template #showActionButtons>
+                                <action-button (click)="startAddApplication(candidate.id)" color="btn-green" icon="fa-plus" [caption]="'addApplication' | l" [bTooltip]="'addApplication' | l" [ajax]="false" style="margin-right: 8px;"></action-button>
+                                <action-button (click)="startDeleteApplication(candidate.id)" color="btn-red" icon="fa-trash-alt" [caption]="'deleteApplication' | l" [bTooltip]="'deleteApplication' | l" [ajax]="false" style="margin-right: 8px;"></action-button>
+                                <action-button (click)="resetApplicant(candidate.id)" color="btn-red" icon="fa-user-times" [bTooltip]="'resetApplicant' | l" [ajax]="false"></action-button>
+                            </ng-template>
                         </td>
                     </tr>
                 </tbody>
