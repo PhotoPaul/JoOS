@@ -29,6 +29,8 @@ export class StudentProgressComponent implements OnInit {
     public uploader: FileUploader;
     public hasBaseDropZoneOver = false;
     public hasAnotherDropZoneOver = false;
+    graduationDate: Date = new Date();
+    graduationDateModalRef;
 
     constructor(
         private route: ActivatedRoute,
@@ -193,5 +195,51 @@ export class StudentProgressComponent implements OnInit {
 
     fileOverBase(e: any): void {
         this.hasBaseDropZoneOver = e;
+    }
+
+    openGraduationDateModal(template) {
+        this.graduationDate = new Date();
+        this.graduationDateModalRef = this.modal.show({
+            type: 'ok',
+            title: 'selectGraduationDate',
+            templateRef: template
+        });
+    }
+
+    onGraduationDateChange(newDate) {
+        if (newDate) {
+            this.graduationDate = newDate instanceof Date ? newDate : new Date(newDate);
+        }
+    }
+
+    proceedToGraduationConfirmation() {
+        if (this.graduationDateModalRef) {
+            this.graduationDateModalRef.hide();
+        }
+
+        const studentName = `${this.studentProgress.lastName} ${this.studentProgress.firstName}`;
+        const formattedDate = this.formatDate(this.graduationDate);
+
+        this.modal.show({
+            type: 'yesNo',
+            message: ['graduateStudentConfirmation', studentName],
+            onYes: async (event, actionButtonClicked, actionButtons, modalRef) => {
+                await this.studentsService.graduateStudent(this.student.id, formattedDate);
+                modalRef.hide();
+                const academicsStudentProgress = await this.studentsService.getStudentProgressData(this.student.id);
+                this.studentProgress = academicsStudentProgress as StudentProgress;
+            },
+            onNo: (event, actionButtonClicked, actionButtons, modalRef) => {
+                modalRef.hide();
+            }
+        });
+    }
+
+    formatDate(date: Date): string {
+        const d = date ? new Date(date) : new Date();
+        const year = d.getFullYear();
+        const month = ('0' + (d.getMonth() + 1)).slice(-2);
+        const day = ('0' + d.getDate()).slice(-2);
+        return `${year}-${month}-${day}`;
     }
 }

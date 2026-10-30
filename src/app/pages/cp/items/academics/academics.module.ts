@@ -20,6 +20,7 @@ import { TeachingScheduleInputComponent } from './schedule/teaching-schedule-inp
 import { TeachingScheduleComponent } from './schedule/teaching-schedule.component';
 import { StudentCoursesComponent } from './students/student-courses.component';
 import { StudentListComponent } from './students/student-list.component';
+import { GraduateListComponent } from './students/graduate-list.component';
 import { StudentProgressComponent } from './students/student-progress.component';
 import { AdvisorsComponent } from './advisors/advisors.component';
 
@@ -33,6 +34,7 @@ import { AdvisorsComponent } from './advisors/advisors.component';
     ],
     declarations: [
         StudentListComponent,
+        GraduateListComponent,
         StudentProgressComponent,
         StudentCoursesComponent,
         ProgramListComponent,

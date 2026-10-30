@@ -371,6 +371,11 @@ export class LocalizationService {
             gr: 'Είστε σίγουροι ότι θέλετε να προχωρήσετε σε υποβιβασμό αυτού του φοιτητή σε υποψήφιο;',
             en: 'Are you sure you want to proceed with the demotion of this student to candidate?'
         },
+        demoteGraduate: { gr: 'Υποβιβασμός Αποφοίτου σε Φοιτητή', en: 'Demote Graduate to Student' },
+        demoteGraduateConfirmation: {
+            gr: 'Είστε σίγουροι ότι θέλετε να προχωρήσετε σε υποβιβασμό αυτού του αποφοίτου σε φοιτητή;',
+            en: 'Are you sure you want to proceed with the demotion of this graduate to student?'
+        },
         deleteUserPermanently: { gr: 'Οριστική Διαγραφή Χρήστη', en: 'Delete User Permanently' },
         deleteUserPermanentlyConfirmation: {
             gr: 'Είστε σίγουροι ότι θέλετε να προχωρήσετε σε μόνιμη διαγραφή αυτού του χρήστη;',
@@ -941,7 +946,13 @@ export class LocalizationService {
         submission: { gr: 'Υποβολή Αίτησης', en: 'Application Submission' },
         postalCode: { gr: 'Τ.Κ.', en: 'Postal Code' },
         role: { gr: 'Ρόλος', en: 'Role' },
-        totalUsers: { gr: 'Σύνολο Ατόμων', en: 'Total Users' }
+        totalUsers: { gr: 'Σύνολο Ατόμων', en: 'Total Users' },
+        graduate: { gr: 'Αποφοίτηση', en: 'Graduate' },
+        graduateStudent: { gr: 'Αποφοίτηση Φοιτητή', en: 'Graduate Student' },
+        graduationDate: { gr: 'Ημερομηνία Αποφοίτησης', en: 'Graduation Date' },
+        selectGraduationDate: { gr: 'Επιλέξτε Ημερομηνία Αποφοίτησης', en: 'Select Graduation Date' },
+        graduateStudentConfirmation: { gr: 'Είστε σίγουροι ότι θέλετε να αποφοιτήσει ο/η φοιτητής/ρια "$$";', en: 'Are you sure you want to graduate student "$$"?' },
+        studentGraduatedSuccess: { gr: 'Ο/Η φοιτητής/ρια αποφοίτησε επιτυχώς', en: 'Student graduated successfully' }
     };
 
     constructor(private ajax: AjaxService) { }

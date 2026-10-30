@@ -48,4 +48,31 @@ export class StudentsService {
             });
         });
     }
+
+    graduateStudent(studentId: number, graduationDate: string) {
+        return this.ajax.get('graduateStudent', {
+            studentId: studentId,
+            graduationDate: graduationDate
+        });
+    }
+
+    demoteGraduate(studentId: number) {
+        return new Promise(resolve => {
+            this.modalService.show({
+                type: 'yesNo',
+                message: 'demoteGraduateConfirmation',
+                onYes: (event, actionButtonClicked, actionButtons, modalRef) => {
+                    this.ajax.get('demoteGraduateToStudent', { studentId: studentId })
+                        .then((response: AjaxResponse) => {
+                            modalRef.hide();
+                            resolve(response.data);
+                        });
+                },
+                onNo: (event, actionButtonClicked, actionButtons, modalRef) => {
+                    modalRef.hide();
+                    resolve(false);
+                }
+            });
+        });
+    }
 }

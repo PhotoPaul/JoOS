@@ -58,7 +58,31 @@
             </data-panel>
         </ng-template>
     </data-panel>
+
+    <div class="row" *ngIf="hasAccess('admin,registrar')">
+        <div class="col-md-12 text-center" style="margin: 25px 0 35px 0;">
+            <button type="button" class="btn btn-green btn-lg" (click)="openGraduationDateModal(graduationDateTemplate)">
+                <i class="fas fa-graduation-cap"></i>&nbsp;{{ 'graduate' | l }}
+            </button>
+        </div>
+    </div>
 </div>
+
+<ng-template #graduationDateTemplate>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>{{ 'graduationDate' | l }}</label>
+                <date-input [date]="graduationDate" (onChange)="onGraduationDateChange($event)"></date-input>
+            </div>
+            <div class="text-center" style="margin-top: 20px;">
+                <button type="button" class="btn btn-green" (click)="proceedToGraduationConfirmation()">
+                    <i class="fas fa-check"></i>&nbsp;{{ 'continue' | l }}
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-template>
 
 <ng-template #chooseFileTemplate>
     <div class="row">

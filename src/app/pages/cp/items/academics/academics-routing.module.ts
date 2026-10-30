@@ -12,15 +12,16 @@ import { ChapelScheduleComponent } from './schedule/chapel-schedule.component';
 import { TeachingScheduleComponent } from './schedule/teaching-schedule.component';
 import { StudentCoursesComponent } from './students/student-courses.component';
 import { StudentListComponent } from './students/student-list.component';
+import { GraduateListComponent } from './students/graduate-list.component';
 import { StudentProgressComponent } from './students/student-progress.component';
 
 const routes: Routes = [
     { path: 'programs', data: { faIcon: 'fa-certificate', path_title_gr: 'Προγράμματα', path_title_en: 'Programs', roles: ['admin', 'registrar', 'cashier'] }, component: ProgramListComponent },
     { path: 'programs/enrollment/:id', data: { faIcon: 'fa-users', path_title_gr: 'Μητρώο Προγράμματος', path_title_en: 'Program Enrollment', noNav: true }, component: ProgramRegistryComponent },
     { path: 'students', data: { faIcon: 'fa-users', path_title_gr: 'Φοιτητές', path_title_en: 'Students', roles: ['admin', 'registrar', 'cashier', 'professor'] }, component: StudentListComponent },
+    { path: 'graduates', data: { faIcon: 'fa-graduation-cap', path_title_gr: 'Απόφοιτοι', path_title_en: 'Graduates', roles: ['admin', 'registrar', 'cashier', 'professor'] }, component: GraduateListComponent },
     { path: 'students/progress/:id', data: { faIcon: 'fa-users', path_title_gr: 'Πρόοδος Φοιτητή', path_title_en: 'Student Progress', noNav: true }, component: StudentProgressComponent },
     { path: 'students/courses/:id', data: { faIcon: 'fa-th-list', path_title_gr: 'Μαθήματα Φοιτητή', path_title_en: 'Student Courses', noNav: true }, component: StudentCoursesComponent },
-    // { path: 'graduates', data: { faIcon: 'fa-graduation-cap', path_title_gr: 'Απόφοιτοι', path_title_en: 'Graduates', roles: ['admin', 'registrar'] }, redirectTo: 'students' },
     { path: 'programs/courses/:id', data: { faIcon: 'fa-th-list', path_title_gr: 'Μαθήματα', path_title_en: 'Courses', noNav: true }, component: CourseListComponent },
     { path: 'programs/course/:id', data: { faIcon: 'fa-users', path_title_gr: 'Μητρώο Μαθήματος', path_title_en: 'Course Registry', noNav: true }, component: CourseRegistryComponent },
     { path: 'teaching-schedule', data: { faIcon: 'fa-calendar-alt', path_title_gr: 'Πρόγραμμα Διδασκαλίας', path_title_en: 'Teaching Schedule', roles: ['admin', 'registrar', 'cashier', 'professor', 'student'] }, component: TeachingScheduleComponent },
