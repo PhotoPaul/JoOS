@@ -14,84 +14,122 @@
                     <div class="clearfix"></div>
                 </div>
                 <div *ngIf="!submitted; else formSubmitted" id="register" class="portlet-body">
+                    <div *ngIf="formData?.meta?.formTemplateId == 2" class="alert alert-info"
+                        style="font-size: 13px; line-height: 1.5; margin-bottom: 20px;"
+                        [innerHTML]="'letterIntroNotice' | l">
+                    </div>
                     <form #form="ngForm" id="openForm" accept-charset="UTF-8" role="form">
                         <fieldset [disabled]="formLoading">
-                            <data-panel ngId="applicantId" [heading]="'applicantIdentityInformation' | l" color="portlet-blue">
+                            <data-panel ngId="applicantId" [heading]="'applicantIdentityInformation' | l"
+                                color="portlet-blue">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="applicantFirstName">{{ 'firstName' | l }}</label>
-                                            <input readonly type="text" [(ngModel)]="formData?.meta.applicantFirstName" id="applicantFirstName" name="applicantFirstName" class="form-control" autocomplete="off" required>
+                                            <input readonly type="text" [(ngModel)]="formData?.meta.applicantFirstName"
+                                                id="applicantFirstName" name="applicantFirstName" class="form-control"
+                                                autocomplete="off" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="applicantLastName">{{ 'lastName' | l }}</label>
-                                            <input readonly="readonly" type="text" [(ngModel)]="formData?.meta.applicantLastName" id="applicantLastName" name="applicantLastName" class="form-control" autocomplete="off" required>
+                                            <input readonly="readonly" type="text"
+                                                [(ngModel)]="formData?.meta.applicantLastName" id="applicantLastName"
+                                                name="applicantLastName" class="form-control" autocomplete="off"
+                                                required>
                                         </div>
                                     </div>
                                 </div>
                             </data-panel>
-                            <data-panel ngId="referenceId" [heading]="'referenceIdentityInformation' | l" color="portlet-blue">
+                            <data-panel ngId="referenceId" [heading]="'referenceIdentityInformation' | l"
+                                color="portlet-blue">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="referenceFirstName">{{ 'firstName' | l }}</label>
-                                            <input type="text" [(ngModel)]="formData?.meta.referenceFirstName" id="referenceFirstName" name="referenceFirstName" class="form-control" autocomplete="off" required>
-                                            <required-field-warning *ngIf="validate && !formData?.meta.referenceFirstName"></required-field-warning>
+                                            <input type="text" [(ngModel)]="formData?.meta.referenceFirstName"
+                                                id="referenceFirstName" name="referenceFirstName" class="form-control"
+                                                autocomplete="off" required>
+                                            <required-field-warning
+                                                *ngIf="validate && !formData?.meta.referenceFirstName"></required-field-warning>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="referenceLastName">{{ 'lastName' | l }}</label>
-                                            <input type="text" [(ngModel)]="formData?.meta.referenceLastName" id="referenceLastName" name="referenceLastName" class="form-control" autocomplete="off" required>
-                                            <required-field-warning *ngIf="validate && !formData?.meta.referenceLastName"></required-field-warning>
+                                            <input type="text" [(ngModel)]="formData?.meta.referenceLastName"
+                                                id="referenceLastName" name="referenceLastName" class="form-control"
+                                                autocomplete="off" required>
+                                            <required-field-warning
+                                                *ngIf="validate && !formData?.meta.referenceLastName"></required-field-warning>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="occupation">{{ 'occupation' | l }}</label>
-                                            <input type="text" [(ngModel)]="formData?.meta.occupation" id="occupation" name="occupation" class="form-control" autocomplete="off" required autofocus>
-                                            <required-field-warning *ngIf="validate && !formData?.meta.occupation"></required-field-warning>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="occupation">{{ 'occupation' | l }}</label>
+                                                <input type="text" [(ngModel)]="formData?.meta.occupation"
+                                                    id="occupation" name="occupation" class="form-control"
+                                                    autocomplete="off" required autofocus>
+                                                <required-field-warning
+                                                    *ngIf="validate && !formData?.meta.occupation"></required-field-warning>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="churchOrganization">{{ 'churchOrganization' | l }}</label>
+                                                <input type="text" [(ngModel)]="formData?.meta.churchOrganization"
+                                                    id="churchOrganization" name="churchOrganization"
+                                                    class="form-control" autocomplete="off">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="address">{{ 'address' | l }}</label>
-                                            <input type="text" [(ngModel)]="formData?.meta.address" id="address" name="address" class="form-control" autocomplete="off" required>
-                                            <required-field-warning *ngIf="validate && !formData?.meta.address"></required-field-warning>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="address">{{ 'address' | l }}</label>
+                                                <input type="text" [(ngModel)]="formData?.meta.address" id="address"
+                                                    name="address" class="form-control" autocomplete="off" required>
+                                                <required-field-warning
+                                                    *ngIf="validate && !formData?.meta.address"></required-field-warning>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="cityZipCountry">{{ 'cityZipCountry' | l }}</label>
+                                                <input type="text" [(ngModel)]="formData?.meta.cityZipCountry"
+                                                    id="cityZipCountry" name="cityZipCountry" class="form-control"
+                                                    autocomplete="off" required>
+                                                <required-field-warning
+                                                    *ngIf="validate && !formData?.meta.cityZipCountry"></required-field-warning>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="cityZipCountry">{{ 'cityZipCountry' | l }}</label>
-                                            <input type="text" [(ngModel)]="formData?.meta.cityZipCountry" id="cityZipCountry" name="cityZipCountry" class="form-control" autocomplete="off" required>
-                                            <required-field-warning *ngIf="validate && !formData?.meta.cityZipCountry"></required-field-warning>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="phone">{{ 'phone' | l }}</label>
+                                                <input type="text" [(ngModel)]="formData?.meta.phone" id="phone"
+                                                    name="phone" class="form-control" autocomplete="off" required>
+                                                <required-field-warning
+                                                    *ngIf="validate && !formData?.meta.phone"></required-field-warning>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input type="text" [(ngModel)]="formData?.meta.email" id="email"
+                                                    name="email" class="form-control" autocomplete="off" required>
+                                                <required-field-warning
+                                                    *ngIf="validate && !formData?.meta.email"></required-field-warning>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="phone">{{ 'phone' | l }}</label>
-                                            <input type="text" [(ngModel)]="formData?.meta.phone" id="phone" name="phone" class="form-control" autocomplete="off" required>
-                                            <required-field-warning *ngIf="validate && !formData?.meta.phone"></required-field-warning>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="email">Email</label>
-                                            <input type="text" [(ngModel)]="formData?.meta.email" id="email" name="email" class="form-control" autocomplete="off" required>
-                                            <required-field-warning *ngIf="validate && !formData?.meta.email"></required-field-warning>
-                                        </div>
-                                    </div>
-                                </div>
                             </data-panel>
-                            <data-panel ngId="applicantPropertiesId" [heading]="'regardingTheApplicant' | l" color="portlet-blue">
+                            <data-panel ngId="applicantPropertiesId" [heading]="'regardingTheApplicant' | l"
+                                color="portlet-blue">
                                 <div *ngFor="let question of formData?.questions ; let i = index" class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -99,19 +137,90 @@
                                                 {{ i + 1 }}.&nbsp;{{ 'title' | l:question }}
                                             </label>
                                             <ng-container *ngIf="question.type === '0'">
-                                                <input type="text" [(ngModel)]="question.answer" [id]="'q' + question.questionId" [name]="'q' + question.questionId" class="form-control" autocomplete="off" required>
-                                                <required-field-warning *ngIf="validate && !question.answer"></required-field-warning>
+                                                <input type="text" [(ngModel)]="question.answer"
+                                                    [id]="'q' + question.questionId" [name]="'q' + question.questionId"
+                                                    class="form-control" autocomplete="off" required>
+                                                <required-field-warning
+                                                    *ngIf="validate && !question.answer"></required-field-warning>
                                             </ng-container>
                                             <ng-container *ngIf="question.type === '1'">
-                                                <textarea [(ngModel)]="question.answer" [id]="'q' + question.questionId" [name]="'q' + question.questionId" class="form-control" autocomplete="off" rows="4"></textarea>
+                                                <textarea [(ngModel)]="question.answer" [id]="'q' + question.questionId"
+                                                    [name]="'q' + question.questionId" class="form-control"
+                                                    autocomplete="off" rows="4"></textarea>
                                             </ng-container>
                                             <ng-container *ngIf="question.type === '2'">
                                                 <div class="row">
                                                     <div *ngFor="let child of question.children" class="col-md-3">
                                                         <div class="form-group">
-                                                            <label [for]="'q' + child.questionId" class="checkbox-inline"><input type="checkbox" [(ngModel)]="child.answer" [id]="'q' + child.questionId" [name]="'q' + child.questionId">&nbsp;&nbsp;{{ 'title' | l:child }}</label>
+                                                            <label [for]="'q' + child.questionId"
+                                                                class="checkbox-inline"><input type="checkbox"
+                                                                    [(ngModel)]="child.answer"
+                                                                    [id]="'q' + child.questionId"
+                                                                    [name]="'q' + child.questionId">&nbsp;&nbsp;{{
+                                                                'title' | l:child }}</label>
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </ng-container>
+                                            <ng-container *ngIf="question.type === '3'">
+                                                <div class="row">
+                                                    <div *ngFor="let child of question.children" class="col-md-6"
+                                                        style="margin-bottom: 8px;">
+                                                        <div class="radio">
+                                                            <label
+                                                                [for]="'q' + question.questionId + '_' + child.questionId">
+                                                                <input type="radio" [(ngModel)]="question.answer"
+                                                                    [id]="'q' + question.questionId + '_' + child.questionId"
+                                                                    [name]="'q' + question.questionId"
+                                                                    [value]="child.questionId" required>
+                                                                &nbsp;{{ 'title' | l:child }}
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="question.questionId === 11 && question.answer === 114"
+                                                    class="row" style="margin-top: 10px;">
+                                                    <div class="col-md-12">
+                                                        <input type="text" [(ngModel)]="question.otherAnswer"
+                                                            name="q11_other" class="form-control"
+                                                            [placeholder]="'otherSpecify' | l" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <required-field-warning *ngIf="validate && !question.answer"
+                                                    [warningText]="'requiredChoice' | l"></required-field-warning>
+                                            </ng-container>
+                                            <ng-container *ngIf="question.type === '4'">
+                                                <p [innerHTML]="'ratingMatrixInstructions' | l"
+                                                    style="margin-bottom: 15px; color: #555;"></p>
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped"
+                                                        style="text-align: center; vertical-align: middle;">
+                                                        <thead>
+                                                            <tr style="background-color: #f7f7f7;">
+                                                                <th style="width: 45%; text-align: left;">{{
+                                                                    'characteristic' | l }}</th>
+                                                                <th style="width: 11%; text-align: center;">1</th>
+                                                                <th style="width: 11%; text-align: center;">2</th>
+                                                                <th style="width: 11%; text-align: center;">3</th>
+                                                                <th style="width: 11%; text-align: center;">4</th>
+                                                                <th style="width: 11%; text-align: center;">5</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let child of question.children">
+                                                                <td style="text-align: left; font-weight: 500;">{{
+                                                                    'title' | l:child }}</td>
+                                                                <td *ngFor="let score of [1, 2, 3, 4, 5]">
+                                                                    <label
+                                                                        style="cursor: pointer; display: block; margin: 0; padding: 4px;">
+                                                                        <input type="radio" [(ngModel)]="child.answer"
+                                                                            [name]="'child_score_' + child.questionId"
+                                                                            [value]="score" required>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </ng-container>
                                         </div>
@@ -120,9 +229,11 @@
                             </data-panel>
                             <div class="row">
                                 <div class="col-md-2 col-md-offset-5">
-                                    <button *ngIf="form.valid; else formNotValid" (click)="submitForm()" class="btn btn-green btn-block" type="button">{{ 'submit' | l }}</button>
+                                    <button *ngIf="form.valid; else formNotValid" (click)="submitForm()"
+                                        class="btn btn-green btn-block" type="button">{{ 'submit' | l }}</button>
                                     <ng-template #formNotValid>
-                                        <button class="btn btn-green btn-block" (click)="checkForm()" type="button">{{ 'validate' | l }}</button>
+                                        <button class="btn btn-green btn-block" (click)="checkForm()" type="button">{{
+                                            'validate' | l }}</button>
                                     </ng-template>
                                 </div>
                             </div>

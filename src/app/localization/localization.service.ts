@@ -29,6 +29,17 @@ export class LocalizationService {
             gr: 'Μοναδικός σύνδεσμος Συστατικής Επιστολής',
             en: 'Unique Confidential Letter Of Recommendation Link'
         },
+        churchOrganization: { gr: 'Εκκλησία / Οργανισμός', en: 'Church / Organization' },
+        letterIntroNotice: {
+            gr: 'Σας ευχαριστούμε που αφιερώνετε χρόνο για να συμπληρώσετε αυτή τη φόρμα σχετικά με τον/την υποψήφιο/α για εισαγωγή στο Ελληνικό Βιβλικό Κολέγιο. Η γνώμη σας αποτελεί σημαντικό μέρος της διαδικασίας αξιολόγησης.<br><br>Παρακαλούμε να απαντήσετε με ειλικρίνεια και σαφήνεια. Οι πληροφορίες που θα μας δώσετε θα χρησιμοποιηθούν αποκλειστικά για σκοπούς εισαγωγής και θα τηρηθούν με απόλυτη εμπιστευτικότητα, σύμφωνα με την ισχύουσα νομοθεσία περί προστασίας προσωπικών δεδομένων (GDPR).',
+            en: 'Thank you for taking the time to complete this form regarding the applicant seeking admission to the Greek Bible College. Your assessment is an important part of the admissions evaluation process.<br><br>Please answer honestly and clearly. The information you provide will be used exclusively for admissions purposes and will be treated with strict confidentiality, in accordance with the applicable data protection legislation (GDPR).'
+        },
+        ratingMatrixInstructions: {
+            gr: 'Παρακαλούμε αξιολογήστε τον/την υποψήφιο/α σημειώνοντας την καταλληλότερη επιλογή.<br><strong>1 = χρειάζεται σημαντική βελτίωση | 5 = ιδιαίτερα ώριμος/η</strong>',
+            en: 'Please assess the applicant by selecting the most appropriate rating for each characteristic.<br><strong>1 = Needs significant improvement | 5 = Highly mature</strong>'
+        },
+        characteristic: { gr: 'Χαρακτηριστικό', en: 'Characteristic' },
+        otherSpecify: { gr: 'Προσδιορίστε αν επιλέξατε «Άλλο»', en: 'Specify if selected "Other"' },
         // login
         login: { gr: 'Είσοδος', en: 'Login' },
         password: { gr: 'Κωδικός', en: 'Password' },
