@@ -11,8 +11,84 @@
                 </div>
             </div>
 
-            <!-- Tuition Costs (Back Office enters free form text, Applicant / Student is read only) -->
-            <div class="row" style="margin-bottom: 15px;">
+            <!-- 1. Student Type (Επιλέξτε ποιο περιγράφει την κατάστασή σας) -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="studentTypeRadio">{{ 'studentType' | l }}</label><br>
+                        <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.studentType" name="studentType" value="studentExternal" required>&nbsp;{{ 'studentExternal' | l }}</label>
+                        <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.studentType" name="studentType" value="studentInternal" required>&nbsp;{{ 'studentInternal' | l }}</label>
+                        <required-field-warning *ngIf="validate && !registrationData.application.studentType" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Funding Source (Κάλυψη κόστους φοίτησης (και διαμονής)) -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="fundingSourceRadio">{{ 'fundingSource' | l }}</label><br>
+                        <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.fundingSource" name="fundingSource" value="fundingSelf" required>&nbsp;{{ 'fundingSelf' | l }}</label>
+                        <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.fundingSource" name="fundingSource" value="fundingThirdParty" required>&nbsp;{{ 'fundingThirdParty' | l }}</label>
+                        <label class="radio-inline"><input type="radio" [(ngModel)]="registrationData.application.fundingSource" name="fundingSource" value="fundingPartial" required>&nbsp;{{ 'fundingPartial' | l }}</label>
+                        <required-field-warning *ngIf="validate && !registrationData.application.fundingSource" [warningText]="'requiredChoice' | l"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Sponsor Details (Στοιχεία Χορηγού if applicable) -->
+            <div *ngIf="registrationData.application.fundingSource === 'fundingThirdParty' || registrationData.application.fundingSource === 'fundingPartial'">
+                <h4 style="font-weight: bold; margin-top: 20px; border-bottom: 1px solid #eee; padding-bottom: 5px;">{{ 'sponsorDetails' | l }}</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="sponsorNameInput">{{ 'sponsorName' | l }}</label>
+                            <input type="text" [(ngModel)]="registrationData.application.sponsorName" id="sponsorNameInput" name="sponsorName" class="form-control" required>
+                            <required-field-warning *ngIf="validate && !registrationData.application.sponsorName"></required-field-warning>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="sponsorPhoneInput">{{ 'sponsorPhone' | l }}</label>
+                            <input type="text" [(ngModel)]="registrationData.application.sponsorPhone" id="sponsorPhoneInput" name="sponsorPhone" class="form-control" required>
+                            <required-field-warning *ngIf="validate && !registrationData.application.sponsorPhone"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="sponsorAmountInput">{{ 'sponsorAmount' | l }}</label>
+                            <input type="text" [(ngModel)]="registrationData.application.sponsorAmount" id="sponsorAmountInput" name="sponsorAmount" class="form-control" required>
+                            <required-field-warning *ngIf="validate && !registrationData.application.sponsorAmount"></required-field-warning>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Remaining Amount (Partial) -->
+            <div *ngIf="registrationData.application.fundingSource === 'fundingPartial'" class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="studentAmountInput">{{ 'studentAmount' | l }}</label>
+                        <input type="text" [(ngModel)]="registrationData.application.studentAmount" id="studentAmountInput" name="studentAmount" class="form-control" required>
+                        <required-field-warning *ngIf="validate && !registrationData.application.studentAmount"></required-field-warning>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Church / Mission Details -->
+            <div *ngIf="registrationData.application.fundingSource === 'fundingThirdParty' || registrationData.application.fundingSource === 'fundingPartial'" class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="churchMissionDetailsInput">{{ 'churchMissionDetails' | l }}</label>
+                        <textarea [(ngModel)]="registrationData.application.churchMissionDetails" id="churchMissionDetailsInput" name="churchMissionDetails" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Tuition Costs (Κόστος Διδάκτρων) -->
+            <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="financialCostInput">{{ 'tuitionCosts' | l }}</label>
@@ -22,6 +98,7 @@
                 </div>
             </div>
 
+            <!-- 5. Financial Liability Approval (Γνωρίζετε το κόστος...) -->
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group"

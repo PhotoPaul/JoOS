@@ -200,6 +200,73 @@
                 </div>
             </div>
         </div>
+
+        <!-- 1. Student Type -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'studentType' | l }}</label>
+                    <pre>{{ (applicationData.application.studentType === 'studentExternal' ? 'studentExternal' : (applicationData.application.studentType === 'studentInternal' ? 'studentInternal' : '')) | l }}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Funding Source -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'fundingSource' | l }}</label>
+                    <pre>{{ (applicationData.application.fundingSource === 'fundingSelf' ? 'fundingSelf' : (applicationData.application.fundingSource === 'fundingThirdParty' ? 'fundingThirdParty' : (applicationData.application.fundingSource === 'fundingPartial' ? 'fundingPartial' : ''))) | l }}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Sponsor Details -->
+        <div *ngIf="applicationData.application.fundingSource === 'fundingThirdParty' || applicationData.application.fundingSource === 'fundingPartial'">
+            <h4 style="font-weight: bold; margin-top: 15px; margin-bottom: 10px;">{{ 'sponsorDetails' | l }}</h4>
+            <div class="row">
+                <div class="col-md-4" *ngIf="applicationData.application.sponsorName">
+                    <div class="form-group">
+                        <label>{{ 'sponsorName' | l }}</label>
+                        <pre>{{ applicationData.application.sponsorName }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-4" *ngIf="applicationData.application.sponsorPhone">
+                    <div class="form-group">
+                        <label>{{ 'sponsorPhone' | l }}</label>
+                        <pre>{{ applicationData.application.sponsorPhone }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-4" *ngIf="applicationData.application.sponsorAmount">
+                    <div class="form-group">
+                        <label>{{ 'sponsorAmount' | l }}</label>
+                        <pre>{{ applicationData.application.sponsorAmount }} €</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Remaining Amount -->
+        <div class="row" *ngIf="applicationData.application.fundingSource === 'fundingPartial' && applicationData.application.studentAmount">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ 'studentAmount' | l }}</label>
+                    <pre>{{ applicationData.application.studentAmount }} €</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Church / Mission Details -->
+        <div class="row" *ngIf="(applicationData.application.fundingSource === 'fundingThirdParty' || applicationData.application.fundingSource === 'fundingPartial') && applicationData.application.churchMissionDetails">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ 'churchMissionDetails' | l }}</label>
+                    <pre style="white-space: pre-wrap;">{{ applicationData.application.churchMissionDetails }}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Tuition Costs -->
         <div class="row" style="margin-bottom: 15px;">
             <div class="col-md-12">
                 <div class="form-group">
@@ -208,6 +275,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- 5. Financial Liability Approval -->
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
