@@ -140,51 +140,7 @@ export class AdmissionsCandidateListComponent implements OnInit {
         if (!candidate || !candidate.applications) {
             return [];
         }
-
-        const hasGeneralApp = candidate.applications.some(app => +app.applicationId === 23);
-
-        if (hasGeneralApp) {
-            return candidate.applications;
-        }
-
-        // Find if there are any Greek application forms (IDs 1 to 6 and 12, EXCEPT 5 references!)
-        const greekForms = candidate.applications.filter(app =>
-            [1, 2, 3, 4, 6, 12].indexOf(+app.applicationId) !== -1
-        );
-
-        if (greekForms.length === 0) {
-            return candidate.applications;
-        }
-
-        // Filter out the individual Greek forms (1, 2, 3, 4, 6, 12)
-        const nonConsolidatedForms = candidate.applications.filter(app =>
-            [1, 2, 3, 4, 6, 12].indexOf(+app.applicationId) === -1
-        );
-
-        // Determine the consolidated status of the General Application
-        let consolidatedStatus = '1';
-        if (greekForms.some(app => !app.applicationStatus || app.applicationStatus === '0')) {
-            consolidatedStatus = '0';
-        } else if (greekForms.some(app => app.applicationStatus === '3')) {
-            consolidatedStatus = '3';
-        } else if (greekForms.some(app => app.applicationStatus === '2')) {
-            consolidatedStatus = '2';
-        }
-
-        // Create the consolidated General Application object
-        const generalApp = {
-            applicationId: '23',
-            applicationStatus: consolidatedStatus,
-            editPath: '/cp/admission/general-application',
-            viewPath: '/cp/admission/general-application',
-            icon: 'fa-file-alt',
-            heading_gr: 'Γενική Αίτηση / General Application',
-            heading_en: 'General Application',
-            viewRoles: 'admin,registrar,cashier,admissions',
-            editRoles: 'admin,registrar,admissions'
-        };
-
-        return [generalApp, ...nonConsolidatedForms];
+        return candidate.applications;
     }
 
     deleteUserPermanently(userId) {

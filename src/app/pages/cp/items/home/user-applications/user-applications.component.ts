@@ -32,55 +32,12 @@ export class UserApplicationsComponent implements OnInit {
         if (!this.applications) {
             return [];
         }
-
         const hasGeneralApp = this.applications.some(app => +app.applicationId === 23);
-
         if (hasGeneralApp) {
             // Filter out 12 (Supporting Documents) because it is filled inline inside General Application (23)
             return this.applications.filter(app => +app.applicationId !== 12);
         }
-
-        // Find if there are any Greek application forms (IDs 1 to 6 and 12, EXCEPT 5 references!)
-        const greekForms = this.applications.filter(app =>
-            [1, 2, 3, 4, 6, 12].indexOf(+app.applicationId) !== -1
-        );
-
-        if (greekForms.length === 0) {
-            return this.applications;
-        }
-
-        // Filter out the individual Greek forms
-        const nonGreekForms = this.applications.filter(app =>
-            [1, 2, 3, 4, 6, 12].indexOf(+app.applicationId) === -1
-        );
-
-        // Determine the consolidated status of the General Application
-        // Logic:
-        // - If any form is pending ('0'), the overall status is pending ('0').
-        // - Else if any form is rejected ('3'), the overall status is rejected ('3').
-        // - Else if any form is under review ('2'), the overall status is under review ('2').
-        // - Else if all forms are completed ('1'), the overall status is completed ('1').
-        let consolidatedStatus = '1';
-        if (greekForms.some(app => !app.applicationStatus || app.applicationStatus === '0')) {
-            consolidatedStatus = '0';
-        } else if (greekForms.some(app => app.applicationStatus === '3')) {
-            consolidatedStatus = '3';
-        } else if (greekForms.some(app => app.applicationStatus === '2')) {
-            consolidatedStatus = '2';
-        }
-
-        // Create the consolidated General Application object
-        const generalApp = {
-            applicationId: '23',
-            applicationStatus: consolidatedStatus,
-            editPath: '/cp/application/general-application',
-            viewPath: '/cp/application/general-application',
-            icon: 'fa-file-alt',
-            heading_gr: 'Γενική Αίτηση / General Application',
-            heading_en: 'General Application'
-        };
-
-        return [generalApp, ...nonGreekForms];
+        return this.applications;
     }
 
     startApplication(programId, asAuditor?) {
