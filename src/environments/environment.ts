@@ -3,9 +3,11 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
+const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
 export const environment = {
     production: false,
     version: 'dev', // %1.%2.%3 - %1: App Version, %2: New Feature Version, %3: Bug Fix Version
-    appURI: 'http://localhost:4200/',
-    apiURI: location.protocol + '//' + location.hostname + ':4201/joos-api/'
+    appURI: isLocal ? 'http://localhost:4200/' : location.origin + '/joos/',
+    apiURI: isLocal ? location.protocol + '//' + location.hostname + ':4201/joos-api/' : location.origin + '/joos-api/'
 };
